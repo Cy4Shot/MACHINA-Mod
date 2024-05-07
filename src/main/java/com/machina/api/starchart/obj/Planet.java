@@ -89,4 +89,23 @@ public record Planet(String name, double a, // semi-major axis of the orbit (in 
 	public double calculateAphelionDistance() {
 		return a * (1 + e);
 	}
+	
+	// Extra Props
+	public boolean isWaterPossible() {
+		return hydrosphere > 0;
+	}
+	
+	public enum FluidState {
+		SOLID, LIQUID, GAS
+	}
+	
+	public FluidState waterState() {
+		if (surf_temp < 273.15D) {
+			return FluidState.SOLID;
+		}
+		if (surf_temp > 373.15D) {
+			return FluidState.GAS;
+		}
+		return FluidState.SOLID;
+	}
 }
