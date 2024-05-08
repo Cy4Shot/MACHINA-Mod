@@ -4,6 +4,7 @@ import com.machina.Machina;
 import com.machina.api.starchart.Starchart;
 import com.machina.registration.Registration;
 import com.machina.world.PlanetRegistrationHandler;
+import com.machina.world.data.PlanetDimensionData;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
@@ -52,6 +53,6 @@ public class CommonForgeEvents {
 		if (server.levelKeys().size() > 1) {
 			return;
 		}
-		
+		PlanetDimensionData.getDefaultInstance(server).updateSeed(((ServerLevel) event.getLevel()).getSeed());
 	}
 }

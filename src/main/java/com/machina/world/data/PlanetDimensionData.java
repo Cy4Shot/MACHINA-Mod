@@ -20,6 +20,7 @@ import net.minecraft.world.level.storage.DimensionDataStorage;
 public class PlanetDimensionData extends SavedData {
 
 	public final Map<Integer, Set<Integer>> ids = new HashMap<>();
+	public long lastKnownSeed = 0L;
 
 	PlanetDimensionData() {
 		super();
@@ -48,6 +49,7 @@ public class PlanetDimensionData extends SavedData {
 			int[] biomeNBT = tag.getIntArray("biomes");
 			ids.put(dim, new HashSet<>(Ints.asList(biomeNBT)));
 		}
+		this.lastKnownSeed = nbt.getLong("lastKnownSeed");
 	}
 
 	@Override
@@ -60,8 +62,14 @@ public class PlanetDimensionData extends SavedData {
 			listNBT.add(tag);
 		}
 		nbt.put("ids", listNBT);
+		nbt.putLong("lastKnownSeed", lastKnownSeed);
 		nbt.putString("dataOwnerMod", Machina.MOD_ID);
 		return nbt;
+	}
+	
+	public void updateSeed(long seed) {
+		this.lastKnownSeed = seed;
+		setDirty();
 	}
 
 	public void addId(int id) {

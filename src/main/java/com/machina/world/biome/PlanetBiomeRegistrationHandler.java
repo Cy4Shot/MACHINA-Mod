@@ -16,7 +16,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.dimension.LevelStem;
 
-public class PlanetBiomeGenerator {
+public class PlanetBiomeRegistrationHandler {
 
 	public static Reference<Biome> getOrCreate(MinecraftServer server, Supplier<Biome> biome,
 			ResourceKey<LevelStem> dim, int id) {

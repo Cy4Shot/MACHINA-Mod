@@ -11,9 +11,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import com.machina.api.client.ClientStarchart;
+import com.machina.api.starchart.obj.Planet;
+import com.machina.api.starchart.obj.SolarSystem;
 import com.machina.api.util.MachinaRL;
 import com.machina.world.biome.PlanetBiome;
-import com.machina.world.biome.PlanetBiomeGenerator;
+import com.machina.world.biome.PlanetBiomeRegistrationHandler;
 import com.machina.world.data.PlanetDimensionData;
 import com.mojang.serialization.DynamicOps;
 
@@ -47,13 +50,17 @@ public class WorldOpenFlowsMixin {
 		file1.mkdirs();
 		DimensionDataStorage storage = new DimensionDataStorage(file1, DataFixers.getDataFixer());
 		PlanetDimensionData data = PlanetDimensionData.getDefaultInstance(storage);
+		long seed = data.lastKnownSeed;
+		ClientStarchart.sync(seed);
+		SolarSystem system = ClientStarchart.system;
 		if (biomes instanceof MappedRegistry<Biome> biomeReg) {
 			biomeReg.unfreeze();
 			for (Entry<Integer, Set<Integer>> e : data.ids.entrySet()) {
+				Planet p = system.planets().get(e.getKey());
 				for (Integer b : e.getValue()) {
 					String bid = String.format("%d_%d", e.getKey(), b);
 					ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, new MachinaRL(bid));
-					PlanetBiomeGenerator.register(key, () -> new PlanetBiome(), biomeReg);
+					PlanetBiomeRegistrationHandler.register(key, () -> new PlanetBiome(p, b, seed), biomeReg);
 				}
 			}
 		} else {

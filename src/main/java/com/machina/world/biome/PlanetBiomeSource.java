@@ -43,7 +43,7 @@ public class PlanetBiomeSource {
 		this.reg = server.registries().compositeAccess().lookup(Registries.BIOME).get();
 		this.planet = Starchart.system(seed).planets().get(PlanetHelper.getIdDim(key));
 		this.key = key;
-		generate();
+		generate(seed);
 	}
 
 	public static List<Climate.ParameterPoint> spawnTarget() {
@@ -60,9 +60,9 @@ public class PlanetBiomeSource {
 		return reg.get(biome).get();
 	}
 
-	private void generate() {
-		Holder<Biome> b = PlanetBiomeGenerator.getOrCreate(ServerLifecycleHooks.getCurrentServer(),
-				() -> new PlanetBiome(), key, 1);
+	private void generate(long seed) {
+		Holder<Biome> b = PlanetBiomeRegistrationHandler.getOrCreate(ServerLifecycleHooks.getCurrentServer(),
+				() -> new PlanetBiome(planet, 1, seed), key, 1);
 		this.addSurfaceBiome(0, 0.51f, 0, 0, 0, b);
 //		this.addSurfaceBiome(0.05f, 0.5f, 0.2f, 0.1f, 0, getBiome(Biomes.TAIGA));
 //		this.addUndergroundBiome(FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, 0, getBiome(Biomes.LUSH_CAVES));
