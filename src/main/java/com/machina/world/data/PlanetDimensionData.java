@@ -1,63 +1,81 @@
 package com.machina.world.data;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
+import com.google.common.primitives.Ints;
 import com.machina.Machina;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.storage.DimensionDataStorage;
 
 public class PlanetDimensionData extends SavedData {
 
-	public final HashSet<String> dimensionIds = new HashSet<>();
+	public final Map<Integer, Set<Integer>> ids = new HashMap<>();
 
 	PlanetDimensionData() {
 		super();
 	}
 
-	PlanetDimensionData(CompoundTag tag) {
+	public PlanetDimensionData(CompoundTag tag) {
 		load(tag);
 	}
 
-	private static final String ID = Machina.MOD_ID + "_planet_dimensions";
+	public static final String ID = Machina.MOD_ID + "_planet_dimensions";
 
 	public static PlanetDimensionData getDefaultInstance(MinecraftServer server) {
-		return server.getLevel(Level.OVERWORLD).getDataStorage().computeIfAbsent((t) -> new PlanetDimensionData(t),
-				() -> new PlanetDimensionData(), ID);
+		return getDefaultInstance(server.getLevel(Level.OVERWORLD).getDataStorage());
+	}
+
+	public static PlanetDimensionData getDefaultInstance(DimensionDataStorage storage) {
+		return storage.computeIfAbsent((t) -> new PlanetDimensionData(t), () -> new PlanetDimensionData(), ID);
 	}
 
 	public void load(CompoundTag nbt) {
-		dimensionIds.clear();
-		ListTag listNBT = nbt.getList("dimensionIds", Tag.TAG_STRING);
-		for (Tag inbt : listNBT) {
-			StringTag stringNBT = (StringTag) inbt;
-			dimensionIds.add(stringNBT.getAsString());
+		ids.clear();
+		ListTag listNBT = nbt.getList("ids", Tag.TAG_COMPOUND);
+		for (Tag cnbt : listNBT) {
+			CompoundTag tag = (CompoundTag) cnbt;
+			int dim = tag.getInt("dim");
+			int[] biomeNBT = tag.getIntArray("biomes");
+			ids.put(dim, new HashSet<>(Ints.asList(biomeNBT)));
 		}
 	}
 
 	@Override
 	public CompoundTag save(CompoundTag nbt) {
 		ListTag listNBT = new ListTag();
-		for (String str : dimensionIds) {
-			listNBT.add(StringTag.valueOf(str));
+		for (Entry<Integer, Set<Integer>> e : ids.entrySet()) {
+			CompoundTag tag = new CompoundTag();
+			tag.putInt("dim", e.getKey());
+			tag.putIntArray("biomes", e.getValue().stream().mapToInt(i -> i).toArray());
+			listNBT.add(tag);
 		}
-		nbt.put("dimensionIds", listNBT);
+		nbt.put("ids", listNBT);
 		nbt.putString("dataOwnerMod", Machina.MOD_ID);
 		return nbt;
 	}
 
-	public void addId(String id) {
-		dimensionIds.add(id);
+	public void addId(int id) {
+		ids.put(id, new HashSet<>());
 		setDirty();
 	}
 
-	public void removeId(String id) {
-		dimensionIds.remove(id);
+	public void removeId(int id) {
+		ids.remove(id);
+		setDirty();
+	}
+
+	public void addBiome(int dim, int id) {
+		ids.get(dim).add(id);
 		setDirty();
 	}
 }

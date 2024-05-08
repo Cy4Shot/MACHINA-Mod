@@ -9,6 +9,9 @@ displayName="MACHINA"
 authors="Cy4"
 description='''A sci-fi tech exploration mod.'''
 
+[[mixins]]
+config="machina.mixins.json"
+
 [[dependencies.machina]]
     modId="forge"
     mandatory=true

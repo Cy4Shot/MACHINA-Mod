@@ -3,8 +3,6 @@ package com.machina.world;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-import javax.annotation.Nullable;
-
 import com.google.common.collect.ImmutableList;
 import com.machina.api.network.PacketSender;
 import com.machina.api.network.s2c.S2CUpdateDimensionList;
@@ -36,7 +34,7 @@ public class PlanetRegistrationHandler {
 				serverPlayer.getRotationVector().y);
 	}
 
-	public static ServerLevel createPlanet(MinecraftServer server, String id) {
+	public static ServerLevel createPlanet(MinecraftServer server, int id) {
 		PlanetDimensionData.getDefaultInstance(server).addId(id);
 		return getOrCreateWorld(server, ResourceKey.create(Registries.DIMENSION, new MachinaRL(id)),
 				PlanetFactory::createDimension);
@@ -44,8 +42,11 @@ public class PlanetRegistrationHandler {
 
 	public static ServerLevel getOrCreateWorld(MinecraftServer server, ResourceKey<Level> worldKey,
 			BiFunction<MinecraftServer, ResourceKey<LevelStem>, LevelStem> dimensionFactory) {
+//		final ResourceKey<LevelStem> dimensionKey = ResourceKey.create(Registries.LEVEL_STEM, worldKey.location());
+//		for (int b : PlanetDimensionData.getDefaultInstance(server).ids.get(PlanetHelper.getIdDim(dimensionKey))) {
+//			PlanetBiomeGenerator.getOrCreate(server, () -> new PlanetBiome(), dimensionKey, b);
+//		}
 		Map<ResourceKey<Level>, ServerLevel> map = server.forgeGetWorldMap();
-		@Nullable
 		ServerLevel existingLevel = map.get(worldKey);
 		return existingLevel == null ? createAndRegister(server, map, worldKey, dimensionFactory) : existingLevel;
 	}

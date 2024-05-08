@@ -18,6 +18,7 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
 public class PlanetBiomeSource {
 
@@ -34,12 +35,14 @@ public class PlanetBiomeSource {
 
 	private final List<Pair<Climate.ParameterPoint, Holder<Biome>>> biomes;
 	private final Planet planet;
+	private final ResourceKey<LevelStem> key;
 	private RegistryLookup<Biome> reg;
 
 	public PlanetBiomeSource(ResourceKey<LevelStem> key, MinecraftServer server, long seed) {
 		this.biomes = new ArrayList<>();
 		this.reg = server.registries().compositeAccess().lookup(Registries.BIOME).get();
 		this.planet = Starchart.system(seed).planets().get(PlanetHelper.getIdDim(key));
+		this.key = key;
 		generate();
 	}
 
@@ -58,8 +61,10 @@ public class PlanetBiomeSource {
 	}
 
 	private void generate() {
-		this.addSurfaceBiome(0, 0.51f, 0, 0, 0, getBiome(Biomes.PLAINS));
-		this.addSurfaceBiome(0.05f, 0.5f, 0.2f, 0.1f, 0, getBiome(Biomes.TAIGA));
+		Holder<Biome> b = PlanetBiomeGenerator.getOrCreate(ServerLifecycleHooks.getCurrentServer(),
+				() -> new PlanetBiome(), key, 1);
+		this.addSurfaceBiome(0, 0.51f, 0, 0, 0, b);
+//		this.addSurfaceBiome(0.05f, 0.5f, 0.2f, 0.1f, 0, getBiome(Biomes.TAIGA));
 //		this.addUndergroundBiome(FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, 0, getBiome(Biomes.LUSH_CAVES));
 //		this.addBottomBiome(FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, 0, getBiome(Biomes.DEEP_DARK));
 //		this.addOceanBiomes();
