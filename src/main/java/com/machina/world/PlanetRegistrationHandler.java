@@ -37,23 +37,19 @@ public class PlanetRegistrationHandler {
 	public static ServerLevel createPlanet(MinecraftServer server, int id) {
 		PlanetDimensionData.getDefaultInstance(server).addId(id);
 		return getOrCreateWorld(server, ResourceKey.create(Registries.DIMENSION, new MachinaRL(id)),
-				PlanetFactory::createDimension);
+				PlanetFactory::createDimension, id);
 	}
 
 	public static ServerLevel getOrCreateWorld(MinecraftServer server, ResourceKey<Level> worldKey,
-			BiFunction<MinecraftServer, ResourceKey<LevelStem>, LevelStem> dimensionFactory) {
-//		final ResourceKey<LevelStem> dimensionKey = ResourceKey.create(Registries.LEVEL_STEM, worldKey.location());
-//		for (int b : PlanetDimensionData.getDefaultInstance(server).ids.get(PlanetHelper.getIdDim(dimensionKey))) {
-//			PlanetBiomeGenerator.getOrCreate(server, () -> new PlanetBiome(), dimensionKey, b);
-//		}
+			BiFunction<MinecraftServer, ResourceKey<LevelStem>, LevelStem> dimensionFactory, int id) {
 		Map<ResourceKey<Level>, ServerLevel> map = server.forgeGetWorldMap();
 		ServerLevel existingLevel = map.get(worldKey);
-		return existingLevel == null ? createAndRegister(server, map, worldKey, dimensionFactory) : existingLevel;
+		return existingLevel == null ? createAndRegister(server, map, worldKey, dimensionFactory, id) : existingLevel;
 	}
 
 	private static ServerLevel createAndRegister(MinecraftServer server, Map<ResourceKey<Level>, ServerLevel> map,
 			ResourceKey<Level> worldKey,
-			BiFunction<MinecraftServer, ResourceKey<LevelStem>, LevelStem> dimensionFactory) {
+			BiFunction<MinecraftServer, ResourceKey<LevelStem>, LevelStem> dimensionFactory, int id) {
 
 		final ServerLevel overworld = server.getLevel(Level.OVERWORLD);
 		final ResourceKey<LevelStem> dimensionKey = ResourceKey.create(Registries.LEVEL_STEM, worldKey.location());
@@ -73,7 +69,7 @@ public class PlanetRegistrationHandler {
 		}
 
 		final ServerLevel newWorld = new ServerLevel(server, server.executor, server.storageSource, derivedLevelData,
-				worldKey, dimension, chunkProgressListener, worldData.isDebugWorld(), overworld.getSeed(),
+				worldKey, dimension, chunkProgressListener, worldData.isDebugWorld(), overworld.getSeed() + id,
 				ImmutableList.of(), false, null);
 		overworld.getWorldBorder().addListener(new DelegateBorderChangeListener(newWorld.getWorldBorder()));
 

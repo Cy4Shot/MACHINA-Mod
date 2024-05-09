@@ -41,6 +41,7 @@ public class FluidInit {
 	public static final FluidObject NITROGEN = create("nitrogen", "N2", 0xFF_b2d4db);
 	public static final FluidObject AMMONIA = create("ammonia", "NH3", 0xFF_44db6c);
 	public static final FluidObject CARBON_DIOXIDE = create("carbon_dioxide", "CO2", 0xFF_f7e4c1);
+	public static final FluidObject CARBON_DISULPHIDE = create("carbon_disulphide", "CS2", 0xFF_f2d891);
 	public static final FluidObject HYDROGEN = create("hydrogen", "H2", 0xFF_6ce2ff);
 	public static final FluidObject METHANE = create("methane", "CH4", 0xFF_ece0f9);
 	public static final FluidObject ETHANE = create("ethane", "C2H6", 0xFF_bbd68d);
@@ -51,6 +52,7 @@ public class FluidInit {
 	public static final FluidObject NITROGEN_DIOXIDE = create("nitrogen_dioxide", "NO2", 0xFF_560003);
 	public static final FluidObject SULPHUR_DIOXIDE = create("sulphur_dioxide", "SO2", 0xFF_f3f7ef);
 	public static final FluidObject HYDROGEN_BROMIDE = create("hydrogen_bromide", "HBr", 0xFF_e3e3e3);
+	public static final FluidObject HYDROGEN_SULPHIDE = create("hydrogen_sulphide", "H2S", 0xFF_acaeb5);
 	public static final FluidObject CARBON_MONOXIDE = create("carbon_monoxide", "CO", 0xFF_e0b9b6);
 	public static final FluidObject ARGON = create("argon", "Ar", 0xFF_cfcfd0);
 	public static final FluidObject HELIUM = create("helium", "He", 0xFF_e1e1e1);

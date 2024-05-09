@@ -53,6 +53,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(FluidInit.NITROGEN, "Nitrogen", "Bucket");
 		add(FluidInit.AMMONIA, "Ammonia", "Bucket");
 		add(FluidInit.CARBON_DIOXIDE, "Carbon Dioxide", "Bucket");
+		add(FluidInit.CARBON_DISULPHIDE, "Carbon Disulphide", "Bucket");
 		add(FluidInit.HYDROGEN, "Hydrogen", "Bucket");
 		add(FluidInit.METHANE, "Methane", "Bucket");
 		add(FluidInit.ETHANE, "Ethane", "Bucket");
@@ -63,6 +64,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(FluidInit.NITROGEN_DIOXIDE, "Nitrogen Dioxide", "Bucket");
 		add(FluidInit.SULPHUR_DIOXIDE, "Sulphur Dioxide", "Bucket");
 		add(FluidInit.HYDROGEN_BROMIDE, "Hydrogen Bromide", "Bucket");
+		add(FluidInit.HYDROGEN_SULPHIDE, "Hydrogen Sulphide", "Bucket");
 		add(FluidInit.CARBON_MONOXIDE, "Carbon Monoxide", "Bucket");
 		add(FluidInit.ARGON, "Argon", "Bucket");
 

@@ -1,6 +1,5 @@
 {
   "parent": "forge:item/bucket",
-  "flip_gas": true,
   "fluid": "machina:nitrogen",
   "loader": "forge:fluid_container"
 }

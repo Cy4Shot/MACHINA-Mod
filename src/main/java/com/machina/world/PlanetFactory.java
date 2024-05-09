@@ -31,6 +31,11 @@ public class PlanetFactory {
 		long seed = server.overworld().getSeed();
 		Planet planet = Starchart.system(seed).planets().get(PlanetHelper.getIdDim(key));
 		BlockState fluid = planet.getDominantLiquidBodyBlock();
+		int sea_level = 60;
+		if (fluid == null) {
+			fluid = Blocks.WATER.defaultBlockState();
+			sea_level = -1;
+		}
 
 		MultiNoiseBiomeSource bs = new PlanetBiomeSource(key, seed).build();
 
@@ -39,7 +44,7 @@ public class PlanetFactory {
 				Blocks.STONE.defaultBlockState(), fluid,
 				NoiseRouterData.overworld(lookup.lookup(Registries.DENSITY_FUNCTION).get(),
 						lookup.lookup(Registries.NOISE).get(), false, false),
-				SurfaceRuleData.overworld(), PlanetBiomeSource.spawnTarget(), 60, false, true, true, false);
+				SurfaceRuleData.overworld(), PlanetBiomeSource.spawnTarget(), sea_level, false, true, true, false);
 
 		return new LevelStem(getDimensionType(server),
 				new PlanetChunkGenerator(bs, Holder.direct(settings), key, seed));

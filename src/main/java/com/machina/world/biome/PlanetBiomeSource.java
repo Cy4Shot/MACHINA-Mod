@@ -70,11 +70,11 @@ public class PlanetBiomeSource {
 	}
 
 	private void addOceanBiomes(long seed) {
-//		if (planet.hasGenLiquid()) {
-		// Oceans
-		addOceanBiome(deepOceanContinentalness, FULL, FULL, 0.0F, getBiome(BiomeCategory.DEEP_OCEAN, 0, seed));
-		addOceanBiome(oceanContinentalness, FULL, FULL, 0.0F, getBiome(BiomeCategory.OCEAN, 0, seed));
-//		}
+		if (planet.hasGenLiquid()) {
+			// Oceans
+			addOceanBiome(deepOceanContinentalness, FULL, FULL, 0.0F, getBiome(BiomeCategory.DEEP_OCEAN, 0, seed));
+			addOceanBiome(oceanContinentalness, FULL, FULL, 0.0F, getBiome(BiomeCategory.OCEAN, 0, seed));
+		}
 	}
 
 	private void addUndergroundBiomes(long seed) {
@@ -147,14 +147,6 @@ public class PlanetBiomeSource {
 	}
 
 	private void addMidSlice(long seed, Parameter depth) {
-//		addSurfaceBiome(FULL, FULL, coastContinentalness, Parameter.span(erosions[0], erosions[2]), depth, 0.0F,
-//				Biomes.STONY_SHORE);
-//		addSurfaceBiome(Parameter.span(temperatures[1], temperatures[2]), FULL,
-//				Parameter.span(nearInlandContinentalness, farInlandContinentalness), erosions[6], depth, 0.0F,
-//				Biomes.SWAMP);
-//		addSurfaceBiome(Parameter.span(temperatures[3], temperatures[4]), FULL,
-//				Parameter.span(nearInlandContinentalness, farInlandContinentalness), erosions[6], depth, 0.0F,
-//				Biomes.MANGROVE_SWAMP);
 		Holder<Biome> biome4 = getBiome(BiomeCategory.PLATEAU, seed);
 		Holder<Biome> biome5 = getBiome(BiomeCategory.BEACH, seed);
 		Holder<Biome> biome8 = getBiome(BiomeCategory.SLOPE, seed);
@@ -191,14 +183,6 @@ public class PlanetBiomeSource {
 	}
 
 	private void addLowSlice(long seed, Parameter depth) {
-//		addSurfaceBiome(FULL, FULL, coastContinentalness, Parameter.span(erosions[0], erosions[2]), depth, 0.0F,
-//				Biomes.STONY_SHORE);
-//		addSurfaceBiome(Parameter.span(temperatures[1], temperatures[2]), FULL,
-//				Parameter.span(nearInlandContinentalness, farInlandContinentalness), erosions[6], depth, 0.0F,
-//				Biomes.SWAMP);
-//		addSurfaceBiome(Parameter.span(temperatures[3], temperatures[4]), FULL,
-//				Parameter.span(nearInlandContinentalness, farInlandContinentalness), erosions[6], depth, 0.0F,
-//				Biomes.MANGROVE_SWAMP);
 		Holder<Biome> biome3 = getBiome(BiomeCategory.BEACH, seed);
 		addSurfaceBiome(-1, coastContinentalness, Parameter.span(erosions[3], erosions[4]), depth, 0.0F, biome3);
 		addSurfaceBiome(-1, coastContinentalness, erosions[6], depth, 0.0F, biome3);

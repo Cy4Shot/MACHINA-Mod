@@ -1,5 +1,6 @@
 package com.machina.world;
 
+import com.google.common.base.Suppliers;
 import com.machina.api.starchart.Starchart;
 import com.machina.api.starchart.obj.Planet;
 import com.machina.api.util.PlanetHelper;
@@ -10,6 +11,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.Aquifer.FluidStatus;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
@@ -40,6 +42,11 @@ public class PlanetChunkGenerator extends NoiseBasedChunkGenerator {
 		this.id = id;
 		this.seed = seed;
 		this.planet = Starchart.system(seed).planets().get(id);
+
+		this.globalFluidPicker = Suppliers.memoize(() -> (x, y, z) -> {
+			NoiseGeneratorSettings s = settings.value();
+			return new FluidStatus(s.seaLevel(), s.defaultFluid());
+		});
 	}
 
 }
