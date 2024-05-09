@@ -1,10 +1,17 @@
 package com.machina.api.starchart.obj;
 
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.machina.api.util.ChemicalConstants.MolecularMass;
+import com.machina.api.util.ChemicalConstants.TempRange;
+import com.machina.registration.init.FluidInit;
+
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 
 public record Planet(String name, double a, // semi-major axis of the orbit (in AU)
@@ -89,23 +96,72 @@ public record Planet(String name, double a, // semi-major axis of the orbit (in 
 	public double calculateAphelionDistance() {
 		return a * (1 + e);
 	}
-	
+
 	// Extra Props
+
+	public boolean hasGenLiquid() {
+		return getDominantLiquidBody() != null;
+	}
+
+	public boolean isFluidFrozen() {
+		Random r = new Random(name.hashCode());
+		if (isWaterPossible() && fluidState(TempRange.WATER).equals(FluidTempState.SOLID) && r.nextBoolean()) {
+			return true;
+		}
+		if (isAmmoniaPossible() && fluidState(TempRange.AMMONIA).equals(FluidTempState.SOLID) && r.nextBoolean()) {
+			return true;
+		}
+		if (isMethanePossible() && fluidState(TempRange.METHANE).equals(FluidTempState.SOLID) && r.nextBoolean()) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public FluidState getDominantLiquidBody() {
+		Random r = new Random(name.hashCode());
+		if (isWaterPossible() && !fluidState(TempRange.WATER).equals(FluidTempState.GAS) && r.nextBoolean()) {
+			return Fluids.WATER.defaultFluidState();
+		}
+		if (isAmmoniaPossible() && !fluidState(TempRange.AMMONIA).equals(FluidTempState.GAS) && r.nextBoolean()) {
+			return FluidInit.AMMONIA.fluid().defaultFluidState();
+		}
+		if (isMethanePossible() && !fluidState(TempRange.METHANE).equals(FluidTempState.GAS) && r.nextBoolean()) {
+			return FluidInit.METHANE.fluid().defaultFluidState();
+		}
+
+		return null;
+	}
+
 	public boolean isWaterPossible() {
+		return molec_weight < MolecularMass.WATER;
+	}
+
+	public boolean isAmmoniaPossible() {
+		return molec_weight < MolecularMass.AMMONIA;
+	}
+
+	public boolean isMethanePossible() {
+		return molec_weight < MolecularMass.METHANE;
+	}
+
+	public enum FluidTempState {
+		SOLID,
+		LIQUID,
+		GAS
+	}
+
+	public FluidTempState fluidState(TempRange range) {
+		if (surf_temp < range.freeze) {
+			return FluidTempState.SOLID;
+		}
+		if (surf_temp > range.boil) {
+			return FluidTempState.GAS;
+		}
+		return FluidTempState.SOLID;
+	}
+	
+	public boolean doesRain() {
 		return hydrosphere > 0;
-	}
-	
-	public enum FluidState {
-		SOLID, LIQUID, GAS
-	}
-	
-	public FluidState waterState() {
-		if (surf_temp < 273.15D) {
-			return FluidState.SOLID;
-		}
-		if (surf_temp > 373.15D) {
-			return FluidState.GAS;
-		}
-		return FluidState.SOLID;
 	}
 }
