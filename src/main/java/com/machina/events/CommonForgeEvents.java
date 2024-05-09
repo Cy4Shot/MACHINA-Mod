@@ -37,7 +37,7 @@ public class CommonForgeEvents {
 	@SubscribeEvent
 	public static void onDebug(final ItemTossEvent event) {
 		if (!event.getPlayer().level().isClientSide()) {
-			ServerLevel planet = PlanetRegistrationHandler.createPlanet(event.getPlayer().getServer(), 1);
+			ServerLevel planet = PlanetRegistrationHandler.createPlanet(event.getPlayer().getServer(), 4);
 			System.out.println(Starchart.system(planet).toString());
 			PlanetRegistrationHandler.sendPlayerToDimension((ServerPlayer) event.getPlayer(), planet,
 					new BlockPos(0, 100, 0));

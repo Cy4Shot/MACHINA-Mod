@@ -16,25 +16,25 @@ public class PlanetBiome extends Biome {
 	private static final NavigableMap<Integer, BiomeCategory> categories = new TreeMap<>();
 
 	static enum BiomeCategory {
-		PLAINS(0, false),
-		FOREST(10, false),
-		CREATER(20, false),
-		LAKE(30, true),
-		OCEAN(40, true),
-		DEEP_OCEAN(45, true),
-		COAST(50, false),
-		MOUNTAIN(60, false),
-		CAVE(70, false);
+		MIDDLE(0),
+		BEACH(5),
+		RIVER(6),
+		PLATEAU(7),
+		PEAK(8),
+		SLOPE(9),
+		OCEAN(10),
+		DEEP_OCEAN(11);
 
-		private boolean canBeFrozen;
+		public int starting_id;
 
-		BiomeCategory(int starting_id, boolean canBeFrozen) {
-			categories.put(starting_id, this);
-			this.canBeFrozen = canBeFrozen;
+		BiomeCategory(int starting_id) {
+			this.starting_id = starting_id;
 		}
+	}
 
-		public boolean canBeFrozen() {
-			return canBeFrozen;
+	static {
+		for (BiomeCategory cat : BiomeCategory.values()) {
+			categories.put(cat.starting_id, cat);
 		}
 	}
 
@@ -49,15 +49,24 @@ public class PlanetBiome extends Biome {
 	}
 
 	private static ClimateSettings createClimate(Planet p, Random r, int i, BiomeCategory c) {
-		TemperatureModifier mod = c.canBeFrozen() && p.isFluidFrozen() ? TemperatureModifier.FROZEN
-				: TemperatureModifier.NONE;
 		boolean rains = p.doesRain();
-		return new ClimateSettings(rains, 1.0f, mod, rains ? 0.5f : 0f);
+		return new ClimateSettings(rains, 1.0f, TemperatureModifier.NONE, rains ? 0.5f : 0f);
 	}
 
 	private static BiomeSpecialEffects createEffects(Planet p, Random r, int i, BiomeCategory c) {
 		// TODO: Add particles & grass color.
-		return new BiomeSpecialEffects.Builder().fogColor(0).skyColor(0).waterColor(0).waterFogColor(0).build();
+		int water_color = 0;
+		if (c.equals(BiomeCategory.OCEAN) || c.equals(BiomeCategory.DEEP_OCEAN)) {
+			water_color = 0x00FF00;
+		}
+		if (c.equals(BiomeCategory.RIVER)) {
+			water_color = 0x0000FF;
+		}
+		if (c.equals(BiomeCategory.BEACH)) {
+			water_color = 0xFF0000;
+		}
+		return new BiomeSpecialEffects.Builder().fogColor(0).skyColor(0).waterColor(water_color).waterFogColor(0)
+				.build();
 	}
 
 	private static BiomeGenerationSettings createGeneration(Planet p, Random r, int i, BiomeCategory c) {

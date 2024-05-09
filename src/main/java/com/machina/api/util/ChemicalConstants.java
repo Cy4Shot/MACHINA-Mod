@@ -14,6 +14,7 @@ public class ChemicalConstants {
 		public static final TempRange WATER = new TempRange(273.15F, 373.15F);
 		public static final TempRange AMMONIA = new TempRange(195.4F, 239.81F);
 		public static final TempRange METHANE = new TempRange(90.694F, 111.6F);
+		public static final TempRange LAVA = new TempRange(1000F, 1600F);
 
 		public final float freeze;
 		public final float boil;

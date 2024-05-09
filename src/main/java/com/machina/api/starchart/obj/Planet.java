@@ -10,6 +10,8 @@ import com.machina.api.util.ChemicalConstants.MolecularMass;
 import com.machina.api.util.ChemicalConstants.TempRange;
 import com.machina.registration.init.FluidInit;
 
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
@@ -119,18 +121,25 @@ public record Planet(String name, double a, // semi-major axis of the orbit (in 
 	}
 
 	public FluidState getDominantLiquidBody() {
-		Random r = new Random(name.hashCode());
-		if (isWaterPossible() && !fluidState(TempRange.WATER).equals(FluidTempState.GAS) && r.nextBoolean()) {
+		if (isWaterPossible() && !fluidState(TempRange.WATER).equals(FluidTempState.GAS)) {
 			return Fluids.WATER.defaultFluidState();
 		}
-		if (isAmmoniaPossible() && !fluidState(TempRange.AMMONIA).equals(FluidTempState.GAS) && r.nextBoolean()) {
+		if (isAmmoniaPossible() && !fluidState(TempRange.AMMONIA).equals(FluidTempState.GAS)) {
 			return FluidInit.AMMONIA.fluid().defaultFluidState();
 		}
-		if (isMethanePossible() && !fluidState(TempRange.METHANE).equals(FluidTempState.GAS) && r.nextBoolean()) {
+		if (isMethanePossible() && !fluidState(TempRange.METHANE).equals(FluidTempState.GAS)) {
 			return FluidInit.METHANE.fluid().defaultFluidState();
+		}
+		if (fluidState(TempRange.LAVA).equals(FluidTempState.LIQUID)) {
+			return Fluids.LAVA.defaultFluidState();
 		}
 
 		return null;
+	}
+
+	public BlockState getDominantLiquidBodyBlock() {
+		FluidState fluid = getDominantLiquidBody();
+		return fluid == null ? Blocks.WATER.defaultBlockState() : fluid.createLegacyBlock();
 	}
 
 	public boolean isWaterPossible() {
@@ -160,7 +169,7 @@ public record Planet(String name, double a, // semi-major axis of the orbit (in 
 		}
 		return FluidTempState.SOLID;
 	}
-	
+
 	public boolean doesRain() {
 		return hydrosphere > 0;
 	}

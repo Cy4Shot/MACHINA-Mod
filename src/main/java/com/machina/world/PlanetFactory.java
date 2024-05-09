@@ -30,12 +30,12 @@ public class PlanetFactory {
 	public static LevelStem createDimension(MinecraftServer server, ResourceKey<LevelStem> key) {
 		long seed = server.overworld().getSeed();
 		Planet planet = Starchart.system(seed).planets().get(PlanetHelper.getIdDim(key));
-		BlockState fluid = planet.getDominantLiquidBody().createLegacyBlock();
+		BlockState fluid = planet.getDominantLiquidBodyBlock();
 
 		MultiNoiseBiomeSource bs = new PlanetBiomeSource(key, seed).build();
 
 		RegistryAccess lookup = server.registries().compositeAccess();
-		NoiseGeneratorSettings settings = new NoiseGeneratorSettings(new NoiseSettings(0, 512, 1, 2),
+		NoiseGeneratorSettings settings = new NoiseGeneratorSettings(new NoiseSettings(-64, 384, 1, 2),
 				Blocks.STONE.defaultBlockState(), fluid,
 				NoiseRouterData.overworld(lookup.lookup(Registries.DENSITY_FUNCTION).get(),
 						lookup.lookup(Registries.NOISE).get(), false, false),

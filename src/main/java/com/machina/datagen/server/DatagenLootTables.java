@@ -38,8 +38,7 @@ public class DatagenLootTables extends BlockLootSubProvider {
 
 		// Fluids
 		for (FluidObject obj : FluidInit.OBJS) {
-			if (!obj.gas)
-				this.dropNone(obj.block());
+			this.dropNone(obj.block());
 		}
 	}
 

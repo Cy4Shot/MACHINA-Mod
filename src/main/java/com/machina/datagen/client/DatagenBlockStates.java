@@ -26,8 +26,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 
 		// Fluids
 		for (FluidObject obj : FluidInit.OBJS) {
-			if (!obj.gas)
-				fluid(obj);
+			fluid(obj);
 		}
 	}
 
