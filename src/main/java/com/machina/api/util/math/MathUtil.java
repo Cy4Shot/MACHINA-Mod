@@ -83,4 +83,56 @@ public class MathUtil {
 		}
 		return mid;
 	}
+	
+	public static double clamp(double val, double min, double max) {
+		return Math.max(min, Math.min(max, val));
+	}
+
+	public static float length(float x, float y) {
+		return (float) Math.sqrt(x * x + y * y);
+	}
+
+	public static float length(float x, float y, float z) {
+		return (float) Math.sqrt(x * x + y * y + z * z);
+	}
+
+	public static float dot(float x1, float y1, float z1, float x2, float y2, float z2) {
+		return x1 * x2 + y1 * y2 + z1 * z2;
+	}
+
+	public static float dot(float x1, float y1, float x2, float y2) {
+		return x1 * x2 + y1 * y2;
+	}
+
+	public static int min(int a, int b) {
+		return a < b ? a : b;
+	}
+
+	public static int min(int a, int b, int c) {
+		return min(a, min(b, c));
+	}
+
+	public static int max(int a, int b) {
+		return a > b ? a : b;
+	}
+
+	public static float min(float a, float b) {
+		return a < b ? a : b;
+	}
+
+	public static float max(float a, float b) {
+		return a > b ? a : b;
+	}
+
+	public static float max(float a, float b, float c) {
+		return max(a, max(b, c));
+	}
+
+	public static int max(int a, int b, int c) {
+		return max(a, max(b, c));
+	}
+
+	public static int floor(float x) {
+		return x < 0 ? (int) (x - 1) : (int) x;
+	}
 }
