@@ -5,6 +5,8 @@ import java.util.Random;
 import java.util.TreeMap;
 
 import com.machina.api.starchart.obj.Planet;
+import com.machina.registration.init.SoundInit;
+import com.mojang.serialization.Codec;
 
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
@@ -15,7 +17,7 @@ public class PlanetBiome extends Biome {
 
 	private static final NavigableMap<Integer, BiomeCategory> categories = new TreeMap<>();
 
-	static enum BiomeCategory {
+	public static enum BiomeCategory {
 		MIDDLE(0),
 		BEACH(5),
 		RIVER(6),
@@ -23,13 +25,19 @@ public class PlanetBiome extends Biome {
 		PEAK(8),
 		SLOPE(9),
 		OCEAN(10),
-		DEEP_OCEAN(11);
+		DEEP_OCEAN(11),
+		CAVE(12);
+
+		public static final Codec<BiomeCategory> CODEC = Codec.STRING.xmap(val -> {
+			return BiomeCategory.valueOf(BiomeCategory.class, val);
+		}, BiomeCategory::name);
 
 		public int starting_id;
 
 		BiomeCategory(int starting_id) {
 			this.starting_id = starting_id;
 		}
+
 	}
 
 	static {
@@ -37,6 +45,9 @@ public class PlanetBiome extends Biome {
 			categories.put(cat.starting_id, cat);
 		}
 	}
+	
+	public final BiomeCategory cat;
+	
 
 	public PlanetBiome(Planet planet, int id, long seed) {
 		this(planet, new Random(planet.name().hashCode() + id + seed % (2 ^ 32)), id,
@@ -46,6 +57,7 @@ public class PlanetBiome extends Biome {
 	private PlanetBiome(Planet p, Random r, int i, BiomeCategory c) {
 		super(createClimate(p, r, i, c), createEffects(p, r, i, c), createGeneration(p, r, i, c),
 				MobSpawnSettings.EMPTY);
+		this.cat = c;
 	}
 
 	private static ClimateSettings createClimate(Planet p, Random r, int i, BiomeCategory c) {
@@ -54,7 +66,7 @@ public class PlanetBiome extends Biome {
 	}
 
 	private static BiomeSpecialEffects createEffects(Planet p, Random r, int i, BiomeCategory c) {
-		// TODO: Add particles & grass color.
+		// TODO: Add particles & grass color, music & effects
 		int water_color = 0;
 		if (c.equals(BiomeCategory.OCEAN) || c.equals(BiomeCategory.DEEP_OCEAN)) {
 			water_color = 0x00FF00;
@@ -66,11 +78,14 @@ public class PlanetBiome extends Biome {
 			water_color = 0xFF0000;
 		}
 		return new BiomeSpecialEffects.Builder().fogColor(0).skyColor(0).waterColor(water_color).waterFogColor(0)
-				.build();
+				.backgroundMusic(SoundInit.asMusic(SoundInit.MUSIC)).build();
 	}
 
 	private static BiomeGenerationSettings createGeneration(Planet p, Random r, int i, BiomeCategory c) {
-		// Features and carvers
-		return BiomeGenerationSettings.EMPTY;
+		BiomeGenerationSettings.PlainBuilder builder = new BiomeGenerationSettings.PlainBuilder();
+
+//		Features:
+//		builder.addFeature
+		return builder.build();
 	}
 }

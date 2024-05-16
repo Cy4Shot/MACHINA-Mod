@@ -6,9 +6,13 @@ import com.machina.Machina;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
@@ -30,5 +34,11 @@ public class BlockHelper {
 			return be.getCapability(capability, side);
 		}
 		return LazyOptional.empty();
+	}
+	
+	public static BlockState waterlog(BlockState state, BlockGetter world, BlockPos pos) {
+		FluidState fluidState = world.getFluidState(pos);
+		return state.setValue(BlockStateProperties.WATERLOGGED,
+				fluidState.is(FluidTags.WATER) && fluidState.getAmount() == 8);
 	}
 }

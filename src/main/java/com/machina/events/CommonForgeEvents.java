@@ -36,14 +36,9 @@ public class CommonForgeEvents {
 
 	@SubscribeEvent
 	public static void onDebug(final ItemTossEvent event) {
-		int id = 4;
+		int id = 3;
 		if (!event.getPlayer().level().isClientSide()) {
 			ServerLevel planet = PlanetRegistrationHandler.createPlanet(event.getPlayer().getServer(), id);
-			if (Starchart.system(planet).planets().get(id).getDominantLiquidChemical() != null)
-				System.out.println(Starchart.system(planet).planets().get(id).getDominantLiquidChemical().fluid()
-						.defaultFluidState().createLegacyBlock().getBlock().getName().getString());
-			System.out.println(Starchart.system(planet).planets().get(id).molec_weight());
-			System.out.println(Starchart.system(planet).planets().get(id).surf_temp());
 			PlanetRegistrationHandler.sendPlayerToDimension((ServerPlayer) event.getPlayer(), planet,
 					new BlockPos(0, 100, 0));
 		}

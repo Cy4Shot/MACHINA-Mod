@@ -6,11 +6,12 @@ import com.machina.api.starchart.obj.Planet;
 import com.machina.api.util.MachinaRL;
 import com.machina.api.util.PlanetHelper;
 import com.machina.world.biome.PlanetBiomeSource;
+import com.machina.world.functions.PlanetDensityFunction;
+import com.machina.world.functions.PlanetSurfaceRule;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
@@ -19,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
-import net.minecraft.world.level.levelgen.NoiseRouterData;
 import net.minecraft.world.level.levelgen.NoiseSettings;
 
 public class PlanetFactory {
@@ -42,9 +42,9 @@ public class PlanetFactory {
 		RegistryAccess lookup = server.registries().compositeAccess();
 		NoiseGeneratorSettings settings = new NoiseGeneratorSettings(new NoiseSettings(-64, 384, 1, 2),
 				Blocks.STONE.defaultBlockState(), fluid,
-				NoiseRouterData.overworld(lookup.lookup(Registries.DENSITY_FUNCTION).get(),
+				PlanetDensityFunction.planet(lookup.lookup(Registries.DENSITY_FUNCTION).get(),
 						lookup.lookup(Registries.NOISE).get(), false, false),
-				SurfaceRuleData.overworld(), PlanetBiomeSource.spawnTarget(), sea_level, false, true, true, false);
+				PlanetSurfaceRule.planet(), PlanetBiomeSource.spawnTarget(), sea_level, false, true, true, false);
 
 		return new LevelStem(getDimensionType(server),
 				new PlanetChunkGenerator(bs, Holder.direct(settings), key, seed));

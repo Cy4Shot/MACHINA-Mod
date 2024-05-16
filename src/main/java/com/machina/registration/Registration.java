@@ -10,6 +10,7 @@ import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.ChunkGeneratorInit;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.ItemInit;
+import com.machina.registration.init.SoundInit;
 import com.machina.registration.init.TabInit;
 
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -28,6 +29,7 @@ public class Registration {
 		registerConfig(ModConfig.Type.CLIENT, ClientConfig.CLIENT_SPEC);
 		registerConfig(ModConfig.Type.COMMON, CommonConfig.COMMON_SPEC);
 
+		SoundInit.SOUNDS.register(bus);
 		BlockInit.BLOCKS.register(bus);
 		ItemInit.ITEMS.register(bus);
 		FluidInit.FLUIDS.register(bus);

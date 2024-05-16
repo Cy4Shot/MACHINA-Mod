@@ -66,7 +66,7 @@ public class PlanetDimensionData extends SavedData {
 		nbt.putString("dataOwnerMod", Machina.MOD_ID);
 		return nbt;
 	}
-	
+
 	public void updateSeed(long seed) {
 		this.lastKnownSeed = seed;
 		setDirty();

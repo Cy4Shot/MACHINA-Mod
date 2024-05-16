@@ -72,13 +72,15 @@ public class PlanetBiomeSource {
 	private void addOceanBiomes(long seed) {
 		if (planet.hasGenLiquid()) {
 			// Oceans
-			addOceanBiome(deepOceanContinentalness, FULL, FULL, 0.0F, getBiome(BiomeCategory.DEEP_OCEAN, 0, seed));
-			addOceanBiome(oceanContinentalness, FULL, FULL, 0.0F, getBiome(BiomeCategory.OCEAN, 0, seed));
+			addOceanBiome(deepOceanContinentalness, FULL, FULL, 0.0F, getBiome(BiomeCategory.DEEP_OCEAN, seed));
+			addOceanBiome(oceanContinentalness, FULL, FULL, 0.0F, getBiome(BiomeCategory.OCEAN, seed));
 		}
 	}
 
 	private void addUndergroundBiomes(long seed) {
-
+		for (int i = 0; i < 5; i++) {
+			addUndergroundBiome(FULL, FULL, Climate.Parameter.span(0.8F, 1.0F), FULL, 0.0F, getBiome(BiomeCategory.CAVE, 5, seed));
+		}
 	}
 
 	private void addLandBiomes(long seed) {
@@ -231,9 +233,9 @@ public class PlanetBiomeSource {
 		addBiome(FULL, continentalness, erosion, ZERO, weirdness, offset, biome);
 	}
 
-	private void addUndergroundBiome(Parameter continentalness, Parameter erosion, Parameter weirdness, float offset,
+	private void addUndergroundBiome(Parameter continentalness, Parameter erosion, Parameter depth, Parameter weirdness, float offset,
 			Holder<Biome> biome) {
-		addBiome(FULL, continentalness, erosion, Parameter.span(0.2F, 0.9F), weirdness, offset, biome);
+		addBiome(FULL, continentalness, erosion, depth, weirdness, offset, biome);
 	}
 
 	private void addBottomBiome(Parameter continentalness, Parameter erosion, Parameter weirdness, float offset,
