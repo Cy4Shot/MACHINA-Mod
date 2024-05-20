@@ -31,6 +31,8 @@ public class PlanetBiomeSource {
 	private static final Parameter[] erosions = new Parameter[] { Parameter.span(-1.0F, -0.78F),
 			Parameter.span(-0.78F, -0.375F), Parameter.span(-0.375F, -0.2225F), Parameter.span(-0.2225F, 0.05F),
 			Parameter.span(0.05F, 0.45F), Parameter.span(0.45F, 0.55F), Parameter.span(0.55F, 1.0F) };
+	private static final Parameter[] depths = new Parameter[] { Climate.Parameter.span(0.8F, 1.0F),
+			Climate.Parameter.span(1.0F, 1.2F), Climate.Parameter.span(1.2F, 1.4F) };
 	private static final Parameter deepOceanContinentalness = Parameter.span(-1.05F, -0.455F);
 	private static final Parameter oceanContinentalness = Parameter.span(-0.455F, -0.19F);
 	private static final Parameter coastContinentalness = Parameter.span(-0.19F, -0.11F);
@@ -78,8 +80,8 @@ public class PlanetBiomeSource {
 	}
 
 	private void addUndergroundBiomes(long seed) {
-		for (int i = 0; i < 5; i++) {
-			addUndergroundBiome(FULL, FULL, Climate.Parameter.span(0.8F, 1.0F), FULL, 0.0F, getBiome(BiomeCategory.CAVE, 5, seed));
+		for (int i = 0; i < 3; i++) {
+			addUndergroundBiome(FULL, FULL, depths[i], FULL, 0.0F, getBiome(BiomeCategory.CAVE, 5, seed));
 		}
 	}
 
@@ -233,14 +235,9 @@ public class PlanetBiomeSource {
 		addBiome(FULL, continentalness, erosion, ZERO, weirdness, offset, biome);
 	}
 
-	private void addUndergroundBiome(Parameter continentalness, Parameter erosion, Parameter depth, Parameter weirdness, float offset,
-			Holder<Biome> biome) {
+	private void addUndergroundBiome(Parameter continentalness, Parameter erosion, Parameter depth, Parameter weirdness,
+			float offset, Holder<Biome> biome) {
 		addBiome(FULL, continentalness, erosion, depth, weirdness, offset, biome);
-	}
-
-	private void addBottomBiome(Parameter continentalness, Parameter erosion, Parameter weirdness, float offset,
-			Holder<Biome> biome) {
-		addBiome(FULL, continentalness, erosion, Parameter.point(1.1F), weirdness, offset, biome);
 	}
 
 	private void addBiome(Parameter variant, Parameter continentalness, Parameter erosion, Parameter depth,

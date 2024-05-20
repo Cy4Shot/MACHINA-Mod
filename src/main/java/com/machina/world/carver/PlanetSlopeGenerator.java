@@ -1,24 +1,22 @@
 package com.machina.world.carver;
 
 import com.machina.api.util.BlockHelper;
-import com.machina.world.PlanetChunkGenerator;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.SlabType;
-import net.minecraft.world.level.chunk.ChunkAccess;
-import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public class PlanetSlopeGenerator {
-	public static void decorateAt(ChunkAccess chunk, BlockPos pos, PlanetChunkGenerator gen, RandomState rand,
-			NormalNoise noise, boolean allowVerticalConnections) {
+	public static boolean decorateAt(WorldGenLevel chunk, BlockPos pos, RandomSource rand, NormalNoise noise,
+			boolean allowVerticalConnections) {
 		for (Direction dir : Direction.values()) {
 
 			BlockPos adjecent = pos.relative(dir);
@@ -34,7 +32,7 @@ public class PlanetSlopeGenerator {
 
 					final double d = getNoise(noise, adjecent, 0.125d);
 					if (d < -0.3d)
-						chunk.setBlockState(adjecent, Blocks.ANDESITE.defaultBlockState(), false);
+						chunk.setBlock(adjecent, Blocks.ANDESITE.defaultBlockState(), 3);
 					break;
 				default:
 					// Gen Wall
@@ -67,15 +65,17 @@ public class PlanetSlopeGenerator {
 					if (dir == Direction.NORTH && (adjecent.getZ() + 1) % 16 == 0)
 						break;
 
-					genSlope(chunk, pos, dir, gen, rand.oreRandom().at(pos), allowVerticalConnections);
+					genSlope(chunk, pos, dir, rand, allowVerticalConnections);
 					break;
 				}
 			}
 		}
+		
+		return true;
 	}
 
-	public static void genSlope(ChunkAccess world, BlockPos pos, Direction wallDir, PlanetChunkGenerator gen,
-			RandomSource randomSource, boolean allowVerticalConnections) {
+	public static void genSlope(WorldGenLevel world, BlockPos pos, Direction wallDir, RandomSource randomSource,
+			boolean allowVerticalConnections) {
 
 		BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos().set(pos);
 
@@ -113,8 +113,8 @@ public class PlanetSlopeGenerator {
 					.setValue(BlockStateProperties.SLAB_TYPE, isDown ? SlabType.BOTTOM : SlabType.TOP), world, pos));
 	}
 
-	public static boolean genBlock(ChunkAccess world, BlockPos pos, BlockState state) {
-		world.setBlockState(pos, state, false);
+	public static boolean genBlock(WorldGenLevel world, BlockPos pos, BlockState state) {
+		world.setBlock(pos, state, 3);
 		return true;
 	}
 
@@ -123,7 +123,7 @@ public class PlanetSlopeGenerator {
 				(double) pos.getZ() * frequency);
 	}
 
-	public static boolean canGenSide(ChunkAccess chunk, BlockState state, Direction dir) {
+	public static boolean canGenSide(WorldGenLevel chunk, BlockState state, Direction dir) {
 		return carvable(state);
 	}
 

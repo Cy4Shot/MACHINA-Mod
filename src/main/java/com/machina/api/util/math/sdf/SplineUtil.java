@@ -134,7 +134,8 @@ public class SplineUtil {
 		Vector3f startPos = spline.get(0);
 		for (int i = 1; i < spline.size(); i++) {
 			Vector3f endPos = spline.get(i);
-			if (!(fillLineRad(startPos, endPos, world, state, pos, rad.apply((float) i / (float) spline.size()), replace))) {
+			if (!(fillLineRad(startPos, endPos, world, state, pos, rad.apply((float) i / (float) spline.size()),
+					replace))) {
 				return false;
 			}
 			startPos = endPos;

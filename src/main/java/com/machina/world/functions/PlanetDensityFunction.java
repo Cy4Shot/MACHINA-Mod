@@ -39,6 +39,12 @@ public class PlanetDensityFunction {
 	private static final ResourceKey<DensityFunction> DEPTH_AMPLIFIED = createKey("overworld_amplified/depth");
 	private static final ResourceKey<DensityFunction> SLOPED_CHEESE_AMPLIFIED = createKey(
 			"overworld_amplified/sloped_cheese");
+	private static final ResourceKey<DensityFunction> ENTRANCES = createKey("overworld/caves/entrances");
+	private static final ResourceKey<DensityFunction> NOODLE = createKey("overworld/caves/noodle");
+	private static final ResourceKey<DensityFunction> PILLARS = createKey("overworld/caves/pillars");
+	private static final ResourceKey<DensityFunction> SPAGHETTI_ROUGHNESS_FUNCTION = createKey(
+			"overworld/caves/spaghetti_roughness_function");
+	private static final ResourceKey<DensityFunction> SPAGHETTI_2D = createKey("overworld/caves/spaghetti_2d");
 
 	public static NoiseRouter planet(HolderGetter<DensityFunction> p_255681_,
 			HolderGetter<NormalNoise.NoiseParameters> p_256005_, boolean p_255649_, boolean p_255617_) {
@@ -62,7 +68,12 @@ public class PlanetDensityFunction {
 				densityfunction9);
 		DensityFunction densityfunction11 = getFunction(p_255681_,
 				p_255649_ ? SLOPED_CHEESE_LARGE : (p_255617_ ? SLOPED_CHEESE_AMPLIFIED : SLOPED_CHEESE));
-		DensityFunction densityfunction14 = postProcess(slideOverworld(p_255617_, densityfunction11));
+		DensityFunction densityfunction12 = DensityFunctions.min(densityfunction11,
+				DensityFunctions.mul(DensityFunctions.constant(5.0D), getFunction(p_255681_, ENTRANCES)));
+		DensityFunction densityfunction13 = DensityFunctions.rangeChoice(densityfunction11, -1000000.0D, 1.5625D,
+				densityfunction12, underground(p_255681_, p_256005_, densityfunction11));
+		DensityFunction densityfunction14 = DensityFunctions
+				.min(postProcess(slideOverworld(p_255617_, densityfunction13)), getFunction(p_255681_, NOODLE));
 		DensityFunction densityfunction15 = getFunction(p_255681_, Y);
 		int i = Stream.of(OreVeinifier.VeinType.values()).mapToInt((p_224495_) -> {
 			return p_224495_.minY;
@@ -86,6 +97,31 @@ public class PlanetDensityFunction {
 				slideOverworld(p_255617_, DensityFunctions.add(densityfunction10, DensityFunctions.constant(-0.703125D))
 						.clamp(-64.0D, 64.0D)),
 				densityfunction14, densityfunction16, densityfunction19, densityfunction20);
+	}
+
+	private static DensityFunction underground(HolderGetter<DensityFunction> p_256548_,
+			HolderGetter<NormalNoise.NoiseParameters> p_256236_, DensityFunction p_256658_) {
+		DensityFunction densityfunction = getFunction(p_256548_, SPAGHETTI_2D);
+		DensityFunction densityfunction1 = getFunction(p_256548_, SPAGHETTI_ROUGHNESS_FUNCTION);
+		DensityFunction densityfunction2 = DensityFunctions.noise(p_256236_.getOrThrow(Noises.CAVE_LAYER), 8.0D);
+		DensityFunction densityfunction3 = DensityFunctions.mul(DensityFunctions.constant(4.0D),
+				densityfunction2.square());
+		DensityFunction densityfunction4 = DensityFunctions.noise(p_256236_.getOrThrow(Noises.CAVE_CHEESE),
+				0.6666666666666666D);
+		DensityFunction densityfunction5 = DensityFunctions
+				.add(DensityFunctions.add(DensityFunctions.constant(0.27D), densityfunction4).clamp(-1.0D, 1.0D),
+						DensityFunctions
+								.add(DensityFunctions.constant(1.5D),
+										DensityFunctions.mul(DensityFunctions.constant(-0.64D), p_256658_))
+								.clamp(0.0D, 0.5D));
+		DensityFunction densityfunction6 = DensityFunctions.add(densityfunction3, densityfunction5);
+		DensityFunction densityfunction7 = DensityFunctions.min(
+				DensityFunctions.min(densityfunction6, getFunction(p_256548_, ENTRANCES)),
+				DensityFunctions.add(densityfunction, densityfunction1));
+		DensityFunction densityfunction8 = getFunction(p_256548_, PILLARS);
+		DensityFunction densityfunction9 = DensityFunctions.rangeChoice(densityfunction8, -1000000.0D, 0.03D,
+				DensityFunctions.constant(-1000000.0D), densityfunction8);
+		return DensityFunctions.max(densityfunction7, densityfunction9);
 	}
 
 	private static ResourceKey<DensityFunction> createKey(String p_209537_) {

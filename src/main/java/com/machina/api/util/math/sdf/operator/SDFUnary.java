@@ -6,15 +6,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class SDFUnary extends SDF {
-    protected SDF source;
+	protected SDF source;
 
-    public SDFUnary setSource(SDF source) {
-        this.source = source;
-        return this;
-    }
+	public SDFUnary setSource(SDF source) {
+		this.source = source;
+		return this;
+	}
 
-    @Override
-    public BlockState getBlockState(BlockPos pos) {
-        return source.getBlockState(pos);
-    }
+	@Override
+	public BlockState getBlockState(BlockPos pos) {
+		return source.getBlockState(pos);
+	}
 }

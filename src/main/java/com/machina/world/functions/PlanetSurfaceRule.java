@@ -1,14 +1,20 @@
 package com.machina.world.functions;
 
+import java.util.Arrays;
+import java.util.stream.LongStream;
+
 import com.google.common.collect.ImmutableList;
 import com.machina.world.biome.PlanetBiome;
 import com.machina.world.biome.PlanetBiome.BiomeCategory;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
 
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.SurfaceRules.Context;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
 public class PlanetSurfaceRule {
@@ -49,16 +55,24 @@ public class PlanetSurfaceRule {
 			builder.add(SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(),
 					VerticalAnchor.aboveBottom(5)), BEDROCK));
 		}
-
-		SurfaceRules.RuleSource rs9 = SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), rs8);
-		builder.add(rs9);
-		return SurfaceRules.sequence(builder.build().toArray((p_198379_) -> {
-			return new SurfaceRules.RuleSource[p_198379_];
+		builder.add(SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), rs8));
+		return SurfaceRules.sequence(builder.build().toArray((x) -> {
+			return new SurfaceRules.RuleSource[x];
 		}));
 	}
 
 	private static PlanetBiomeConditionSource isPlanetBiome(BiomeCategory cat) {
 		return new PlanetBiomeConditionSource(cat);
+	}
+
+	@SuppressWarnings("unused")
+	private static AndConditionSource and(SurfaceRules.ConditionSource... ts) {
+		return new AndConditionSource(ts);
+	}
+
+	@SuppressWarnings("unused")
+	private static AndConditionSource or(SurfaceRules.ConditionSource... ts) {
+		return new AndConditionSource(ts);
 	}
 
 	static final class PlanetBiomeConditionSource implements SurfaceRules.ConditionSource {
@@ -112,6 +126,58 @@ public class PlanetSurfaceRule {
 
 		public String toString() {
 			return "PlanetBiomeConditionSource[cat=" + this.cat.name() + "]";
+		}
+	}
+
+	static record AndConditionSource(SurfaceRules.ConditionSource... ts) implements SurfaceRules.ConditionSource {
+		@Override
+		public SurfaceRules.Condition apply(Context t) {
+			return new SurfaceRules.Condition() {
+				@Override
+				public boolean test() {
+					return Arrays.asList(ts).stream().allMatch(x -> x.apply(t).test());
+				}
+			};
+		}
+
+		@Override
+		public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
+			return KeyDispatchDataCodec
+					.of(Codec
+							.compoundList(Codec.LONG,
+									SurfaceRules.ConditionSource.CODEC)
+							.xmap(l -> new AndConditionSource(
+									(SurfaceRules.ConditionSource[]) l.stream().map(Pair::getSecond).toArray()),
+									x -> LongStream.range(0, x.ts().length)
+											.mapToObj(t -> new Pair<Long, SurfaceRules.ConditionSource>(t,
+													(SurfaceRules.ConditionSource) x.ts[(int) t]))
+											.toList()));
+		}
+	}
+
+	static record OrConditionSource(SurfaceRules.ConditionSource... ts) implements SurfaceRules.ConditionSource {
+		@Override
+		public SurfaceRules.Condition apply(Context t) {
+			return new SurfaceRules.Condition() {
+				@Override
+				public boolean test() {
+					return Arrays.asList(ts).stream().anyMatch(x -> x.apply(t).test());
+				}
+			};
+		}
+
+		@Override
+		public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
+			return KeyDispatchDataCodec
+					.of(Codec
+							.compoundList(Codec.LONG,
+									SurfaceRules.ConditionSource.CODEC)
+							.xmap(l -> new OrConditionSource(
+									(SurfaceRules.ConditionSource[]) l.stream().map(Pair::getSecond).toArray()),
+									x -> LongStream.range(0, x.ts().length)
+											.mapToObj(t -> new Pair<Long, SurfaceRules.ConditionSource>(t,
+													(SurfaceRules.ConditionSource) x.ts[(int) t]))
+											.toList()));
 		}
 	}
 

@@ -1,15 +1,15 @@
 package com.machina.api.util.math.sdf.operator;
 
 public class SDFRound extends SDFUnary {
-    private float radius;
+	private float radius;
 
-    public SDFRound setRadius(float radius) {
-        this.radius = radius;
-        return this;
-    }
+	public SDFRound setRadius(float radius) {
+		this.radius = radius;
+		return this;
+	}
 
-    @Override
-    public float getDistance(float x, float y, float z) {
-        return this.source.getDistance(x, y, z) - radius;
-    }
+	@Override
+	public float getDistance(float x, float y, float z) {
+		return this.source.getDistance(x, y, z) - radius;
+	}
 }

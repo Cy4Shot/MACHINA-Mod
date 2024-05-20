@@ -1,17 +1,33 @@
 package com.machina.world.biome;
 
+import java.util.List;
 import java.util.NavigableMap;
 import java.util.Random;
 import java.util.TreeMap;
 
 import com.machina.api.starchart.obj.Planet;
 import com.machina.registration.init.SoundInit;
+import com.machina.world.feature.CaveSlopeFeature;
+import com.machina.world.feature.CaveSlopeFeature.CaveSlopeFeatureConfig;
 import com.mojang.serialization.Codec;
 
+import net.minecraft.core.Holder;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
+import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class PlanetBiome extends Biome {
 
@@ -45,9 +61,8 @@ public class PlanetBiome extends Biome {
 			categories.put(cat.starting_id, cat);
 		}
 	}
-	
+
 	public final BiomeCategory cat;
-	
 
 	public PlanetBiome(Planet planet, int id, long seed) {
 		this(planet, new Random(planet.name().hashCode() + id + seed % (2 ^ 32)), id,
@@ -84,8 +99,15 @@ public class PlanetBiome extends Biome {
 	private static BiomeGenerationSettings createGeneration(Planet p, Random r, int i, BiomeCategory c) {
 		BiomeGenerationSettings.PlainBuilder builder = new BiomeGenerationSettings.PlainBuilder();
 
-//		Features:
-//		builder.addFeature
+		// Cave Slope
+		for (CaveSurface surf : CaveSurface.values())
+			builder.addFeature(Decoration.UNDERGROUND_DECORATION, Holder.direct(new PlacedFeature(
+					Holder.direct(new ConfiguredFeature<>(new CaveSlopeFeature(), new CaveSlopeFeatureConfig(surf))),
+					List.of(CountPlacement.of(256), InSquarePlacement.spread(),
+							HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(0), VerticalAnchor.belowTop(256)),
+							EnvironmentScanPlacement.scanningFor(surf.getDirection(), BlockPredicate.solid(),
+									BlockPredicate.matchesBlocks(Blocks.AIR), 12),
+							BiomeFilter.biome()))));
 		return builder.build();
 	}
 }
