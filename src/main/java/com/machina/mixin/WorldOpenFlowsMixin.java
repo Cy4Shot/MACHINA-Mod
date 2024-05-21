@@ -53,19 +53,12 @@ public class WorldOpenFlowsMixin {
 		long seed = data.lastKnownSeed;
 		ClientStarchart.sync(seed);
 		SolarSystem system = ClientStarchart.system;
-//		for (Entry<Integer, Set<Integer>> e : data.ids.entrySet()) {
-//			System.out.print(e.getKey());
-//			System.out.print(" : ");
-//			System.out.println(e.getValue().stream().map(s -> s.toString()).collect(Collectors.joining(" ")));
-//		}
-//		System.out.println(data.ids.values().stream().flatMapToInt(s -> s.stream().mapToInt(x -> x)).count());
 		if (biomes instanceof MappedRegistry<Biome> biomeReg) {
 			biomeReg.unfreeze();
 			for (Entry<Integer, Set<Integer>> e : data.ids.entrySet()) {
 				Planet p = system.planets().get(e.getKey());
 				for (Integer b : e.getValue()) {
 					String bid = String.format("%d_%d", e.getKey(), b);
-//					System.out.println("Registering: " + bid);
 					ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, new MachinaRL(bid));
 					PlanetBiomeRegistrationHandler.register(key, () -> new PlanetBiome(p, b, seed), biomeReg);
 				}

@@ -43,7 +43,7 @@ public class PlanetFactory {
 		NoiseGeneratorSettings settings = new NoiseGeneratorSettings(new NoiseSettings(-64, 384, 1, 2),
 				Blocks.STONE.defaultBlockState(), fluid,
 				PlanetDensityFunction.planet(lookup.lookup(Registries.DENSITY_FUNCTION).get(),
-						lookup.lookup(Registries.NOISE).get(), false, false),
+						lookup.lookup(Registries.NOISE).get()),
 				PlanetSurfaceRule.planet(), PlanetBiomeSource.spawnTarget(), sea_level, false, true, true, false);
 
 		return new LevelStem(getDimensionType(server),

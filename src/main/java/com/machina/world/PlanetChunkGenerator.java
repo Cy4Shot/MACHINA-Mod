@@ -28,17 +28,16 @@ public class PlanetChunkGenerator extends NoiseBasedChunkGenerator {
 		//@formatter:on
 	}
 
-	int id;
-	Planet planet;
-	long seed;
+	final int id;
+	final Planet planet;
+	final long seed;
 
 	public PlanetChunkGenerator(BiomeSource biomeSource, Holder<NoiseGeneratorSettings> settings,
 			ResourceKey<LevelStem> dim, long seed) {
 		this(biomeSource, settings, PlanetHelper.getIdDim(dim), seed);
 	}
 
-	public PlanetChunkGenerator(BiomeSource biomeSource, Holder<NoiseGeneratorSettings> settings, int id,
-			long seed) {
+	public PlanetChunkGenerator(BiomeSource biomeSource, Holder<NoiseGeneratorSettings> settings, int id, long seed) {
 		super(biomeSource, settings);
 		this.id = id;
 		this.seed = seed;

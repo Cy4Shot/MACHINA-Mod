@@ -33,8 +33,7 @@ public class PlanetBiomeRegistrationHandler {
 		return register(key, biome, dimRegFrozen);
 	}
 
-	public static Reference<Biome> register(ResourceKey<Biome> key, Supplier<Biome> biome,
-			Registry<Biome> bRegFrozen) {
+	public static Reference<Biome> register(ResourceKey<Biome> key, Supplier<Biome> biome, Registry<Biome> bRegFrozen) {
 		if (bRegFrozen instanceof MappedRegistry<Biome> biomeReg) {
 			biomeReg.unfreeze();
 			return biomeReg.register(key, biome.get(), Lifecycle.stable());

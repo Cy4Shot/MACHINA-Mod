@@ -2,18 +2,21 @@ package com.machina.world.feature;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Predicate;
 
-import com.machina.world.carver.PlanetSlopeGenerator;
+import com.machina.api.util.BlockHelper;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -32,54 +35,48 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 	}
 
 	public boolean place(FeaturePlaceContext<CaveSlopeFeatureConfig> conf) {
-		WorldGenLevel worldgenlevel = conf.level();
-		RandomSource randomsource = conf.random();
-		BlockPos blockpos = conf.origin();
-		Predicate<BlockState> predicate = (p_204782_) -> {
-			return PlanetSlopeGenerator.carvable(p_204782_);
-		};
+		WorldGenLevel level = conf.level();
+		RandomSource rand = conf.random();
+		NormalNoise noise = NormalNoise.create(rand, -8, 0.5, 1, 2, 1, 2, 1, 0, 2, 0);
+		BlockPos pos = conf.origin();
 		int radius = 4;
-		Set<BlockPos> set = this.placeGroundPatch(worldgenlevel, randomsource, blockpos, predicate, radius, radius,
-				conf.config().surface());
-		this.distributeVegetation(conf, worldgenlevel, randomsource, set, radius, radius, conf.config().surface());
+		Set<BlockPos> set = this.placeGroundPatch(level, rand, pos, radius, radius, conf.config().surface());
+		this.distributeVegetation(level, rand, set, conf.config().surface(), noise);
 		return !set.isEmpty();
 	}
 
-	protected Set<BlockPos> placeGroundPatch(WorldGenLevel p_225311_, RandomSource p_225313_, BlockPos p_225314_,
-			Predicate<BlockState> p_225315_, int p_225316_, int p_225317_, CaveSurface surf) {
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = p_225314_.mutable();
-		BlockPos.MutableBlockPos blockpos$mutableblockpos1 = blockpos$mutableblockpos.mutable();
+	protected Set<BlockPos> placeGroundPatch(WorldGenLevel level, RandomSource rand, BlockPos pos, int rx, int ry,
+			CaveSurface surf) {
+		BlockPos.MutableBlockPos pos1 = pos.mutable();
+		BlockPos.MutableBlockPos pos2 = pos1.mutable();
 		Direction direction = surf.getDirection();
 		Direction direction1 = direction.getOpposite();
 		Set<BlockPos> set = new HashSet<>();
 
-		for (int i = -p_225316_; i <= p_225316_; ++i) {
-			boolean flag = i == -p_225316_ || i == p_225316_;
+		for (int i = -rx; i <= rx; ++i) {
+			boolean flag = i == -rx || i == rx;
 
-			for (int j = -p_225317_; j <= p_225317_; ++j) {
-				boolean flag1 = j == -p_225317_ || j == p_225317_;
+			for (int j = -ry; j <= ry; ++j) {
+				boolean flag1 = j == -ry || j == ry;
 				boolean flag2 = flag || flag1;
 				boolean flag3 = flag && flag1;
 				boolean flag4 = flag2 && !flag3;
-				if (!flag3 && (!flag4 || 0.3f != 0.0F && !(p_225313_.nextFloat() > 0.3f))) {
-					blockpos$mutableblockpos.setWithOffset(p_225314_, i, 0, j);
+				if (!flag3 && (!flag4 || rand.nextFloat() < 0.3f)) {
+					pos1.setWithOffset(pos, i, 0, j);
 
-					for (int k = 0; p_225311_.isStateAtPosition(blockpos$mutableblockpos,
-							BlockBehaviour.BlockStateBase::isAir) && k < 5; ++k) {
-						blockpos$mutableblockpos.move(direction);
+					for (int k = 0; level.isStateAtPosition(pos1, BlockBehaviour.BlockStateBase::isAir) && k < 5; ++k) {
+						pos1.move(direction);
 					}
 
-					for (int i1 = 0; p_225311_.isStateAtPosition(blockpos$mutableblockpos, (p_284926_) -> {
-						return !p_284926_.isAir();
-					}) && i1 < 5; ++i1) {
-						blockpos$mutableblockpos.move(direction1);
+					for (int i1 = 0; level.isStateAtPosition(pos1, s -> !s.isAir()) && i1 < 5; ++i1) {
+						pos1.move(direction1);
 					}
 
-					blockpos$mutableblockpos1.setWithOffset(blockpos$mutableblockpos, surf.getDirection());
-					BlockState blockstate = p_225311_.getBlockState(blockpos$mutableblockpos1);
-					if (p_225311_.isEmptyBlock(blockpos$mutableblockpos) && blockstate.isFaceSturdy(p_225311_,
-							blockpos$mutableblockpos1, surf.getDirection().getOpposite())) {
-						set.add(blockpos$mutableblockpos1.immutable());
+					pos2.setWithOffset(pos1, surf.getDirection());
+					BlockState blockstate = level.getBlockState(pos2);
+					if (level.isEmptyBlock(pos1)
+							&& blockstate.isFaceSturdy(level, pos2, surf.getDirection().getOpposite())) {
+						set.add(pos2.immutable());
 					}
 				}
 			}
@@ -88,20 +85,134 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 		return set;
 	}
 
-	protected void distributeVegetation(FeaturePlaceContext<CaveSlopeFeatureConfig> p_225331_, WorldGenLevel p_225332_,
-			RandomSource p_225334_, Set<BlockPos> p_225335_, int p_225336_, int p_225337_, CaveSurface surf) {
-		for (BlockPos blockpos : p_225335_) {
-			if (p_225334_.nextFloat() < 0.8) {
-				this.placeVegetation(p_225332_, p_225331_.chunkGenerator(), p_225334_, blockpos, surf);
+	protected void distributeVegetation(WorldGenLevel level, RandomSource rand, Set<BlockPos> poss, CaveSurface surf,
+			NormalNoise noise) {
+		for (BlockPos pos : poss) {
+			if (rand.nextFloat() < 0.8) {
+				decorateAt(level, pos.relative(surf.getDirection().getOpposite()), rand, noise, true);
 			}
 		}
 
 	}
 
-	protected boolean placeVegetation(WorldGenLevel p_225318_, ChunkGenerator p_225320_, RandomSource p_225321_,
-			BlockPos p_225322_, CaveSurface surf) {
-		return PlanetSlopeGenerator.decorateAt(p_225318_, p_225322_.relative(surf.getDirection().getOpposite()),
-				p_225321_, NormalNoise.create(p_225321_, -8, 0.5, 1, 2, 1, 2, 1, 0, 2, 0), true);
+	public static boolean decorateAt(WorldGenLevel chunk, BlockPos pos, RandomSource rand, NormalNoise noise,
+			boolean allowVerticalConnections) {
+		for (Direction dir : Direction.values()) {
+
+			BlockPos adjecent = pos.relative(dir);
+
+			if (canGenSide(chunk, chunk.getBlockState(adjecent), dir)) {
+				switch (dir) {
+				case UP:
+					// Gen Ceil
+
+					break;
+				case DOWN:
+					// Gen Floor
+
+					final double d = getNoise(noise, adjecent, 0.125d);
+					if (d < -0.3d)
+						chunk.setBlock(adjecent, Blocks.ANDESITE.defaultBlockState(), 3);
+					break;
+				default:
+					// Gen Wall
+
+					break;
+				}
+			}
+		}
+
+		for (Direction dir : Direction.values()) {
+			BlockPos adjecent = pos.relative(dir);
+			if (canGenExtra(chunk.getBlockState(pos), chunk.getBlockState(adjecent))) {
+				switch (dir) {
+				case UP:
+					// Gen Ceil Extra
+
+					break;
+				case DOWN:
+					// Gen Floor Extra
+
+					break;
+				default:
+
+					if (dir == Direction.EAST && adjecent.getX() % 16 == 0)
+						break;
+					if (dir == Direction.SOUTH && adjecent.getZ() % 16 == 0)
+						break;
+					if (dir == Direction.WEST && (adjecent.getX() + 1) % 16 == 0)
+						break;
+					if (dir == Direction.NORTH && (adjecent.getZ() + 1) % 16 == 0)
+						break;
+
+					genSlope(chunk, pos, dir, rand, allowVerticalConnections);
+					break;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	public static void genSlope(WorldGenLevel world, BlockPos pos, Direction wallDir, RandomSource randomSource,
+			boolean allowVerticalConnections) {
+
+		BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos().set(pos);
+
+		mutPos.set(pos).move(0, -1, 0);
+		final boolean isDown = carvable(world.getBlockState(mutPos));
+		mutPos.set(pos).move(0, 1, 0);
+		final boolean isUp = carvable(world.getBlockState(mutPos));
+		if (!isDown && !isUp)
+			return;
+
+		if (!allowVerticalConnections) {
+			if (world.getBlockState(pos.north()).isAir() && world.getBlockState(pos.east()).isAir()
+					&& world.getBlockState(pos.south()).isAir() && world.getBlockState(pos.west()).isAir())
+				return;
+		}
+
+		mutPos.set(pos);
+		int air = 0;
+		Direction oppDir = wallDir.getOpposite();
+		while (air < 16 && !world.getBlockState(mutPos.move(oppDir)).isFaceSturdy(world, mutPos, wallDir))
+			++air;
+
+		int chance = 4;
+		if (air <= 3)
+			chance = 2;
+		if (randomSource.nextInt(10) >= chance)
+			return;
+		if (randomSource.nextInt(5) <= 2)
+			genBlock(world, pos,
+					BlockHelper.waterlog(Blocks.STONE_STAIRS.defaultBlockState()
+							.setValue(BlockStateProperties.HORIZONTAL_FACING, wallDir)
+							.setValue(BlockStateProperties.HALF, isDown ? Half.BOTTOM : Half.TOP), world, pos));
+		else
+			genBlock(world, pos, BlockHelper.waterlog(Blocks.STONE_SLAB.defaultBlockState()
+					.setValue(BlockStateProperties.SLAB_TYPE, isDown ? SlabType.BOTTOM : SlabType.TOP), world, pos));
+	}
+
+	public static boolean genBlock(WorldGenLevel world, BlockPos pos, BlockState state) {
+		world.setBlock(pos, state, 3);
+		return true;
+	}
+
+	public static double getNoise(NormalNoise noise, BlockPos pos, double frequency) {
+		return noise.getValue((double) pos.getX() * frequency, (double) pos.getY() * frequency,
+				(double) pos.getZ() * frequency);
+	}
+
+	public static boolean canGenSide(WorldGenLevel chunk, BlockState state, Direction dir) {
+		return carvable(state);
+	}
+
+	public static boolean canGenExtra(BlockState state, BlockState sState) {
+		return state.isAir() && carvable(sState);
+	}
+
+	public static boolean carvable(BlockState state) {
+		return state.is(BlockTags.OVERWORLD_CARVER_REPLACEABLES);
 	}
 
 }

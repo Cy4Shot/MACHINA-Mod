@@ -12,6 +12,7 @@ import com.machina.world.feature.CaveSlopeFeature.CaveSlopeFeatureConfig;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.Holder;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
@@ -33,7 +34,7 @@ public class PlanetBiome extends Biome {
 
 	private static final NavigableMap<Integer, BiomeCategory> categories = new TreeMap<>();
 
-	public static enum BiomeCategory {
+	public static enum BiomeCategory implements StringRepresentable {
 		MIDDLE(0),
 		BEACH(5),
 		RIVER(6),
@@ -44,14 +45,17 @@ public class PlanetBiome extends Biome {
 		DEEP_OCEAN(11),
 		CAVE(12);
 
-		public static final Codec<BiomeCategory> CODEC = Codec.STRING.xmap(val -> {
-			return BiomeCategory.valueOf(BiomeCategory.class, val);
-		}, BiomeCategory::name);
+		public static final Codec<BiomeCategory> CODEC = StringRepresentable.fromEnum(BiomeCategory::values);
 
 		public int starting_id;
 
 		BiomeCategory(int starting_id) {
 			this.starting_id = starting_id;
+		}
+
+		@Override
+		public String getSerializedName() {
+			return name();
 		}
 
 	}
@@ -99,7 +103,7 @@ public class PlanetBiome extends Biome {
 	private static BiomeGenerationSettings createGeneration(Planet p, Random r, int i, BiomeCategory c) {
 		BiomeGenerationSettings.PlainBuilder builder = new BiomeGenerationSettings.PlainBuilder();
 
-		// Cave Slope
+		// ALL BIOMES: Cave Slope
 		for (CaveSurface surf : CaveSurface.values())
 			builder.addFeature(Decoration.UNDERGROUND_DECORATION, Holder.direct(new PlacedFeature(
 					Holder.direct(new ConfiguredFeature<>(new CaveSlopeFeature(), new CaveSlopeFeatureConfig(surf))),
