@@ -57,7 +57,6 @@ public class PlanetBiome extends Biome {
 		public String getSerializedName() {
 			return name();
 		}
-
 	}
 
 	static {
