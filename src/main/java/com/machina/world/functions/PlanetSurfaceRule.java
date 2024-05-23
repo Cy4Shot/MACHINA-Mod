@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.stream.LongStream;
 
 import com.google.common.collect.ImmutableList;
+import com.machina.registration.init.BlockInit;
 import com.machina.world.biome.PlanetBiome;
 import com.machina.world.biome.PlanetBiome.BiomeCategory;
 import com.mojang.datafixers.util.Pair;
@@ -22,7 +23,7 @@ public class PlanetSurfaceRule {
 	private static final SurfaceRules.RuleSource BEDROCK = makeStateRule(Blocks.BEDROCK);
 	private static final SurfaceRules.RuleSource GRASS_BLOCK = makeStateRule(Blocks.GRASS_BLOCK);
 	private static final SurfaceRules.RuleSource DIRT = makeStateRule(Blocks.DIRT);
-	private static final SurfaceRules.RuleSource STONE = makeStateRule(Blocks.STONE);
+	private static final SurfaceRules.RuleSource STONE = makeStateRule(BlockInit.ANTHRACITE.get());
 	private static final SurfaceRules.RuleSource GRAVEL = makeStateRule(Blocks.GRAVEL);
 
 	private static SurfaceRules.RuleSource makeStateRule(Block p_194811_) {

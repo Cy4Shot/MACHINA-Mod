@@ -1,4 +1,10 @@
 {
+  "block.machina.aluminum_block": "Aluminum Block",
+  "block.machina.aluminum_ore": "Aluminum Ore",
+  "block.machina.anthracite": "Anthracite",
+  "block.machina.anthracite_slab": "Anthracite Slab",
+  "block.machina.anthracite_stairs": "Anthracite Stairs",
+  "block.machina.anthracite_wall": "Anthracite Wall",
   "fluid_type.machina.acetaldehyde": "Acetaldehyde",
   "fluid_type.machina.acetic_acid": "Acetic Acid",
   "fluid_type.machina.ammonia": "Ammonia",

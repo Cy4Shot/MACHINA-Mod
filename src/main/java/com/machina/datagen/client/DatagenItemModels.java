@@ -108,7 +108,7 @@ public class DatagenItemModels extends ItemModelProvider {
 				new MachinaRL("item/" + item.getId().getPath()));
 	}
 
-	public void evenSimplerBlockItem(RegistryObject<Block> block) {
+	public void evenSimplerBlockItem(RegistryObject<? extends Block> block) {
 		this.withExistingParent(Machina.MOD_ID + ":" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath(),
 				modLoc("block/" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath()));
 	}
@@ -143,13 +143,13 @@ public class DatagenItemModels extends ItemModelProvider {
 	}
 
 	@SuppressWarnings("unused")
-	private ItemModelBuilder simpleBlockItem(RegistryObject<Block> item) {
+	private ItemModelBuilder simpleBlockItem(RegistryObject<? extends Block> item) {
 		return withExistingParent(item.getId().getPath(), new ResourceLocation("item/generated")).texture("layer0",
 				new MachinaRL("item/" + item.getId().getPath()));
 	}
 
 	@SuppressWarnings("unused")
-	private ItemModelBuilder simpleBlockItemBlockTexture(RegistryObject<Block> item) {
+	private ItemModelBuilder simpleBlockItemBlockTexture(RegistryObject<? extends Block> item) {
 		return withExistingParent(item.getId().getPath(), new ResourceLocation("item/generated")).texture("layer0",
 				new MachinaRL("block/" + item.getId().getPath()));
 	}

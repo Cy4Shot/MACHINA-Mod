@@ -1,1 +1,5 @@
-// 1.20.1	2023-09-02T22:27:23.0575622	Tags for minecraft:item mod id machina
+// 1.20.1	2024-05-23T20:01:04.8336091	Tags for minecraft:item mod id machina
+a4e101071651921b188e2c591034ce72f6b010f6 data/minecraft/tags/items/slabs.json
+a2e3c095774da25d93f44f3244e849ae6e2863d4 data/minecraft/tags/items/stairs.json
+65fc3ce8bd78cdb6f79e7289e1251e563c880655 data/minecraft/tags/items/stone_crafting_materials.json
+47f75cf8c6095eacbc68b1e7107790b97fb505b3 data/minecraft/tags/items/walls.json

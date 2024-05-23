@@ -32,6 +32,10 @@ public class DatagenLootTables extends BlockLootSubProvider {
 
 		// Drop Self
 		this.dropSelf(BlockInit.ALUMINUM_BLOCK.get());
+		this.dropSelf(BlockInit.ANTHRACITE.get());
+		this.dropSelf(BlockInit.ANTHRACITE_SLAB.get());
+		this.dropSelf(BlockInit.ANTHRACITE_STAIRS.get());
+		this.dropSelf(BlockInit.ANTHRACITE_WALL.get());
 
 		// Ore
 		this.dropOre(BlockInit.ALUMINUM_ORE.get(), ItemInit.RAW_ALUMINUM.get());

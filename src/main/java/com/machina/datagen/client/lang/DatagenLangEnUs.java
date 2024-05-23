@@ -1,6 +1,7 @@
 package com.machina.datagen.client.lang;
 
 import com.machina.Machina;
+import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.ItemInit;
 import com.machina.registration.init.TabInit;
@@ -42,6 +43,14 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(ItemInit.NITRONIUM_TETRAFLUOROBORATE.get(), "Nitronium Tetrafluoroborate");
 		add(ItemInit.LOGIC_UNIT.get(), "Logic Unit");
 		add(ItemInit.PROCESSOR_CORE.get(), "Processor Core");
+		
+		// Blocks
+		add(BlockInit.ALUMINUM_BLOCK.get(), "Aluminum Block");
+		add(BlockInit.ALUMINUM_ORE.get(), "Aluminum Ore");
+		add(BlockInit.ANTHRACITE.get(), "Anthracite");
+		add(BlockInit.ANTHRACITE_SLAB.get(), "Anthracite Slab");
+		add(BlockInit.ANTHRACITE_STAIRS.get(), "Anthracite Stairs");
+		add(BlockInit.ANTHRACITE_WALL.get(), "Anthracite Wall");
 
 		// Tooltips
 		addTooltip("ldpe", "Low Density Polyethylene");

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.machina.api.util.BlockHelper;
+import com.machina.registration.init.BlockInit;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.BlockPos;
@@ -112,7 +113,7 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 
 					final double d = getNoise(noise, adjecent, 0.125d);
 					if (d < -0.3d)
-						chunk.setBlock(adjecent, Blocks.ANDESITE.defaultBlockState(), 3);
+						chunk.setBlock(adjecent, Blocks.BLACKSTONE.defaultBlockState(), 3);
 					break;
 				default:
 					// Gen Wall
@@ -185,11 +186,11 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 			return;
 		if (randomSource.nextInt(5) <= 2)
 			genBlock(world, pos,
-					BlockHelper.waterlog(Blocks.STONE_STAIRS.defaultBlockState()
+					BlockHelper.waterlog(BlockInit.ANTHRACITE_STAIRS.get().defaultBlockState()
 							.setValue(BlockStateProperties.HORIZONTAL_FACING, wallDir)
 							.setValue(BlockStateProperties.HALF, isDown ? Half.BOTTOM : Half.TOP), world, pos));
 		else
-			genBlock(world, pos, BlockHelper.waterlog(Blocks.STONE_SLAB.defaultBlockState()
+			genBlock(world, pos, BlockHelper.waterlog(BlockInit.ANTHRACITE_SLAB.get().defaultBlockState()
 					.setValue(BlockStateProperties.SLAB_TYPE, isDown ? SlabType.BOTTOM : SlabType.TOP), world, pos));
 	}
 

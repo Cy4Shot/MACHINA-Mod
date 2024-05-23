@@ -14,5 +14,5 @@
   "result": {
     "item": "machina:aluminum_ingot"
   },
-  "show_notification": true
+  "show_notification": false
 }

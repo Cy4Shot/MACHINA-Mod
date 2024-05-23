@@ -5,6 +5,7 @@ import com.machina.api.starchart.Starchart;
 import com.machina.api.starchart.obj.Planet;
 import com.machina.api.util.MachinaRL;
 import com.machina.api.util.PlanetHelper;
+import com.machina.registration.init.BlockInit;
 import com.machina.world.biome.PlanetBiomeSource;
 import com.machina.world.functions.PlanetDensityFunction;
 import com.machina.world.functions.PlanetSurfaceRule;
@@ -41,7 +42,7 @@ public class PlanetFactory {
 
 		RegistryAccess lookup = server.registries().compositeAccess();
 		NoiseGeneratorSettings settings = new NoiseGeneratorSettings(new NoiseSettings(-64, 384, 1, 2),
-				Blocks.STONE.defaultBlockState(), fluid,
+				BlockInit.ANTHRACITE.get().defaultBlockState(), fluid,
 				PlanetDensityFunction.planet(lookup.lookup(Registries.DENSITY_FUNCTION).get(),
 						lookup.lookup(Registries.NOISE).get()),
 				PlanetSurfaceRule.planet(), PlanetBiomeSource.spawnTarget(), sea_level, false, true, true, false);

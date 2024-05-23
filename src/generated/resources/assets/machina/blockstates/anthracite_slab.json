@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/anthracite_slab"
+    },
+    "type=double": {
+      "model": "machina:block/anthracite"
+    },
+    "type=top": {
+      "model": "machina:block/anthracite_slab_top"
+    }
+  }
+}
