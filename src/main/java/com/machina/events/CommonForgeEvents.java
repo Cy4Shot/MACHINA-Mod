@@ -7,6 +7,7 @@ import com.machina.world.PlanetRegistrationHandler;
 import com.machina.world.data.PlanetDimensionData;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -39,6 +40,8 @@ public class CommonForgeEvents {
 		int id = 3;
 		if (!event.getPlayer().level().isClientSide()) {
 			ServerLevel planet = PlanetRegistrationHandler.createPlanet(event.getPlayer().getServer(), id);
+			event.getPlayer().sendSystemMessage(
+					Component.literal("Sending to: " + Starchart.system(planet).planets().get(id).name()));
 			PlanetRegistrationHandler.sendPlayerToDimension((ServerPlayer) event.getPlayer(), planet,
 					new BlockPos(0, 100, 0));
 		}

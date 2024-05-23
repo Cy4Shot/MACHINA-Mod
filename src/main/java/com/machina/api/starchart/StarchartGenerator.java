@@ -11,6 +11,7 @@ import com.machina.api.starchart.obj.Moon;
 import com.machina.api.starchart.obj.Planet;
 import com.machina.api.starchart.obj.SolarSystem;
 import com.machina.api.starchart.obj.Star;
+import com.machina.api.util.math.RomanNumber;
 import com.mojang.datafixers.util.Pair;
 
 public class StarchartGenerator {
@@ -26,7 +27,7 @@ public class StarchartGenerator {
 			int i = 0;
 			while (curr.getSecond() != null) {
 				i++;
-				curr = convertPlanet(name + " " + String.valueOf(i), curr.getSecond());
+				curr = convertPlanet(name + " " + RomanNumber.toRoman(i), curr.getSecond());
 				planets.add(curr.getFirst());
 			}
 		}
