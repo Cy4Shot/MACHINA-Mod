@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
@@ -29,6 +30,8 @@ public class BlockInit {
 	public static final RegistryObject<SlabBlock> ANTHRACITE_SLAB = slab("anthracite_slab", Blocks.ANDESITE_SLAB);
 	public static final RegistryObject<StairBlock> ANTHRACITE_STAIRS = stairs("anthracite_stairs", ANTHRACITE, Blocks.ANDESITE_SLAB);
 	public static final RegistryObject<WallBlock> ANTHRACITE_WALL = wall("anthracite_wall", Blocks.ANDESITE_WALL);
+	
+	public static final RegistryObject<TallFlowerBlock> ORHPEUM = tall_flower("orpheum", Blocks.PEONY);
 	//@formatter:on
 
 	private static <T extends Block> Supplier<T> of(Block block, Function<Block.Properties, Block.Properties> extra,
@@ -55,6 +58,10 @@ public class BlockInit {
 
 	public static RegistryObject<WallBlock> wall(String name, Block prop) {
 		return register(name, prop, a -> a, WallBlock::new);
+	}
+	
+	public static RegistryObject<TallFlowerBlock> tall_flower(String name, Block prop) {
+		return register(name, prop, a -> a, TallFlowerBlock::new);
 	}
 
 	public static <T extends Block> RegistryObject<T> register(String name, Block prop,

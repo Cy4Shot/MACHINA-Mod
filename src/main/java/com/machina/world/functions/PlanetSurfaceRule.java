@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.stream.LongStream;
 
 import com.google.common.collect.ImmutableList;
-import com.machina.registration.init.BlockInit;
+import com.machina.api.starchart.PlanetType;
+import com.machina.api.starchart.obj.Planet;
 import com.machina.world.biome.PlanetBiome;
 import com.machina.world.biome.PlanetBiome.BiomeCategory;
 import com.mojang.datafixers.util.Pair;
@@ -12,39 +13,41 @@ import com.mojang.serialization.Codec;
 
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.SurfaceRules.Context;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
 public class PlanetSurfaceRule {
 
-	private static final SurfaceRules.RuleSource BEDROCK = makeStateRule(Blocks.BEDROCK);
-	private static final SurfaceRules.RuleSource GRASS_BLOCK = makeStateRule(Blocks.GRASS_BLOCK);
-	private static final SurfaceRules.RuleSource DIRT = makeStateRule(Blocks.DIRT);
-	private static final SurfaceRules.RuleSource STONE = makeStateRule(BlockInit.ANTHRACITE.get());
-	private static final SurfaceRules.RuleSource GRAVEL = makeStateRule(Blocks.GRAVEL);
+	private static final SurfaceRules.RuleSource BEDROCK = makeStateRule(Blocks.BEDROCK.defaultBlockState());
 
-	private static SurfaceRules.RuleSource makeStateRule(Block p_194811_) {
-		return SurfaceRules.state(p_194811_.defaultBlockState());
+	private static SurfaceRules.RuleSource makeStateRule(BlockState state) {
+		return SurfaceRules.state(state);
 	}
 
-	public static SurfaceRules.RuleSource planet() {
-		return planetLike(false, true);
+	public static SurfaceRules.RuleSource planet(Planet p) {
+		return planetLike(p, false, true);
 	}
 
-	public static SurfaceRules.RuleSource planetLike(boolean top, boolean bottom) {
+	public static SurfaceRules.RuleSource planetLike(Planet p, boolean top, boolean bottom) {
+
+		PlanetType type = p.type();
+		SurfaceRules.RuleSource top_block = makeStateRule(type.surface().top());
+		SurfaceRules.RuleSource second_top_block = makeStateRule(type.surface().second());
+		SurfaceRules.RuleSource rock = makeStateRule(type.underground().rock().base());
+
 		SurfaceRules.ConditionSource cs7 = SurfaceRules.waterBlockCheck(-1, 0);
 		SurfaceRules.ConditionSource cs8 = SurfaceRules.waterBlockCheck(0, 0);
 		SurfaceRules.ConditionSource cs9 = SurfaceRules.waterStartCheck(-6, -1);
-		SurfaceRules.RuleSource rs = SurfaceRules.sequence(SurfaceRules.ifTrue(cs8, GRASS_BLOCK), DIRT);
-		SurfaceRules.RuleSource rs2 = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, STONE),
-				GRAVEL);
+		SurfaceRules.RuleSource rs = SurfaceRules.sequence(SurfaceRules.ifTrue(cs8, top_block), second_top_block);
+		SurfaceRules.RuleSource rs2 = SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, rock);
 		SurfaceRules.RuleSource rs7 = SurfaceRules.sequence(rs);
 		SurfaceRules.RuleSource rs8 = SurfaceRules.sequence(
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.ifTrue(cs7, rs7)),
-				SurfaceRules.ifTrue(cs9, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, DIRT))),
+				SurfaceRules.ifTrue(cs9,
+						SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, second_top_block))),
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, rs2));
 		ImmutableList.Builder<SurfaceRules.RuleSource> builder = ImmutableList.builder();
 		if (top) {

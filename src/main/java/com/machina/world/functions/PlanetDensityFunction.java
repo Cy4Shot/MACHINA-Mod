@@ -2,6 +2,8 @@ package com.machina.world.functions;
 
 import java.util.stream.Stream;
 
+import com.machina.api.starchart.obj.Planet;
+
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -33,7 +35,7 @@ public class PlanetDensityFunction {
 			"overworld/caves/spaghetti_roughness_function");
 	private static final ResourceKey<DensityFunction> SPAGHETTI_2D = createKey("overworld/caves/spaghetti_2d");
 
-	public static NoiseRouter planet(HolderGetter<DensityFunction> densities,
+	public static NoiseRouter planet(Planet p, HolderGetter<DensityFunction> densities,
 			HolderGetter<NormalNoise.NoiseParameters> noises) {
 		DensityFunction df = DensityFunctions.noise(noises.getOrThrow(Noises.AQUIFER_BARRIER), 0.5D);
 		DensityFunction df1 = DensityFunctions.noise(noises.getOrThrow(Noises.AQUIFER_FLUID_LEVEL_FLOODEDNESS), 0.67D);

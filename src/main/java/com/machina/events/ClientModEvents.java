@@ -5,7 +5,7 @@ import com.machina.api.client.ClientTimer;
 import com.machina.api.client.cinema.CinematicHandler;
 import com.machina.api.client.cinema.effect.renderer.CinematicTextOverlay;
 import com.machina.api.client.cinema.effect.renderer.CinematicTextureOverlay;
-import com.machina.api.util.ClassHelper;
+import com.machina.api.util.reflect.ClassHelper;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
 import com.machina.registration.init.KeyBindingInit;
@@ -27,7 +27,7 @@ public class ClientModEvents {
 	public static void onClientSetup(FMLClientSetupEvent event) {
 		ClientTimer.setup();
 		CinematicHandler.setup();
-
+		
 		FluidInit.setRenderLayers();
 	}
 

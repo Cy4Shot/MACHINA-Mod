@@ -5,6 +5,8 @@ import java.util.NavigableMap;
 import java.util.Random;
 import java.util.TreeMap;
 
+import com.machina.api.starchart.PlanetType;
+import com.machina.api.starchart.PlanetType.OreVein;
 import com.machina.api.starchart.obj.Planet;
 import com.machina.registration.init.SoundInit;
 import com.machina.world.feature.CaveSlopeFeature;
@@ -12,6 +14,7 @@ import com.machina.world.feature.CaveSlopeFeature.CaveSlopeFeatureConfig;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.Holder;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
@@ -22,6 +25,8 @@ import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -29,6 +34,7 @@ import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 public class PlanetBiome extends Biome {
 
@@ -85,32 +91,44 @@ public class PlanetBiome extends Biome {
 
 	private static BiomeSpecialEffects createEffects(Planet p, Random r, int i, BiomeCategory c) {
 		// TODO: Add particles & grass color, music & effects
-		int water_color = 0;
-		if (c.equals(BiomeCategory.OCEAN) || c.equals(BiomeCategory.DEEP_OCEAN)) {
-			water_color = 0x00FF00;
-		}
-		if (c.equals(BiomeCategory.RIVER)) {
-			water_color = 0x0000FF;
-		}
-		if (c.equals(BiomeCategory.BEACH)) {
-			water_color = 0xFF0000;
-		}
-		return new BiomeSpecialEffects.Builder().fogColor(0).skyColor(0).waterColor(water_color).waterFogColor(0)
+		return new BiomeSpecialEffects.Builder().fogColor(0).skyColor(0).waterColor(0).waterFogColor(0)
 				.backgroundMusic(SoundInit.asMusic(SoundInit.MUSIC)).build();
 	}
 
 	private static BiomeGenerationSettings createGeneration(Planet p, Random r, int i, BiomeCategory c) {
 		BiomeGenerationSettings.PlainBuilder builder = new BiomeGenerationSettings.PlainBuilder();
 
-		// ALL BIOMES: Cave Slope
+		addUndergroundFeatures(builder, p, c);
+
+		return builder.build();
+	}
+
+	private static void addUndergroundFeatures(BiomeGenerationSettings.PlainBuilder builder, Planet p,
+			BiomeCategory c) {
+		PlanetType type = p.type();
+
 		for (CaveSurface surf : CaveSurface.values())
 			builder.addFeature(Decoration.UNDERGROUND_DECORATION, Holder.direct(new PlacedFeature(
-					Holder.direct(new ConfiguredFeature<>(new CaveSlopeFeature(), new CaveSlopeFeatureConfig(surf))),
+					Holder.direct(new ConfiguredFeature<>(new CaveSlopeFeature(),
+							new CaveSlopeFeatureConfig(surf, type.underground().rock()))),
 					List.of(CountPlacement.of(256), InSquarePlacement.spread(),
 							HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(0), VerticalAnchor.belowTop(256)),
 							EnvironmentScanPlacement.scanningFor(surf.getDirection(), BlockPredicate.solid(),
 									BlockPredicate.matchesBlocks(Blocks.AIR), 12),
 							BiomeFilter.biome()))));
-		return builder.build();
+
+		if (c.equals(BiomeCategory.CAVE)) {
+			for (OreVein ore : type.underground().ores()) {
+				builder.addFeature(Decoration.UNDERGROUND_ORES,
+						Holder.direct(new PlacedFeature(
+								Holder.direct(new ConfiguredFeature<>(Feature.ORE,
+										new OreConfiguration(new TagMatchTest(BlockTags.OVERWORLD_CARVER_REPLACEABLES),
+												ore.ore(), ore.size(), ore.exposure_removal_chance()))),
+								List.of(CountPlacement.of(ore.per_chunk()), InSquarePlacement.spread(),
+										HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(0),
+												VerticalAnchor.belowTop(256)),
+										BiomeFilter.biome()))));
+			}
+		}
 	}
 }

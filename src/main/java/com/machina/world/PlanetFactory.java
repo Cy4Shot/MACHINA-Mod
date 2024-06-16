@@ -1,11 +1,11 @@
 package com.machina.world;
 
 import com.machina.Machina;
+import com.machina.api.starchart.PlanetType;
 import com.machina.api.starchart.Starchart;
 import com.machina.api.starchart.obj.Planet;
 import com.machina.api.util.MachinaRL;
 import com.machina.api.util.PlanetHelper;
-import com.machina.registration.init.BlockInit;
 import com.machina.world.biome.PlanetBiomeSource;
 import com.machina.world.functions.PlanetDensityFunction;
 import com.machina.world.functions.PlanetSurfaceRule;
@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
-import net.minecraft.world.level.levelgen.NoiseSettings;
 
 public class PlanetFactory {
 
@@ -31,21 +30,23 @@ public class PlanetFactory {
 	public static LevelStem createDimension(MinecraftServer server, ResourceKey<LevelStem> key) {
 		long seed = server.overworld().getSeed();
 		Planet planet = Starchart.system(seed).planets().get(PlanetHelper.getIdDim(key));
+		MultiNoiseBiomeSource bs = new PlanetBiomeSource(key, seed).build();
+
+		RegistryAccess lookup = server.registries().compositeAccess();
+		PlanetType type = planet.type();
+
 		BlockState fluid = planet.getDominantLiquidBodyBlock();
-		int sea_level = 60;
+		int sea_level = type.shape().sea_level();
 		if (fluid == null) {
 			fluid = Blocks.WATER.defaultBlockState();
 			sea_level = -1;
 		}
 
-		MultiNoiseBiomeSource bs = new PlanetBiomeSource(key, seed).build();
-
-		RegistryAccess lookup = server.registries().compositeAccess();
-		NoiseGeneratorSettings settings = new NoiseGeneratorSettings(new NoiseSettings(-64, 384, 1, 2),
-				BlockInit.ANTHRACITE.get().defaultBlockState(), fluid,
-				PlanetDensityFunction.planet(lookup.lookup(Registries.DENSITY_FUNCTION).get(),
+		NoiseGeneratorSettings settings = new NoiseGeneratorSettings(type.shape().noise_settings(),
+				type.underground().rock().base(), fluid,
+				PlanetDensityFunction.planet(planet, lookup.lookup(Registries.DENSITY_FUNCTION).get(),
 						lookup.lookup(Registries.NOISE).get()),
-				PlanetSurfaceRule.planet(), PlanetBiomeSource.spawnTarget(), sea_level, false, true, true, false);
+				PlanetSurfaceRule.planet(planet), PlanetBiomeSource.spawnTarget(), sea_level, false, true, true, false);
 
 		return new LevelStem(getDimensionType(server),
 				new PlanetChunkGenerator(bs, Holder.direct(settings), key, seed));

@@ -1,4 +1,4 @@
-package com.machina.api.util;
+package com.machina.api.util.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

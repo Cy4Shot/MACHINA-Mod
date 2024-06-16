@@ -3,16 +3,16 @@ package com.machina.world.feature;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.machina.api.starchart.PlanetType.RockType;
 import com.machina.api.util.BlockHelper;
-import com.machina.registration.init.BlockInit;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -26,9 +26,11 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureConfig> {
 
-	public static record CaveSlopeFeatureConfig(CaveSurface surface) implements FeatureConfiguration {
-		public static final Codec<CaveSlopeFeatureConfig> CODEC = CaveSurface.CODEC.fieldOf("surface")
-				.xmap(CaveSlopeFeatureConfig::new, CaveSlopeFeatureConfig::surface).codec();
+	public static record CaveSlopeFeatureConfig(CaveSurface surface, RockType type) implements FeatureConfiguration {
+		public static final Codec<CaveSlopeFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(CaveSurface.CODEC.fieldOf("surface").forGetter(CaveSlopeFeatureConfig::surface),
+						RockType.CODEC.fieldOf("type").forGetter(CaveSlopeFeatureConfig::type))
+				.apply(instance, CaveSlopeFeatureConfig::new));
 	}
 
 	public CaveSlopeFeature() {
@@ -41,13 +43,14 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 		NormalNoise noise = NormalNoise.create(rand, -8, 0.5, 1, 2, 1, 2, 1, 0, 2, 0);
 		BlockPos pos = conf.origin();
 		int radius = 4;
-		Set<BlockPos> set = this.placeGroundPatch(level, rand, pos, radius, radius, conf.config().surface());
-		this.distributeVegetation(level, rand, set, conf.config().surface(), noise);
+		Set<BlockPos> set = this.placeGroundPatch(level, rand, pos, radius, radius, conf.config().surface(),
+				conf.config().type());
+		this.distributeVegetation(level, rand, set, conf.config().surface(), noise, conf.config().type());
 		return !set.isEmpty();
 	}
 
 	protected Set<BlockPos> placeGroundPatch(WorldGenLevel level, RandomSource rand, BlockPos pos, int rx, int ry,
-			CaveSurface surf) {
+			CaveSurface surf, RockType type) {
 		BlockPos.MutableBlockPos pos1 = pos.mutable();
 		BlockPos.MutableBlockPos pos2 = pos1.mutable();
 		Direction direction = surf.getDirection();
@@ -87,17 +90,17 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 	}
 
 	protected void distributeVegetation(WorldGenLevel level, RandomSource rand, Set<BlockPos> poss, CaveSurface surf,
-			NormalNoise noise) {
+			NormalNoise noise, RockType type) {
 		for (BlockPos pos : poss) {
 			if (rand.nextFloat() < 0.8) {
-				decorateAt(level, pos.relative(surf.getDirection().getOpposite()), rand, noise, true);
+				decorateAt(level, pos.relative(surf.getDirection().getOpposite()), rand, noise, true, type);
 			}
 		}
 
 	}
 
 	public static boolean decorateAt(WorldGenLevel chunk, BlockPos pos, RandomSource rand, NormalNoise noise,
-			boolean allowVerticalConnections) {
+			boolean allowVerticalConnections, RockType type) {
 		for (Direction dir : Direction.values()) {
 
 			BlockPos adjecent = pos.relative(dir);
@@ -113,7 +116,7 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 
 					final double d = getNoise(noise, adjecent, 0.125d);
 					if (d < -0.3d)
-						chunk.setBlock(adjecent, Blocks.BLACKSTONE.defaultBlockState(), 3);
+						chunk.setBlock(adjecent, type.extra(), 3);
 					break;
 				default:
 					// Gen Wall
@@ -146,7 +149,7 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 					if (dir == Direction.NORTH && (adjecent.getZ() + 1) % 16 == 0)
 						break;
 
-					genSlope(chunk, pos, dir, rand, allowVerticalConnections);
+					genSlope(chunk, pos, dir, rand, allowVerticalConnections, type);
 					break;
 				}
 			}
@@ -156,7 +159,7 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 	}
 
 	public static void genSlope(WorldGenLevel world, BlockPos pos, Direction wallDir, RandomSource randomSource,
-			boolean allowVerticalConnections) {
+			boolean allowVerticalConnections, RockType type) {
 
 		BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos().set(pos);
 
@@ -186,12 +189,12 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 			return;
 		if (randomSource.nextInt(5) <= 2)
 			genBlock(world, pos,
-					BlockHelper.waterlog(BlockInit.ANTHRACITE_STAIRS.get().defaultBlockState()
-							.setValue(BlockStateProperties.HORIZONTAL_FACING, wallDir)
+					BlockHelper.waterlog(type.stair().setValue(BlockStateProperties.HORIZONTAL_FACING, wallDir)
 							.setValue(BlockStateProperties.HALF, isDown ? Half.BOTTOM : Half.TOP), world, pos));
 		else
-			genBlock(world, pos, BlockHelper.waterlog(BlockInit.ANTHRACITE_SLAB.get().defaultBlockState()
-					.setValue(BlockStateProperties.SLAB_TYPE, isDown ? SlabType.BOTTOM : SlabType.TOP), world, pos));
+			genBlock(world, pos, BlockHelper.waterlog(
+					type.slab().setValue(BlockStateProperties.SLAB_TYPE, isDown ? SlabType.BOTTOM : SlabType.TOP),
+					world, pos));
 	}
 
 	public static boolean genBlock(WorldGenLevel world, BlockPos pos, BlockState state) {

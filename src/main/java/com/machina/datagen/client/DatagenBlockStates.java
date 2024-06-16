@@ -11,9 +11,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class DatagenBlockStates extends BlockStateProvider {
@@ -31,6 +36,8 @@ public class DatagenBlockStates extends BlockStateProvider {
 		slab(BlockInit.ANTHRACITE_SLAB, BlockInit.ANTHRACITE);
 		stairs(BlockInit.ANTHRACITE_STAIRS, BlockInit.ANTHRACITE);
 		wall(BlockInit.ANTHRACITE_WALL, BlockInit.ANTHRACITE);
+
+		tall_flower(BlockInit.ORHPEUM);
 
 		// Fluids
 		for (FluidObject obj : FluidInit.OBJS) {
@@ -68,7 +75,27 @@ public class DatagenBlockStates extends BlockStateProvider {
 				.modelFile(models().cubeAll(name(obj.block()), new ResourceLocation("block/water_still"))).addModel();
 	}
 
+	private void tall_flower(RegistryObject<TallFlowerBlock> flower) {
+		ResourceLocation tex = blockTexture(flower.get());
+		getVariantBuilder(flower.get()).forAllStates(state -> {
+			boolean top = state.getValue(TallFlowerBlock.HALF).equals(DoubleBlockHalf.UPPER);
+			String name = top ? "_top" : "_bottom";
+			ModelFile file = models().cross(name(flower.get()) + name, extend(tex, name)).renderType("cutout");
+			return ConfiguredModel.builder().modelFile(file).build();
+		});
+		itemModels().getBuilder(key(flower.get()).getPath()).parent(new ModelFile.UncheckedModelFile("item/generated"))
+				.texture("layer0", extend(tex, "_top"));
+	}
+
 	private String name(Block block) {
 		return BuiltInRegistries.BLOCK.getKey(block).getPath();
+	}
+
+	private ResourceLocation extend(ResourceLocation rl, String suffix) {
+		return new ResourceLocation(rl.getNamespace(), rl.getPath() + suffix);
+	}
+
+	private ResourceLocation key(Block block) {
+		return ForgeRegistries.BLOCKS.getKey(block);
 	}
 }

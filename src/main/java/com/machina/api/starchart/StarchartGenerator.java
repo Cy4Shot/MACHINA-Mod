@@ -2,6 +2,7 @@ package com.machina.api.starchart;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.machina.api.starchart.burke.AccreteObject;
 import com.machina.api.starchart.burke.BPlanet;
@@ -12,11 +13,13 @@ import com.machina.api.starchart.obj.Planet;
 import com.machina.api.starchart.obj.SolarSystem;
 import com.machina.api.starchart.obj.Star;
 import com.machina.api.util.math.RomanNumber;
+import com.machina.registration.init.PlanetTypeInit;
 import com.mojang.datafixers.util.Pair;
 
 public class StarchartGenerator {
 
 	public static SolarSystem gen(long seed, String name) {
+		Random rand = new Random(seed);
 		AccreteObject.cr.setSeed(seed);
 		StarSystem ss = new StarSystem();
 		Star star = convertStar(name, ss.primary);
@@ -27,7 +30,7 @@ public class StarchartGenerator {
 			int i = 0;
 			while (curr.getSecond() != null) {
 				i++;
-				curr = convertPlanet(name + " " + RomanNumber.toRoman(i), curr.getSecond());
+				curr = convertPlanet(name + " " + RomanNumber.toRoman(i), curr.getSecond(), rand);
 				planets.add(curr.getFirst());
 			}
 		}
@@ -40,7 +43,7 @@ public class StarchartGenerator {
 				sp.r_greenhouse);
 	}
 
-	private static Pair<Planet, BPlanet> convertPlanet(String name, BPlanet p) {
+	private static Pair<Planet, BPlanet> convertPlanet(String name, BPlanet p, Random rand) {
 
 		List<Moon> moons = new ArrayList<>();
 		if (p.first_moon != null) {
@@ -52,8 +55,10 @@ public class StarchartGenerator {
 				moons.add(curr.getFirst());
 			}
 		}
+		
+		PlanetType type = PlanetTypeInit.pickRandom(rand);
 
-		Planet planet = new Planet(name, p.a, p.e, p.where_in_orbit, p.mass, p.gas_giant, p.orbit_zone, p.radius,
+		Planet planet = new Planet(name, type, p.a, p.e, p.where_in_orbit, p.mass, p.gas_giant, p.orbit_zone, p.radius,
 				p.density, p.orb_period, p.day, p.resonant_period, p.axial_tilt, p.esc_velocity, p.surf_accel,
 				p.surf_grav, p.rms_velocity, p.molec_weight, p.volatile_gas_inventory, p.GH2, p.GH2O, p.GN2, p.GO2,
 				p.GCO2, p.surf_pressure, p.greenhouse_effect, p.boil_point, p.albedo, p.surf_temp, p.min_temp,

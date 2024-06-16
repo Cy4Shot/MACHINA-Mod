@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "machina:block/orpheum_bottom"
+    },
+    "half=upper": {
+      "model": "machina:block/orpheum_top"
+    }
+  }
+}
