@@ -17,6 +17,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -32,10 +33,12 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 	@Override
 	protected void buildRecipes(@NotNull Consumer<FinishedRecipe> gen) {
 		ore(gen, List.of(ItemInit.RAW_ALUMINUM.get(), BlockInit.ALUMINUM_ORE.get()), ItemInit.ALUMINUM_INGOT.get(),
-				0.25f, "aluminum");
+				0.25f, 200, "aluminum");
+		ore(gen, List.of(BlockInit.ANTHRACITE.get()), ItemInit.COAL_CHUNK.get(), 0.05f, 40, "anthracite");
 
 		compact(gen, BlockInit.ALUMINUM_BLOCK.get(), ItemInit.ALUMINUM_INGOT.get());
 		compact(gen, ItemInit.ALUMINUM_INGOT.get(), ItemInit.ALUMINUM_NUGGET.get());
+		compact(gen, Items.COAL, ItemInit.COAL_CHUNK.get());
 
 		stoneFamily(gen, BlockInit.ANTHRACITE.get(), BlockInit.ANTHRACITE_SLAB.get(), BlockInit.ANTHRACITE_STAIRS.get(),
 				BlockInit.ANTHRACITE_WALL.get());
@@ -98,9 +101,10 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 		//@formatter:on
 	}
 
-	protected static void ore(Consumer<FinishedRecipe> gen, List<ItemLike> ing, ItemLike res, float exp, String group) {
-		oreSmelting(gen, ing, RecipeCategory.MISC, res, exp, 200, group);
-		oreBlasting(gen, ing, RecipeCategory.MISC, res, exp, 100, group);
+	protected static void ore(Consumer<FinishedRecipe> gen, List<ItemLike> ing, ItemLike res, float exp, int duration,
+			String group) {
+		oreSmelting(gen, ing, RecipeCategory.MISC, res, exp, duration, group);
+		oreBlasting(gen, ing, RecipeCategory.MISC, res, exp, duration / 2, group);
 	}
 
 	protected static void oreSmelting(@NotNull Consumer<FinishedRecipe> gen, List<ItemLike> ing,

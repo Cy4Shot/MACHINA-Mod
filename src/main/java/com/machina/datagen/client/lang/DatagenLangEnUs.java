@@ -43,6 +43,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(ItemInit.NITRONIUM_TETRAFLUOROBORATE.get(), "Nitronium Tetrafluoroborate");
 		add(ItemInit.LOGIC_UNIT.get(), "Logic Unit");
 		add(ItemInit.PROCESSOR_CORE.get(), "Processor Core");
+		add(ItemInit.COAL_CHUNK.get(), "Coal Chunk");
 		
 		// Blocks
 		add(BlockInit.ALUMINUM_BLOCK.get(), "Aluminum Block");

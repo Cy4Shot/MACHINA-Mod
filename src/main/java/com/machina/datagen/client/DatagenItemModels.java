@@ -49,6 +49,7 @@ public class DatagenItemModels extends ItemModelProvider {
 	protected void registerModels() {
 		simpleItem(ItemInit.ALUMINUM_INGOT);
 		simpleItem(ItemInit.ALUMINUM_NUGGET);
+		simpleItem(ItemInit.COAL_CHUNK);
 
 		for (FluidObject obj : FluidInit.OBJS) {
 			bucket(obj);
@@ -76,11 +77,11 @@ public class DatagenItemModels extends ItemModelProvider {
 				float trimValue = value;
 
 				String armorType = switch (armorItem.getEquipmentSlot()) {
-					case HEAD -> "helmet";
-					case CHEST -> "chestplate";
-					case LEGS -> "leggings";
-					case FEET -> "boots";
-					default -> "";
+				case HEAD -> "helmet";
+				case CHEST -> "chestplate";
+				case LEGS -> "leggings";
+				case FEET -> "boots";
+				default -> "";
 				};
 
 				String armorItemPath = "item/" + armorItem;

@@ -3,6 +3,7 @@ package com.machina.events;
 import com.machina.Machina;
 import com.machina.api.starchart.Starchart;
 import com.machina.registration.Registration;
+import com.machina.registration.init.ItemInit;
 import com.machina.world.PlanetRegistrationHandler;
 import com.machina.world.data.PlanetDimensionData;
 
@@ -11,9 +12,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -44,6 +49,13 @@ public class CommonForgeEvents {
 					Component.literal("Sending to: " + Starchart.system(planet).planets().get(id).name()));
 			PlanetRegistrationHandler.sendPlayerToDimension((ServerPlayer) event.getPlayer(), planet,
 					new BlockPos(0, 100, 0));
+		}
+	}
+
+	@SubscribeEvent
+	public static void getBurnTime(final FurnaceFuelBurnTimeEvent event) {
+		if (event.getItemStack().getItem().equals(ItemInit.COAL_CHUNK.get())) {
+			event.setBurnTime(ForgeHooks.getBurnTime(new ItemStack(Items.COAL), event.getRecipeType()) / 9);
 		}
 	}
 
