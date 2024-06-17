@@ -5,15 +5,18 @@ import java.util.function.Supplier;
 
 import com.machina.Machina;
 
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.WallBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -31,7 +34,9 @@ public class BlockInit {
 	public static final RegistryObject<StairBlock> ANTHRACITE_STAIRS = stairs("anthracite_stairs", ANTHRACITE, Blocks.ANDESITE_SLAB);
 	public static final RegistryObject<WallBlock> ANTHRACITE_WALL = wall("anthracite_wall", Blocks.ANDESITE_WALL);
 	
+	public static final RegistryObject<FlowerBlock> DRAGON_PEONY = flower("dragon_peony", () -> MobEffects.LEVITATION, 5, Blocks.DANDELION);
 	public static final RegistryObject<TallFlowerBlock> ORHPEUM = tall_flower("orpheum", Blocks.PEONY);
+	public static final RegistryObject<FlowerPotBlock> POTTED_DRAGON_PEONY = flower_pot("potted_dragon_peony", DRAGON_PEONY);
 	//@formatter:on
 
 	private static <T extends Block> Supplier<T> of(Block block, Function<Block.Properties, Block.Properties> extra,
@@ -52,16 +57,24 @@ public class BlockInit {
 	}
 
 	public static RegistryObject<StairBlock> stairs(String name, RegistryObject<Block> block, Block prop) {
-		return register(name, prop, a -> a,
-				p -> new StairBlock(() -> block.get().defaultBlockState(), BlockBehaviour.Properties.copy(prop)));
+		return register(name, prop, a -> a, p -> new StairBlock(() -> block.get().defaultBlockState(), p));
 	}
 
 	public static RegistryObject<WallBlock> wall(String name, Block prop) {
 		return register(name, prop, a -> a, WallBlock::new);
 	}
-	
+
+	public static RegistryObject<FlowerBlock> flower(String name, Supplier<MobEffect> effect, int duration,
+			Block prop) {
+		return register(name, prop, a -> a, p -> new FlowerBlock(effect, duration, p));
+	}
+
 	public static RegistryObject<TallFlowerBlock> tall_flower(String name, Block prop) {
 		return register(name, prop, a -> a, TallFlowerBlock::new);
+	}
+
+	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<FlowerBlock> flower) {
+		return register(name, BlockInit.of(Blocks.FLOWER_POT, a -> a, p -> new FlowerPotBlock(flower.get(), p)));
 	}
 
 	public static <T extends Block> RegistryObject<T> register(String name, Block prop,

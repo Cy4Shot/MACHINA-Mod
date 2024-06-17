@@ -51,6 +51,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.ANTHRACITE_SLAB.get(), "Anthracite Slab");
 		add(BlockInit.ANTHRACITE_STAIRS.get(), "Anthracite Stairs");
 		add(BlockInit.ANTHRACITE_WALL.get(), "Anthracite Wall");
+		add(BlockInit.DRAGON_PEONY.get(), "Dragon Peony");
 		add(BlockInit.ORHPEUM.get(), "Orpheum");
 
 		// Tooltips

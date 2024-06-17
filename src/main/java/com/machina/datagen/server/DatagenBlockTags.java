@@ -28,6 +28,11 @@ public class DatagenBlockTags extends BlockTagsProvider {
 		tag(BlockTags.STAIRS).add(BlockInit.ANTHRACITE_STAIRS.get());
 		tag(BlockTags.WALLS).add(BlockInit.ANTHRACITE_WALL.get());
 		
+		tag(BlockTags.FLOWERS).add(BlockInit.DRAGON_PEONY.get(), BlockInit.ORHPEUM.get());
+		tag(BlockTags.SMALL_FLOWERS).add(BlockInit.DRAGON_PEONY.get());
+		tag(BlockTags.TALL_FLOWERS).add(BlockInit.ORHPEUM.get());
+		tag(BlockTags.FLOWER_POTS).add(BlockInit.POTTED_DRAGON_PEONY.get());
+		
 		tag(BlockTags.OVERWORLD_CARVER_REPLACEABLES).add(BlockInit.ANTHRACITE.get());
 	}
 }
