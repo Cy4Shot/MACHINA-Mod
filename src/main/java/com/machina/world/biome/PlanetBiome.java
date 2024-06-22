@@ -99,6 +99,7 @@ public class PlanetBiome extends Biome {
 		BiomeGenerationSettings.PlainBuilder builder = new BiomeGenerationSettings.PlainBuilder();
 
 		addUndergroundFeatures(builder, p, c);
+		addVegetationFeatures(builder, p, c);
 
 		return builder.build();
 	}
@@ -130,5 +131,10 @@ public class PlanetBiome extends Biome {
 										BiomeFilter.biome()))));
 			}
 		}
+	}
+
+	private static void addVegetationFeatures(BiomeGenerationSettings.PlainBuilder builder, Planet p, BiomeCategory c) {
+		PlanetType type = p.type();
+
 	}
 }

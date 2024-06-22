@@ -38,17 +38,17 @@ public class StarchartScreen extends Screen {
 		super(Component.empty());
 		this.system = s;
 	}
-	
+
 	@Override
 	protected void init() {
 		super.init();
 
 		zoom = calculateZoom(system.maxAphelion(), height, 40);
 	}
-	
+
 	public float calculateZoom(double targetAphelion, int target, int padding) {
 		float max = (float) (targetAphelion * 2);
-		
+
 		return (float) MathUtil.binarySearch(0.001D, 100D, (target - padding) / 2f, zoom -> {
 			float z = (float) zoom;
 			PoseStack matrixStack = RenderSystem.getModelViewStack();
@@ -56,13 +56,13 @@ public class StarchartScreen extends Screen {
 			matrixStack.translate(width / 2, height / 2, 300.0D);
 			matrixStack.scale(1.0F, -1.0F, 1.0F);
 			matrixStack.scale(32.0F, 32.0F, 32.0F);
-			
+
 			PoseStack matrices = new PoseStack();
 			matrices.scale(1.0F, 1.0F, 0.1F);
 			matrices.scale(z, z, z);
 			matrices.mulPose(createRotQuat(90, 0));
 			matrices.pushPose();
-			
+
 			Vector4f spos = new Vector4f(max, max, 0, 1);
 			Matrix4f stm = new Matrix4f(matrices.last().pose());
 			Matrix4f mvp = new Matrix4f(RenderSystem.getProjectionMatrix()).mul(matrixStack.last().pose());
@@ -73,10 +73,10 @@ public class StarchartScreen extends Screen {
 			Vector4f norm = spos.div(spos.w);
 			float x = (1.0f + norm.x) * 0.5f * target;
 			float y = (1.0f - norm.y) * 0.5f * target;
-			
+
 			matrices.popPose();
 			matrixStack.popPose();
-			
+
 			return (double) Math.max(x, y);
 		}, 0.01);
 	}

@@ -94,6 +94,10 @@ public record Planet(String name, PlanetType type, double a, // semi-major axis 
 	public double calculateAphelionDistance() {
 		return a * (1 + e);
 	}
+	
+	public boolean hasClouds() {
+		return this.cloud_cover > 0.1f;
+	}
 
 	// Extra Props
 

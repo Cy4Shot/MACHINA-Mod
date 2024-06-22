@@ -6,14 +6,17 @@ import com.machina.api.client.cinema.CinematicHandler;
 import com.machina.api.client.cinema.effect.renderer.CinematicTextOverlay;
 import com.machina.api.client.cinema.effect.renderer.CinematicTextureOverlay;
 import com.machina.api.util.reflect.ClassHelper;
+import com.machina.client.PlanetSpecialEffects;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
+import com.machina.world.PlanetFactory;
 import com.machina.registration.init.KeyBindingInit;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,7 +30,7 @@ public class ClientModEvents {
 	public static void onClientSetup(FMLClientSetupEvent event) {
 		ClientTimer.setup();
 		CinematicHandler.setup();
-		
+
 		FluidInit.setRenderLayers();
 	}
 
@@ -51,5 +54,10 @@ public class ClientModEvents {
 		for (FluidObject obj : FluidInit.OBJS) {
 			colors.register((stack, index) -> index == 1 ? obj.chem().getColor() : -1, obj.bucket());
 		}
+	}
+
+	@SubscribeEvent
+	public static void registerDimensionSpecialEffects(RegisterDimensionSpecialEffectsEvent event) {
+		event.register(PlanetFactory.TYPE_KEY.location(), new PlanetSpecialEffects());
 	}
 }
