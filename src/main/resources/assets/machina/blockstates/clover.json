@@ -1,0 +1,20 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "machina:block/clover",
+			"y": 0
+		},
+		"facing=south": {
+			"model": "machina:block/clover",
+			"y": 180
+		},
+		"facing=east": {
+			"model": "machina:block/clover",
+			"y": 90
+		},
+		"facing=west": {
+			"model": "machina:block/clover",
+			"y": 270
+		}
+	}
+}

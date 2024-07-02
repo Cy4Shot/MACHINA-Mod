@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.machina.api.starchart.PlanetType.RockType;
+import com.machina.api.starchart.PlanetType.UndergroundRules;
 import com.machina.api.util.BlockHelper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -26,10 +26,11 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureConfig> {
 
-	public static record CaveSlopeFeatureConfig(CaveSurface surface, RockType type) implements FeatureConfiguration {
+	public static record CaveSlopeFeatureConfig(CaveSurface surface, RockType type, UndergroundRules rules) implements FeatureConfiguration {
 		public static final Codec<CaveSlopeFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(CaveSurface.CODEC.fieldOf("surface").forGetter(CaveSlopeFeatureConfig::surface),
-						RockType.CODEC.fieldOf("type").forGetter(CaveSlopeFeatureConfig::type))
+						RockType.CODEC.fieldOf("type").forGetter(CaveSlopeFeatureConfig::type),
+						UndergroundRules.CODEC.fieldOf("rules").forGetter(CaveSlopeFeatureConfig::rules))
 				.apply(instance, CaveSlopeFeatureConfig::new));
 	}
 
@@ -45,7 +46,7 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 		int radius = 4;
 		Set<BlockPos> set = this.placeGroundPatch(level, rand, pos, radius, radius, conf.config().surface(),
 				conf.config().type());
-		this.distributeVegetation(level, rand, set, conf.config().surface(), noise, conf.config().type());
+		this.distributeVegetation(level, rand, set, conf.config().surface(), noise, conf.config().type(), conf.config().rules());
 		return !set.isEmpty();
 	}
 
@@ -90,22 +91,22 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 	}
 
 	protected void distributeVegetation(WorldGenLevel level, RandomSource rand, Set<BlockPos> poss, CaveSurface surf,
-			NormalNoise noise, RockType type) {
+			NormalNoise noise, RockType type, UndergroundRules rules) {
 		for (BlockPos pos : poss) {
 			if (rand.nextFloat() < 0.8) {
-				decorateAt(level, pos.relative(surf.getDirection().getOpposite()), rand, noise, true, type);
+				decorateAt(level, pos.relative(surf.getDirection().getOpposite()), rand, noise, true, type, rules);
 			}
 		}
 
 	}
 
 	public static boolean decorateAt(WorldGenLevel chunk, BlockPos pos, RandomSource rand, NormalNoise noise,
-			boolean allowVerticalConnections, RockType type) {
+			boolean allowVerticalConnections, RockType type, UndergroundRules rules) {
 		for (Direction dir : Direction.values()) {
 
 			BlockPos adjecent = pos.relative(dir);
 
-			if (canGenSide(chunk, chunk.getBlockState(adjecent), dir)) {
+			if (canGenSide(chunk, chunk.getBlockState(adjecent), dir, rules)) {
 				switch (dir) {
 				case UP:
 					// Gen Ceil
@@ -128,7 +129,7 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 
 		for (Direction dir : Direction.values()) {
 			BlockPos adjecent = pos.relative(dir);
-			if (canGenExtra(chunk.getBlockState(pos), chunk.getBlockState(adjecent))) {
+			if (canGenExtra(chunk.getBlockState(pos), chunk.getBlockState(adjecent), rules)) {
 				switch (dir) {
 				case UP:
 					// Gen Ceil Extra
@@ -149,7 +150,7 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 					if (dir == Direction.NORTH && (adjecent.getZ() + 1) % 16 == 0)
 						break;
 
-					genSlope(chunk, pos, dir, rand, allowVerticalConnections, type);
+					genSlope(chunk, pos, dir, rand, allowVerticalConnections, type, rules);
 					break;
 				}
 			}
@@ -159,14 +160,14 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 	}
 
 	public static void genSlope(WorldGenLevel world, BlockPos pos, Direction wallDir, RandomSource randomSource,
-			boolean allowVerticalConnections, RockType type) {
+			boolean allowVerticalConnections, RockType type, UndergroundRules rules) {
 
 		BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos().set(pos);
 
 		mutPos.set(pos).move(0, -1, 0);
-		final boolean isDown = carvable(world.getBlockState(mutPos));
+		final boolean isDown = carvable(world.getBlockState(mutPos), rules);
 		mutPos.set(pos).move(0, 1, 0);
-		final boolean isUp = carvable(world.getBlockState(mutPos));
+		final boolean isUp = carvable(world.getBlockState(mutPos), rules);
 		if (!isDown && !isUp)
 			return;
 
@@ -207,16 +208,16 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 				(double) pos.getZ() * frequency);
 	}
 
-	public static boolean canGenSide(WorldGenLevel chunk, BlockState state, Direction dir) {
-		return carvable(state);
+	public static boolean canGenSide(WorldGenLevel chunk, BlockState state, Direction dir, UndergroundRules rules) {
+		return carvable(state, rules);
 	}
 
-	public static boolean canGenExtra(BlockState state, BlockState sState) {
-		return state.isAir() && carvable(sState);
+	public static boolean canGenExtra(BlockState state, BlockState sState, UndergroundRules rules) {
+		return state.isAir() && carvable(sState, rules);
 	}
 
-	public static boolean carvable(BlockState state) {
-		return state.is(BlockTags.OVERWORLD_CARVER_REPLACEABLES);
+	public static boolean carvable(BlockState state, UndergroundRules rules) {
+		return state.is(rules.carvable());
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import com.machina.Machina;
+import com.machina.api.block.SmallFlowerBlock;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -34,8 +35,9 @@ public class BlockInit {
 	public static final RegistryObject<StairBlock> ANTHRACITE_STAIRS = stairs("anthracite_stairs", ANTHRACITE, Blocks.ANDESITE_SLAB);
 	public static final RegistryObject<WallBlock> ANTHRACITE_WALL = wall("anthracite_wall", Blocks.ANDESITE_WALL);
 	
+	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
 	public static final RegistryObject<FlowerBlock> DRAGON_PEONY = flower("dragon_peony", () -> MobEffects.LEVITATION, 5, Blocks.DANDELION);
-	public static final RegistryObject<TallFlowerBlock> ORHPEUM = tall_flower("orpheum", Blocks.PEONY);
+	public static final RegistryObject<TallFlowerBlock> ORHPEUM = tall_flower	("orpheum", Blocks.PEONY);
 	public static final RegistryObject<FlowerPotBlock> POTTED_DRAGON_PEONY = flower_pot("potted_dragon_peony", DRAGON_PEONY);
 	//@formatter:on
 
@@ -63,7 +65,7 @@ public class BlockInit {
 	public static RegistryObject<WallBlock> wall(String name, Block prop) {
 		return register(name, prop, a -> a, WallBlock::new);
 	}
-
+	
 	public static RegistryObject<FlowerBlock> flower(String name, Supplier<MobEffect> effect, int duration,
 			Block prop) {
 		return register(name, prop, a -> a, p -> new FlowerBlock(effect, duration, p));

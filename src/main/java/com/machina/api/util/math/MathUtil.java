@@ -6,8 +6,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
+import java.util.Set;
 import java.util.function.DoubleFunction;
+import java.util.stream.Collectors;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
 public class MathUtil {
@@ -134,5 +138,18 @@ public class MathUtil {
 
 	public static int floor(float x) {
 		return x < 0 ? (int) (x - 1) : (int) x;
+	}
+	
+	public static float randRange(RandomSource random, float min, float max) {
+		return min + random.nextFloat() * (max - min);
+	}
+	
+	public static <T> T randomInList(Set<T> set, Random random) {
+		return randomInList(set.stream().collect(Collectors.toList()), random);
+	}
+	
+	public static <T> T randomInList(List<T> set, Random random) {
+		int i = random.nextInt(set.size());
+		return set.get(i);
 	}
 }

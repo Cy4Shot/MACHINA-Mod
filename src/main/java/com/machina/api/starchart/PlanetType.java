@@ -1,20 +1,29 @@
 package com.machina.api.starchart;
 
 import java.util.List;
+import java.util.Map;
 
+import com.machina.world.feature.PlanetTreeFeature.TreeType;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.NoiseSettings;
 
-public record PlanetType(Shape shape, Surface surface, Underground underground) {
+public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Underground underground,
+		ExtraRules rules) {
 
-	public static final Codec<PlanetType> CODEC = RecordCodecBuilder.create(instance -> instance
-			.group(Shape.CODEC.fieldOf("shape").forGetter(PlanetType::shape),
-					Surface.CODEC.fieldOf("surface").forGetter(PlanetType::surface),
-					Underground.CODEC.fieldOf("underground").forGetter(PlanetType::underground))
-			.apply(instance, PlanetType::new));
+	public static final Codec<PlanetType> CODEC = RecordCodecBuilder
+			.create(instance -> instance
+					.group(Shape.CODEC.fieldOf("shape").forGetter(PlanetType::shape),
+							Surface.CODEC.fieldOf("surface").forGetter(PlanetType::surface),
+							Vegetation.CODEC.fieldOf("vegetation").forGetter(PlanetType::vegetation),
+							Underground.CODEC.fieldOf("underground").forGetter(PlanetType::underground),
+							ExtraRules.CODEC.fieldOf("rules").forGetter(PlanetType::rules))
+					.apply(instance, PlanetType::new));
 
 	public static record Shape(int sea_level, NoiseSettings noise_settings) {
 		public static final Codec<Shape> CODEC = RecordCodecBuilder.create(instance -> instance
@@ -29,6 +38,20 @@ public record PlanetType(Shape shape, Surface surface, Underground underground) 
 						.group(BlockState.CODEC.fieldOf("top").forGetter(Surface::top),
 								BlockState.CODEC.fieldOf("second").forGetter(Surface::second))
 						.apply(instance, Surface::new));
+	}
+
+	public record Vegetation(Map<TreeType, Tree> trees) {
+		public static final Codec<Vegetation> CODEC = RecordCodecBuilder.create(instance -> instance
+	            .group(Codec.unboundedMap(TreeType.CODEC, Tree.CODEC).fieldOf("trees").forGetter(Vegetation::trees))
+	            .apply(instance, Vegetation::new));
+	}
+
+	public record Tree(BlockState log, BlockState leaves, BlockState leavesextra) {
+		public static final Codec<Tree> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(BlockState.CODEC.fieldOf("log").forGetter(Tree::log),
+						BlockState.CODEC.fieldOf("leaves").forGetter(Tree::leaves),
+						BlockState.CODEC.fieldOf("leavesextra").forGetter(Tree::leavesextra))
+				.apply(instance, Tree::new));
 	}
 
 	public record Underground(RockType rock, List<OreVein> ores) {
@@ -57,5 +80,24 @@ public record PlanetType(Shape shape, Surface surface, Underground underground) 
 										.forGetter(OreVein::exposure_removal_chance),
 								Codec.INT.fieldOf("per_chunk").forGetter(OreVein::per_chunk))
 						.apply(instance, OreVein::new));
+	}
+
+	public record ExtraRules(VegetationRules veg, UndergroundRules cave) {
+		public static final Codec<ExtraRules> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(VegetationRules.CODEC.fieldOf("veg").forGetter(ExtraRules::veg),
+						UndergroundRules.CODEC.fieldOf("cave").forGetter(ExtraRules::cave))
+				.apply(instance, ExtraRules::new));
+	}
+
+	public record VegetationRules(TagKey<Block> growable) {
+		public static final Codec<VegetationRules> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(TagKey.codec(Registries.BLOCK).fieldOf("growable").forGetter(VegetationRules::growable))
+				.apply(instance, VegetationRules::new));
+	}
+
+	public record UndergroundRules(TagKey<Block> carvable) {
+		public static final Codec<UndergroundRules> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(TagKey.codec(Registries.BLOCK).fieldOf("carvable").forGetter(UndergroundRules::carvable))
+				.apply(instance, UndergroundRules::new));
 	}
 }

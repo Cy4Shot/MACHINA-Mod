@@ -2,7 +2,6 @@ package com.machina.api.util.math.sdf;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Function;
 
 import org.joml.Vector3f;
@@ -16,7 +15,8 @@ import com.machina.api.util.math.sdf.primitive.SDFSphere;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.Level;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class SplineUtil {
@@ -58,7 +58,7 @@ public class SplineUtil {
 		return new Vector3f(x, y, z);
 	}
 
-	public static void offsetParts(List<Vector3f> spline, Random random, float dx, float dy, float dz) {
+	public static void offsetParts(List<Vector3f> spline, RandomSource random, float dx, float dy, float dz) {
 		int count = spline.size();
 		for (int i = 1; i < count; i++) {
 			Vector3f pos = spline.get(i);
@@ -115,7 +115,7 @@ public class SplineUtil {
 		return result;
 	}
 
-	public static boolean fillSpline(List<Vector3f> spline, Level world, BlockState state, BlockPos pos,
+	public static boolean fillSpline(List<Vector3f> spline, ServerLevelAccessor world, BlockState state, BlockPos pos,
 			Function<BlockState, Boolean> replace) {
 		Vector3f startPos = spline.get(0);
 		for (int i = 1; i < spline.size(); i++) {
@@ -129,7 +129,7 @@ public class SplineUtil {
 		return true;
 	}
 
-	public static boolean fillSplineRad(List<Vector3f> spline, Level world, BlockState state, BlockPos pos,
+	public static boolean fillSplineRad(List<Vector3f> spline, ServerLevelAccessor world, BlockState state, BlockPos pos,
 			Function<Float, Float> rad, Function<BlockState, Boolean> replace) {
 		Vector3f startPos = spline.get(0);
 		for (int i = 1; i < spline.size(); i++) {
@@ -144,7 +144,7 @@ public class SplineUtil {
 		return true;
 	}
 
-	public static void fillSplineForce(List<Vector3f> spline, Level world, BlockState state, BlockPos pos,
+	public static void fillSplineForce(List<Vector3f> spline, ServerLevelAccessor world, BlockState state, BlockPos pos,
 			Function<BlockState, Boolean> replace) {
 		Vector3f startPos = spline.get(0);
 		for (int i = 1; i < spline.size(); i++) {
@@ -154,7 +154,7 @@ public class SplineUtil {
 		}
 	}
 
-	public static boolean fillLine(Vector3f start, Vector3f end, Level world, BlockState state, BlockPos pos,
+	public static boolean fillLine(Vector3f start, Vector3f end, ServerLevelAccessor world, BlockState state, BlockPos pos,
 			Function<BlockState, Boolean> replace) {
 		float dx = end.x() - start.x();
 		float dy = end.y() - start.y();
@@ -203,7 +203,7 @@ public class SplineUtil {
 		}
 	}
 
-	public static boolean fillLineRad(Vector3f start, Vector3f end, Level world, BlockState state, BlockPos pos,
+	public static boolean fillLineRad(Vector3f start, Vector3f end, ServerLevelAccessor world, BlockState state, BlockPos pos,
 			float rad, Function<BlockState, Boolean> replace) {
 		float dx = end.x() - start.x();
 		float dy = end.y() - start.y();
@@ -252,7 +252,7 @@ public class SplineUtil {
 		}
 	}
 
-	public static void fillLineForce(Vector3f start, Vector3f end, Level world, BlockState state, BlockPos pos,
+	public static void fillLineForce(Vector3f start, Vector3f end, ServerLevelAccessor world, BlockState state, BlockPos pos,
 			Function<BlockState, Boolean> replace) {
 		float dx = end.x() - start.x();
 		float dy = end.y() - start.y();
@@ -296,7 +296,7 @@ public class SplineUtil {
 		}
 	}
 
-	public static boolean canGenerate(List<Vector3f> spline, float scale, BlockPos start, Level world,
+	public static boolean canGenerate(List<Vector3f> spline, float scale, BlockPos start, ServerLevelAccessor world,
 			Function<BlockState, Boolean> canReplace) {
 		int count = spline.size();
 		Vector3f vec = spline.get(0);
@@ -329,7 +329,7 @@ public class SplineUtil {
 		return true;
 	}
 
-	public static boolean canGenerate(List<Vector3f> spline, BlockPos start, Level world,
+	public static boolean canGenerate(List<Vector3f> spline, BlockPos start, ServerLevelAccessor world,
 			Function<BlockState, Boolean> canReplace) {
 		int count = spline.size();
 		Vector3f vec = spline.get(0);

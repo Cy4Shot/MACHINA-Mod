@@ -1,4 +1,8 @@
-// 1.20.1	2024-06-17T03:03:16.0682242	Tags for minecraft:block mod id machina
+// 1.20.1	2024-07-02T12:27:31.8519842	Tags for minecraft:block mod id machina
+f2c0ecf26598429d32618dd96267268fc5da2e30 data/machina/tags/blocks/planet_carvable_anthracite.json
+1197024058fa932c903f382be6132871fbc06d5b data/machina/tags/blocks/planet_carvable_earthlike.json
+73546511b0ca14e26814ecd0b7100c3050621402 data/machina/tags/blocks/planet_growable_anthracite.json
+92861bbfc33718f65a6c66f4468675fa09ac162f data/machina/tags/blocks/planet_growable_earthlike.json
 a31ab380c6c5838d9eea1f843a6e7a6be1692f5b data/minecraft/tags/blocks/flowers.json
 b877345d4535a4b902a48cece5795f3ec1b01ab5 data/minecraft/tags/blocks/flower_pots.json
 65fc3ce8bd78cdb6f79e7289e1251e563c880655 data/minecraft/tags/blocks/overworld_carver_replaceables.json

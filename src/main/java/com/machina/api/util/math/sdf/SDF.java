@@ -14,7 +14,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -38,7 +38,7 @@ public abstract class SDF {
 		return this;
 	}
 
-	public void fillRecursive(Level world, BlockPos start) {
+	public void fillRecursive(ServerLevelAccessor world, BlockPos start) {
 		Map<BlockPos, PosInfo> mapWorld = Maps.newHashMap();
 		Map<BlockPos, PosInfo> addInfo = Maps.newHashMap();
 		Set<BlockPos> blocks = Sets.newHashSet();
@@ -101,7 +101,7 @@ public abstract class SDF {
 		}
 	}
 
-	public void fillArea(Level world, BlockPos center, AABB box) {
+	public void fillArea(ServerLevelAccessor world, BlockPos center, AABB box) {
 		Map<BlockPos, PosInfo> mapWorld = Maps.newHashMap();
 		Map<BlockPos, PosInfo> addInfo = Maps.newHashMap();
 
@@ -150,7 +150,7 @@ public abstract class SDF {
 		}
 	}
 
-	public void fillRecursiveIgnore(Level world, BlockPos start, Function<BlockState, Boolean> ignore) {
+	public void fillRecursiveIgnore(ServerLevelAccessor world, BlockPos start, Function<BlockState, Boolean> ignore) {
 		Map<BlockPos, PosInfo> mapWorld = Maps.newHashMap();
 		Map<BlockPos, PosInfo> addInfo = Maps.newHashMap();
 		Set<BlockPos> blocks = Sets.newHashSet();
@@ -213,7 +213,7 @@ public abstract class SDF {
 		}
 	}
 
-	public Set<BlockPos> getPositions(Level world, BlockPos start) {
+	public Set<BlockPos> getPositions(ServerLevelAccessor world, BlockPos start) {
 		Set<BlockPos> blocks = Sets.newHashSet();
 		Set<BlockPos> ends = Sets.newHashSet();
 		Set<BlockPos> add = Sets.newHashSet();

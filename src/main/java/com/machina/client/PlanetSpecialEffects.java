@@ -2,9 +2,6 @@ package com.machina.client;
 
 import org.joml.Matrix4f;
 
-import com.machina.api.client.ClientStarchart;
-import com.machina.api.starchart.obj.Planet;
-import com.machina.api.util.PlanetHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Camera;
@@ -30,10 +27,10 @@ public class PlanetSpecialEffects extends DimensionSpecialEffects {
 		return false;
 	}
 
-	private Planet getPlanet(ClientLevel level) {
-		int id = PlanetHelper.getIdLevel(level.dimension());
-		return ClientStarchart.system.planets().get(id);
-	}
+//	private Planet getPlanet(ClientLevel level) {
+//		int id = PlanetHelper.getIdLevel(level.dimension());
+//		return ClientStarchart.system.planets().get(id);
+//	}
 
 	@Override
 	public boolean renderClouds(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, double camX,
