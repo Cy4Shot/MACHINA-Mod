@@ -35,7 +35,7 @@ public class PlanetTypeInit {
 //					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
 //							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
 //							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
-					TreeType.ARCH_VINE, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
+					TreeType.FIR, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
 							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
 							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)))),
 			new Underground(
@@ -51,29 +51,29 @@ public class PlanetTypeInit {
 					new UndergroundRules(BlockTagInit.EARTHLIKE_CARVABLE)
 			)));
 
-	public static final PlanetType ANTHRACITE = create(new PlanetType(
-			new Shape(60, new NoiseSettings(-64, 384, 1, 2)),
-			new Surface(Blocks.COAL_ORE.defaultBlockState(), Blocks.GRAVEL.defaultBlockState()),
-			new Vegetation(Map.of(
-//					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
+//	public static final PlanetType ANTHRACITE = create(new PlanetType(
+//			new Shape(60, new NoiseSettings(-64, 384, 1, 2)),
+//			new Surface(Blocks.COAL_ORE.defaultBlockState(), Blocks.GRAVEL.defaultBlockState()),
+//			new Vegetation(Map.of(
+////					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
+////							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
+////							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
+//					TreeType.ARCH, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
 //							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
-//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
-					TreeType.ARCH_VINE, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
-							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
-							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)))),
-			new Underground(
-					new RockType(BlockInit.ANTHRACITE.get().defaultBlockState(),
-							BlockInit.ANTHRACITE_STAIRS.get().defaultBlockState(),
-							BlockInit.ANTHRACITE_SLAB.get().defaultBlockState(),
-							Blocks.BLACK_CONCRETE_POWDER.defaultBlockState()),
-					List.of(
-							new OreVein(Blocks.COAL_BLOCK.defaultBlockState(), 32, 0f, 8))
-					),
-			new ExtraRules(
-					new VegetationRules(BlockTagInit.ANTHRACITE_GROWABLE),
-					new UndergroundRules(BlockTagInit.ANTHRACITE_CARVABLE)
-			)));
-	//@formatter:on
+//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)))),
+//			new Underground(
+//					new RockType(BlockInit.ANTHRACITE.get().defaultBlockState(),
+//							BlockInit.ANTHRACITE_STAIRS.get().defaultBlockState(),
+//							BlockInit.ANTHRACITE_SLAB.get().defaultBlockState(),
+//							Blocks.BLACK_CONCRETE_POWDER.defaultBlockState()),
+//					List.of(
+//							new OreVein(Blocks.COAL_BLOCK.defaultBlockState(), 32, 0f, 8))
+//					),
+//			new ExtraRules(
+//					new VegetationRules(BlockTagInit.ANTHRACITE_GROWABLE),
+//					new UndergroundRules(BlockTagInit.ANTHRACITE_CARVABLE)
+//			)));
+//	//@formatter:on
 
 	public static PlanetType create(PlanetType name) {
 		PLANET_TYPES.add(name);

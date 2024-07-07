@@ -101,6 +101,10 @@ public class SplineUtil {
 		}
 	}
 
+	public static SDF buildSDF(List<Vector3f> spline, float radius1, float radius2, BlockState state) {
+		return buildSDF(spline, radius1, radius2, x -> state);
+	}
+
 	public static SDF buildSDF(List<Vector3f> spline, float radius1, float radius2,
 			Function<BlockPos, BlockState> placerFunction) {
 		int count = spline.size();
