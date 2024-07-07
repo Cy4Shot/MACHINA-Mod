@@ -38,6 +38,10 @@ public class MathUtil {
 				.add(f[2].scale(-3 * Math.pow(t, 3) + 3 * Math.pow(t, 2))).add(f[3].scale(Math.pow(t, 3)));
 	}
 
+	public static float quadraticBezier(float t, float p0, float p1, float p2) {
+		return (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
+	}
+
 	public static double positiveModulo(double pNumerator, double pDenominator) {
 		return (pNumerator % pDenominator + pDenominator) % pDenominator;
 	}
@@ -70,7 +74,7 @@ public class MathUtil {
 
 		return result;
 	}
-	
+
 	public static double binarySearch(double low, double high, double target, DoubleFunction<Double> func,
 			double tolerance) {
 		double mid = 0.0;
@@ -87,7 +91,7 @@ public class MathUtil {
 		}
 		return mid;
 	}
-	
+
 	public static double clamp(double val, double min, double max) {
 		return Math.max(min, Math.min(max, val));
 	}
@@ -139,15 +143,20 @@ public class MathUtil {
 	public static int floor(float x) {
 		return x < 0 ? (int) (x - 1) : (int) x;
 	}
-	
+
 	public static float randRange(RandomSource random, float min, float max) {
 		return min + random.nextFloat() * (max - min);
 	}
-	
+
+	public static float randRangeSigned(RandomSource random, float min, float max) {
+		float val = randRange(random, min, max);
+		return random.nextBoolean() ? val : -val;
+	}
+
 	public static <T> T randomInList(Set<T> set, Random random) {
 		return randomInList(set.stream().collect(Collectors.toList()), random);
 	}
-	
+
 	public static <T> T randomInList(List<T> set, Random random) {
 		int i = random.nextInt(set.size());
 		return set.get(i);

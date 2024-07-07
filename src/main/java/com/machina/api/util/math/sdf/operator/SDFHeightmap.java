@@ -1,25 +1,24 @@
 package com.machina.api.util.math.sdf.operator;
 
+import com.machina.api.util.math.sdf.SDF;
 import com.mojang.blaze3d.platform.NativeImage;
 
 import net.minecraft.util.Mth;
 
 public class SDFHeightmap extends SDFDisplacement {
-	private float intensity = 1F;
-	private NativeImage map;
-	private float offsetX;
-	private float offsetZ;
-	private float scale;
-	private float cos = 1;
-	private float sin = 0;
 
-	public SDFHeightmap() {
-		setFunction((pos) -> {
+	public SDFHeightmap(SDF source, NativeImage map, float angle, float scale, float intensity) {
+		super(source, pos -> {
 			if (map == null) {
 				return 0F;
 			}
-			float px = Mth.clamp(pos.x() * scale + offsetX, 0, map.getWidth() - 2);
-			float pz = Mth.clamp(pos.z() * scale + offsetZ, 0, map.getHeight() - 2);
+			float sin = Mth.sin(angle);
+			float cos = Mth.cos(angle);
+			float s = map.getWidth() * scale;
+			float offsetX = map.getWidth() * 0.5F;
+			float offsetZ = map.getHeight() * 0.5F;
+			float px = Mth.clamp(pos.x() * s + offsetX, 0, map.getWidth() - 2);
+			float pz = Mth.clamp(pos.z() * s + offsetZ, 0, map.getHeight() - 2);
 			float dx = (px * cos - pz * sin);
 			float dz = (pz * cos + px * sin);
 			int x1 = Mth.floor(dx);
@@ -36,29 +35,5 @@ public class SDFHeightmap extends SDFDisplacement {
 			b = Mth.lerp(dx, c, d);
 			return -Mth.lerp(dz, a, b) * intensity;
 		});
-	}
-
-	public SDFHeightmap setMap(NativeImage map) {
-		this.map = map;
-		offsetX = map.getWidth() * 0.5F;
-		offsetZ = map.getHeight() * 0.5F;
-		scale = map.getWidth();
-		return this;
-	}
-
-	public SDFHeightmap setAngle(float angle) {
-		sin = Mth.sin(angle);
-		cos = Mth.cos(angle);
-		return this;
-	}
-
-	public SDFHeightmap setScale(float scale) {
-		this.scale = map.getWidth() * scale;
-		return this;
-	}
-
-	public SDFHeightmap setIntensity(float intensity) {
-		this.intensity = intensity;
-		return this;
 	}
 }

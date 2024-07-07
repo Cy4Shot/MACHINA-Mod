@@ -1,13 +1,15 @@
 package com.machina.api.util.math.sdf.operator;
 
+import com.machina.api.util.math.sdf.SDF;
+
 import net.minecraft.util.Mth;
 
 public class SDFSmoothSubtraction extends SDFBinary {
 	private float radius;
 
-	public SDFSmoothSubtraction setRadius(float radius) {
+	public SDFSmoothSubtraction(SDF sourceA, SDF sourceB, float radius) {
+		super(sourceA, sourceB);
 		this.radius = radius;
-		return this;
 	}
 
 	@Override

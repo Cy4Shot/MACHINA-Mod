@@ -1,35 +1,32 @@
 package com.machina.api.util.math.sdf.primitive;
 
+import org.joml.Vector3f;
+
 import com.machina.api.util.math.MathUtil;
 
 import net.minecraft.util.Mth;
 
 public class SDFLine extends SDFPrimitive {
-	private float radius;
-	private float x1;
-	private float y1;
-	private float z1;
-	private float x2;
-	private float y2;
-	private float z2;
-
-	public SDFLine setRadius(float radius) {
+	private final float radius;
+	private final float x1;
+	private final float y1;
+	private final float z1;
+	private final float x2;
+	private final float y2;
+	private final float z2;
+	
+	public SDFLine(float x1, float y1, float z1, float x2, float y2, float z2, float radius) {
+		this.x1 = x1;
+		this.y1 = y1;
+		this.z1 = z1;
+		this.x2 = x2;
+		this.y2 = y2;
+		this.z2 = z2;
 		this.radius = radius;
-		return this;
 	}
 
-	public SDFLine setStart(float x, float y, float z) {
-		this.x1 = x;
-		this.y1 = y;
-		this.z1 = z;
-		return this;
-	}
-
-	public SDFLine setEnd(float x, float y, float z) {
-		this.x2 = x;
-		this.y2 = y;
-		this.z2 = z;
-		return this;
+	public SDFLine(Vector3f start, Vector3f end, float radius) {
+		this(start.x, start.y, start.z, end.x, end.y, end.z, radius);
 	}
 
 	@Override

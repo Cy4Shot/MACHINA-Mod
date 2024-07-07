@@ -3,17 +3,12 @@ package com.machina.api.util.math.sdf.primitive;
 import com.machina.api.util.math.MathUtil;
 
 public class SDFHexPrism extends SDFPrimitive {
-	private float radius;
-	private float height;
-
-	public SDFHexPrism setRadius(float radius) {
+	private final float radius;
+	private final float height;
+	
+	public SDFHexPrism(float radius, float height) {
 		this.radius = radius;
-		return this;
-	}
-
-	public SDFHexPrism setHeight(float height) {
 		this.height = height;
-		return this;
 	}
 
 	@Override

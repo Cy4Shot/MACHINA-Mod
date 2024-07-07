@@ -17,16 +17,12 @@ public abstract class SDFPrimitive extends SDF {
 	}
 
 	public SDFPrimitive setBlock(BlockState state) {
-		this.placerFunction = (pos) -> {
-			return state;
-		};
+		this.placerFunction = p -> state;
 		return this;
 	}
 
 	public SDFPrimitive setBlock(Block block) {
-		this.placerFunction = (pos) -> {
-			return block.defaultBlockState();
-		};
+		this.placerFunction = p -> block.defaultBlockState();
 		return this;
 	}
 

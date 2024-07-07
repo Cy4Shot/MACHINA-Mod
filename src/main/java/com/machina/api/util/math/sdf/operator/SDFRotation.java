@@ -4,14 +4,15 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import com.machina.api.util.math.VecUtil;
+import com.machina.api.util.math.sdf.SDF;
 
 public class SDFRotation extends SDFUnary {
 	private final Vector3f pos = new Vector3f();
-	private Quaternionf rotation;
-
-	public SDFRotation setRotation(Vector3f axis, float rotationAngle) {
+	private final Quaternionf rotation;
+	
+	public SDFRotation(SDF source, Vector3f axis, float rotationAngle) {
+		super(source);
 		rotation = VecUtil.rotationDegrees(axis, rotationAngle);
-		return this;
 	}
 
 	@Override

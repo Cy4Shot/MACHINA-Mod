@@ -6,20 +6,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class SDFBinary extends SDF {
-	protected SDF sourceA;
-	protected SDF sourceB;
+	protected final SDF sourceA;
+	protected final SDF sourceB;
 	protected boolean firstValue;
-
-	public SDFBinary setSourceA(SDF sourceA) {
+	
+	public SDFBinary( SDF sourceA, SDF sourceB) {
 		this.sourceA = sourceA;
-		return this;
-	}
-
-	public SDFBinary setSourceB(SDF sourceB) {
 		this.sourceB = sourceB;
-		return this;
 	}
-
+	
 	protected void selectValue(float a, float b) {
 		firstValue = a < b;
 	}

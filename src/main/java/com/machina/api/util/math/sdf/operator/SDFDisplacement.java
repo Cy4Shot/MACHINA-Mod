@@ -4,13 +4,16 @@ import java.util.function.Function;
 
 import org.joml.Vector3f;
 
-public class SDFDisplacement extends SDFUnary {
-	private final Vector3f pos = new Vector3f();
-	private Function<Vector3f, Float> displace;
+import com.machina.api.util.math.sdf.SDF;
 
-	public SDFDisplacement setFunction(Function<Vector3f, Float> displace) {
+public class SDFDisplacement extends SDFUnary {
+
+	private final Vector3f pos = new Vector3f();
+	private final Function<Vector3f, Float> displace;
+	
+	public SDFDisplacement(SDF source, Function<Vector3f, Float> displace) {
+		super(source);
 		this.displace = displace;
-		return this;
 	}
 
 	@Override

@@ -32,10 +32,10 @@ public class PlanetTypeInit {
 			new Shape(60, new NoiseSettings(-64, 384, 1, 2)),
 			new Surface(Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.DIRT.defaultBlockState()),
 			new Vegetation(Map.of(
-					TreeType.BASIC2, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
-							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
-							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
-					TreeType.BASIC3, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
+//					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
+//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
+//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
+					TreeType.ARCH_VINE, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
 							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
 							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)))),
 			new Underground(
@@ -55,10 +55,10 @@ public class PlanetTypeInit {
 			new Shape(60, new NoiseSettings(-64, 384, 1, 2)),
 			new Surface(Blocks.COAL_ORE.defaultBlockState(), Blocks.GRAVEL.defaultBlockState()),
 			new Vegetation(Map.of(
-					TreeType.BASIC2, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
-							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
-							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
-					TreeType.BASIC3, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
+//					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
+//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
+//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
+					TreeType.ARCH_VINE, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
 							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
 							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)))),
 			new Underground(

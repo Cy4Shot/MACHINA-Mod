@@ -3,11 +3,10 @@ package com.machina.api.util.math.sdf.primitive;
 import com.machina.api.util.math.MathUtil;
 
 public class SDFSphere extends SDFPrimitive {
-	private float radius;
-
-	public SDFSphere setRadius(float radius) {
+	private final float radius;
+	
+	public SDFSphere(float radius) {
 		this.radius = radius;
-		return this;
 	}
 
 	@Override

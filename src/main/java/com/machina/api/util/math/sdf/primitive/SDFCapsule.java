@@ -5,17 +5,12 @@ import com.machina.api.util.math.MathUtil;
 import net.minecraft.util.Mth;
 
 public class SDFCapsule extends SDFPrimitive {
-	private float radius;
-	private float height;
-
-	public SDFCapsule setRadius(float radius) {
+	private final float radius;
+	private final float height;
+	
+	public SDFCapsule(float radius, float height) {
 		this.radius = radius;
-		return this;
-	}
-
-	public SDFCapsule setHeight(float height) {
 		this.height = height;
-		return this;
 	}
 
 	@Override

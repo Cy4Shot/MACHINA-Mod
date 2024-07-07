@@ -4,13 +4,15 @@ import java.util.function.Consumer;
 
 import org.joml.Vector3f;
 
+import com.machina.api.util.math.sdf.SDF;
+
 public class SDFCoordModify extends SDFUnary {
 	private final Vector3f pos = new Vector3f();
-	private Consumer<Vector3f> function;
-
-	public SDFCoordModify setFunction(Consumer<Vector3f> function) {
+	private final Consumer<Vector3f> function;
+	
+	public SDFCoordModify(SDF source, Consumer<Vector3f> function) {
+		super(source);
 		this.function = function;
-		return this;
 	}
 
 	@Override

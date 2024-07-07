@@ -6,11 +6,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class SDFUnary extends SDF {
-	protected SDF source;
-
-	public SDFUnary setSource(SDF source) {
+	protected final SDF source;
+	
+	public SDFUnary(SDF source) {
 		this.source = source;
-		return this;
 	}
 
 	@Override

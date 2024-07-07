@@ -20,6 +20,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class SplineUtil {
+
 	public static List<Vector3f> makeSpline(float x1, float y1, float z1, float x2, float y2, float z2, int points) {
 		List<Vector3f> spline = Lists.newArrayList();
 		spline.add(new Vector3f(x1, y1, z1));
@@ -33,6 +34,26 @@ public class SplineUtil {
 		}
 		spline.add(new Vector3f(x2, y2, z2));
 		return spline;
+	}
+
+	public static List<Vector3f> makeArch(float x1, float y1, float z1, float x2, float y2, float z2, float archHeight,
+			int points) {
+		List<Vector3f> arch = Lists.newArrayList();
+		arch.add(new Vector3f(x1, y1, z1));
+		float midX = (x1 + x2) / 2;
+		float midY = (y1 + y2) / 2;
+		float midZ = (z1 + z2) / 2;
+		float controlY = midY + archHeight;
+		int count = points - 1;
+		for (int i = 1; i < count; i++) {
+			float t = (float) i / (float) count;
+			float x = MathUtil.quadraticBezier(t, x1, midX, x2);
+			float y = MathUtil.quadraticBezier(t, y1, controlY, y2);
+			float z = MathUtil.quadraticBezier(t, z1, midZ, z2);
+			arch.add(new Vector3f(x, y, z));
+		}
+		arch.add(new Vector3f(x2, y2, z2));
+		return arch;
 	}
 
 	public static List<Vector3f> smoothSpline(List<Vector3f> spline, int segmentPoints) {
@@ -89,10 +110,8 @@ public class SplineUtil {
 		for (int i = 1; i < count; i++) {
 			Vector3f pos = spline.get(i);
 			float delta = (float) (i - 1) / max;
-			SDF line = new SDFLine().setRadius(Mth.lerp(delta, radius1, radius2))
-					.setStart(start.x(), start.y(), start.z()).setEnd(pos.x(), pos.y(), pos.z())
-					.setBlock(placerFunction);
-			result = result == null ? line : new SDFUnion().setSourceA(result).setSourceB(line);
+			SDF line = new SDFLine(start, pos, Mth.lerp(delta, radius1, radius2)).setBlock(placerFunction);
+			result = result == null ? line : new SDFUnion(result, line);
 			start = pos;
 		}
 		return result;
@@ -107,9 +126,8 @@ public class SplineUtil {
 		for (int i = 1; i < count; i++) {
 			Vector3f pos = spline.get(i);
 			float delta = (float) (i - 1) / max;
-			SDF line = new SDFLine().setRadius(radiusFunction.apply(delta)).setStart(start.x(), start.y(), start.z())
-					.setEnd(pos.x(), pos.y(), pos.z()).setBlock(placerFunction);
-			result = result == null ? line : new SDFUnion().setSourceA(result).setSourceB(line);
+			SDF line = new SDFLine(start, pos, radiusFunction.apply(delta)).setBlock(placerFunction);
+			result = result == null ? line : new SDFUnion(result, line);
 			start = pos;
 		}
 		return result;
@@ -129,8 +147,8 @@ public class SplineUtil {
 		return true;
 	}
 
-	public static boolean fillSplineRad(List<Vector3f> spline, ServerLevelAccessor world, BlockState state, BlockPos pos,
-			Function<Float, Float> rad, Function<BlockState, Boolean> replace) {
+	public static boolean fillSplineRad(List<Vector3f> spline, ServerLevelAccessor world, BlockState state,
+			BlockPos pos, Function<Float, Float> rad, Function<BlockState, Boolean> replace) {
 		Vector3f startPos = spline.get(0);
 		for (int i = 1; i < spline.size(); i++) {
 			Vector3f endPos = spline.get(i);
@@ -154,8 +172,8 @@ public class SplineUtil {
 		}
 	}
 
-	public static boolean fillLine(Vector3f start, Vector3f end, ServerLevelAccessor world, BlockState state, BlockPos pos,
-			Function<BlockState, Boolean> replace) {
+	public static boolean fillLine(Vector3f start, Vector3f end, ServerLevelAccessor world, BlockState state,
+			BlockPos pos, Function<BlockState, Boolean> replace) {
 		float dx = end.x() - start.x();
 		float dy = end.y() - start.y();
 		float dz = end.z() - start.z();
@@ -203,8 +221,8 @@ public class SplineUtil {
 		}
 	}
 
-	public static boolean fillLineRad(Vector3f start, Vector3f end, ServerLevelAccessor world, BlockState state, BlockPos pos,
-			float rad, Function<BlockState, Boolean> replace) {
+	public static boolean fillLineRad(Vector3f start, Vector3f end, ServerLevelAccessor world, BlockState state,
+			BlockPos pos, float rad, Function<BlockState, Boolean> replace) {
 		float dx = end.x() - start.x();
 		float dy = end.y() - start.y();
 		float dz = end.z() - start.z();
@@ -224,11 +242,11 @@ public class SplineUtil {
 			bPos.set(x + pos.getX(), y + pos.getY(), z + pos.getZ());
 			bState = world.getBlockState(bPos);
 			if (bState.equals(state) || replace.apply(bState)) {
-				new SDFSphere().setRadius(rad).setBlock(state).fillRecursive(world, bPos);
+				new SDFSphere(rad).setBlock(state).fillRecursive(world, bPos);
 				bPos.setY(bPos.getY() - 1);
 				bState = world.getBlockState(bPos);
 				if (down && bState.equals(state) || replace.apply(bState)) {
-					new SDFSphere().setRadius(rad).setBlock(state).fillRecursive(world, bPos);
+					new SDFSphere(rad).setBlock(state).fillRecursive(world, bPos);
 				}
 			} else {
 				return false;
@@ -240,11 +258,11 @@ public class SplineUtil {
 		bPos.set(end.x() + pos.getX(), end.y() + pos.getY(), end.z() + pos.getZ());
 		bState = world.getBlockState(bPos);
 		if (bState.equals(state) || replace.apply(bState)) {
-			new SDFSphere().setRadius(rad).setBlock(state).fillRecursive(world, bPos);
+			new SDFSphere(rad).setBlock(state).fillRecursive(world, bPos);
 			bPos.setY(bPos.getY() - 1);
 			bState = world.getBlockState(bPos);
 			if (down && bState.equals(state) || replace.apply(bState)) {
-				new SDFSphere().setRadius(rad).setBlock(state).fillRecursive(world, bPos);
+				new SDFSphere(rad).setBlock(state).fillRecursive(world, bPos);
 			}
 			return true;
 		} else {
@@ -252,8 +270,8 @@ public class SplineUtil {
 		}
 	}
 
-	public static void fillLineForce(Vector3f start, Vector3f end, ServerLevelAccessor world, BlockState state, BlockPos pos,
-			Function<BlockState, Boolean> replace) {
+	public static void fillLineForce(Vector3f start, Vector3f end, ServerLevelAccessor world, BlockState state,
+			BlockPos pos, Function<BlockState, Boolean> replace) {
 		float dx = end.x() - start.x();
 		float dy = end.y() - start.y();
 		float dz = end.z() - start.z();

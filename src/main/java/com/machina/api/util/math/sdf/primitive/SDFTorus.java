@@ -3,17 +3,12 @@ package com.machina.api.util.math.sdf.primitive;
 import com.machina.api.util.math.MathUtil;
 
 public class SDFTorus extends SDFPrimitive {
-	private float radiusSmall;
-	private float radiusBig;
-
-	public SDFTorus setBigRadius(float radius) {
-		this.radiusBig = radius;
-		return this;
-	}
-
-	public SDFTorus setSmallRadius(float radius) {
-		this.radiusSmall = radius;
-		return this;
+	private final float radiusSmall;
+	private final float radiusBig;
+	
+	public SDFTorus(float radiusSmall, float radiusBig) {
+		this.radiusSmall = radiusSmall;
+		this.radiusBig = radiusBig;
 	}
 
 	@Override

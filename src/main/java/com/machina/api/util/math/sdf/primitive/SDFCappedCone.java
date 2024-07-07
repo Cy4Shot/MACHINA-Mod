@@ -5,23 +5,14 @@ import com.machina.api.util.math.MathUtil;
 import net.minecraft.util.Mth;
 
 public class SDFCappedCone extends SDFPrimitive {
-	private float radius1;
-	private float radius2;
-	private float height;
-
-	public SDFCappedCone setRadius1(float radius) {
-		this.radius1 = radius;
-		return this;
-	}
-
-	public SDFCappedCone setRadius2(float radius) {
-		this.radius2 = radius;
-		return this;
-	}
-
-	public SDFCappedCone setHeight(float height) {
+	private final float radius1;
+	private final float radius2;
+	private final float height;
+	
+	public SDFCappedCone(float r1, float r2, float height) {
+		this.radius1 = r1;
+		this.radius2 = r2;
 		this.height = height;
-		return this;
 	}
 
 	@Override

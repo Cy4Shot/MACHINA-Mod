@@ -18,17 +18,23 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-// SDF Library by quiquek. https://github.com/quiqueck/BCLib/
+// Modified SDF Library by quiquek. https://github.com/quiqueck/BCLib/
 
 public abstract class SDF {
-	private final List<Function<PosInfo, BlockState>> postProcesses = Lists.newArrayList();
+	
+	@FunctionalInterface
+	public interface SDFPostProcessor {
+	    BlockState apply(PosInfo posInfo);
+	}
+	
+	private final List<SDFPostProcessor> postProcesses = Lists.newArrayList();
 	private Function<BlockState, Boolean> canReplace = state -> state.canBeReplaced();
 
 	public abstract float getDistance(float x, float y, float z);
 
 	public abstract BlockState getBlockState(BlockPos pos);
 
-	public SDF addPostProcess(Function<PosInfo, BlockState> postProcess) {
+	public SDF addPostProcess(SDFPostProcessor postProcess) {
 		this.postProcesses.add(postProcess);
 		return this;
 	}

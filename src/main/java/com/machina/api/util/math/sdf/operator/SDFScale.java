@@ -1,11 +1,13 @@
 package com.machina.api.util.math.sdf.operator;
 
-public class SDFScale extends SDFUnary {
-	private float scale;
+import com.machina.api.util.math.sdf.SDF;
 
-	public SDFScale setScale(float scale) {
+public class SDFScale extends SDFUnary {
+	private final float scale;
+
+	public SDFScale(SDF source, float scale) {
+		super(source);
 		this.scale = scale;
-		return this;
 	}
 
 	@Override

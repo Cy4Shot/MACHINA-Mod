@@ -5,19 +5,14 @@ import com.machina.api.util.math.MathUtil;
 import net.minecraft.util.Mth;
 
 public class SDFPie extends SDFPrimitive {
-	private float sin;
-	private float cos;
-	private float radius;
-
-	public SDFPie setAngle(float angle) {
+	private final float sin;
+	private final float cos;
+	private final float radius;
+	
+	public SDFPie(float angle, float radius) {
 		this.sin = (float) Math.sin(angle);
 		this.cos = (float) Math.cos(angle);
-		return this;
-	}
-
-	public SDFPie setRadius(float radius) {
 		this.radius = radius;
-		return this;
 	}
 
 	@Override

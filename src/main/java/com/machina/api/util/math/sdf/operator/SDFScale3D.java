@@ -1,15 +1,17 @@
 package com.machina.api.util.math.sdf.operator;
 
-public class SDFScale3D extends SDFUnary {
-	private float x;
-	private float y;
-	private float z;
+import com.machina.api.util.math.sdf.SDF;
 
-	public SDFScale3D setScale(float x, float y, float z) {
+public class SDFScale3D extends SDFUnary {
+	private final float x;
+	private final float y;
+	private final float z;
+
+	public SDFScale3D(SDF source, float x, float y, float z) {
+		super(source);
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		return this;
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class CommonForgeEvents {
 
 	@SubscribeEvent
 	public static void onDebug(final ItemTossEvent event) {
-		int id = 5;
+		int id = 0;
 		if (!event.getPlayer().level().isClientSide()) {
 			ServerLevel planet = PlanetRegistrationHandler.createPlanet(event.getPlayer().getServer(), id);
 			event.getPlayer().sendSystemMessage(

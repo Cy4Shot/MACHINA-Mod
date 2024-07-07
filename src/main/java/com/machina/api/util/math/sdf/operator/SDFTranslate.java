@@ -1,15 +1,18 @@
 package com.machina.api.util.math.sdf.operator;
 
-public class SDFTranslate extends SDFUnary {
-	float x;
-	float y;
-	float z;
+import com.machina.api.util.math.sdf.SDF;
 
-	public SDFTranslate setTranslate(float x, float y, float z) {
+public class SDFTranslate extends SDFUnary {
+
+	private final float x;
+	private final float y;
+	private final float z;
+
+	public SDFTranslate(SDF source, float x, float y, float z) {
+		super(source);
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		return this;
 	}
 
 	@Override

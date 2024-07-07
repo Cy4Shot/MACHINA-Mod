@@ -1,13 +1,15 @@
 package com.machina.api.util.math.sdf.operator;
 
 import com.machina.api.util.math.MathUtil;
+import com.machina.api.util.math.sdf.SDF;
 
 public class SDFCopyRotate extends SDFUnary {
-	int count = 1;
 
-	public SDFCopyRotate setCount(int count) {
+	final int count;
+
+	public SDFCopyRotate(SDF source, int count) {
+		super(source);
 		this.count = count;
-		return this;
 	}
 
 	@Override

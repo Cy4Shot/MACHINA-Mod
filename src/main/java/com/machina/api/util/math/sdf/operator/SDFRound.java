@@ -1,11 +1,13 @@
 package com.machina.api.util.math.sdf.operator;
 
-public class SDFRound extends SDFUnary {
-	private float radius;
+import com.machina.api.util.math.sdf.SDF;
 
-	public SDFRound setRadius(float radius) {
+public class SDFRound extends SDFUnary {
+	private final float radius;
+
+	public SDFRound(SDF source, float radius) {
+		super(source);
 		this.radius = radius;
-		return this;
 	}
 
 	@Override

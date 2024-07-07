@@ -1,13 +1,15 @@
 package com.machina.api.util.math.sdf.operator;
 
+import com.machina.api.util.math.sdf.SDF;
+
 import net.minecraft.util.Mth;
 
 public class SDFSmoothIntersection extends SDFBinary {
 	private float radius;
 
-	public SDFSmoothIntersection setRadius(float radius) {
+	public SDFSmoothIntersection(SDF sourceA, SDF sourceB, float radius) {
+		super(sourceA, sourceB);
 		this.radius = radius;
-		return this;
 	}
 
 	@Override
