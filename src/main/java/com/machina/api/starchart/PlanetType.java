@@ -3,6 +3,7 @@ package com.machina.api.starchart;
 import java.util.List;
 import java.util.Map;
 
+import com.machina.world.feature.PlanetBushFeature.PlanetBushFeatureConfig;
 import com.machina.world.feature.PlanetTreeFeature.TreeType;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -40,10 +41,10 @@ public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Un
 						.apply(instance, Surface::new));
 	}
 
-	public record Vegetation(Map<TreeType, Tree> trees, List<BlockState> bushes) {
+	public record Vegetation(Map<TreeType, Tree> trees, List<PlanetBushFeatureConfig> bushes) {
 		public static final Codec<Vegetation> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(Codec.unboundedMap(TreeType.CODEC, Tree.CODEC).fieldOf("trees").forGetter(Vegetation::trees),
-						Codec.list(BlockState.CODEC).fieldOf("bushes").forGetter(Vegetation::bushes))
+						Codec.list(PlanetBushFeatureConfig.CODEC).fieldOf("bushes").forGetter(Vegetation::bushes))
 				.apply(instance, Vegetation::new));
 	}
 

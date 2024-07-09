@@ -21,12 +21,12 @@ import net.minecraft.world.phys.AABB;
 // Modified SDF Library by quiquek. https://github.com/quiqueck/BCLib/
 
 public abstract class SDF {
-	
+
 	@FunctionalInterface
 	public interface SDFPostProcessor {
-	    BlockState apply(PosInfo posInfo);
+		BlockState apply(PosInfo posInfo);
 	}
-	
+
 	private final List<SDFPostProcessor> postProcesses = Lists.newArrayList();
 	private Function<BlockState, Boolean> canReplace = state -> state.canBeReplaced();
 
@@ -214,6 +214,75 @@ public abstract class SDF {
 			infos.forEach((info) -> {
 				if (canReplace.apply(world.getBlockState(info.getPos()))) {
 					world.setBlock(info.getPos(), info.getState(), 18);
+				}
+			});
+		}
+	}
+
+	public void fillRecursiveShift(ServerLevelAccessor world, BlockPos start,
+			Function<MutableBlockPos, Boolean> shifter) {
+		Map<BlockPos, PosInfo> mapWorld = Maps.newHashMap();
+		Map<BlockPos, PosInfo> addInfo = Maps.newHashMap();
+		Set<BlockPos> blocks = Sets.newHashSet();
+		Set<BlockPos> ends = Sets.newHashSet();
+		Set<BlockPos> add = Sets.newHashSet();
+		ends.add(new BlockPos(0, 0, 0));
+		boolean run = true;
+
+		MutableBlockPos bPos = new MutableBlockPos();
+
+		while (run) {
+			for (BlockPos center : ends) {
+				for (Direction dir : Direction.values()) {
+					bPos.set(center).move(dir);
+					BlockPos wpos = bPos.offset(start);
+
+					if (!blocks.contains(bPos) && canReplace.apply(world.getBlockState(wpos))) {
+						if (this.getDistance(bPos.getX(), bPos.getY(), bPos.getZ()) < 0) {
+							BlockState state = getBlockState(wpos);
+							PosInfo.create(mapWorld, addInfo, wpos).setState(state);
+							add.add(bPos.immutable());
+						}
+					}
+				}
+			}
+
+			blocks.addAll(ends);
+			ends.clear();
+			ends.addAll(add);
+			add.clear();
+
+			run &= !ends.isEmpty();
+		}
+
+		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
+		if (infos.size() > 0) {
+			Collections.sort(infos);
+			postProcesses.forEach((postProcess) -> {
+				infos.forEach((info) -> {
+					info.setState(postProcess.apply(info));
+				});
+			});
+			infos.forEach((info) -> {
+				MutableBlockPos mbp = info.getPos().mutable();
+				if (shifter.apply(mbp))
+					world.setBlock(mbp, info.getState(), 18);
+			});
+
+			infos.clear();
+			infos.addAll(addInfo.values());
+			Collections.sort(infos);
+			postProcesses.forEach((postProcess) -> {
+				infos.forEach((info) -> {
+					info.setState(postProcess.apply(info));
+				});
+			});
+			infos.forEach((info) -> {
+				MutableBlockPos mbp = info.getPos().mutable();
+				if (shifter.apply(mbp)) {
+					if (canReplace.apply(world.getBlockState(mbp.immutable()))) {
+						world.setBlock(mbp.immutable(), info.getState(), 18);
+					}
 				}
 			});
 		}

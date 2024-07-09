@@ -18,6 +18,7 @@ import com.machina.api.starchart.PlanetType.UndergroundRules;
 import com.machina.api.starchart.PlanetType.Vegetation;
 import com.machina.api.starchart.PlanetType.VegetationRules;
 import com.machina.registration.init.TagInit.BlockTagInit;
+import com.machina.world.feature.PlanetBushFeature.PlanetBushFeatureConfig;
 import com.machina.world.feature.PlanetTreeFeature.TreeType;
 
 import net.minecraft.world.level.block.Blocks;
@@ -39,7 +40,7 @@ public class PlanetTypeInit {
 					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
 							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
 							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true))),
-					List.of(Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true))),
+					List.of(new PlanetBushFeatureConfig(Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true), 2.5f))),
 			new Underground(
 					new RockType(Blocks.STONE.defaultBlockState(),
 							Blocks.STONE_STAIRS.defaultBlockState(),
@@ -81,7 +82,7 @@ public class PlanetTypeInit {
 		PLANET_TYPES.put(name, type);
 		return name;
 	}
-	
+
 	public static PlanetType get(String string) {
 		return PLANET_TYPES.get(string);
 	}

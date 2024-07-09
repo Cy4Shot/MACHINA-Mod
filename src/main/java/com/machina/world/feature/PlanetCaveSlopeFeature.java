@@ -25,22 +25,22 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
-public class PlanetCaveSlopeFeature extends Feature<PlanetCaveSlopeFeature.CaveSlopeFeatureConfig> {
+public class PlanetCaveSlopeFeature extends Feature<PlanetCaveSlopeFeature.PlanetCaveSlopeFeatureConfig> {
 
-	public static record CaveSlopeFeatureConfig(CaveSurface surface, RockType type, UndergroundRules rules)
+	public static record PlanetCaveSlopeFeatureConfig(CaveSurface surface, RockType type, UndergroundRules rules)
 			implements FeatureConfiguration {
-		public static final Codec<CaveSlopeFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance
-				.group(CaveSurface.CODEC.fieldOf("surface").forGetter(CaveSlopeFeatureConfig::surface),
-						RockType.CODEC.fieldOf("type").forGetter(CaveSlopeFeatureConfig::type),
-						UndergroundRules.CODEC.fieldOf("rules").forGetter(CaveSlopeFeatureConfig::rules))
-				.apply(instance, CaveSlopeFeatureConfig::new));
+		public static final Codec<PlanetCaveSlopeFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(CaveSurface.CODEC.fieldOf("surface").forGetter(PlanetCaveSlopeFeatureConfig::surface),
+						RockType.CODEC.fieldOf("type").forGetter(PlanetCaveSlopeFeatureConfig::type),
+						UndergroundRules.CODEC.fieldOf("rules").forGetter(PlanetCaveSlopeFeatureConfig::rules))
+				.apply(instance, PlanetCaveSlopeFeatureConfig::new));
 	}
 
 	public PlanetCaveSlopeFeature() {
-		super(CaveSlopeFeatureConfig.CODEC);
+		super(PlanetCaveSlopeFeatureConfig.CODEC);
 	}
 
-	public boolean place(FeaturePlaceContext<CaveSlopeFeatureConfig> conf) {
+	public boolean place(FeaturePlaceContext<PlanetCaveSlopeFeatureConfig> conf) {
 		WorldGenLevel level = conf.level();
 		RandomSource rand = conf.random();
 		BlockPos pos = conf.origin();
