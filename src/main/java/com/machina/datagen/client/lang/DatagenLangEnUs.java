@@ -48,10 +48,17 @@ public class DatagenLangEnUs extends DatagenLang {
 		// Blocks
 		add(BlockInit.ALUMINUM_BLOCK.get(), "Aluminum Block");
 		add(BlockInit.ALUMINUM_ORE.get(), "Aluminum Ore");
+		
 		add(BlockInit.ANTHRACITE.get(), "Anthracite");
 		add(BlockInit.ANTHRACITE_SLAB.get(), "Anthracite Slab");
 		add(BlockInit.ANTHRACITE_STAIRS.get(), "Anthracite Stairs");
 		add(BlockInit.ANTHRACITE_WALL.get(), "Anthracite Wall");
+		
+		add(BlockInit.FELDSPAR.get(), "Feldspar");
+		add(BlockInit.FELDSPAR_SLAB.get(), "Feldspar Slab");
+		add(BlockInit.FELDSPAR_STAIRS.get(), "Feldspar Stairs");
+		add(BlockInit.FELDSPAR_WALL.get(), "Feldspar Wall");
+		
 		add(BlockInit.CLOVER.get(), "Clover");
 		add(BlockInit.DRAGON_PEONY.get(), "Dragon Peony");
 		add(BlockInit.POTTED_DRAGON_PEONY.get(), "Potted Dragon Peony");

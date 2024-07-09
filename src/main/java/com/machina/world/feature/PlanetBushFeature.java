@@ -21,11 +21,12 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 
 public class PlanetBushFeature extends Feature<PlanetBushFeature.PlanetBushFeatureConfig> {
 
-	public static record PlanetBushFeatureConfig(BlockState state, float radius) implements FeatureConfiguration {
+	public static record PlanetBushFeatureConfig(BlockState state, float radius, int perchunk) implements FeatureConfiguration {
 
 		public static final Codec<PlanetBushFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(BlockState.CODEC.fieldOf("state").forGetter(PlanetBushFeatureConfig::state),
-						Codec.FLOAT.fieldOf("radius").forGetter(PlanetBushFeatureConfig::radius))
+						Codec.FLOAT.fieldOf("radius").forGetter(PlanetBushFeatureConfig::radius),
+						Codec.INT.fieldOf("perchunk").forGetter(PlanetBushFeatureConfig::perchunk))
 				.apply(instance, PlanetBushFeatureConfig::new));
 	}
 

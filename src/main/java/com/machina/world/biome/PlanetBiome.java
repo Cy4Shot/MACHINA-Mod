@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import com.google.common.hash.Hashing;
 import com.machina.api.starchart.PlanetType;
 import com.machina.api.starchart.PlanetType.OreVein;
+import com.machina.api.starchart.PlanetType.Tree;
 import com.machina.api.starchart.obj.Planet;
 import com.machina.api.util.math.MathUtil;
 import com.machina.registration.init.SoundInit;
@@ -167,23 +168,26 @@ public class PlanetBiome extends Biome {
 
 		if (c.equals(BiomeCategory.MIDDLE)) {
 
-			// Tree A
-			PlanetTreeFeature.TreeType tree = MathUtil.randomInList(type.vegetation().trees().keySet(), r);
-			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
-					new PlanetTreeFeature.PlanetTreeFeatureConfig(tree, type.rules().veg(),
-							type.vegetation().trees().get(tree)),
-					every(4), spread(), onFloor());
+			if (type.vegetation().trees().size() > 0) {
+				// Tree A
+				PlanetTreeFeature.TreeType tree = MathUtil.randomInList(type.vegetation().trees().keySet(), r);
+				Tree t1 = type.vegetation().trees().get(tree);
+				add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
+						new PlanetTreeFeature.PlanetTreeFeatureConfig(tree, type.rules().veg(), t1), every(t1.every()),
+						spread(), onFloor());
 
-			// Tree B
-			PlanetTreeFeature.TreeType tree2 = MathUtil.randomInList(type.vegetation().trees().keySet(), r);
-			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
-					new PlanetTreeFeature.PlanetTreeFeatureConfig(tree2, type.rules().veg(),
-							type.vegetation().trees().get(tree2)),
-					every(4), spread(), onFloor());
+				// Tree B
+				PlanetTreeFeature.TreeType tree2 = MathUtil.randomInList(type.vegetation().trees().keySet(), r);
+				Tree t2 = type.vegetation().trees().get(tree);
+				add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
+						new PlanetTreeFeature.PlanetTreeFeatureConfig(tree2, type.rules().veg(), t2), every(t2.every()),
+						spread(), onFloor());
+
+			}
 
 			// Bushes
 			for (PlanetBushFeatureConfig bush : type.vegetation().bushes())
-				add(builder, Decoration.VEGETAL_DECORATION, new PlanetBushFeature(), bush, count(3), spread(),
+				add(builder, Decoration.VEGETAL_DECORATION, new PlanetBushFeature(), bush, count(bush.perchunk()), spread(),
 						onFloor());
 		}
 

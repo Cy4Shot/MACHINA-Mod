@@ -22,6 +22,8 @@ import net.minecraft.world.phys.AABB;
 
 public abstract class SDF {
 
+	public static final int UPDATE_FLAGS = 18;
+
 	@FunctionalInterface
 	public interface SDFPostProcessor {
 		BlockState apply(PosInfo posInfo);
@@ -88,7 +90,7 @@ public abstract class SDF {
 				});
 			});
 			infos.forEach((info) -> {
-				world.setBlock(info.getPos(), info.getState(), 18);
+				world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
 			});
 
 			infos.clear();
@@ -101,7 +103,7 @@ public abstract class SDF {
 			});
 			infos.forEach((info) -> {
 				if (canReplace.apply(world.getBlockState(info.getPos()))) {
-					world.setBlock(info.getPos(), info.getState(), 18);
+					world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
 				}
 			});
 		}
@@ -137,7 +139,7 @@ public abstract class SDF {
 				});
 			});
 			infos.forEach((info) -> {
-				world.setBlock(info.getPos(), info.getState(), 18);
+				world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
 			});
 
 			infos.clear();
@@ -150,7 +152,7 @@ public abstract class SDF {
 			});
 			infos.forEach((info) -> {
 				if (canReplace.apply(world.getBlockState(info.getPos()))) {
-					world.setBlock(info.getPos(), info.getState(), 18);
+					world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
 				}
 			});
 		}
@@ -200,7 +202,7 @@ public abstract class SDF {
 				});
 			});
 			infos.forEach((info) -> {
-				world.setBlock(info.getPos(), info.getState(), 18);
+				world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
 			});
 
 			infos.clear();
@@ -213,7 +215,7 @@ public abstract class SDF {
 			});
 			infos.forEach((info) -> {
 				if (canReplace.apply(world.getBlockState(info.getPos()))) {
-					world.setBlock(info.getPos(), info.getState(), 18);
+					world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
 				}
 			});
 		}
@@ -266,7 +268,7 @@ public abstract class SDF {
 			infos.forEach((info) -> {
 				MutableBlockPos mbp = info.getPos().mutable();
 				if (shifter.apply(mbp))
-					world.setBlock(mbp, info.getState(), 18);
+					world.setBlock(mbp.immutable(), info.getState(), UPDATE_FLAGS);
 			});
 
 			infos.clear();
@@ -281,7 +283,7 @@ public abstract class SDF {
 				MutableBlockPos mbp = info.getPos().mutable();
 				if (shifter.apply(mbp)) {
 					if (canReplace.apply(world.getBlockState(mbp.immutable()))) {
-						world.setBlock(mbp.immutable(), info.getState(), 18);
+						world.setBlock(mbp.immutable(), info.getState(), UPDATE_FLAGS);
 					}
 				}
 			});

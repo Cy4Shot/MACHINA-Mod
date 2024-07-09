@@ -6,10 +6,12 @@ import java.util.function.Supplier;
 import com.machina.Machina;
 import com.machina.api.block.SmallFlowerBlock;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -18,6 +20,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -34,6 +37,11 @@ public class BlockInit {
 	public static final RegistryObject<SlabBlock> ANTHRACITE_SLAB = slab("anthracite_slab", Blocks.ANDESITE_SLAB);
 	public static final RegistryObject<StairBlock> ANTHRACITE_STAIRS = stairs("anthracite_stairs", ANTHRACITE, Blocks.ANDESITE_SLAB);
 	public static final RegistryObject<WallBlock> ANTHRACITE_WALL = wall("anthracite_wall", Blocks.ANDESITE_WALL);
+	
+	public static final RegistryObject<Block> FELDSPAR = block("feldspar", Blocks.ANDESITE);
+	public static final RegistryObject<SlabBlock> FELDSPAR_SLAB = slab("feldspar_slab", Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<StairBlock> FELDSPAR_STAIRS = stairs("feldspar_stairs", FELDSPAR, Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<WallBlock> FELDSPAR_WALL = wall("feldspar_wall", Blocks.ANDESITE_WALL);
 	
 	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
 	public static final RegistryObject<FlowerBlock> DRAGON_PEONY = flower("dragon_peony", () -> MobEffects.LEVITATION, 5, Blocks.DANDELION);
@@ -63,9 +71,9 @@ public class BlockInit {
 	}
 
 	public static RegistryObject<WallBlock> wall(String name, Block prop) {
-		return register(name, prop, a -> a, WallBlock::new);
+		return register(name, prop, a -> a.hasPostProcess(BlockInit::always), WallBlock::new);
 	}
-	
+
 	public static RegistryObject<FlowerBlock> flower(String name, Supplier<MobEffect> effect, int duration,
 			Block prop) {
 		return register(name, prop, a -> a, p -> new FlowerBlock(effect, duration, p));
@@ -93,5 +101,9 @@ public class BlockInit {
 
 	private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
 		return ItemInit.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+	}
+
+	private static boolean always(BlockState state, BlockGetter getter, BlockPos pos) {
+		return true;
 	}
 }

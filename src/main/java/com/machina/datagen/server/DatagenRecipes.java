@@ -42,6 +42,8 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 
 		stoneFamily(gen, BlockInit.ANTHRACITE.get(), BlockInit.ANTHRACITE_SLAB.get(), BlockInit.ANTHRACITE_STAIRS.get(),
 				BlockInit.ANTHRACITE_WALL.get());
+		stoneFamily(gen, BlockInit.FELDSPAR.get(), BlockInit.FELDSPAR_SLAB.get(), BlockInit.FELDSPAR_STAIRS.get(),
+				BlockInit.FELDSPAR_WALL.get());
 	}
 
 	protected static void stoneFamily(Consumer<FinishedRecipe> gen, ItemLike base, ItemLike slab, ItemLike stair,

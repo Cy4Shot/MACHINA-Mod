@@ -22,7 +22,6 @@ import com.machina.world.feature.PlanetBushFeature.PlanetBushFeatureConfig;
 import com.machina.world.feature.PlanetTreeFeature.TreeType;
 
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.levelgen.NoiseSettings;
 
 public class PlanetTypeInit {
@@ -30,53 +29,53 @@ public class PlanetTypeInit {
 	public static final Map<String, PlanetType> PLANET_TYPES = new HashMap<>();
 
 	//@formatter:off
-	public static final String EARTHLIKE = create("earthlike", new PlanetType(
-			new Shape(60, new NoiseSettings(-64, 384, 1, 2)),
-			new Surface(Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.DIRT.defaultBlockState()),
-			new Vegetation(Map.of(
-//					TreeType.ARCH, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
-//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
-//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
-					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
-							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
-							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true))),
-					List.of(new PlanetBushFeatureConfig(Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true), 2.5f))),
-			new Underground(
-					new RockType(Blocks.STONE.defaultBlockState(),
-							Blocks.STONE_STAIRS.defaultBlockState(),
-							Blocks.STONE_SLAB.defaultBlockState(),
-							Blocks.GRAVEL.defaultBlockState()),
-					List.of(
-							new OreVein(Blocks.ANDESITE.defaultBlockState(), 32, 0f, 8))
-					),
-			new ExtraRules(
-					new VegetationRules(BlockTagInit.EARTHLIKE_GROWABLE),
-					new UndergroundRules(BlockTagInit.EARTHLIKE_CARVABLE)
-			)));
-
-//	public static final String ANTHRACITE = create("anthracite", new PlanetType(
+//	public static final String EARTHLIKE = create("earthlike", new PlanetType(
 //			new Shape(60, new NoiseSettings(-64, 384, 1, 2)),
-//			new Surface(Blocks.COAL_ORE.defaultBlockState(), Blocks.GRAVEL.defaultBlockState()),
+//			new Surface(Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.DIRT.defaultBlockState()),
 //			new Vegetation(Map.of(
+////					TreeType.ARCH, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
+////							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
+////							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true), 4),
 //					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
 //							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
-//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
-//					TreeType.ARCH, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
-//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
-//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)))),
+//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true), 4)),
+//					List.of(new PlanetBushFeatureConfig(Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true), 2.5f, 3))),
 //			new Underground(
-//					new RockType(BlockInit.ANTHRACITE.get().defaultBlockState(),
-//							BlockInit.ANTHRACITE_STAIRS.get().defaultBlockState(),
-//							BlockInit.ANTHRACITE_SLAB.get().defaultBlockState(),
-//							Blocks.BLACK_CONCRETE_POWDER.defaultBlockState()),
+//					new RockType(Blocks.STONE.defaultBlockState(),
+//							Blocks.STONE_STAIRS.defaultBlockState(),
+//							Blocks.STONE_SLAB.defaultBlockState(),
+//							Blocks.GRAVEL.defaultBlockState()),
 //					List.of(
-//							new OreVein(Blocks.COAL_BLOCK.defaultBlockState(), 32, 0f, 8))
+//							new OreVein(Blocks.ANDESITE.defaultBlockState(), 32, 0f, 8))
 //					),
 //			new ExtraRules(
-//					new VegetationRules(BlockTagInit.ANTHRACITE_GROWABLE),
-//					new UndergroundRules(BlockTagInit.ANTHRACITE_CARVABLE)
-//			)));
-//	//@formatter:on
+//					new VegetationRules(BlockTagInit.EARTHLIKE_GROWABLE),
+//					new UndergroundRules(BlockTagInit.EARTHLIKE_CARVABLE)
+//			), 0));
+	
+
+	
+	public static final String MARTIAN = create("martian", new PlanetType(
+			new Shape(50, new NoiseSettings(-64, 384, 1, 4)),
+			new Surface(Blocks.RED_SAND.defaultBlockState(), Blocks.RED_SANDSTONE.defaultBlockState()),
+			new Vegetation(Map.of(
+					TreeType.ARCH, new Tree(BlockInit.FELDSPAR.get().defaultBlockState(),
+							BlockInit.FELDSPAR_WALL.get().defaultBlockState(), BlockInit.FELDSPAR_WALL.get().defaultBlockState(), 24)),
+					List.of(new PlanetBushFeatureConfig(Blocks.RED_SAND.defaultBlockState(), 3f, 2))),
+			new Underground(
+					new RockType(BlockInit.FELDSPAR.get().defaultBlockState(),
+							BlockInit.FELDSPAR_STAIRS.get().defaultBlockState(),
+							BlockInit.FELDSPAR_SLAB.get().defaultBlockState(),
+							Blocks.RED_SAND.defaultBlockState()),
+					List.of(
+							new OreVein(Blocks.RED_SANDSTONE.defaultBlockState(), 32, 0f, 6),
+							new OreVein(Blocks.SMOOTH_RED_SANDSTONE.defaultBlockState(), 32, 0f, 6))
+					),
+			new ExtraRules(
+					new VegetationRules(BlockTagInit.MARTIAN_GROWABLE),
+					new UndergroundRules(BlockTagInit.MARTIAN_CARVABLE)
+			), 4));
+	//@formatter:on
 
 	public static String create(String name, PlanetType type) {
 		PLANET_TYPES.put(name, type);

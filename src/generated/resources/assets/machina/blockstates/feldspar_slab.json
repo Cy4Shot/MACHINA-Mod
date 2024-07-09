@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/feldspar_slab"
+    },
+    "type=double": {
+      "model": "machina:block/feldspar"
+    },
+    "type=top": {
+      "model": "machina:block/feldspar_slab_top"
+    }
+  }
+}

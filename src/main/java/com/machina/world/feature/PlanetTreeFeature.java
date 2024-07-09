@@ -107,6 +107,8 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 				int xoff = (int) MathUtil.randRangeSigned(random, mindist, maxdist);
 				int zoff = (int) MathUtil.randRangeSigned(random, mindist, maxdist);
 				int yoff = l.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, p.getX() + xoff, p.getZ() + zoff) - p.getY();
+				if (Math.abs(yoff) > 10)
+					return null;
 				float height = MathUtil.randRange(random, 10, 25);
 
 				List<Vector3f> spline = SplineUtil.makeArch(0, 0, 0, xoff, yoff, zoff, height, 10);
@@ -227,6 +229,8 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 			return false;
 		}
 		SDF tree = cfg.type().getTree().build(cfg, ctx.random(), ctx.level(), ctx.origin());
+		if (tree == null)
+			return false;
 		tree.fillRecursive(ctx.level(), origin);
 		return true;
 	}

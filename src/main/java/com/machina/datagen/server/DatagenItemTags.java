@@ -25,14 +25,15 @@ public class DatagenItemTags extends ItemTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
-		tag(ItemTags.SLABS).add(BlockInit.ANTHRACITE_SLAB.get().asItem());
-		tag(ItemTags.STAIRS).add(BlockInit.ANTHRACITE_STAIRS.get().asItem());
-		tag(ItemTags.WALLS).add(BlockInit.ANTHRACITE_WALL.get().asItem());
-		
+		tag(ItemTags.SLABS).add(BlockInit.ANTHRACITE_SLAB.get().asItem(), BlockInit.FELDSPAR_SLAB.get().asItem());
+		tag(ItemTags.STAIRS).add(BlockInit.ANTHRACITE_STAIRS.get().asItem(), BlockInit.FELDSPAR_STAIRS.get().asItem());
+		tag(ItemTags.WALLS).add(BlockInit.ANTHRACITE_WALL.get().asItem(), BlockInit.FELDSPAR_WALL.get().asItem());
+
 		tag(ItemTags.FLOWERS).add(BlockInit.DRAGON_PEONY.get().asItem(), BlockInit.ORHPEUM.get().asItem());
 		tag(ItemTags.SMALL_FLOWERS).add(BlockInit.DRAGON_PEONY.get().asItem());
 		tag(ItemTags.TALL_FLOWERS).add(BlockInit.ORHPEUM.get().asItem());
 
-		tag(ItemTags.STONE_CRAFTING_MATERIALS).add(BlockInit.ANTHRACITE.get().asItem());
+		tag(ItemTags.STONE_CRAFTING_MATERIALS).add(BlockInit.ANTHRACITE.get().asItem(),
+				BlockInit.FELDSPAR.get().asItem());
 	}
 }

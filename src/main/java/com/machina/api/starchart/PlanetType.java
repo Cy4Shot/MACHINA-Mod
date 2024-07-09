@@ -14,8 +14,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.NoiseSettings;
 
-public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Underground underground,
-		ExtraRules rules) {
+public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Underground underground, ExtraRules rules,
+		int texOffset) {
 
 	public static final Codec<PlanetType> CODEC = RecordCodecBuilder
 			.create(instance -> instance
@@ -23,7 +23,8 @@ public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Un
 							Surface.CODEC.fieldOf("surface").forGetter(PlanetType::surface),
 							Vegetation.CODEC.fieldOf("vegetation").forGetter(PlanetType::vegetation),
 							Underground.CODEC.fieldOf("underground").forGetter(PlanetType::underground),
-							ExtraRules.CODEC.fieldOf("rules").forGetter(PlanetType::rules))
+							ExtraRules.CODEC.fieldOf("rules").forGetter(PlanetType::rules),
+							Codec.INT.fieldOf("texOffset").forGetter(PlanetType::texOffset))
 					.apply(instance, PlanetType::new));
 
 	public static record Shape(int sea_level, NoiseSettings noise_settings) {
@@ -48,11 +49,12 @@ public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Un
 				.apply(instance, Vegetation::new));
 	}
 
-	public record Tree(BlockState log, BlockState leaves, BlockState leavesextra) {
+	public record Tree(BlockState log, BlockState leaves, BlockState leavesextra, int every) {
 		public static final Codec<Tree> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(BlockState.CODEC.fieldOf("log").forGetter(Tree::log),
 						BlockState.CODEC.fieldOf("leaves").forGetter(Tree::leaves),
-						BlockState.CODEC.fieldOf("leavesextra").forGetter(Tree::leavesextra))
+						BlockState.CODEC.fieldOf("leavesextra").forGetter(Tree::leavesextra),
+						Codec.INT.fieldOf("every").forGetter(Tree::every))
 				.apply(instance, Tree::new));
 	}
 

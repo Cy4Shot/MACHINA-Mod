@@ -39,6 +39,11 @@ public class DatagenBlockStates extends BlockStateProvider {
 		slab(BlockInit.ANTHRACITE_SLAB, BlockInit.ANTHRACITE);
 		stairs(BlockInit.ANTHRACITE_STAIRS, BlockInit.ANTHRACITE);
 		wall(BlockInit.ANTHRACITE_WALL, BlockInit.ANTHRACITE);
+		
+		blockWithItem(BlockInit.FELDSPAR);
+		slab(BlockInit.FELDSPAR_SLAB, BlockInit.FELDSPAR);
+		stairs(BlockInit.FELDSPAR_STAIRS, BlockInit.FELDSPAR);
+		wall(BlockInit.FELDSPAR_WALL, BlockInit.FELDSPAR);
 
 		flower(BlockInit.DRAGON_PEONY);
 		tall_flower(BlockInit.ORHPEUM);

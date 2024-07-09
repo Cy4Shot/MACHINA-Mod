@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-17T03:02:19.8631991	Block States: machina
+// 1.20.1	2024-07-09T19:59:11.6826738	Block States: machina
 d187663fc7bcccef764a874bcbb17418e7742531 assets/machina/blockstates/acetaldehyde_block.json
 299cf136358fcea6715841b98a6ae47b95261cb2 assets/machina/blockstates/acetic_acid_block.json
 50a442d0603d988745db7d24bba69b49421e601f assets/machina/blockstates/aluminum_block.json
@@ -24,6 +24,10 @@ f4bcc7c02ef5c99fb0cfbabc9cd8a0a80938fae4 assets/machina/blockstates/chlorine_blo
 871b92d8b57ab03715ce657a0f20026bba421bc9 assets/machina/blockstates/ethane_block.json
 cd0b0154f36db409338daa4e43c02ebacd120770 assets/machina/blockstates/ethanol_block.json
 7356b15ce65ea09f3539c1a00ecd0761a8c1fdbe assets/machina/blockstates/ethylene_block.json
+3120eae118ca7a8dd7d2f098102fc88427b3b4db assets/machina/blockstates/feldspar.json
+c8d9c5a43f53b23d0e2724eaa4a6427b3b99a0af assets/machina/blockstates/feldspar_slab.json
+de152115d7ddc84060a59260d0f78d7d0c38ae3b assets/machina/blockstates/feldspar_stairs.json
+625ea0b94728fedd65f7d19f7d32210cfb077a13 assets/machina/blockstates/feldspar_wall.json
 a452f401b049041d40a742a93471b8269f83de9b assets/machina/blockstates/formaldehyde_block.json
 071db841983836c4371f0026b06473a4721a22cd assets/machina/blockstates/glyoxal_block.json
 86371463c95eb4c0715b39d2fa6cbeb726921d4a assets/machina/blockstates/helium_block.json
@@ -81,6 +85,16 @@ c386fc7575d856e6168441973b81d312463e3e9e assets/machina/models/block/chlorine_bl
 c386fc7575d856e6168441973b81d312463e3e9e assets/machina/models/block/ethane_block.json
 c386fc7575d856e6168441973b81d312463e3e9e assets/machina/models/block/ethanol_block.json
 c386fc7575d856e6168441973b81d312463e3e9e assets/machina/models/block/ethylene_block.json
+c7bfe1c1ea290036444208a9ed413a4baf40ed61 assets/machina/models/block/feldspar.json
+a42b7fcf51812fe6417fe126bed8a89c3c7ec783 assets/machina/models/block/feldspar_slab.json
+12ea8e3a29ee65c4fcb0cb34dca9fdb25f8125db assets/machina/models/block/feldspar_slab_top.json
+faa68f7b4fddb57639b8f6c1e4fe8666832849d9 assets/machina/models/block/feldspar_stairs.json
+2ec1b8ec9c5a1b1150d6e7562f240d4f0cde384d assets/machina/models/block/feldspar_stairs_inner.json
+d3ad0c0a82f932cad6ce6f32548fa517334cf5ed assets/machina/models/block/feldspar_stairs_outer.json
+cf8bbe4a175bb414895ce26b804ca633df6f54da assets/machina/models/block/feldspar_wall_inventory.json
+663224c63f25dcdb3b1c288a12d2560e69c6ca2c assets/machina/models/block/feldspar_wall_post.json
+522b389902b93cef79181a1bd2e435187548424b assets/machina/models/block/feldspar_wall_side.json
+eeeeafe8b3be7ba0f53d125f9866cb5294924935 assets/machina/models/block/feldspar_wall_side_tall.json
 c386fc7575d856e6168441973b81d312463e3e9e assets/machina/models/block/formaldehyde_block.json
 c386fc7575d856e6168441973b81d312463e3e9e assets/machina/models/block/glyoxal_block.json
 c386fc7575d856e6168441973b81d312463e3e9e assets/machina/models/block/helium_block.json
@@ -115,4 +129,8 @@ c9980f5bfa9da70926b186a065553e1ed22664f2 assets/machina/models/item/aluminum_ore
 521550cd570c2da28db71ab10ad0b9d9115a5f43 assets/machina/models/item/anthracite_stairs.json
 6076edee86f2370e0e6b273d361dbf66af00c923 assets/machina/models/item/anthracite_wall.json
 8ec7ba2a27be9981669b9e62cd07d0d73a33fd8a assets/machina/models/item/dragon_peony.json
+a7844e3013ec7a1442111bba3facae0765c1b7ff assets/machina/models/item/feldspar.json
+e69c3c86a3a8f18800cb757c6eed7a0a932f422d assets/machina/models/item/feldspar_slab.json
+1272f753d54955c7e7df8920c6157d9ca1a65a2e assets/machina/models/item/feldspar_stairs.json
+c265a04e1bf36ae114ba53e284da9f1fb29fa3ab assets/machina/models/item/feldspar_wall.json
 4a655c77ee915678cda4d4f22f4c05d2c998c504 assets/machina/models/item/orpheum.json
