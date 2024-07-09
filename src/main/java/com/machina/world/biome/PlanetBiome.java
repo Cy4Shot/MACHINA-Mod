@@ -1,7 +1,7 @@
 package com.machina.world.biome;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.util.Arrays;
 import java.util.NavigableMap;
 import java.util.Random;
 import java.util.TreeMap;
@@ -12,8 +12,8 @@ import com.machina.api.starchart.PlanetType.OreVein;
 import com.machina.api.starchart.obj.Planet;
 import com.machina.api.util.math.MathUtil;
 import com.machina.registration.init.SoundInit;
-import com.machina.world.feature.CaveSlopeFeature;
-import com.machina.world.feature.CaveSlopeFeature.CaveSlopeFeatureConfig;
+import com.machina.world.feature.PlanetCaveSlopeFeature;
+import com.machina.world.feature.PlanetCaveSlopeFeature.CaveSlopeFeatureConfig;
 import com.machina.world.feature.PlanetTreeFeature;
 import com.mojang.serialization.Codec;
 
@@ -25,13 +25,18 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.BlockPileFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -40,6 +45,7 @@ import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
@@ -125,31 +131,22 @@ public class PlanetBiome extends Biome {
 		PlanetType type = p.type();
 
 		for (CaveSurface surf : CaveSurface.values())
-			builder.addFeature(Decoration.UNDERGROUND_DECORATION,
-					Holder.direct(
-							new PlacedFeature(
-									Holder.direct(new ConfiguredFeature<>(new CaveSlopeFeature(),
-											new CaveSlopeFeatureConfig(surf, type.underground().rock(),
-													type.rules().cave()))),
-									List.of(CountPlacement.of(256), InSquarePlacement.spread(),
-											HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(0),
-													VerticalAnchor.belowTop(256)),
-											EnvironmentScanPlacement.scanningFor(surf.getDirection(),
-													BlockPredicate.solid(), BlockPredicate.matchesBlocks(Blocks.AIR),
-													12),
-											BiomeFilter.biome()))));
+			add(builder, Decoration.UNDERGROUND_DECORATION, new PlanetCaveSlopeFeature(),
+					new CaveSlopeFeatureConfig(surf, type.underground().rock(), type.rules().cave()),
+					CountPlacement.of(256), InSquarePlacement.spread(),
+					HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(0), VerticalAnchor.belowTop(256)),
+					EnvironmentScanPlacement.scanningFor(surf.getDirection(), BlockPredicate.solid(),
+							BlockPredicate.matchesBlocks(Blocks.AIR), 12),
+					BiomeFilter.biome());
 
 		if (c.isUnderground()) {
 			for (OreVein ore : type.underground().ores()) {
-				builder.addFeature(Decoration.UNDERGROUND_ORES,
-						Holder.direct(new PlacedFeature(
-								Holder.direct(new ConfiguredFeature<>(Feature.ORE,
-										new OreConfiguration(new TagMatchTest(BlockTags.OVERWORLD_CARVER_REPLACEABLES),
-												ore.ore(), ore.size(), ore.exposure_removal_chance()))),
-								List.of(CountPlacement.of(ore.per_chunk()), InSquarePlacement.spread(),
-										HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(0),
-												VerticalAnchor.belowTop(256)),
-										BiomeFilter.biome()))));
+				add(builder, Decoration.UNDERGROUND_ORES, Feature.ORE,
+						new OreConfiguration(new TagMatchTest(BlockTags.OVERWORLD_CARVER_REPLACEABLES), ore.ore(),
+								ore.size(), ore.exposure_removal_chance()),
+						CountPlacement.of(ore.per_chunk()), InSquarePlacement.spread(),
+						HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(0), VerticalAnchor.belowTop(256)),
+						BiomeFilter.biome());
 			}
 		}
 	}
@@ -161,15 +158,30 @@ public class PlanetBiome extends Biome {
 		if (c.equals(BiomeCategory.MIDDLE)) {
 
 			PlanetTreeFeature.TreeType tree = MathUtil.randomInList(type.vegetation().trees().keySet(), r);
+			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
+					new PlanetTreeFeature.PlanetTreeFeatureConfig(tree, type.rules().veg(),
+							type.vegetation().trees().get(tree)),
+					RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
+					HeightmapPlacement.onHeightmap(Types.OCEAN_FLOOR));
 
-			builder.addFeature(Decoration.SURFACE_STRUCTURES,
-					Holder.direct(new PlacedFeature(
-							Holder.direct(new ConfiguredFeature<>(new PlanetTreeFeature(),
-									new PlanetTreeFeature.PlanetTreeFeatureConfig(tree, type.rules().veg(),
-											type.vegetation().trees().get(tree)))),
-							List.of(RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
-									HeightmapPlacement.onHeightmap(Types.OCEAN_FLOOR)))));
+			PlanetTreeFeature.TreeType tree2 = MathUtil.randomInList(type.vegetation().trees().keySet(), r);
+			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
+					new PlanetTreeFeature.PlanetTreeFeatureConfig(tree2, type.rules().veg(),
+							type.vegetation().trees().get(tree2)),
+					RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
+					HeightmapPlacement.onHeightmap(Types.OCEAN_FLOOR));
+
+			for (BlockState state : type.vegetation().bushes())
+				add(builder, Decoration.VEGETAL_DECORATION, new BlockPileFeature(BlockPileConfiguration.CODEC),
+						new BlockPileConfiguration(BlockStateProvider.simple(state)), CountPlacement.of(2),
+						InSquarePlacement.spread(), HeightmapPlacement.onHeightmap(Types.OCEAN_FLOOR));
 		}
+	}
 
+	private static <FC extends FeatureConfiguration, F extends Feature<FC>> void add(
+			BiomeGenerationSettings.PlainBuilder builder, Decoration decorationLevel, F feature, FC config,
+			PlacementModifier... placements) {
+		builder.addFeature(decorationLevel, Holder.direct(
+				new PlacedFeature(Holder.direct(new ConfiguredFeature<>(feature, config)), Arrays.asList(placements))));
 	}
 }

@@ -19,6 +19,7 @@ import com.machina.api.util.math.sdf.operator.SDFTranslate;
 import com.machina.api.util.math.sdf.operator.SDFUnion;
 import com.machina.api.util.math.sdf.post.SDFChanceFilter;
 import com.machina.api.util.math.sdf.post.SDFSelective;
+import com.machina.api.util.math.sdf.primitive.SDFCappedCone;
 import com.machina.api.util.math.sdf.primitive.SDFSphere;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -48,49 +49,6 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 					new Vector3f(0.8F, 0.8F, 0), new Vector3f(1, 1, 0));
 			private static List<Vector3f> SIDE2 = SplineUtil.copySpline(SIDE1);
 
-			private SDF leavesBall(PlanetTreeFeatureConfig config, float radius, RandomSource random,
-					OpenSimplex2F noise) {
-				SDF sphere = new SDFSphere(radius).setBlock(config.tree().leaves());
-				SDF sub = new SDFScale(sphere, 5);
-				sub = new SDFTranslate(sub, 0, -radius * 5, 0);
-				sphere = new SDFSubtraction(sphere, sub);
-				sphere = new SDFScale3D(sphere, 1, 0.5f, 1);
-				sphere = new SDFDisplacement(sphere,
-						v -> (float) noise.noise3_Classic(v.x() * 0.2, v.y() * 0.2, v.z() * 0.2) * 1.5F);
-				return new SDFDisplacement(sphere, v -> random.nextFloat() * 3F - 1.5F);
-			}
-
-			private SDF makeCap(PlanetTreeFeatureConfig config, float radius, RandomSource random, OpenSimplex2F noise,
-					SDF input) {
-				int count = (int) radius;
-				int offset = (int) (BRANCH.get(BRANCH.size() - 1).y() * radius);
-				for (int i = 0; i < count; i++) {
-					float angle = (float) i / (float) count * Mth.PI * 2;
-					float scale = radius * MathUtil.randRange(random, 0.85F, 1.15F);
-
-					List<Vector3f> branch = SplineUtil.copySpline(BRANCH);
-					SplineUtil.rotateSpline(branch, angle);
-					SplineUtil.scale(branch, scale);
-					SDF b1 = SplineUtil.buildSDF(branch, 1, 1, config.tree().log());
-					input = new SDFUnion(input, b1);
-
-					branch = SplineUtil.copySpline(SIDE1);
-					SplineUtil.rotateSpline(branch, angle);
-					SplineUtil.scale(branch, scale);
-					SDF b2 = SplineUtil.buildSDF(branch, 1, 1, config.tree().log());
-					input = new SDFUnion(input, b2);
-
-					branch = SplineUtil.copySpline(SIDE2);
-					SplineUtil.rotateSpline(branch, angle);
-					SplineUtil.scale(branch, scale);
-					SDF b3 = SplineUtil.buildSDF(branch, 1, 1, config.tree().log());
-					input = new SDFUnion(input, b3);
-				}
-				SDF leaves = leavesBall(config, radius * 1.15F + 2, random, noise);
-				leaves = new SDFTranslate(leaves, 0, offset, 0);
-				return new SDFUnion(input, leaves);
-			}
-
 			@Override
 			public SDF build(PlanetTreeFeatureConfig config, RandomSource random, WorldGenLevel l, BlockPos p) {
 				float size = MathUtil.randRange(random, 6, 12);
@@ -101,7 +59,41 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 				float radius = size * MathUtil.randRange(random, 0.9F, 0.95F);
 
 				SDF stem = SplineUtil.buildSDF(spline, 2.3F, 1.2F, config.tree().log());
-				return makeCap(config, radius, random, noise, stem);
+
+				int count = (int) radius;
+				int offset = (int) (BRANCH.get(BRANCH.size() - 1).y() * radius);
+				for (int i = 0; i < count; i++) {
+					float angle = (float) i / (float) count * Mth.PI * 2;
+					float scale = radius * MathUtil.randRange(random, 0.85F, 1.15F);
+
+					List<Vector3f> branch = SplineUtil.copySpline(BRANCH);
+					SplineUtil.rotateSpline(branch, angle);
+					SplineUtil.scale(branch, scale);
+					SDF b1 = SplineUtil.buildSDF(branch, 1, 1, config.tree().log());
+					stem = new SDFUnion(stem, b1);
+
+					branch = SplineUtil.copySpline(SIDE1);
+					SplineUtil.rotateSpline(branch, angle);
+					SplineUtil.scale(branch, scale);
+					SDF b2 = SplineUtil.buildSDF(branch, 1, 1, config.tree().log());
+					stem = new SDFUnion(stem, b2);
+
+					branch = SplineUtil.copySpline(SIDE2);
+					SplineUtil.rotateSpline(branch, angle);
+					SplineUtil.scale(branch, scale);
+					SDF b3 = SplineUtil.buildSDF(branch, 1, 1, config.tree().log());
+					stem = new SDFUnion(stem, b3);
+				}
+
+				SDF sphere = new SDFSphere(radius * 1.15F + 2).setBlock(config.tree().leaves());
+				SDF sub = new SDFScale(sphere, 5);
+				sub = new SDFTranslate(sub, 0, -(radius * 1.15F + 2) * 5, 0);
+				sphere = new SDFSubtraction(sphere, sub);
+				sphere = new SDFScale3D(sphere, 1, 0.5f, 1);
+				sphere = new SDFDisplacement(sphere, noise, 0.2f, 1.5f);
+				SDF leaves = new SDFDisplacement(sphere, random, 3);
+				leaves = new SDFTranslate(leaves, 0, offset, 0);
+				return new SDFUnion(stem, leaves);
 
 			}
 		}),
@@ -120,8 +112,7 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 				List<Vector3f> spline = SplineUtil.makeArch(0, 0, 0, xoff, yoff, zoff, height, 10);
 				SplineUtil.offsetParts(spline, random, 0.5F, 0.5f, 0.5F);
 				SDF stem = SplineUtil.buildSDF(spline, thickness, thickness, config.tree().log());
-				SDF leaves = SplineUtil.buildSDF(spline, thickness + 0.3f, thickness + 0.3f,
-						x -> config.tree().leaves());
+				SDF leaves = SplineUtil.buildSDF(spline, thickness + 0.3f, thickness + 0.3f, config.tree().leaves());
 				leaves = new SDFSubtraction(leaves, stem);
 				SDF res = new SDFUnion(leaves, stem);
 				res.addPostProcess(
@@ -138,7 +129,7 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 				List<Vector3f> spline = SplineUtil.makeSpline(0, 0, 0, 0, size, 0, segments);
 				SplineUtil.offsetParts(spline, random, 1F, 0.3f, 1F);
 				SDF stem = SplineUtil.buildSDF(spline, 2.0f, 0.8f, config.tree().log());
-				
+
 				SDF discs = null;
 
 				float bottomrad = MathUtil.randRange(random, 5f, 8f);
@@ -151,7 +142,7 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 					float rad = ((float) i / (float) segments) * (toprad - bottomrad) + bottomrad;
 					SDF disc = new SDFSphere(rad).setBlock(config.tree().leaves());
 					disc = new SDFScale3D(disc, 1, 1.5f / rad, 1);
-					disc = new SDFDisplacement(disc, v -> random.nextFloat() * 5F - 2.5F);
+					disc = new SDFDisplacement(disc, random, 5f);
 					disc = new SDFTranslate(disc, seg.x, height, seg.z);
 					disc = new SDFSubtraction(disc, stem);
 					if (i == 0) {
@@ -165,6 +156,25 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 			}
 		}),
 
+		CONE(new TreeMaker() {
+			public SDF build(PlanetTreeFeatureConfig config, RandomSource random, WorldGenLevel l, BlockPos p) {
+				float size = MathUtil.randRange(random, 8, 15);
+				List<Vector3f> spline = SplineUtil.makeSpline(0, 0, 0, 0, size, 0, 6);
+				SplineUtil.offsetParts(spline, random, 0.6F, 0.1f, 0.6F);
+				SDF stem = SplineUtil.buildSDF(spline, 1.2f, 0.9f, config.tree().log());
+
+				float radius = MathUtil.randRange(random, 1f, 3f);
+				float width = MathUtil.randRange(random, 1f, 2f);
+				float height = MathUtil.randRange(random, 2f, 6f);
+				SDF leaves = new SDFCappedCone(radius, radius + width, height).setBlock(config.tree().leaves());
+				leaves = new SDFTranslate(leaves, 0, size + height / 2 - 1, 0);
+				leaves = new SDFDisplacement(leaves, random, 4f);
+
+				return new SDFUnion(stem, leaves);
+
+			};
+		}),
+
 		LOLLIPOP(new TreeMaker() {
 			public SDF build(PlanetTreeFeatureConfig config, RandomSource random, WorldGenLevel l, BlockPos p) {
 				float size = MathUtil.randRange(random, 15, 35);
@@ -174,7 +184,7 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 				float rad = MathUtil.randRange(random, 5, 10);
 				SDF leaves = new SDFSphere(rad).setBlock(config.tree().leaves());
 				leaves = new SDFTranslate(leaves, 0, size, 0);
-				leaves = new SDFDisplacement(leaves, v -> random.nextFloat() * 5F - 2.5F);
+				leaves = new SDFDisplacement(leaves, random, 5f);
 				return new SDFUnion(stem, leaves);
 			};
 		});

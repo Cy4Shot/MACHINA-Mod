@@ -1,9 +1,10 @@
 package com.machina.registration.init;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import com.machina.api.starchart.PlanetType;
 import com.machina.api.starchart.PlanetType.ExtraRules;
@@ -25,19 +26,20 @@ import net.minecraft.world.level.levelgen.NoiseSettings;
 
 public class PlanetTypeInit {
 
-	public static final List<PlanetType> PLANET_TYPES = new ArrayList<>();
+	public static final Map<String, PlanetType> PLANET_TYPES = new HashMap<>();
 
 	//@formatter:off
-	public static final PlanetType EARTHLIKE = create(new PlanetType(
+	public static final String EARTHLIKE = create("earthlike", new PlanetType(
 			new Shape(60, new NoiseSettings(-64, 384, 1, 2)),
 			new Surface(Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.DIRT.defaultBlockState()),
 			new Vegetation(Map.of(
-//					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
+//					TreeType.ARCH, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
 //							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
 //							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
-					TreeType.FIR, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
+					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
 							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
-							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)))),
+							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true))),
+					List.of(Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true))),
 			new Underground(
 					new RockType(Blocks.STONE.defaultBlockState(),
 							Blocks.STONE_STAIRS.defaultBlockState(),
@@ -51,13 +53,13 @@ public class PlanetTypeInit {
 					new UndergroundRules(BlockTagInit.EARTHLIKE_CARVABLE)
 			)));
 
-//	public static final PlanetType ANTHRACITE = create(new PlanetType(
+//	public static final String ANTHRACITE = create("anthracite", new PlanetType(
 //			new Shape(60, new NoiseSettings(-64, 384, 1, 2)),
 //			new Surface(Blocks.COAL_ORE.defaultBlockState(), Blocks.GRAVEL.defaultBlockState()),
 //			new Vegetation(Map.of(
-////					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
-////							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
-////							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
+//					TreeType.RADIAL_BAOBAB, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
+//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
+//							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)),
 //					TreeType.ARCH, new Tree(Blocks.OAK_WOOD.defaultBlockState(),
 //							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true),
 //							Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true)))),
@@ -75,13 +77,18 @@ public class PlanetTypeInit {
 //			)));
 //	//@formatter:on
 
-	public static PlanetType create(PlanetType name) {
-		PLANET_TYPES.add(name);
+	public static String create(String name, PlanetType type) {
+		PLANET_TYPES.put(name, type);
 		return name;
 	}
+	
+	public static PlanetType get(String string) {
+		return PLANET_TYPES.get(string);
+	}
 
-	public static PlanetType pickRandom(Random rand) {
-		int index = rand.nextInt(PLANET_TYPES.size());
-		return PLANET_TYPES.get(index);
+	public static String pickRandom(Random rand) {
+		List<String> types = PLANET_TYPES.keySet().stream().collect(Collectors.toList());
+		int index = rand.nextInt(types.size());
+		return types.get(index);
 	}
 }

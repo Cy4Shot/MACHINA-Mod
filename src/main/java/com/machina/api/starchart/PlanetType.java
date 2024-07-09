@@ -40,10 +40,11 @@ public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Un
 						.apply(instance, Surface::new));
 	}
 
-	public record Vegetation(Map<TreeType, Tree> trees) {
+	public record Vegetation(Map<TreeType, Tree> trees, List<BlockState> bushes) {
 		public static final Codec<Vegetation> CODEC = RecordCodecBuilder.create(instance -> instance
-	            .group(Codec.unboundedMap(TreeType.CODEC, Tree.CODEC).fieldOf("trees").forGetter(Vegetation::trees))
-	            .apply(instance, Vegetation::new));
+				.group(Codec.unboundedMap(TreeType.CODEC, Tree.CODEC).fieldOf("trees").forGetter(Vegetation::trees),
+						Codec.list(BlockState.CODEC).fieldOf("bushes").forGetter(Vegetation::bushes))
+				.apply(instance, Vegetation::new));
 	}
 
 	public record Tree(BlockState log, BlockState leaves, BlockState leavesextra) {

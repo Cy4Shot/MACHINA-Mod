@@ -8,11 +8,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.machina.api.starchart.PlanetType;
 import com.machina.api.util.ChemicalConstants;
 import com.machina.api.util.ChemicalConstants.FluidTempState;
+import com.machina.registration.init.PlanetTypeInit;
 
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-public record Planet(String name, PlanetType type, double a, // semi-major axis of the orbit (in AU)
+public record Planet(String name, String planet_type, double a, // semi-major axis of the orbit (in AU)
 		double e, // eccentricity of the orbit
 		double where_in_orbit, // position along orbit (in radians)
 		double mass, // mass (in Earth masses)
@@ -49,6 +50,10 @@ public record Planet(String name, PlanetType type, double a, // semi-major axis 
 	@Override
 	public String toString() {
 		return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
+	}
+
+	public PlanetType type() {
+		return PlanetTypeInit.get(planet_type);
 	}
 
 	public Vec3 calculateOrbitalCoordinates(double t) {
@@ -94,7 +99,7 @@ public record Planet(String name, PlanetType type, double a, // semi-major axis 
 	public double calculateAphelionDistance() {
 		return a * (1 + e);
 	}
-	
+
 	public boolean hasClouds() {
 		return this.cloud_cover > 0.1f;
 	}

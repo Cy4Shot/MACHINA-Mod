@@ -56,7 +56,7 @@ public class StarchartGenerator {
 			}
 		}
 		
-		PlanetType type = PlanetTypeInit.pickRandom(rand);
+		String type = PlanetTypeInit.pickRandom(rand);
 
 		Planet planet = new Planet(name, type, p.a, p.e, p.where_in_orbit, p.mass, p.gas_giant, p.orbit_zone, p.radius,
 				p.density, p.orb_period, p.day, p.resonant_period, p.axial_tilt, p.esc_velocity, p.surf_accel,

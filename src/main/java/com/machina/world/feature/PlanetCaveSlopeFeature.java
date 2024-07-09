@@ -18,15 +18,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
-public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureConfig> {
+public class PlanetCaveSlopeFeature extends Feature<PlanetCaveSlopeFeature.CaveSlopeFeatureConfig> {
 
-	public static record CaveSlopeFeatureConfig(CaveSurface surface, RockType type, UndergroundRules rules) implements FeatureConfiguration {
+	public static record CaveSlopeFeatureConfig(CaveSurface surface, RockType type, UndergroundRules rules)
+			implements FeatureConfiguration {
 		public static final Codec<CaveSlopeFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(CaveSurface.CODEC.fieldOf("surface").forGetter(CaveSlopeFeatureConfig::surface),
 						RockType.CODEC.fieldOf("type").forGetter(CaveSlopeFeatureConfig::type),
@@ -34,19 +36,25 @@ public class CaveSlopeFeature extends Feature<CaveSlopeFeature.CaveSlopeFeatureC
 				.apply(instance, CaveSlopeFeatureConfig::new));
 	}
 
-	public CaveSlopeFeature() {
+	public PlanetCaveSlopeFeature() {
 		super(CaveSlopeFeatureConfig.CODEC);
 	}
 
 	public boolean place(FeaturePlaceContext<CaveSlopeFeatureConfig> conf) {
 		WorldGenLevel level = conf.level();
 		RandomSource rand = conf.random();
-		NormalNoise noise = NormalNoise.create(rand, -8, 0.5, 1, 2, 1, 2, 1, 0, 2, 0);
 		BlockPos pos = conf.origin();
+
+		// Prevent surface generation
+		if (level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ()) - 2 <= pos.getY())
+			return false;
+
+		NormalNoise noise = NormalNoise.create(rand, -8, 0.5, 1, 2, 1, 2, 1, 0, 2, 0);
 		int radius = 4;
 		Set<BlockPos> set = this.placeGroundPatch(level, rand, pos, radius, radius, conf.config().surface(),
 				conf.config().type());
-		this.distributeVegetation(level, rand, set, conf.config().surface(), noise, conf.config().type(), conf.config().rules());
+		this.distributeVegetation(level, rand, set, conf.config().surface(), noise, conf.config().type(),
+				conf.config().rules());
 		return !set.isEmpty();
 	}
 
