@@ -2,6 +2,7 @@ package com.machina.world.biome;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.List;
 import java.util.NavigableMap;
 import java.util.Random;
 import java.util.TreeMap;
@@ -20,28 +21,40 @@ import com.machina.world.feature.PlanetTreeFeature;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.Holder;
+import net.minecraft.core.Vec3i;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType;
+import net.minecraft.world.level.levelgen.blockpredicates.StateTestingPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.RandomPatchFeature;
+import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
@@ -128,6 +141,7 @@ public class PlanetBiome extends Biome {
 			Random r) {
 		PlanetType type = p.type();
 
+		// Cave Slope
 		for (CaveSurface surf : CaveSurface.values())
 			add(builder, Decoration.UNDERGROUND_DECORATION, new PlanetCaveSlopeFeature(),
 					new PlanetCaveSlopeFeatureConfig(surf, type.underground().rock(), type.rules().cave()), count(256),
@@ -136,6 +150,8 @@ public class PlanetBiome extends Biome {
 					biome());
 
 		if (c.isUnderground()) {
+
+			// Ores
 			for (OreVein ore : type.underground().ores()) {
 				add(builder, Decoration.UNDERGROUND_ORES, Feature.ORE,
 						new OreConfiguration(new TagMatchTest(BlockTags.OVERWORLD_CARVER_REPLACEABLES), ore.ore(),
@@ -151,21 +167,48 @@ public class PlanetBiome extends Biome {
 
 		if (c.equals(BiomeCategory.MIDDLE)) {
 
+			// Tree A
 			PlanetTreeFeature.TreeType tree = MathUtil.randomInList(type.vegetation().trees().keySet(), r);
 			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
 					new PlanetTreeFeature.PlanetTreeFeatureConfig(tree, type.rules().veg(),
 							type.vegetation().trees().get(tree)),
 					every(4), spread(), onFloor());
 
+			// Tree B
 			PlanetTreeFeature.TreeType tree2 = MathUtil.randomInList(type.vegetation().trees().keySet(), r);
 			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
 					new PlanetTreeFeature.PlanetTreeFeatureConfig(tree2, type.rules().veg(),
 							type.vegetation().trees().get(tree2)),
 					every(4), spread(), onFloor());
 
+			// Bushes
 			for (PlanetBushFeatureConfig bush : type.vegetation().bushes())
-				add(builder, Decoration.VEGETAL_DECORATION, new PlanetBushFeature(), bush,
-						count(3), spread(), onFloor());
+				add(builder, Decoration.VEGETAL_DECORATION, new PlanetBushFeature(), bush, count(3), spread(),
+						onFloor());
+		}
+
+		if (!c.isUnderground()) {
+
+			// Grass
+			add(builder, Decoration.VEGETAL_DECORATION, new RandomPatchFeature(RandomPatchConfiguration.CODEC),
+					new RandomPatchConfiguration(32, 7, 3, Holder.direct(new PlacedFeature(
+							Holder.direct(new ConfiguredFeature<>(
+									new SimpleBlockFeature(SimpleBlockConfiguration.CODEC),
+									new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList
+											.<BlockState>builder().add(Blocks.GRASS.defaultBlockState(), 10)
+											.add(Blocks.FERN.defaultBlockState(), 2))))),
+							List.of(BlockPredicateFilter.forPredicate(new StateTestingPredicate(Vec3i.ZERO) {
+								@Override
+								public BlockPredicateType<?> type() {
+									return BlockPredicateType.MATCHING_BLOCKS;
+								}
+
+								@Override
+								protected boolean test(BlockState state) {
+									return state.is(Blocks.AIR);
+								}
+							}))))),
+					NoiseThresholdCountPlacement.of(-0.8f, 5, 10), spread(), onSurface(), biome());
 		}
 	}
 
@@ -189,7 +232,11 @@ public class PlanetBiome extends Biome {
 	}
 
 	private static HeightmapPlacement onFloor() {
-		return HeightmapPlacement.onHeightmap(Types.OCEAN_FLOOR);
+		return HeightmapPlacement.onHeightmap(Types.OCEAN_FLOOR_WG);
+	}
+
+	private static HeightmapPlacement onSurface() {
+		return HeightmapPlacement.onHeightmap(Types.WORLD_SURFACE_WG);
 	}
 
 	private static BiomeFilter biome() {

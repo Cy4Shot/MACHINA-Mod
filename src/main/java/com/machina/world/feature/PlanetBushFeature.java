@@ -21,8 +21,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 
 public class PlanetBushFeature extends Feature<PlanetBushFeature.PlanetBushFeatureConfig> {
 
-	public static record PlanetBushFeatureConfig(BlockState state, float radius)
-			implements FeatureConfiguration {
+	public static record PlanetBushFeatureConfig(BlockState state, float radius) implements FeatureConfiguration {
 
 		public static final Codec<PlanetBushFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(BlockState.CODEC.fieldOf("state").forGetter(PlanetBushFeatureConfig::state),
@@ -53,14 +52,17 @@ public class PlanetBushFeature extends Feature<PlanetBushFeature.PlanetBushFeatu
 		blob = new SDFDisplacement(blob, rand, 4f);
 		blob.addPostProcess(new SDFChanceFilter(rand, 0.85f));
 		blob.fillRecursiveShift(level, place, p -> {
+			if (!level.getBlockState(p.immutable()).isAir()) {
+				return false;
+			}
 			int shifted = 0;
-			while (level.getBlockState(p.immutable().below()).isAir()) {
+			while (!level.getBlockState(p.immutable().below()).isSolid()) {
 				p.move(Direction.DOWN);
 				if (++shifted > 3) {
 					return false;
 				}
 			}
-			return true;
+			return level.getBlockState(p.immutable()).isAir();
 		});
 
 		return true;

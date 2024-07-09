@@ -22,7 +22,7 @@ public class ClientForgeEvents {
 		if (mc.screen != null || mc.level == null)
 			return;
 
-		if (KeyBindingInit.starchartKey.isDown()) {
+		if (KeyBindingInit.STARCHART_KEY.isDown()) {
 			mc.setScreen(new StarchartScreen(StarchartGenerator.gen(10, "Test")));
 		}
 	}
