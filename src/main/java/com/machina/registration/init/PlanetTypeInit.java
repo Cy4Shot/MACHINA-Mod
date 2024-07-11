@@ -3,12 +3,14 @@ package com.machina.registration.init;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 import com.machina.api.starchart.PlanetType;
 import com.machina.api.starchart.PlanetType.ExtraRules;
 import com.machina.api.starchart.PlanetType.Grass;
+import com.machina.api.starchart.PlanetType.Lakes;
 import com.machina.api.starchart.PlanetType.OreVein;
 import com.machina.api.starchart.PlanetType.RockType;
 import com.machina.api.starchart.PlanetType.Shape;
@@ -51,7 +53,7 @@ public class PlanetTypeInit {
 
 	public static final String EARTHLIKE = create("earthlike", new PlanetType(
 			new Shape(60, new NoiseSettings(-64, 384, 1, 2)),
-			new Surface(GRASS_BLOCK, DIRT),
+			new Surface(GRASS_BLOCK, DIRT, Optional.of(new Lakes(1f, 50))),
 			new Vegetation(
 					List.of(new Grass(5, 10, WeightedStateProviderProvider.builder()
 							.add(Blocks.GRASS.defaultBlockState(), 10)

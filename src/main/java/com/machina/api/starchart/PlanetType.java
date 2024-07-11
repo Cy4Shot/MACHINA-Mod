@@ -2,6 +2,7 @@ package com.machina.api.starchart;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.machina.api.util.block.WeightedStateProviderProvider;
 import com.machina.world.feature.PlanetBushFeature.PlanetBushFeatureConfig;
@@ -35,12 +36,18 @@ public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Un
 				.apply(instance, Shape::new));
 	}
 
-	public record Surface(BlockState top, BlockState second) {
-		public static final Codec<Surface> CODEC = RecordCodecBuilder
-				.create(instance -> instance
-						.group(BlockState.CODEC.fieldOf("top").forGetter(Surface::top),
-								BlockState.CODEC.fieldOf("second").forGetter(Surface::second))
-						.apply(instance, Surface::new));
+	public record Surface(BlockState top, BlockState second, Optional<Lakes> lakes) {
+		public static final Codec<Surface> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(BlockState.CODEC.fieldOf("top").forGetter(Surface::top),
+						BlockState.CODEC.fieldOf("second").forGetter(Surface::second),
+						Codec.optionalField("lakes", Lakes.CODEC).fieldOf("lakes").forGetter(Surface::lakes))
+				.apply(instance, Surface::new));
+	}
+
+	public record Lakes(float chance, int rarity) {
+		public static final Codec<Lakes> CODEC = RecordCodecBuilder
+				.create(instance -> instance.group(Codec.FLOAT.fieldOf("chance").forGetter(Lakes::chance),
+						Codec.INT.fieldOf("rarity").forGetter(Lakes::rarity)).apply(instance, Lakes::new));
 	}
 
 	public record Vegetation(List<Grass> grass, Map<TreeType, Tree> trees, List<PlanetBushFeatureConfig> bushes) {

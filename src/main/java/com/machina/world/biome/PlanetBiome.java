@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import com.google.common.hash.Hashing;
 import com.machina.api.starchart.PlanetType;
 import com.machina.api.starchart.PlanetType.Grass;
+import com.machina.api.starchart.PlanetType.Lakes;
 import com.machina.api.starchart.PlanetType.OreVein;
 import com.machina.api.starchart.PlanetType.Tree;
 import com.machina.api.starchart.obj.Planet;
@@ -37,8 +38,10 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -191,6 +194,17 @@ public class PlanetBiome extends Biome {
 						new PlanetGrassFeatureConfig(grass.provider()),
 						NoiseThresholdCountPlacement.of(-0.8f, grass.min(), grass.max()), spread(), onSurface(),
 						biome());
+			}
+
+			// Lakes
+			if (type.surface().lakes().isPresent()) {
+				Lakes lakes = type.surface().lakes().get();
+				if (r.nextFloat() < lakes.chance()) {
+					add(builder, Decoration.LAKES, Feature.LAKE,
+							new LakeFeature.Configuration(BlockStateProvider.simple(p.getDominantLiquidBodyBlock()),
+									BlockStateProvider.simple(type.underground().rock().base())),
+							every(lakes.rarity()), spread(), onSurface(), biome());
+				}
 			}
 		}
 	}
