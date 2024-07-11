@@ -46,7 +46,8 @@ public class PlanetFactory {
 				type.underground().rock().base(), fluid,
 				PlanetDensityFunction.planet(planet, lookup.lookup(Registries.DENSITY_FUNCTION).get(),
 						lookup.lookup(Registries.NOISE).get()),
-				PlanetSurfaceRule.planet(planet), PlanetBiomeSource.spawnTarget(), sea_level, false, true, true, false);
+				PlanetSurfaceRule.planet(planet), PlanetBiomeSource.spawnTarget(), sea_level, false, true, false,
+				false);
 
 		return new LevelStem(getDimensionType(server),
 				new PlanetChunkGenerator(bs, Holder.direct(settings), key, seed));
