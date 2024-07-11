@@ -7,6 +7,7 @@ import com.machina.config.CommonConfig;
 import com.machina.network.MachinaNetwork;
 import com.machina.registration.init.BlockEntityInit;
 import com.machina.registration.init.BlockInit;
+import com.machina.registration.init.BlockStateProviderInit;
 import com.machina.registration.init.ChunkGeneratorInit;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.ItemInit;
@@ -36,6 +37,7 @@ public class Registration {
 		FluidInit.FLUID_TYPES.register(bus);
 		TabInit.CREATIVE_MODE_TABS.register(bus);
 		BlockEntityInit.BLOCK_ENTITY_TYPES.register(bus);
+		BlockStateProviderInit.BLOCK_STATE_PROVIDERS.register(bus);
 		ChunkGeneratorInit.CHUNK_GENERATORS.register(bus);
 	}
 

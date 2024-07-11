@@ -2,7 +2,7 @@ package com.machina.api.block;
 
 import com.machina.api.block.tile.multiblock.MultiblockMasterBlockEntity;
 import com.machina.api.block.tile.multiblock.MultiblockPartBlockEntity;
-import com.machina.api.util.BlockHelper;
+import com.machina.api.util.block.BlockHelper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

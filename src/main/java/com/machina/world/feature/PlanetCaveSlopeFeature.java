@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.machina.api.starchart.PlanetType.RockType;
 import com.machina.api.starchart.PlanetType.UndergroundRules;
-import com.machina.api.util.BlockHelper;
+import com.machina.api.util.block.BlockHelper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 

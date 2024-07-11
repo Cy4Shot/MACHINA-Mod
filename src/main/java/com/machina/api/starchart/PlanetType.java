@@ -3,6 +3,7 @@ package com.machina.api.starchart;
 import java.util.List;
 import java.util.Map;
 
+import com.machina.api.util.block.WeightedStateProviderProvider;
 import com.machina.world.feature.PlanetBushFeature.PlanetBushFeatureConfig;
 import com.machina.world.feature.PlanetTreeFeature.TreeType;
 import com.mojang.serialization.Codec;
@@ -42,20 +43,31 @@ public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Un
 						.apply(instance, Surface::new));
 	}
 
-	public record Vegetation(Map<TreeType, Tree> trees, List<PlanetBushFeatureConfig> bushes) {
+	public record Vegetation(List<Grass> grass, Map<TreeType, Tree> trees, List<PlanetBushFeatureConfig> bushes) {
 		public static final Codec<Vegetation> CODEC = RecordCodecBuilder.create(instance -> instance
-				.group(Codec.unboundedMap(TreeType.CODEC, Tree.CODEC).fieldOf("trees").forGetter(Vegetation::trees),
+				.group(Codec.list(Grass.CODEC).fieldOf("grass").forGetter(Vegetation::grass),
+						Codec.unboundedMap(TreeType.CODEC, Tree.CODEC).fieldOf("trees").forGetter(Vegetation::trees),
 						Codec.list(PlanetBushFeatureConfig.CODEC).fieldOf("bushes").forGetter(Vegetation::bushes))
 				.apply(instance, Vegetation::new));
 	}
 
+	public record Grass(int min, int max, WeightedStateProviderProvider provider) {
+		public Grass(int min, int max, WeightedStateProviderProvider.Builder builder) {
+			this(min, max, builder.build());
+		}
+
+		public static final Codec<Grass> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(Codec.INT.fieldOf("min").forGetter(Grass::min), Codec.INT.fieldOf("max").forGetter(Grass::max),
+						WeightedStateProviderProvider.CODEC.fieldOf("provider").forGetter(Grass::provider))
+				.apply(instance, Grass::new));
+	}
+
 	public record Tree(BlockState log, BlockState leaves, BlockState leavesextra, int every) {
-		public static final Codec<Tree> CODEC = RecordCodecBuilder.create(instance -> instance
-				.group(BlockState.CODEC.fieldOf("log").forGetter(Tree::log),
+		public static final Codec<Tree> CODEC = RecordCodecBuilder
+				.create(instance -> instance.group(BlockState.CODEC.fieldOf("log").forGetter(Tree::log),
 						BlockState.CODEC.fieldOf("leaves").forGetter(Tree::leaves),
 						BlockState.CODEC.fieldOf("leavesextra").forGetter(Tree::leavesextra),
-						Codec.INT.fieldOf("every").forGetter(Tree::every))
-				.apply(instance, Tree::new));
+						Codec.INT.fieldOf("every").forGetter(Tree::every)).apply(instance, Tree::new));
 	}
 
 	public record Underground(RockType rock, List<OreVein> ores) {

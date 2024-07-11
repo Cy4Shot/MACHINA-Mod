@@ -1,4 +1,4 @@
-package com.machina.api.util;
+package com.machina.api.util.block;
 
 import java.util.function.Consumer;
 

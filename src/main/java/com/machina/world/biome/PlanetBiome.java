@@ -2,13 +2,13 @@ package com.machina.world.biome;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.List;
 import java.util.NavigableMap;
 import java.util.Random;
 import java.util.TreeMap;
 
 import com.google.common.hash.Hashing;
 import com.machina.api.starchart.PlanetType;
+import com.machina.api.starchart.PlanetType.Grass;
 import com.machina.api.starchart.PlanetType.OreVein;
 import com.machina.api.starchart.PlanetType.Tree;
 import com.machina.api.starchart.obj.Planet;
@@ -18,37 +18,28 @@ import com.machina.world.feature.PlanetBushFeature;
 import com.machina.world.feature.PlanetBushFeature.PlanetBushFeatureConfig;
 import com.machina.world.feature.PlanetCaveSlopeFeature;
 import com.machina.world.feature.PlanetCaveSlopeFeature.PlanetCaveSlopeFeatureConfig;
+import com.machina.world.feature.PlanetGrassFeature;
+import com.machina.world.feature.PlanetGrassFeature.PlanetGrassFeatureConfig;
 import com.machina.world.feature.PlanetTreeFeature;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.Vec3i;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType;
-import net.minecraft.world.level.levelgen.blockpredicates.StateTestingPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.RandomPatchFeature;
-import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
@@ -187,32 +178,20 @@ public class PlanetBiome extends Biome {
 
 			// Bushes
 			for (PlanetBushFeatureConfig bush : type.vegetation().bushes())
-				add(builder, Decoration.VEGETAL_DECORATION, new PlanetBushFeature(), bush, count(bush.perchunk()), spread(),
-						onFloor());
+				add(builder, Decoration.VEGETAL_DECORATION, new PlanetBushFeature(), bush, count(bush.perchunk()),
+						spread(), onFloor());
 		}
 
 		if (!c.isUnderground()) {
 
 			// Grass
-			add(builder, Decoration.VEGETAL_DECORATION, new RandomPatchFeature(RandomPatchConfiguration.CODEC),
-					new RandomPatchConfiguration(32, 7, 3, Holder.direct(new PlacedFeature(
-							Holder.direct(new ConfiguredFeature<>(
-									new SimpleBlockFeature(SimpleBlockConfiguration.CODEC),
-									new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList
-											.<BlockState>builder().add(Blocks.GRASS.defaultBlockState(), 10)
-											.add(Blocks.FERN.defaultBlockState(), 2))))),
-							List.of(BlockPredicateFilter.forPredicate(new StateTestingPredicate(Vec3i.ZERO) {
-								@Override
-								public BlockPredicateType<?> type() {
-									return BlockPredicateType.MATCHING_BLOCKS;
-								}
-
-								@Override
-								protected boolean test(BlockState state) {
-									return state.is(Blocks.AIR);
-								}
-							}))))),
-					NoiseThresholdCountPlacement.of(-0.8f, 5, 10), spread(), onSurface(), biome());
+			if (!type.vegetation().grass().isEmpty()) {
+				Grass grass = MathUtil.randomInList(type.vegetation().grass(), r);
+				add(builder, Decoration.VEGETAL_DECORATION, new PlanetGrassFeature(),
+						new PlanetGrassFeatureConfig(grass.provider()),
+						NoiseThresholdCountPlacement.of(-0.8f, grass.min(), grass.max()), spread(), onSurface(),
+						biome());
+			}
 		}
 	}
 
