@@ -26,9 +26,33 @@ public class DatagenBlockTags extends BlockTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
-		tag(BlockTags.SLABS).add(BlockInit.ANTHRACITE_SLAB.get(), BlockInit.FELDSPAR_SLAB.get());
-		tag(BlockTags.STAIRS).add(BlockInit.ANTHRACITE_STAIRS.get(), BlockInit.FELDSPAR_STAIRS.get());
+		tag(BlockTags.SLABS).add(BlockInit.ANTHRACITE_SLAB.get(), BlockInit.FELDSPAR_SLAB.get(), BlockInit.TROPICAL_SLAB.get());
+		tag(BlockTags.STAIRS).add(BlockInit.ANTHRACITE_STAIRS.get(), BlockInit.FELDSPAR_STAIRS.get(), BlockInit.TROPICAL_STAIRS.get());
 		tag(BlockTags.WALLS).add(BlockInit.ANTHRACITE_WALL.get(), BlockInit.FELDSPAR_WALL.get());
+		
+		tag(BlockTags.BUTTONS).add(BlockInit.TROPICAL_BUTTON.get());
+		tag(BlockTags.WOODEN_BUTTONS).add(BlockInit.TROPICAL_BUTTON.get());
+		tag(BlockTags.DOORS).add(BlockInit.TROPICAL_DOOR.get());
+		tag(BlockTags.WOODEN_DOORS).add(BlockInit.TROPICAL_DOOR.get());
+		tag(BlockTags.TRAPDOORS).add(BlockInit.TROPICAL_TRAPDOOR.get());
+		tag(BlockTags.WOODEN_TRAPDOORS).add(BlockInit.TROPICAL_TRAPDOOR.get());
+		tag(BlockTags.FENCES).add(BlockInit.TROPICAL_FENCE.get());
+		tag(BlockTags.WOODEN_FENCES).add(BlockInit.TROPICAL_FENCE.get());
+		tag(BlockTags.FENCE_GATES).add(BlockInit.TROPICAL_FENCE_GATE.get());
+		tag(BlockTags.PRESSURE_PLATES).add(BlockInit.TROPICAL_PRESSURE_PLATE.get());
+		tag(BlockTags.WOODEN_PRESSURE_PLATES).add(BlockInit.TROPICAL_PRESSURE_PLATE.get());
+		
+		tag(BlockTags.ALL_SIGNS).add(BlockInit.TROPICAL_SIGN.get(), BlockInit.TROPICAL_WALL_SIGN.get());
+		tag(BlockTags.SIGNS).add(BlockInit.TROPICAL_SIGN.get());
+		tag(BlockTags.WALL_SIGNS).add(BlockInit.TROPICAL_WALL_SIGN.get());
+		tag(BlockTags.ALL_HANGING_SIGNS).add(BlockInit.TROPICAL_HANGING_SIGN.get(), BlockInit.TROPICAL_WALL_HANGING_SIGN.get());
+		tag(BlockTags.CEILING_HANGING_SIGNS).add(BlockInit.TROPICAL_HANGING_SIGN.get());
+		tag(BlockTags.WALL_HANGING_SIGNS).add(BlockInit.TROPICAL_WALL_HANGING_SIGN.get());
+		
+		tag(BlockTags.LOGS).add(BlockInit.TROPICAL_LOG.get(), BlockInit.STRIPPED_TROPICAL_LOG.get(),
+				BlockInit.TROPICAL_WOOD.get(), BlockInit.STRIPPED_TROPICAL_WOOD.get());
+		tag(BlockTags.PLANKS).add(BlockInit.TROPICAL_PLANKS.get());
+		tag(BlockTags.LEAVES).add(BlockInit.TROPICAL_LEAVES.get());
 
 		tag(BlockTags.FLOWERS).add(BlockInit.DRAGON_PEONY.get(), BlockInit.ORHPEUM.get());
 		tag(BlockTags.SMALL_FLOWERS).add(BlockInit.DRAGON_PEONY.get());

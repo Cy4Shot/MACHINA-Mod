@@ -2,78 +2,76 @@ package com.machina.datagen.server;
 
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
+import com.machina.datagen.server.provider.BlockLootTableProvider;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
 import com.machina.registration.init.ItemInit;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 // TODO: Fix this class. Make a datagen for loot tables.
-public class DatagenLootTables extends BlockLootSubProvider {
-	public DatagenLootTables() {
-		super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+public class DatagenLootTables extends LootTableProvider {
+	public DatagenLootTables(PackOutput output) {
+		super(output, Set.of(), List.of(new SubProviderEntry(BlockLoot::new, LootContextParamSets.BLOCK)));
 	}
 
-	@Override
-	protected void generate() {
+	public static class BlockLoot extends BlockLootTableProvider {
 
-		// Drop Self
-		this.dropSelf(BlockInit.ALUMINUM_BLOCK.get());
-		this.dropSelf(BlockInit.ANTHRACITE.get());
-		this.dropSelf(BlockInit.ANTHRACITE_SLAB.get());
-		this.dropSelf(BlockInit.ANTHRACITE_STAIRS.get());
-		this.dropSelf(BlockInit.ANTHRACITE_WALL.get());
-		this.dropSelf(BlockInit.FELDSPAR.get());
-		this.dropSelf(BlockInit.FELDSPAR_SLAB.get());
-		this.dropSelf(BlockInit.FELDSPAR_STAIRS.get());
-		this.dropSelf(BlockInit.FELDSPAR_WALL.get());
-		
-		this.dropSelf(BlockInit.DRAGON_PEONY.get());
-		this.dropSelf(BlockInit.ORHPEUM.get());
+		@Override
+		protected void generate() {
+			dropSelf(BlockInit.ALUMINUM_BLOCK.get());
+			dropSelf(BlockInit.ANTHRACITE.get());
+			slab(BlockInit.ANTHRACITE_SLAB.get());
+			dropSelf(BlockInit.ANTHRACITE_STAIRS.get());
+			dropSelf(BlockInit.ANTHRACITE_WALL.get());
+			dropSelf(BlockInit.FELDSPAR.get());
+			slab(BlockInit.FELDSPAR_SLAB.get());
+			dropSelf(BlockInit.FELDSPAR_STAIRS.get());
+			dropSelf(BlockInit.FELDSPAR_WALL.get());
 
-		// Ore
-		this.dropOre(BlockInit.ALUMINUM_ORE.get(), ItemInit.RAW_ALUMINUM.get());
+			dropSelf(BlockInit.TROPICAL_BUTTON.get());
+			dropSelf(BlockInit.TROPICAL_DOOR.get());
+			dropSelf(BlockInit.TROPICAL_FENCE.get());
+			dropSelf(BlockInit.TROPICAL_FENCE_GATE.get());
+			dropSelf(BlockInit.TROPICAL_HANGING_SIGN.get());
+			dropSelf(BlockInit.TROPICAL_LOG.get());
+			dropSelf(BlockInit.TROPICAL_PLANKS.get());
+			leaves(BlockInit.TROPICAL_LEAVES.get());
+			dropSelf(BlockInit.TROPICAL_PRESSURE_PLATE.get());
+			dropSelf(BlockInit.TROPICAL_SIGN.get());
+			slab(BlockInit.TROPICAL_SLAB.get());
+			dropSelf(BlockInit.TROPICAL_STAIRS.get());
+			dropSelf(BlockInit.TROPICAL_TRAPDOOR.get());
+			dropSelf(BlockInit.TROPICAL_WALL_HANGING_SIGN.get());
+			dropSelf(BlockInit.TROPICAL_WALL_SIGN.get());
+			dropSelf(BlockInit.TROPICAL_WOOD.get());
+			dropSelf(BlockInit.STRIPPED_TROPICAL_LOG.get());
+			dropSelf(BlockInit.STRIPPED_TROPICAL_WOOD.get());
 
-		// Fluids
-		for (FluidObject obj : FluidInit.OBJS) {
-			this.dropNone(obj.block());
+			dropSelf(BlockInit.DRAGON_PEONY.get());
+			pot(BlockInit.POTTED_DRAGON_PEONY.get());
+			dropSelf(BlockInit.ORHPEUM.get());
+			dropSelf(BlockInit.CLOVER.get());
+
+			// Ore
+			ore(BlockInit.ALUMINUM_ORE.get(), ItemInit.RAW_ALUMINUM.get());
+
+			// Fluids
+			for (FluidObject obj : FluidInit.OBJS) {
+				dropNone(obj.block());
+			}
 		}
-	}
 
-	private void dropNone(Block b) {
-		this.add(b, noDrop());
-	}
-
-	private void dropOre(Block b, Item i) {
-		this.add(b, createSilkTouchDispatchTable(b, this.applyExplosionDecay(b,
-				LootItem.lootTableItem(i).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)))));
-	}
-
-	@SuppressWarnings("unused")
-	private void dropOre(Block b, Item i, int min, int max) {
-		this.add(b,
-				createSilkTouchDispatchTable(b,
-						this.applyExplosionDecay(b,
-								LootItem.lootTableItem(i)
-										.apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)))
-										.apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)))));
-	}
-
-	public static LootTableProvider create(PackOutput output) {
-		return new LootTableProvider(output, Set.of(),
-				List.of(new LootTableProvider.SubProviderEntry(DatagenLootTables::new, LootContextParamSets.BLOCK)));
+		@Override
+		protected Iterable<Block> getKnownBlocks() {
+			return BlockInit.BLOCKS.getEntries().stream().map(Supplier::get).collect(Collectors.toList());
+		}
 	}
 }

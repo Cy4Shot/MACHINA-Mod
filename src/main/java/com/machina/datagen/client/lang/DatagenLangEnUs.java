@@ -59,6 +59,23 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.FELDSPAR_STAIRS.get(), "Feldspar Stairs");
 		add(BlockInit.FELDSPAR_WALL.get(), "Feldspar Wall");
 		
+		add(BlockInit.TROPICAL_BUTTON.get(), "Tropical Button");
+		add(BlockInit.TROPICAL_DOOR.get(), "Tropical Door");
+		add(BlockInit.TROPICAL_FENCE.get(), "Tropical Fence");
+		add(BlockInit.TROPICAL_FENCE_GATE.get(), "Tropical Fence Gate");
+		add(BlockInit.TROPICAL_HANGING_SIGN.get(), "Tropical Hanging Sign");
+		add(BlockInit.TROPICAL_LOG.get(), "Tropical Log");
+		add(BlockInit.TROPICAL_PLANKS.get(), "Tropical Planks");
+		add(BlockInit.TROPICAL_LEAVES.get(), "Tropical Leaves");
+		add(BlockInit.TROPICAL_PRESSURE_PLATE.get(), "Tropical Pressure Plate");
+		add(BlockInit.TROPICAL_SIGN.get(), "Tropical Sign");
+		add(BlockInit.TROPICAL_SLAB.get(), "Tropical Slab");
+		add(BlockInit.TROPICAL_STAIRS.get(), "Tropical Stairs");
+		add(BlockInit.TROPICAL_TRAPDOOR.get(), "Tropical Trapdoor");
+		add(BlockInit.TROPICAL_WOOD.get(), "Tropical Wood");
+		add(BlockInit.STRIPPED_TROPICAL_LOG.get(), "Stripped Tropical Log");
+		add(BlockInit.STRIPPED_TROPICAL_WOOD.get(), "Stripped Tropical Wood");
+		
 		add(BlockInit.CLOVER.get(), "Clover");
 		add(BlockInit.DRAGON_PEONY.get(), "Dragon Peony");
 		add(BlockInit.POTTED_DRAGON_PEONY.get(), "Potted Dragon Peony");

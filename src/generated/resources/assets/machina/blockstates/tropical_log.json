@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "machina:block/tropical_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "machina:block/tropical_log"
+    },
+    "axis=z": {
+      "model": "machina:block/tropical_log_horizontal",
+      "x": 90
+    }
+  }
+}

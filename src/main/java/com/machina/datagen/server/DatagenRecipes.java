@@ -44,26 +44,99 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 				BlockInit.ANTHRACITE_WALL.get());
 		stoneFamily(gen, BlockInit.FELDSPAR.get(), BlockInit.FELDSPAR_SLAB.get(), BlockInit.FELDSPAR_STAIRS.get(),
 				BlockInit.FELDSPAR_WALL.get());
+
+		woodFamily(gen, BlockInit.TROPICAL_LOG.get(), BlockInit.TROPICAL_WOOD.get(),
+				BlockInit.STRIPPED_TROPICAL_LOG.get(), BlockInit.STRIPPED_TROPICAL_WOOD.get(),
+				BlockInit.TROPICAL_PLANKS.get(), BlockInit.TROPICAL_STAIRS.get(), BlockInit.TROPICAL_SLAB.get(),
+				BlockInit.TROPICAL_FENCE.get(), BlockInit.TROPICAL_FENCE_GATE.get(), BlockInit.TROPICAL_DOOR.get(),
+				BlockInit.TROPICAL_TRAPDOOR.get(), BlockInit.TROPICAL_PRESSURE_PLATE.get(),
+				BlockInit.TROPICAL_BUTTON.get(), ItemInit.TROPICAL_SIGN.get(), ItemInit.TROPICAL_HANGING_SIGN.get());
+	}
+
+	protected static void woodFamily(Consumer<FinishedRecipe> gen, ItemLike log, ItemLike wood, ItemLike stripped_log,
+			ItemLike stripped_wood, ItemLike planks, ItemLike stairs, ItemLike slab, ItemLike fence, ItemLike fencegate,
+			ItemLike door, ItemLike trapdoor, ItemLike pressure_plate, ItemLike button, ItemLike sign,
+			ItemLike hangingsign) {
+		//@formatter:off
+		log_and_plank(gen, log, wood, planks);
+		log_and_plank(gen, stripped_log, stripped_wood, planks);
+		slab(gen, planks, slab);
+		stair(gen, planks, stairs);
+		door(gen, planks, door);
+		trapdoor(gen, planks, trapdoor);
+		pressure_plate(gen, planks, pressure_plate);
+		button(gen, planks, button);
+		
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, fence, 3)
+			.pattern("BSB")
+			.pattern("BSB")
+			.define('B', planks)
+			.define('S', Items.STICK)
+			.unlockedBy(getHasName(planks), has(planks))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(fence));
+		
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, fencegate)
+			.pattern("SBS")
+			.pattern("SBS")
+			.define('B', planks)
+			.define('S', Items.STICK)
+			.unlockedBy(getHasName(planks), has(planks))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(fencegate));
+		
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, sign, 3)
+			.pattern("BBB")
+			.pattern("BBB")
+			.pattern(" S ")
+			.define('B', planks)
+			.define('S', Items.STICK)
+			.unlockedBy(getHasName(planks), has(planks))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(sign));
+		
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, hangingsign, 6)
+			.pattern("C C")
+			.pattern("BBB")
+			.pattern("BBB")
+			.define('B', stripped_log)
+			.define('C', Items.CHAIN)
+			.unlockedBy(getHasName(stripped_log), has(stripped_log))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(hangingsign));
+		//@formatter:on
+	}
+
+	protected static void log_and_plank(Consumer<FinishedRecipe> gen, ItemLike log, ItemLike wood, ItemLike planks) {
+		//@formatter:off
+		// LOG -> WOOD
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, wood, 3)
+			.pattern("BB")
+			.pattern("BB")
+			.define('B', log)
+			.unlockedBy(getHasName(log), has(log))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(wood));
+		
+		// LOG -> PLANKS
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, planks, 4)
+			.requires(log)
+			.unlockedBy(getHasName(log), has(log))
+			.save(gen, Machina.MOD_ID + ":" + getItemName(planks) + "_from_" + getItemName(log));
+		
+		// WOOD -> PLANKS
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, planks, 4)
+			.requires(wood)
+			.unlockedBy(getHasName(wood), has(wood))
+			.save(gen, Machina.MOD_ID + ":" + getItemName(planks) + "_from_" + getItemName(wood));
+		//@formatter:on
 	}
 
 	protected static void stoneFamily(Consumer<FinishedRecipe> gen, ItemLike base, ItemLike slab, ItemLike stair,
 			ItemLike wall) {
 		//@formatter:off
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, slab, 6)
-			.pattern("BBB")
-			.define('B', base)
-			.unlockedBy(getHasName(base), has(base))
-			.showNotification(false)
-			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(slab));
-		
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, stair, 4)
-			.pattern("B  ")
-			.pattern("BB ")
-			.pattern("BBB")
-			.define('B', base)
-			.unlockedBy(getHasName(base), has(base))
-			.showNotification(false)
-			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(stair));
+		slab(gen, base, slab);
+		stair(gen, base, stair);
 		
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, wall, 6)
 			.pattern("BBB")
@@ -82,6 +155,75 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(base), RecipeCategory.BUILDING_BLOCKS, wall)
 			.unlockedBy(getHasName(base), has(base))
 			.save(gen, Machina.MOD_ID + ":stonecutting_" + getItemName(wall));
+		//@formatter:on
+	}
+
+	protected static void stair(Consumer<FinishedRecipe> gen, ItemLike base, ItemLike stair) {
+		//@formatter:off
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, stair, 4)
+			.pattern("B  ")
+			.pattern("BB ")
+			.pattern("BBB")
+			.define('B', base)
+			.unlockedBy(getHasName(base), has(base))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(stair));
+		//@formatter:on
+	}
+
+	protected static void slab(Consumer<FinishedRecipe> gen, ItemLike base, ItemLike slab) {
+		//@formatter:off
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, slab, 6)
+			.pattern("BBB")
+			.define('B', base)
+			.unlockedBy(getHasName(base), has(base))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(slab));
+		//@formatter:on
+	}
+
+	protected static void door(Consumer<FinishedRecipe> gen, ItemLike base, ItemLike door) {
+		//@formatter:off
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, door, 3)
+			.pattern("BB")
+			.pattern("BB")
+			.pattern("BB")
+			.define('B', base)
+			.unlockedBy(getHasName(base), has(base))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(door));
+		//@formatter:on
+	}
+
+	protected static void trapdoor(Consumer<FinishedRecipe> gen, ItemLike base, ItemLike door) {
+		//@formatter:off
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, door, 2)
+			.pattern("BBB")
+			.pattern("BBB")
+			.define('B', base)
+			.unlockedBy(getHasName(base), has(base))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(door));
+		//@formatter:on
+	}
+
+	protected static void pressure_plate(Consumer<FinishedRecipe> gen, ItemLike base, ItemLike plate) {
+		//@formatter:off
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, plate)
+			.pattern("BB")
+			.define('B', base)
+			.unlockedBy(getHasName(base), has(base))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(plate));
+		//@formatter:on
+	}
+
+	protected static void button(Consumer<FinishedRecipe> gen, ItemLike base, ItemLike button) {
+		//@formatter:off
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, button, 1)
+			.requires(base)
+			.unlockedBy(getHasName(base), has(base))
+			.save(gen, Machina.MOD_ID + ":" + getItemName(button) + "_from_" + getItemName(base));
 		//@formatter:on
 	}
 

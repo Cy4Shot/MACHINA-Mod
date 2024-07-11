@@ -32,6 +32,7 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -199,9 +200,10 @@ public class PlanetBiome extends Biome {
 			// Lakes
 			if (type.surface().lakes().isPresent()) {
 				Lakes lakes = type.surface().lakes().get();
-				if (r.nextFloat() < lakes.chance()) {
+				BlockState fluid = p.getDominantLiquidBodyBlock();
+				if (fluid != null && r.nextFloat() < lakes.chance()) {
 					add(builder, Decoration.LAKES, Feature.LAKE,
-							new LakeFeature.Configuration(BlockStateProvider.simple(p.getDominantLiquidBodyBlock()),
+							new LakeFeature.Configuration(BlockStateProvider.simple(fluid),
 									BlockStateProvider.simple(type.underground().rock().base())),
 							every(lakes.rarity()), spread(), onSurface(), biome());
 				}

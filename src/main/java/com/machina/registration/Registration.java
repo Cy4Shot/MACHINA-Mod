@@ -31,8 +31,8 @@ public class Registration {
 		registerConfig(ModConfig.Type.COMMON, CommonConfig.COMMON_SPEC);
 
 		SoundInit.SOUNDS.register(bus);
-		BlockInit.BLOCKS.register(bus);
 		ItemInit.ITEMS.register(bus);
+		BlockInit.BLOCKS.register(bus);
 		FluidInit.FLUIDS.register(bus);
 		FluidInit.FLUID_TYPES.register(bus);
 		TabInit.CREATIVE_MODE_TABS.register(bus);

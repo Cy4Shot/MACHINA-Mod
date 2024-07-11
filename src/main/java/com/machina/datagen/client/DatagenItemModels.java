@@ -50,6 +50,8 @@ public class DatagenItemModels extends ItemModelProvider {
 		simpleItem(ItemInit.ALUMINUM_INGOT);
 		simpleItem(ItemInit.ALUMINUM_NUGGET);
 		simpleItem(ItemInit.COAL_CHUNK);
+		simpleItem(ItemInit.TROPICAL_SIGN);
+		simpleItem(ItemInit.TROPICAL_HANGING_SIGN);
 
 		for (FluidObject obj : FluidInit.OBJS) {
 			bucket(obj);
@@ -104,7 +106,7 @@ public class DatagenItemModels extends ItemModelProvider {
 		}
 	}
 
-	private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
+	private ItemModelBuilder simpleItem(RegistryObject<? extends Item> item) {
 		return withExistingParent(item.getId().getPath(), new ResourceLocation("item/generated")).texture("layer0",
 				new MachinaRL("item/" + item.getId().getPath()));
 	}

@@ -1,8 +1,23 @@
-// 1.20.1	2024-07-09T19:59:11.6526718	Tags for minecraft:item mod id machina
+// 1.20.1	2024-07-11T18:20:09.7899464	Tags for minecraft:item mod id machina
+63212f876ba1f9d4cb4b8b0209ff822a75069036 data/minecraft/tags/items/buttons.json
+bdfcaaf329be9c0a984af87c1f64f01abd1a47d1 data/minecraft/tags/items/doors.json
+f38d428f34f4ab28ed75c31bc815d38bd0e85239 data/minecraft/tags/items/fences.json
+03b5130a8885ab06cfbfcafbd3925f984ab5d37d data/minecraft/tags/items/fence_gates.json
 a31ab380c6c5838d9eea1f843a6e7a6be1692f5b data/minecraft/tags/items/flowers.json
-116a9334338bec5af8393567625527be4e95070e data/minecraft/tags/items/slabs.json
+a909fb22e5b26cce4e2deac8174bb597348f44ee data/minecraft/tags/items/hanging_signs.json
+db71a0d789dcb057cd7015d59e4a9299f2d6f50e data/minecraft/tags/items/leaves.json
+b11e9a3605ebe5304190e413359c679d268779b6 data/minecraft/tags/items/logs.json
+ccff6da6c44b6b4915e7f1bc2dcf298de87d673f data/minecraft/tags/items/planks.json
+e7c222b5d562a6751e6d91f6c2bdcf8b8709ad49 data/minecraft/tags/items/signs.json
+1a31e13d130fd996aca4c5084e10271420145a6a data/minecraft/tags/items/slabs.json
 9461b1c559a1d6c54a3d47e6019747eb386bb54f data/minecraft/tags/items/small_flowers.json
-f6a06de48b33a36e4682c5218c536fb739960ca0 data/minecraft/tags/items/stairs.json
+ce33ec789a1ee36a93ccc1e55beb38757987444e data/minecraft/tags/items/stairs.json
 f570b3402e12126f5d2c3ab3c61d51b8ff92f159 data/minecraft/tags/items/stone_crafting_materials.json
 c510d3f9e13cfb89205ea6bbae25c24ef37eca85 data/minecraft/tags/items/tall_flowers.json
+cd65dbab468093b89567f6171dedf632799ce846 data/minecraft/tags/items/trapdoors.json
 602109b997e64894a868569df5419dc2386b280f data/minecraft/tags/items/walls.json
+63212f876ba1f9d4cb4b8b0209ff822a75069036 data/minecraft/tags/items/wooden_buttons.json
+bdfcaaf329be9c0a984af87c1f64f01abd1a47d1 data/minecraft/tags/items/wooden_doors.json
+f38d428f34f4ab28ed75c31bc815d38bd0e85239 data/minecraft/tags/items/wooden_fences.json
+24f512a1a280c00eb9fa1663d144f9647a436c7f data/minecraft/tags/items/wooden_pressure_plates.json
+cd65dbab468093b89567f6171dedf632799ce846 data/minecraft/tags/items/wooden_trapdoors.json

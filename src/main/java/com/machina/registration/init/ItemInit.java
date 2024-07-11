@@ -3,10 +3,16 @@ package com.machina.registration.init;
 import java.util.function.Supplier;
 
 import com.machina.Machina;
+import com.machina.api.block.MachinaHangingSignBlock;
+import com.machina.api.block.MachinaHangingWallSignBlock;
+import com.machina.api.block.MachinaSignBlock;
+import com.machina.api.block.MachinaWallSignBlock;
 import com.machina.api.item.ChemicalItem;
 
+import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.SignItem;
 import net.minecraftforge.common.util.NonNullFunction;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -41,10 +47,24 @@ public class ItemInit {
 	public static final RegistryObject<Item> PALLADIUM_ON_CARBON = basic("palladium_on_carbon", p -> new ChemicalItem(p, "Pd/C"));
 	public static final RegistryObject<Item> HEXAMINE = basic("hexamine", p -> new ChemicalItem(p, "(CH2)6N4"));
 	public static final RegistryObject<Item> NITRONIUM_TETRAFLUOROBORATE = basic("nitronium_tetrafluoroborate", p -> new ChemicalItem(p, "NO2BF4"));
+	
+	public static final RegistryObject<SignItem> TROPICAL_SIGN = sign("tropical_sign", BlockInit.TROPICAL_SIGN, BlockInit.TROPICAL_WALL_SIGN);
+	public static final RegistryObject<HangingSignItem> TROPICAL_HANGING_SIGN = hanging_sign("tropical_hanging_sign", BlockInit.TROPICAL_HANGING_SIGN, BlockInit.TROPICAL_WALL_HANGING_SIGN);
 	//@formatter:on
 
 	public static RegistryObject<Item> basic(String name) {
 		return register(name, () -> ItemBuilder.basicItem());
+	}
+
+	public static RegistryObject<SignItem> sign(String name, RegistryObject<MachinaSignBlock> standing,
+			RegistryObject<MachinaWallSignBlock> wall) {
+		return register(name, () -> new SignItem((new Item.Properties()).stacksTo(16), standing.get(), wall.get()));
+	}
+
+	public static RegistryObject<HangingSignItem> hanging_sign(String name,
+			RegistryObject<MachinaHangingSignBlock> standing, RegistryObject<MachinaHangingWallSignBlock> wall) {
+		return register(name,
+				() -> new HangingSignItem(standing.get(), wall.get(), (new Item.Properties()).stacksTo(16)));
 	}
 
 	public static <T extends Item> RegistryObject<T> basic(String name, NonNullFunction<Item.Properties, T> factory) {
