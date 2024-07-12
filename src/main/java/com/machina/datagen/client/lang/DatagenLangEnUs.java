@@ -20,66 +20,69 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(TabInit.MACHINA_RESOURCES, "Machina");
 		
 		// Items
-		add(ItemInit.RAW_ALUMINUM.get(), "Raw Aluminum");
-		add(ItemInit.ALUMINUM_INGOT.get(), "Aluminum Ingot");
-		add(ItemInit.ALUMINUM_NUGGET.get(), "Aluminum Nugget");
-		add(ItemInit.COPPER_COIL.get(), "Copper Coil");
-		add(ItemInit.PROCESSOR.get(), "Processor");
-		add(ItemInit.RAW_SILICON_BLEND.get(), "Raw Silicon Blend");
-		add(ItemInit.SILICON.get(), "Silicon");
-		add(ItemInit.SILICON_BOLUS.get(), "Silicon Bolus");
-		add(ItemInit.HIGH_PURITY_SILICON.get(), "High Purity Silicon");
-		add(ItemInit.TRANSISTOR.get(), "Transistor");
-		add(ItemInit.AMMONIUM_NITRATE.get(), "Ammonium Nitrate");
-		add(ItemInit.LDPE.get(), "LDPE");
-		add(ItemInit.HDPE.get(), "HDPE");
-		add(ItemInit.UHMWPE.get(), "UHMWPE");
-		add(ItemInit.SODIUM_HYDROXIDE.get(), "Sodium Hydroxide");
-		add(ItemInit.SODIUM_CARBONATE.get(), "Sodium Carbonate");
-		add(ItemInit.CALCIUM_SULPHATE.get(), "Calcium Sulphate");
-		add(ItemInit.PALLADIUM_CHLORIDE.get(), "Palladium Chloride");
-		add(ItemInit.PALLADIUM_ON_CARBON.get(), "Palladium on Carbon");
-		add(ItemInit.HEXAMINE.get(), "Hexamine");
-		add(ItemInit.NITRONIUM_TETRAFLUOROBORATE.get(), "Nitronium Tetrafluoroborate");
-		add(ItemInit.LOGIC_UNIT.get(), "Logic Unit");
-		add(ItemInit.PROCESSOR_CORE.get(), "Processor Core");
-		add(ItemInit.COAL_CHUNK.get(), "Coal Chunk");
+		add(ItemInit.RAW_ALUMINUM, "Raw Aluminum");
+		add(ItemInit.ALUMINUM_INGOT, "Aluminum Ingot");
+		add(ItemInit.ALUMINUM_NUGGET, "Aluminum Nugget");
+		add(ItemInit.COPPER_COIL, "Copper Coil");
+		add(ItemInit.PROCESSOR, "Processor");
+		add(ItemInit.RAW_SILICON_BLEND, "Raw Silicon Blend");
+		add(ItemInit.SILICON, "Silicon");
+		add(ItemInit.SILICON_BOLUS, "Silicon Bolus");
+		add(ItemInit.HIGH_PURITY_SILICON, "High Purity Silicon");
+		add(ItemInit.TRANSISTOR, "Transistor");
+		add(ItemInit.AMMONIUM_NITRATE, "Ammonium Nitrate");
+		add(ItemInit.LDPE, "LDPE");
+		add(ItemInit.HDPE, "HDPE");
+		add(ItemInit.UHMWPE, "UHMWPE");
+		add(ItemInit.SODIUM_HYDROXIDE, "Sodium Hydroxide");
+		add(ItemInit.SODIUM_CARBONATE, "Sodium Carbonate");
+		add(ItemInit.CALCIUM_SULPHATE, "Calcium Sulphate");
+		add(ItemInit.PALLADIUM_CHLORIDE, "Palladium Chloride");
+		add(ItemInit.PALLADIUM_ON_CARBON, "Palladium on Carbon");
+		add(ItemInit.HEXAMINE, "Hexamine");
+		add(ItemInit.NITRONIUM_TETRAFLUOROBORATE, "Nitronium Tetrafluoroborate");
+		add(ItemInit.LOGIC_UNIT, "Logic Unit");
+		add(ItemInit.PROCESSOR_CORE, "Processor Core");
+		add(ItemInit.COAL_CHUNK, "Coal Chunk");
 		
 		// Blocks
-		add(BlockInit.ALUMINUM_BLOCK.get(), "Aluminum Block");
-		add(BlockInit.ALUMINUM_ORE.get(), "Aluminum Ore");
+		add(BlockInit.ALUMINUM_BLOCK, "Aluminum Block");
+		add(BlockInit.ALUMINUM_ORE, "Aluminum Ore");
 		
-		add(BlockInit.ANTHRACITE.get(), "Anthracite");
-		add(BlockInit.ANTHRACITE_SLAB.get(), "Anthracite Slab");
-		add(BlockInit.ANTHRACITE_STAIRS.get(), "Anthracite Stairs");
-		add(BlockInit.ANTHRACITE_WALL.get(), "Anthracite Wall");
+		add(BlockInit.ANTHRACITE, "Anthracite");
+		add(BlockInit.ANTHRACITE_SLAB, "Anthracite Slab");
+		add(BlockInit.ANTHRACITE_STAIRS, "Anthracite Stairs");
+		add(BlockInit.ANTHRACITE_WALL, "Anthracite Wall");
 		
-		add(BlockInit.FELDSPAR.get(), "Feldspar");
-		add(BlockInit.FELDSPAR_SLAB.get(), "Feldspar Slab");
-		add(BlockInit.FELDSPAR_STAIRS.get(), "Feldspar Stairs");
-		add(BlockInit.FELDSPAR_WALL.get(), "Feldspar Wall");
+		add(BlockInit.FELDSPAR, "Feldspar");
+		add(BlockInit.FELDSPAR_SLAB, "Feldspar Slab");
+		add(BlockInit.FELDSPAR_STAIRS, "Feldspar Stairs");
+		add(BlockInit.FELDSPAR_WALL, "Feldspar Wall");
 		
-		add(BlockInit.TROPICAL_BUTTON.get(), "Tropical Button");
-		add(BlockInit.TROPICAL_DOOR.get(), "Tropical Door");
-		add(BlockInit.TROPICAL_FENCE.get(), "Tropical Fence");
-		add(BlockInit.TROPICAL_FENCE_GATE.get(), "Tropical Fence Gate");
-		add(BlockInit.TROPICAL_HANGING_SIGN.get(), "Tropical Hanging Sign");
-		add(BlockInit.TROPICAL_LOG.get(), "Tropical Log");
-		add(BlockInit.TROPICAL_PLANKS.get(), "Tropical Planks");
-		add(BlockInit.TROPICAL_LEAVES.get(), "Tropical Leaves");
-		add(BlockInit.TROPICAL_PRESSURE_PLATE.get(), "Tropical Pressure Plate");
-		add(BlockInit.TROPICAL_SIGN.get(), "Tropical Sign");
-		add(BlockInit.TROPICAL_SLAB.get(), "Tropical Slab");
-		add(BlockInit.TROPICAL_STAIRS.get(), "Tropical Stairs");
-		add(BlockInit.TROPICAL_TRAPDOOR.get(), "Tropical Trapdoor");
-		add(BlockInit.TROPICAL_WOOD.get(), "Tropical Wood");
-		add(BlockInit.STRIPPED_TROPICAL_LOG.get(), "Stripped Tropical Log");
-		add(BlockInit.STRIPPED_TROPICAL_WOOD.get(), "Stripped Tropical Wood");
+		add(BlockInit.TROPICAL_GRASS_BLOCK, "Tropical Grass Block");
+		add(BlockInit.TROPICAL_DIRT, "Tropical Dirt");
 		
-		add(BlockInit.CLOVER.get(), "Clover");
-		add(BlockInit.DRAGON_PEONY.get(), "Dragon Peony");
-		add(BlockInit.POTTED_DRAGON_PEONY.get(), "Potted Dragon Peony");
-		add(BlockInit.ORHPEUM.get(), "Orpheum");
+		add(BlockInit.TROPICAL_BUTTON, "Tropical Button");
+		add(BlockInit.TROPICAL_DOOR, "Tropical Door");
+		add(BlockInit.TROPICAL_FENCE, "Tropical Fence");
+		add(BlockInit.TROPICAL_FENCE_GATE, "Tropical Fence Gate");
+		add(BlockInit.TROPICAL_HANGING_SIGN, "Tropical Hanging Sign");
+		add(BlockInit.TROPICAL_LOG, "Tropical Log");
+		add(BlockInit.TROPICAL_PLANKS, "Tropical Planks");
+		add(BlockInit.TROPICAL_LEAVES, "Tropical Leaves");
+		add(BlockInit.TROPICAL_PRESSURE_PLATE, "Tropical Pressure Plate");
+		add(BlockInit.TROPICAL_SIGN, "Tropical Sign");
+		add(BlockInit.TROPICAL_SLAB, "Tropical Slab");
+		add(BlockInit.TROPICAL_STAIRS, "Tropical Stairs");
+		add(BlockInit.TROPICAL_TRAPDOOR, "Tropical Trapdoor");
+		add(BlockInit.TROPICAL_WOOD, "Tropical Wood");
+		add(BlockInit.STRIPPED_TROPICAL_LOG, "Stripped Tropical Log");
+		add(BlockInit.STRIPPED_TROPICAL_WOOD, "Stripped Tropical Wood");
+		
+		add(BlockInit.CLOVER, "Clover");
+		add(BlockInit.DRAGON_PEONY, "Dragon Peony");
+		add(BlockInit.POTTED_DRAGON_PEONY, "Potted Dragon Peony");
+		add(BlockInit.ORHPEUM, "Orpheum");
 
 		// Tooltips
 		addTooltip("ldpe", "Low Density Polyethylene");

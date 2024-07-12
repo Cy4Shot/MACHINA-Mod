@@ -32,8 +32,8 @@ import net.minecraft.world.level.levelgen.NoiseSettings;
 
 public class PlanetTypeInit {
 //	@formatter:off
-	private static final BlockState GRASS_BLOCK = Blocks.GRASS_BLOCK.defaultBlockState();
-	private static final BlockState DIRT = Blocks.DIRT.defaultBlockState();
+	private static final BlockState TROPICAL_GRASS_BLOCK = BlockInit.TROPICAL_GRASS_BLOCK.get().defaultBlockState();
+	private static final BlockState TROPICAL_DIRT = BlockInit.TROPICAL_DIRT.get().defaultBlockState();
 	private static final BlockState TROPICAL_WOOD = BlockInit.TROPICAL_WOOD.get().defaultBlockState();
 	private static final BlockState TROPICAL_LEAVES = BlockInit.TROPICAL_LEAVES.get().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true);
 	private static final BlockState STONE = Blocks.STONE.defaultBlockState();
@@ -53,7 +53,7 @@ public class PlanetTypeInit {
 
 	public static final String EARTHLIKE = create("earthlike", new PlanetType(
 			new Shape(60, new NoiseSettings(-64, 384, 1, 2)),
-			new Surface(GRASS_BLOCK, DIRT, Optional.of(new Lakes(1f, 50))),
+			new Surface(TROPICAL_GRASS_BLOCK, TROPICAL_DIRT, Optional.of(new Lakes(1f, 50))),
 			new Vegetation(
 					List.of(new Grass(5, 10, WeightedStateProviderProvider.builder()
 							.add(Blocks.GRASS.defaultBlockState(), 10)

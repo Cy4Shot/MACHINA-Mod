@@ -12,6 +12,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.fluids.FluidStack;
@@ -30,17 +31,24 @@ public abstract class DatagenLang extends LanguageProvider {
 		this.modid = modid;
 	}
 
+	public <T> void add(RegistryObject<T> key, String name) {
+		T item = key.get();
+		if (item instanceof Block) {
+			add(((Block) item).getDescriptionId(), name);
+		} else if (item instanceof Item) {
+			add(((Item) item).getDescriptionId(), name);
+		} else if (item instanceof CreativeModeTab) {
+			add(Machina.MOD_ID + ".creativemodetab." + key.getId().getPath(), name);
+		}
+	}
+
 	protected void add(Fluid fluid, String name) {
 		add(new FluidStack(fluid, 2).getTranslationKey(), name);
 	}
-	
+
 	protected void add(FluidObject obj, String name, String bucket) {
 		add(obj.fluid(), name);
 		add(obj.bucket(), name + " " + bucket);
-	}
-
-	protected void add(RegistryObject<CreativeModeTab> tab, String name) {
-		add(Machina.MOD_ID + ".creativemodetab." + tab.getId().getPath(), name);
 	}
 
 	protected void addTooltip(String item, String name) {

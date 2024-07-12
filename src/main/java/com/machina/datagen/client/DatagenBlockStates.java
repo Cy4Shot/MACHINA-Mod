@@ -41,20 +41,23 @@ public class DatagenBlockStates extends BlockStateProvider {
 	@Override
 	protected void registerStatesAndModels() {
 
-		blockWithItem(BlockInit.ALUMINUM_BLOCK);
-		blockWithItem(BlockInit.ALUMINUM_ORE);
+		cube(BlockInit.ALUMINUM_BLOCK);
+		cube(BlockInit.ALUMINUM_ORE);
 
-		blockWithItem(BlockInit.ANTHRACITE);
+		cube(BlockInit.ANTHRACITE);
 		slab(BlockInit.ANTHRACITE_SLAB, BlockInit.ANTHRACITE);
 		stairs(BlockInit.ANTHRACITE_STAIRS, BlockInit.ANTHRACITE);
 		wall(BlockInit.ANTHRACITE_WALL, BlockInit.ANTHRACITE);
 
-		blockWithItem(BlockInit.FELDSPAR);
+		cube(BlockInit.FELDSPAR);
 		slab(BlockInit.FELDSPAR_SLAB, BlockInit.FELDSPAR);
 		stairs(BlockInit.FELDSPAR_STAIRS, BlockInit.FELDSPAR);
 		wall(BlockInit.FELDSPAR_WALL, BlockInit.FELDSPAR);
 
-		blockWithItem(BlockInit.TROPICAL_PLANKS);
+		cubeBottomTop(BlockInit.TROPICAL_GRASS_BLOCK);
+		cube(BlockInit.TROPICAL_DIRT);
+
+		cube(BlockInit.TROPICAL_PLANKS);
 		leaves(BlockInit.TROPICAL_LEAVES);
 		log(BlockInit.TROPICAL_LOG);
 		log(BlockInit.TROPICAL_WOOD);
@@ -81,8 +84,15 @@ public class DatagenBlockStates extends BlockStateProvider {
 		}
 	}
 
-	private void blockWithItem(RegistryObject<Block> blockRegistryObject) {
+	private void cube(RegistryObject<Block> blockRegistryObject) {
 		simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
+	}
+
+	private void cubeBottomTop(RegistryObject<Block> block) {
+		ResourceLocation t = blockTexture(block.get());
+		Block b = block.get();
+		simpleBlockWithItem(b,
+				models().cubeBottomTop(name(b), extend(t, "_side"), extend(t, "_bottom"), extend(t, "_top")));
 	}
 
 	private void leaves(RegistryObject<LeavesBlock> leaves) {

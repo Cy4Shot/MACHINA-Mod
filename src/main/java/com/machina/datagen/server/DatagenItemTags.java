@@ -14,7 +14,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -47,6 +46,7 @@ public class DatagenItemTags extends ItemTagsProvider {
 		tag(ItemTags.SIGNS).add(ItemInit.TROPICAL_SIGN.get());
 		tag(ItemTags.HANGING_SIGNS).add(ItemInit.TROPICAL_HANGING_SIGN.get());
 
+		tag(ItemTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get().asItem(), BlockInit.TROPICAL_DIRT.get().asItem());
 		tag(ItemTags.LOGS).add(BlockInit.TROPICAL_LOG.get().asItem(), BlockInit.STRIPPED_TROPICAL_LOG.get().asItem(),
 				BlockInit.TROPICAL_WOOD.get().asItem(), BlockInit.STRIPPED_TROPICAL_WOOD.get().asItem());
 		tag(ItemTags.PLANKS).add(BlockInit.TROPICAL_PLANKS.get().asItem());
