@@ -66,6 +66,7 @@ public class BlockInit {
 	public static final RegistryObject<Block> TROPICAL_DIRT = block("tropical_dirt", Blocks.DIRT);
 	
 	public static final WoodType TROPICAL = registerWoodType("tropical");
+	public static final WoodType PINE = registerWoodType("pine");
 	
 	public static final RegistryObject<RotatedPillarBlock> TROPICAL_LOG = log("tropical_log", Blocks.OAK_LOG);
 	public static final RegistryObject<RotatedPillarBlock> TROPICAL_WOOD = log("tropical_wood", Blocks.OAK_WOOD);
@@ -85,6 +86,25 @@ public class BlockInit {
 	public static final RegistryObject<FenceBlock> TROPICAL_FENCE = fence("tropical_fence", Blocks.OAK_FENCE);
 	public static final RegistryObject<FenceGateBlock> TROPICAL_FENCE_GATE = fence_gate("tropical_fence_gate", Blocks.OAK_FENCE_GATE, TROPICAL);
 	public static final RegistryObject<PressurePlateBlock> TROPICAL_PRESSURE_PLATE = wood_pressure_plate("tropical_pressure_plate", Blocks.OAK_PRESSURE_PLATE, TROPICAL);
+	
+	public static final RegistryObject<RotatedPillarBlock> PINE_LOG = log("pine_log", Blocks.OAK_LOG);
+	public static final RegistryObject<RotatedPillarBlock> PINE_WOOD = log("pine_wood", Blocks.OAK_WOOD);
+	public static final RegistryObject<RotatedPillarBlock> STRIPPED_PINE_LOG = log("stripped_pine_log", Blocks.STRIPPED_OAK_LOG);
+	public static final RegistryObject<RotatedPillarBlock> STRIPPED_PINE_WOOD = log("stripped_pine_wood", Blocks.STRIPPED_OAK_WOOD);
+	public static final RegistryObject<Block> PINE_PLANKS = block("pine_planks", Blocks.OAK_PLANKS);
+	public static final RegistryObject<LeavesBlock> PINE_LEAVES = leaves("pine_leaves", Blocks.OAK_LEAVES);
+	public static final RegistryObject<SlabBlock> PINE_SLAB = slab("pine_slab", Blocks.OAK_SLAB);
+	public static final RegistryObject<StairBlock> PINE_STAIRS = stairs("pine_stairs", PINE_PLANKS, Blocks.OAK_STAIRS);
+	public static final RegistryObject<MachinaSignBlock> PINE_SIGN = sign("pine_sign", Blocks.OAK_SIGN, PINE);
+	public static final RegistryObject<MachinaWallSignBlock> PINE_WALL_SIGN = wall_sign("pine_wall_sign", Blocks.OAK_WALL_SIGN, PINE);
+	public static final RegistryObject<MachinaHangingSignBlock> PINE_HANGING_SIGN = hanging_sign("pine_hanging_sign", Blocks.OAK_HANGING_SIGN, PINE);
+	public static final RegistryObject<MachinaHangingWallSignBlock> PINE_WALL_HANGING_SIGN = wall_hanging_sign("pine_wall_hanging_sign", Blocks.OAK_WALL_HANGING_SIGN, PINE);
+	public static final RegistryObject<ButtonBlock> PINE_BUTTON = wood_button("pine_button", Blocks.OAK_BUTTON, PINE);
+	public static final RegistryObject<DoorBlock> PINE_DOOR = wood_door("pine_door", Blocks.OAK_DOOR, PINE);
+	public static final RegistryObject<TrapDoorBlock> PINE_TRAPDOOR = wood_trapdoor("pine_trapdoor", Blocks.OAK_TRAPDOOR, PINE);
+	public static final RegistryObject<FenceBlock> PINE_FENCE = fence("pine_fence", Blocks.OAK_FENCE);
+	public static final RegistryObject<FenceGateBlock> PINE_FENCE_GATE = fence_gate("pine_fence_gate", Blocks.OAK_FENCE_GATE, PINE);
+	public static final RegistryObject<PressurePlateBlock> PINE_PRESSURE_PLATE = wood_pressure_plate("pine_pressure_plate", Blocks.OAK_PRESSURE_PLATE, PINE);
 	
 	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
 	public static final RegistryObject<FlowerBlock> DRAGON_PEONY = flower("dragon_peony", () -> MobEffects.LEVITATION, 5, Blocks.DANDELION);
@@ -125,7 +145,7 @@ public class BlockInit {
 	public static RegistryObject<RotatedPillarBlock> log(String name, Block prop) {
 		return register(name, prop, a -> a, RotatedPillarBlock::new);
 	}
-	
+
 	public static RegistryObject<LeavesBlock> leaves(String name, Block prop) {
 		return register(name, prop, a -> a, LeavesBlock::new);
 	}

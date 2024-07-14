@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "machina:block/pine_wood_top",
+    "side": "machina:block/pine_wood"
+  }
+}

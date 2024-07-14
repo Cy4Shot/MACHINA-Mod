@@ -3,7 +3,9 @@ package com.machina.events;
 import com.machina.Machina;
 import com.machina.api.starchart.Starchart;
 import com.machina.registration.Registration;
+import com.machina.registration.init.BlockFamiliesInit;
 import com.machina.registration.init.ItemInit;
+import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 import com.machina.world.PlanetRegistrationHandler;
 import com.machina.world.data.PlanetDimensionData;
 
@@ -14,11 +16,15 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -69,5 +75,26 @@ public class CommonForgeEvents {
 			return;
 		}
 		PlanetDimensionData.getDefaultInstance(server).updateSeed(((ServerLevel) event.getLevel()).getSeed());
+	}
+
+	@SubscribeEvent
+	public static void blockToolModification(BlockEvent.BlockToolModificationEvent event) {
+		ToolAction action = event.getToolAction();
+		BlockState state = event.getState();
+		if (!event.isSimulated()) {
+			if (action == ToolActions.AXE_STRIP) {
+				for (WoodFamily family : BlockFamiliesInit.WOODS) {
+					if (state.is(family.log())) {
+						event.setFinalState(family.stripped_log().withPropertiesOf(state));
+						return;
+					}
+
+					if (state.is(family.wood())) {
+						event.setFinalState(family.stripped_wood().withPropertiesOf(state));
+						return;
+					}
+				}
+			}
+		}
 	}
 }

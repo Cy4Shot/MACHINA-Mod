@@ -73,6 +73,23 @@ public class DatagenBlockStates extends BlockStateProvider {
 		sign(BlockInit.TROPICAL_HANGING_SIGN, BlockInit.TROPICAL_WALL_HANGING_SIGN, BlockInit.TROPICAL_PLANKS);
 		trapdoor(BlockInit.TROPICAL_TRAPDOOR);
 		door(BlockInit.TROPICAL_DOOR);
+		
+		cube(BlockInit.PINE_PLANKS);
+		leaves(BlockInit.PINE_LEAVES);
+		log(BlockInit.PINE_LOG);
+		log(BlockInit.PINE_WOOD);
+		log(BlockInit.STRIPPED_PINE_LOG);
+		log(BlockInit.STRIPPED_PINE_WOOD);
+		slab(BlockInit.PINE_SLAB, BlockInit.PINE_PLANKS);
+		stairs(BlockInit.PINE_STAIRS, BlockInit.PINE_PLANKS);
+		button(BlockInit.PINE_BUTTON, BlockInit.PINE_PLANKS);
+		pressure_plate(BlockInit.PINE_PRESSURE_PLATE, BlockInit.PINE_PLANKS);
+		fence(BlockInit.PINE_FENCE, BlockInit.PINE_PLANKS);
+		fence_gate(BlockInit.PINE_FENCE_GATE, BlockInit.PINE_PLANKS);
+		sign(BlockInit.PINE_SIGN, BlockInit.PINE_WALL_SIGN, BlockInit.PINE_PLANKS);
+		sign(BlockInit.PINE_HANGING_SIGN, BlockInit.PINE_WALL_HANGING_SIGN, BlockInit.PINE_PLANKS);
+		trapdoor(BlockInit.PINE_TRAPDOOR);
+		door(BlockInit.PINE_DOOR);
 
 		flower(BlockInit.DRAGON_PEONY);
 		tall_flower(BlockInit.ORHPEUM);

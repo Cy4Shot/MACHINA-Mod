@@ -57,6 +57,25 @@ public class DatagenLootTables extends LootTableProvider {
 			dropSelf(BlockInit.TROPICAL_WOOD.get());
 			dropSelf(BlockInit.STRIPPED_TROPICAL_LOG.get());
 			dropSelf(BlockInit.STRIPPED_TROPICAL_WOOD.get());
+			
+			dropSelf(BlockInit.PINE_BUTTON.get());
+			dropSelf(BlockInit.PINE_DOOR.get());
+			dropSelf(BlockInit.PINE_FENCE.get());
+			dropSelf(BlockInit.PINE_FENCE_GATE.get());
+			dropSelf(BlockInit.PINE_HANGING_SIGN.get());
+			dropSelf(BlockInit.PINE_LOG.get());
+			dropSelf(BlockInit.PINE_PLANKS.get());
+			leaves(BlockInit.PINE_LEAVES.get());
+			dropSelf(BlockInit.PINE_PRESSURE_PLATE.get());
+			dropSelf(BlockInit.PINE_SIGN.get());
+			slab(BlockInit.PINE_SLAB.get());
+			dropSelf(BlockInit.PINE_STAIRS.get());
+			dropSelf(BlockInit.PINE_TRAPDOOR.get());
+			dropSelf(BlockInit.PINE_WALL_HANGING_SIGN.get());
+			dropSelf(BlockInit.PINE_WALL_SIGN.get());
+			dropSelf(BlockInit.PINE_WOOD.get());
+			dropSelf(BlockInit.STRIPPED_PINE_LOG.get());
+			dropSelf(BlockInit.STRIPPED_PINE_WOOD.get());
 
 			dropSelf(BlockInit.DRAGON_PEONY.get());
 			pot(BlockInit.POTTED_DRAGON_PEONY.get());

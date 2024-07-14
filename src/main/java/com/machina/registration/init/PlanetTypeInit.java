@@ -34,8 +34,8 @@ public class PlanetTypeInit {
 //	@formatter:off
 	private static final BlockState TROPICAL_GRASS_BLOCK = BlockInit.TROPICAL_GRASS_BLOCK.get().defaultBlockState();
 	private static final BlockState TROPICAL_DIRT = BlockInit.TROPICAL_DIRT.get().defaultBlockState();
-	private static final BlockState TROPICAL_WOOD = BlockInit.TROPICAL_WOOD.get().defaultBlockState();
-	private static final BlockState TROPICAL_LEAVES = BlockInit.TROPICAL_LEAVES.get().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true);
+	private static final BlockState PINE_WOOD = BlockInit.PINE_WOOD.get().defaultBlockState();
+	private static final BlockState PINE_LEAVES = BlockInit.PINE_LEAVES.get().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true);
 	private static final BlockState STONE = Blocks.STONE.defaultBlockState();
 	private static final BlockState STONE_STAIRS = Blocks.STONE_STAIRS.defaultBlockState();
 	private static final BlockState STONE_SLAB = Blocks.STONE_SLAB.defaultBlockState();
@@ -60,8 +60,8 @@ public class PlanetTypeInit {
 							.add(Blocks.FERN.defaultBlockState(), 2)
 							.addHorizontal(BlockInit.CLOVER.get().defaultBlockState(), 1))),
 					Map.of(
-							TreeType.RADIAL_BAOBAB, new Tree(TROPICAL_WOOD, TROPICAL_LEAVES, TROPICAL_LEAVES, 4)),
-					List.of(new PlanetBushFeatureConfig(TROPICAL_LEAVES, 2.5f, 3))),
+							TreeType.FIR, new Tree(PINE_WOOD, PINE_LEAVES, PINE_LEAVES, 4)),
+					List.of(new PlanetBushFeatureConfig(PINE_LEAVES, 2.5f, 3))),
 			new Underground(
 					new RockType(STONE, STONE_STAIRS, STONE_SLAB, GRAVEL),
 					List.of(

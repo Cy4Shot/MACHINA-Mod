@@ -8,7 +8,9 @@ import org.jetbrains.annotations.NotNull;
 
 import com.machina.Machina;
 import com.machina.registration.init.BlockInit;
-import com.machina.registration.init.ItemInit;
+import com.machina.registration.init.BlockFamiliesInit;
+import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
+import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
@@ -26,37 +28,45 @@ public class DatagenItemTags extends ItemTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
-		tag(ItemTags.SLABS).add(BlockInit.ANTHRACITE_SLAB.get().asItem(), BlockInit.FELDSPAR_SLAB.get().asItem(),
-				BlockInit.TROPICAL_SLAB.get().asItem());
-		tag(ItemTags.STAIRS).add(BlockInit.ANTHRACITE_STAIRS.get().asItem(), BlockInit.FELDSPAR_STAIRS.get().asItem(),
-				BlockInit.TROPICAL_STAIRS.get().asItem());
-		tag(ItemTags.WALLS).add(BlockInit.ANTHRACITE_WALL.get().asItem(), BlockInit.FELDSPAR_WALL.get().asItem());
-
-		tag(ItemTags.BUTTONS).add(BlockInit.TROPICAL_BUTTON.get().asItem());
-		tag(ItemTags.WOODEN_BUTTONS).add(BlockInit.TROPICAL_BUTTON.get().asItem());
-		tag(ItemTags.DOORS).add(BlockInit.TROPICAL_DOOR.get().asItem());
-		tag(ItemTags.WOODEN_DOORS).add(BlockInit.TROPICAL_DOOR.get().asItem());
-		tag(ItemTags.TRAPDOORS).add(BlockInit.TROPICAL_TRAPDOOR.get().asItem());
-		tag(ItemTags.WOODEN_TRAPDOORS).add(BlockInit.TROPICAL_TRAPDOOR.get().asItem());
-		tag(ItemTags.FENCES).add(BlockInit.TROPICAL_FENCE.get().asItem());
-		tag(ItemTags.WOODEN_FENCES).add(BlockInit.TROPICAL_FENCE.get().asItem());
-		tag(ItemTags.FENCE_GATES).add(BlockInit.TROPICAL_FENCE_GATE.get().asItem());
-		tag(ItemTags.WOODEN_PRESSURE_PLATES).add(BlockInit.TROPICAL_PRESSURE_PLATE.get().asItem());
-
-		tag(ItemTags.SIGNS).add(ItemInit.TROPICAL_SIGN.get());
-		tag(ItemTags.HANGING_SIGNS).add(ItemInit.TROPICAL_HANGING_SIGN.get());
 
 		tag(ItemTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get().asItem(), BlockInit.TROPICAL_DIRT.get().asItem());
-		tag(ItemTags.LOGS).add(BlockInit.TROPICAL_LOG.get().asItem(), BlockInit.STRIPPED_TROPICAL_LOG.get().asItem(),
-				BlockInit.TROPICAL_WOOD.get().asItem(), BlockInit.STRIPPED_TROPICAL_WOOD.get().asItem());
-		tag(ItemTags.PLANKS).add(BlockInit.TROPICAL_PLANKS.get().asItem());
-		tag(ItemTags.LEAVES).add(BlockInit.TROPICAL_LEAVES.get().asItem());
 
 		tag(ItemTags.FLOWERS).add(BlockInit.DRAGON_PEONY.get().asItem(), BlockInit.ORHPEUM.get().asItem());
 		tag(ItemTags.SMALL_FLOWERS).add(BlockInit.DRAGON_PEONY.get().asItem());
 		tag(ItemTags.TALL_FLOWERS).add(BlockInit.ORHPEUM.get().asItem());
+		
+		BlockFamiliesInit.STONES.forEach(this::stoneFamily);
+		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
+	}
+	
+	private void stoneFamily(StoneFamily family) {
+		tag(ItemTags.SLABS).add(family.slab().asItem());
+		tag(ItemTags.STAIRS).add(family.stairs().asItem());
+		tag(ItemTags.WALLS).add(family.wall().asItem());
 
-		tag(ItemTags.STONE_CRAFTING_MATERIALS).add(BlockInit.ANTHRACITE.get().asItem(),
-				BlockInit.FELDSPAR.get().asItem());
+		tag(ItemTags.STONE_CRAFTING_MATERIALS).add(family.base().asItem());
+	}
+	
+	private void woodFamily(WoodFamily family) {
+		tag(ItemTags.SLABS).add(family.slab().asItem());
+		tag(ItemTags.STAIRS).add(family.stairs().asItem());
+
+		tag(ItemTags.BUTTONS).add(family.button().asItem());
+		tag(ItemTags.WOODEN_BUTTONS).add(family.button().asItem());
+		tag(ItemTags.DOORS).add(family.door().asItem());
+		tag(ItemTags.WOODEN_DOORS).add(family.door().asItem());
+		tag(ItemTags.TRAPDOORS).add(family.trapdoor().asItem());
+		tag(ItemTags.WOODEN_TRAPDOORS).add(family.trapdoor().asItem());
+		tag(ItemTags.FENCES).add(family.fence().asItem());
+		tag(ItemTags.WOODEN_FENCES).add(family.fence().asItem());
+		tag(ItemTags.FENCE_GATES).add(family.fencegate().asItem());
+		tag(ItemTags.WOODEN_PRESSURE_PLATES).add(family.pressure_plate().asItem());
+
+		tag(ItemTags.SIGNS).add(family.sign());
+		tag(ItemTags.HANGING_SIGNS).add(family.hangingsign());
+
+		tag(ItemTags.LOGS).add(family.log().asItem(), family.stripped_log().asItem(), family.wood().asItem(), family.stripped_wood().asItem());
+		tag(ItemTags.PLANKS).add(family.planks().asItem());
+		tag(ItemTags.LEAVES).add(family.leaves().asItem());
 	}
 }

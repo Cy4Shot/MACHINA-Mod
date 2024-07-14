@@ -8,6 +8,9 @@ import org.jetbrains.annotations.NotNull;
 
 import com.machina.Machina;
 import com.machina.registration.init.BlockInit;
+import com.machina.registration.init.BlockFamiliesInit;
+import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
+import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 import com.machina.registration.init.TagInit.BlockTagInit;
 
 import net.minecraft.core.HolderLookup;
@@ -26,44 +29,12 @@ public class DatagenBlockTags extends BlockTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
-		tag(BlockTags.SLABS).add(BlockInit.ANTHRACITE_SLAB.get(), BlockInit.FELDSPAR_SLAB.get(),
-				BlockInit.TROPICAL_SLAB.get());
-		tag(BlockTags.STAIRS).add(BlockInit.ANTHRACITE_STAIRS.get(), BlockInit.FELDSPAR_STAIRS.get(),
-				BlockInit.TROPICAL_STAIRS.get());
-		tag(BlockTags.WALLS).add(BlockInit.ANTHRACITE_WALL.get(), BlockInit.FELDSPAR_WALL.get());
-
-		tag(BlockTags.BUTTONS).add(BlockInit.TROPICAL_BUTTON.get());
-		tag(BlockTags.WOODEN_BUTTONS).add(BlockInit.TROPICAL_BUTTON.get());
-		tag(BlockTags.DOORS).add(BlockInit.TROPICAL_DOOR.get());
-		tag(BlockTags.WOODEN_DOORS).add(BlockInit.TROPICAL_DOOR.get());
-		tag(BlockTags.TRAPDOORS).add(BlockInit.TROPICAL_TRAPDOOR.get());
-		tag(BlockTags.WOODEN_TRAPDOORS).add(BlockInit.TROPICAL_TRAPDOOR.get());
-		tag(BlockTags.FENCES).add(BlockInit.TROPICAL_FENCE.get());
-		tag(BlockTags.WOODEN_FENCES).add(BlockInit.TROPICAL_FENCE.get());
-		tag(BlockTags.FENCE_GATES).add(BlockInit.TROPICAL_FENCE_GATE.get());
-		tag(BlockTags.PRESSURE_PLATES).add(BlockInit.TROPICAL_PRESSURE_PLATE.get());
-		tag(BlockTags.WOODEN_PRESSURE_PLATES).add(BlockInit.TROPICAL_PRESSURE_PLATE.get());
-
-		tag(BlockTags.ALL_SIGNS).add(BlockInit.TROPICAL_SIGN.get(), BlockInit.TROPICAL_WALL_SIGN.get());
-		tag(BlockTags.SIGNS).add(BlockInit.TROPICAL_SIGN.get());
-		tag(BlockTags.WALL_SIGNS).add(BlockInit.TROPICAL_WALL_SIGN.get());
-		tag(BlockTags.ALL_HANGING_SIGNS).add(BlockInit.TROPICAL_HANGING_SIGN.get(),
-				BlockInit.TROPICAL_WALL_HANGING_SIGN.get());
-		tag(BlockTags.CEILING_HANGING_SIGNS).add(BlockInit.TROPICAL_HANGING_SIGN.get());
-		tag(BlockTags.WALL_HANGING_SIGNS).add(BlockInit.TROPICAL_WALL_HANGING_SIGN.get());
-
 		tag(BlockTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get());
-		tag(BlockTags.LOGS).add(BlockInit.TROPICAL_LOG.get(), BlockInit.STRIPPED_TROPICAL_LOG.get(),
-				BlockInit.TROPICAL_WOOD.get(), BlockInit.STRIPPED_TROPICAL_WOOD.get());
-		tag(BlockTags.PLANKS).add(BlockInit.TROPICAL_PLANKS.get());
-		tag(BlockTags.LEAVES).add(BlockInit.TROPICAL_LEAVES.get());
 
 		tag(BlockTags.FLOWERS).add(BlockInit.DRAGON_PEONY.get(), BlockInit.ORHPEUM.get());
 		tag(BlockTags.SMALL_FLOWERS).add(BlockInit.DRAGON_PEONY.get());
 		tag(BlockTags.TALL_FLOWERS).add(BlockInit.ORHPEUM.get());
 		tag(BlockTags.FLOWER_POTS).add(BlockInit.POTTED_DRAGON_PEONY.get());
-
-		tag(BlockTags.OVERWORLD_CARVER_REPLACEABLES).add(BlockInit.ANTHRACITE.get(), BlockInit.FELDSPAR.get());
 
 		tag(BlockTagInit.EARTHLIKE_GROWABLE).add(BlockInit.TROPICAL_GRASS_BLOCK.get());
 		tag(BlockTagInit.ANTHRACITE_GROWABLE).add(Blocks.COAL_ORE);
@@ -75,5 +46,44 @@ public class DatagenBlockTags extends BlockTagsProvider {
 				BlockInit.ANTHRACITE.get(), Blocks.WATER);
 		tag(BlockTagInit.MARTIAN_CARVABLE).add(Blocks.RED_SAND, Blocks.RED_SANDSTONE, Blocks.SMOOTH_RED_SANDSTONE,
 				BlockInit.FELDSPAR.get(), Blocks.WATER);
+		
+		BlockFamiliesInit.STONES.forEach(this::stoneFamily);
+		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
+	}
+	
+	private void stoneFamily(StoneFamily family) {
+		tag(BlockTags.SLABS).add(family.slab());
+		tag(BlockTags.STAIRS).add(family.stairs());
+		tag(BlockTags.WALLS).add(family.wall());
+
+		tag(BlockTags.OVERWORLD_CARVER_REPLACEABLES).add(family.base());
+	}
+
+	private void woodFamily(WoodFamily family) {
+		tag(BlockTags.SLABS).add(family.slab());
+		tag(BlockTags.STAIRS).add(family.stairs());
+
+		tag(BlockTags.BUTTONS).add(family.button());
+		tag(BlockTags.WOODEN_BUTTONS).add(family.button());
+		tag(BlockTags.DOORS).add(family.door());
+		tag(BlockTags.WOODEN_DOORS).add(family.door());
+		tag(BlockTags.TRAPDOORS).add(family.trapdoor());
+		tag(BlockTags.WOODEN_TRAPDOORS).add(family.trapdoor());
+		tag(BlockTags.FENCES).add(family.fence());
+		tag(BlockTags.WOODEN_FENCES).add(family.fence());
+		tag(BlockTags.FENCE_GATES).add(family.fencegate());
+		tag(BlockTags.PRESSURE_PLATES).add(family.pressure_plate());
+		tag(BlockTags.WOODEN_PRESSURE_PLATES).add(family.pressure_plate());
+
+		tag(BlockTags.ALL_SIGNS).add(family.signblock(), family.wallsignblock());
+		tag(BlockTags.SIGNS).add(family.signblock());
+		tag(BlockTags.WALL_SIGNS).add(family.wallsignblock());
+		tag(BlockTags.ALL_HANGING_SIGNS).add(family.hangingsignblock(), family.hangingwallsignblock());
+		tag(BlockTags.CEILING_HANGING_SIGNS).add(family.hangingsignblock());
+		tag(BlockTags.WALL_HANGING_SIGNS).add(family.hangingwallsignblock());
+		tag(BlockTags.LOGS).add(family.log(), family.stripped_log(), family.wood(), family.stripped_wood());
+
+		tag(BlockTags.PLANKS).add(family.planks());
+		tag(BlockTags.LEAVES).add(family.leaves());
 	}
 }

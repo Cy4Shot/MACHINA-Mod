@@ -79,6 +79,23 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.STRIPPED_TROPICAL_LOG, "Stripped Tropical Log");
 		add(BlockInit.STRIPPED_TROPICAL_WOOD, "Stripped Tropical Wood");
 		
+		add(BlockInit.PINE_BUTTON, "Pine Button");
+		add(BlockInit.PINE_DOOR, "Pine Door");
+		add(BlockInit.PINE_FENCE, "Pine Fence");
+		add(BlockInit.PINE_FENCE_GATE, "Pine Fence Gate");
+		add(BlockInit.PINE_HANGING_SIGN, "Pine Hanging Sign");
+		add(BlockInit.PINE_LOG, "Pine Log");
+		add(BlockInit.PINE_PLANKS, "Pine Planks");
+		add(BlockInit.PINE_LEAVES, "Pine Leaves");
+		add(BlockInit.PINE_PRESSURE_PLATE, "Pine Pressure Plate");
+		add(BlockInit.PINE_SIGN, "Pine Sign");
+		add(BlockInit.PINE_SLAB, "Pine Slab");
+		add(BlockInit.PINE_STAIRS, "Pine Stairs");
+		add(BlockInit.PINE_TRAPDOOR, "Pine Trapdoor");
+		add(BlockInit.PINE_WOOD, "Pine Wood");
+		add(BlockInit.STRIPPED_PINE_LOG, "Stripped Pine Log");
+		add(BlockInit.STRIPPED_PINE_WOOD, "Stripped Pine Wood");
+		
 		add(BlockInit.CLOVER, "Clover");
 		add(BlockInit.DRAGON_PEONY, "Dragon Peony");
 		add(BlockInit.POTTED_DRAGON_PEONY, "Potted Dragon Peony");

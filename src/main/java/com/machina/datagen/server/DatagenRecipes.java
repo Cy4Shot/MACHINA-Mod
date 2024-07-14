@@ -7,7 +7,10 @@ import org.jetbrains.annotations.NotNull;
 
 import com.machina.Machina;
 import com.machina.registration.init.BlockInit;
+import com.machina.registration.init.BlockFamiliesInit;
 import com.machina.registration.init.ItemInit;
+import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
+import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -40,70 +43,58 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 		compact(gen, ItemInit.ALUMINUM_INGOT.get(), ItemInit.ALUMINUM_NUGGET.get());
 		compact(gen, Items.COAL, ItemInit.COAL_CHUNK.get());
 
-		stoneFamily(gen, BlockInit.ANTHRACITE.get(), BlockInit.ANTHRACITE_SLAB.get(), BlockInit.ANTHRACITE_STAIRS.get(),
-				BlockInit.ANTHRACITE_WALL.get());
-		stoneFamily(gen, BlockInit.FELDSPAR.get(), BlockInit.FELDSPAR_SLAB.get(), BlockInit.FELDSPAR_STAIRS.get(),
-				BlockInit.FELDSPAR_WALL.get());
-
-		woodFamily(gen, BlockInit.TROPICAL_LOG.get(), BlockInit.TROPICAL_WOOD.get(),
-				BlockInit.STRIPPED_TROPICAL_LOG.get(), BlockInit.STRIPPED_TROPICAL_WOOD.get(),
-				BlockInit.TROPICAL_PLANKS.get(), BlockInit.TROPICAL_STAIRS.get(), BlockInit.TROPICAL_SLAB.get(),
-				BlockInit.TROPICAL_FENCE.get(), BlockInit.TROPICAL_FENCE_GATE.get(), BlockInit.TROPICAL_DOOR.get(),
-				BlockInit.TROPICAL_TRAPDOOR.get(), BlockInit.TROPICAL_PRESSURE_PLATE.get(),
-				BlockInit.TROPICAL_BUTTON.get(), ItemInit.TROPICAL_SIGN.get(), ItemInit.TROPICAL_HANGING_SIGN.get());
+		BlockFamiliesInit.STONES.forEach(x -> stoneFamily(gen, x));
+		BlockFamiliesInit.WOODS.forEach(x -> woodFamily(gen, x));
 	}
 
-	protected static void woodFamily(Consumer<FinishedRecipe> gen, ItemLike log, ItemLike wood, ItemLike stripped_log,
-			ItemLike stripped_wood, ItemLike planks, ItemLike stairs, ItemLike slab, ItemLike fence, ItemLike fencegate,
-			ItemLike door, ItemLike trapdoor, ItemLike pressure_plate, ItemLike button, ItemLike sign,
-			ItemLike hangingsign) {
+	protected static void woodFamily(Consumer<FinishedRecipe> gen, WoodFamily family) {
 		//@formatter:off
-		log_and_plank(gen, log, wood, planks);
-		log_and_plank(gen, stripped_log, stripped_wood, planks);
-		slab(gen, planks, slab);
-		stair(gen, planks, stairs);
-		door(gen, planks, door);
-		trapdoor(gen, planks, trapdoor);
-		pressure_plate(gen, planks, pressure_plate);
-		button(gen, planks, button);
+		log_and_plank(gen, family.log(), family.wood(), family.planks());
+		log_and_plank(gen, family.stripped_log(), family.stripped_wood(), family.planks());
+		slab(gen, family.planks(), family.slab());
+		stair(gen, family.planks(), family.stairs());
+		door(gen, family.planks(), family.door());
+		trapdoor(gen, family.planks(), family.trapdoor());
+		pressure_plate(gen, family.planks(), family.pressure_plate());
+		button(gen, family.planks(), family.button());
 		
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, fence, 3)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, family.fence(), 3)
 			.pattern("BSB")
 			.pattern("BSB")
-			.define('B', planks)
+			.define('B', family.planks())
 			.define('S', Items.STICK)
-			.unlockedBy(getHasName(planks), has(planks))
+			.unlockedBy(getHasName(family.planks()), has(family.planks()))
 			.showNotification(false)
-			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(fence));
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(family.fence()));
 		
-		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, fencegate)
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, family.fencegate())
 			.pattern("SBS")
 			.pattern("SBS")
-			.define('B', planks)
+			.define('B', family.planks())
 			.define('S', Items.STICK)
-			.unlockedBy(getHasName(planks), has(planks))
+			.unlockedBy(getHasName(family.planks()), has(family.planks()))
 			.showNotification(false)
-			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(fencegate));
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(family.fencegate()));
 		
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, sign, 3)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, family.sign(), 3)
 			.pattern("BBB")
 			.pattern("BBB")
 			.pattern(" S ")
-			.define('B', planks)
+			.define('B', family.planks())
 			.define('S', Items.STICK)
-			.unlockedBy(getHasName(planks), has(planks))
+			.unlockedBy(getHasName(family.planks()), has(family.planks()))
 			.showNotification(false)
-			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(sign));
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(family.sign()));
 		
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, hangingsign, 6)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, family.hangingsign(), 6)
 			.pattern("C C")
 			.pattern("BBB")
 			.pattern("BBB")
-			.define('B', stripped_log)
+			.define('B', family.stripped_log())
 			.define('C', Items.CHAIN)
-			.unlockedBy(getHasName(stripped_log), has(stripped_log))
+			.unlockedBy(getHasName(family.stripped_log()), has(family.stripped_log()))
 			.showNotification(false)
-			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(hangingsign));
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(family.hangingsign()));
 		//@formatter:on
 	}
 
@@ -132,29 +123,28 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 		//@formatter:on
 	}
 
-	protected static void stoneFamily(Consumer<FinishedRecipe> gen, ItemLike base, ItemLike slab, ItemLike stair,
-			ItemLike wall) {
+	protected static void stoneFamily(Consumer<FinishedRecipe> gen, StoneFamily family) {
 		//@formatter:off
-		slab(gen, base, slab);
-		stair(gen, base, stair);
+		slab(gen, family.base(), family.slab());
+		stair(gen, family.base(), family.stairs());
 		
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, wall, 6)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, family.wall(), 6)
 			.pattern("BBB")
 			.pattern("BBB")
-			.define('B', base)
-			.unlockedBy(getHasName(base), has(base))
+			.define('B', family.base())
+			.unlockedBy(getHasName(family.base()), has(family.base()))
 			.showNotification(false)
-			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(wall));
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(family.wall()));
 		
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(base), RecipeCategory.BUILDING_BLOCKS, slab, 2)
-			.unlockedBy(getHasName(base), has(base))
-			.save(gen, Machina.MOD_ID + ":stonecutting_" + getItemName(slab));
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(base), RecipeCategory.BUILDING_BLOCKS, stair)
-			.unlockedBy(getHasName(base), has(base))
-			.save(gen, Machina.MOD_ID + ":stonecutting_" + getItemName(stair));
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(base), RecipeCategory.BUILDING_BLOCKS, wall)
-			.unlockedBy(getHasName(base), has(base))
-			.save(gen, Machina.MOD_ID + ":stonecutting_" + getItemName(wall));
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(family.base()), RecipeCategory.BUILDING_BLOCKS, family.slab(), 2)
+			.unlockedBy(getHasName(family.base()), has(family.base()))
+			.save(gen, Machina.MOD_ID + ":stonecutting_" + getItemName(family.slab()));
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(family.base()), RecipeCategory.BUILDING_BLOCKS, family.stairs())
+			.unlockedBy(getHasName(family.base()), has(family.base()))
+			.save(gen, Machina.MOD_ID + ":stonecutting_" + getItemName(family.stairs()));
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(family.base()), RecipeCategory.BUILDING_BLOCKS, family.wall())
+			.unlockedBy(getHasName(family.base()), has(family.base()))
+			.save(gen, Machina.MOD_ID + ":stonecutting_" + getItemName(family.wall()));
 		//@formatter:on
 	}
 
