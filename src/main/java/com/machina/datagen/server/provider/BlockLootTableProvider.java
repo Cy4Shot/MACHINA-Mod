@@ -10,7 +10,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -26,7 +25,7 @@ public abstract class BlockLootTableProvider extends BlockLootSubProvider {
 		super(Set.of(), FeatureFlags.REGISTRY.allFlags());
 	}
 
-	public void slab(SlabBlock slab) {
+	public void slab(Block slab) {
 		this.add(slab, this::createSlabItemTable);
 	}
 

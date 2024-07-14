@@ -1,6 +1,9 @@
 {
   "values": [
     "machina:anthracite_wall",
-    "machina:feldspar_wall"
+    "machina:feldspar_wall",
+    "machina:gray_soapstone_wall",
+    "machina:green_soapstone_wall",
+    "machina:white_soapstone_wall"
   ]
 }

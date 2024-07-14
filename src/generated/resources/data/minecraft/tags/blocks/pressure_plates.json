@@ -1,5 +1,10 @@
 {
   "values": [
+    "machina:anthracite_pressure_plate",
+    "machina:feldspar_pressure_plate",
+    "machina:gray_soapstone_pressure_plate",
+    "machina:green_soapstone_pressure_plate",
+    "machina:white_soapstone_pressure_plate",
     "machina:tropical_pressure_plate",
     "machina:pine_pressure_plate"
   ]

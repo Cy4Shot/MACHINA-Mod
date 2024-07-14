@@ -1,5 +1,10 @@
 {
   "values": [
+    "machina:anthracite_button",
+    "machina:feldspar_button",
+    "machina:gray_soapstone_button",
+    "machina:green_soapstone_button",
+    "machina:white_soapstone_button",
     "machina:tropical_button",
     "machina:pine_button"
   ]

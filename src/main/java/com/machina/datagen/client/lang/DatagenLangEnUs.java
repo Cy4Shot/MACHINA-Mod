@@ -53,11 +53,34 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.ANTHRACITE_SLAB, "Anthracite Slab");
 		add(BlockInit.ANTHRACITE_STAIRS, "Anthracite Stairs");
 		add(BlockInit.ANTHRACITE_WALL, "Anthracite Wall");
+		add(BlockInit.ANTHRACITE_BUTTON, "Anthracite Button");
+		add(BlockInit.ANTHRACITE_PRESSURE_PLATE, "Anthracite Pressure Plate");
 		
 		add(BlockInit.FELDSPAR, "Feldspar");
 		add(BlockInit.FELDSPAR_SLAB, "Feldspar Slab");
 		add(BlockInit.FELDSPAR_STAIRS, "Feldspar Stairs");
 		add(BlockInit.FELDSPAR_WALL, "Feldspar Wall");
+		add(BlockInit.FELDSPAR_BUTTON, "Feldspar Button");
+		add(BlockInit.FELDSPAR_PRESSURE_PLATE, "Feldspar Pressure Plate");
+		
+		add(BlockInit.GRAY_SOAPSTONE, "Gray Soapstone");
+		add(BlockInit.GRAY_SOAPSTONE_SLAB, "Gray Soapstone Slab");
+		add(BlockInit.GRAY_SOAPSTONE_STAIRS, "Gray Soapstone Stairs");
+		add(BlockInit.GRAY_SOAPSTONE_WALL, "Gray Soapstone Wall");
+		add(BlockInit.GRAY_SOAPSTONE_BUTTON, "Gray Soapstone Button");
+		add(BlockInit.GRAY_SOAPSTONE_PRESSURE_PLATE, "Gray Soapstone Pressure Plate");
+		add(BlockInit.GREEN_SOAPSTONE, "Green Soapstone");
+		add(BlockInit.GREEN_SOAPSTONE_SLAB, "Green Soapstone Slab");
+		add(BlockInit.GREEN_SOAPSTONE_STAIRS, "Green Soapstone Stairs");
+		add(BlockInit.GREEN_SOAPSTONE_WALL, "Green Soapstone Wall");
+		add(BlockInit.GREEN_SOAPSTONE_BUTTON, "Green Soapstone Button");
+		add(BlockInit.GREEN_SOAPSTONE_PRESSURE_PLATE, "Green Soapstone Pressure Plate");
+		add(BlockInit.WHITE_SOAPSTONE, "White Soapstone");
+		add(BlockInit.WHITE_SOAPSTONE_SLAB, "White Soapstone Slab");
+		add(BlockInit.WHITE_SOAPSTONE_STAIRS, "White Soapstone Stairs");
+		add(BlockInit.WHITE_SOAPSTONE_WALL, "White Soapstone Wall");
+		add(BlockInit.WHITE_SOAPSTONE_BUTTON, "White Soapstone Button");
+		add(BlockInit.WHITE_SOAPSTONE_PRESSURE_PLATE, "White Soapstone Pressure Plate");
 		
 		add(BlockInit.TROPICAL_GRASS_BLOCK, "Tropical Grass Block");
 		add(BlockInit.TROPICAL_DIRT, "Tropical Dirt");

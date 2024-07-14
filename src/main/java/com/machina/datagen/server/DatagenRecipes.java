@@ -127,6 +127,8 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 		//@formatter:off
 		slab(gen, family.base(), family.slab());
 		stair(gen, family.base(), family.stairs());
+		pressure_plate(gen, family.base(), family.pressure_plate());
+		button(gen, family.base(), family.button());
 		
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, family.wall(), 6)
 			.pattern("BBB")

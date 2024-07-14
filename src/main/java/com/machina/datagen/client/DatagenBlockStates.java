@@ -48,11 +48,34 @@ public class DatagenBlockStates extends BlockStateProvider {
 		slab(BlockInit.ANTHRACITE_SLAB, BlockInit.ANTHRACITE);
 		stairs(BlockInit.ANTHRACITE_STAIRS, BlockInit.ANTHRACITE);
 		wall(BlockInit.ANTHRACITE_WALL, BlockInit.ANTHRACITE);
+		button(BlockInit.ANTHRACITE_BUTTON, BlockInit.ANTHRACITE);
+		pressure_plate(BlockInit.ANTHRACITE_PRESSURE_PLATE, BlockInit.ANTHRACITE);
 
 		cube(BlockInit.FELDSPAR);
 		slab(BlockInit.FELDSPAR_SLAB, BlockInit.FELDSPAR);
 		stairs(BlockInit.FELDSPAR_STAIRS, BlockInit.FELDSPAR);
 		wall(BlockInit.FELDSPAR_WALL, BlockInit.FELDSPAR);
+		button(BlockInit.FELDSPAR_BUTTON, BlockInit.FELDSPAR);
+		pressure_plate(BlockInit.FELDSPAR_PRESSURE_PLATE, BlockInit.FELDSPAR);
+		
+		cube(BlockInit.GRAY_SOAPSTONE);
+		slab(BlockInit.GRAY_SOAPSTONE_SLAB, BlockInit.GRAY_SOAPSTONE);
+		stairs(BlockInit.GRAY_SOAPSTONE_STAIRS, BlockInit.GRAY_SOAPSTONE);
+		wall(BlockInit.GRAY_SOAPSTONE_WALL, BlockInit.GRAY_SOAPSTONE);
+		button(BlockInit.GRAY_SOAPSTONE_BUTTON, BlockInit.GRAY_SOAPSTONE);
+		pressure_plate(BlockInit.GRAY_SOAPSTONE_PRESSURE_PLATE, BlockInit.GRAY_SOAPSTONE);
+		cube(BlockInit.GREEN_SOAPSTONE);
+		slab(BlockInit.GREEN_SOAPSTONE_SLAB, BlockInit.GREEN_SOAPSTONE);
+		stairs(BlockInit.GREEN_SOAPSTONE_STAIRS, BlockInit.GREEN_SOAPSTONE);
+		wall(BlockInit.GREEN_SOAPSTONE_WALL, BlockInit.GREEN_SOAPSTONE);
+		button(BlockInit.GREEN_SOAPSTONE_BUTTON, BlockInit.GREEN_SOAPSTONE);
+		pressure_plate(BlockInit.GREEN_SOAPSTONE_PRESSURE_PLATE, BlockInit.GREEN_SOAPSTONE);
+		cube(BlockInit.WHITE_SOAPSTONE);
+		slab(BlockInit.WHITE_SOAPSTONE_SLAB, BlockInit.WHITE_SOAPSTONE);
+		stairs(BlockInit.WHITE_SOAPSTONE_STAIRS, BlockInit.WHITE_SOAPSTONE);
+		wall(BlockInit.WHITE_SOAPSTONE_WALL, BlockInit.WHITE_SOAPSTONE);
+		button(BlockInit.WHITE_SOAPSTONE_BUTTON, BlockInit.WHITE_SOAPSTONE);
+		pressure_plate(BlockInit.WHITE_SOAPSTONE_PRESSURE_PLATE, BlockInit.WHITE_SOAPSTONE);
 
 		cubeBottomTop(BlockInit.TROPICAL_GRASS_BLOCK);
 		cube(BlockInit.TROPICAL_DIRT);

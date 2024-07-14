@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/white_soapstone_slab"
+    },
+    "type=double": {
+      "model": "machina:block/white_soapstone"
+    },
+    "type=top": {
+      "model": "machina:block/white_soapstone_slab_top"
+    }
+  }
+}

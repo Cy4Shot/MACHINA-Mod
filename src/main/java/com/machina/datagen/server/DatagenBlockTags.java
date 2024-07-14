@@ -55,6 +55,11 @@ public class DatagenBlockTags extends BlockTagsProvider {
 		tag(BlockTags.SLABS).add(family.slab());
 		tag(BlockTags.STAIRS).add(family.stairs());
 		tag(BlockTags.WALLS).add(family.wall());
+		
+		tag(BlockTags.BUTTONS).add(family.button());
+		tag(BlockTags.STONE_BUTTONS).add(family.button());
+		tag(BlockTags.PRESSURE_PLATES).add(family.pressure_plate());
+		tag(BlockTags.STONE_PRESSURE_PLATES).add(family.pressure_plate());
 
 		tag(BlockTags.OVERWORLD_CARVER_REPLACEABLES).add(family.base());
 	}

@@ -7,10 +7,10 @@ import javax.annotation.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 import com.machina.Machina;
-import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.BlockFamiliesInit;
 import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
 import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
+import com.machina.registration.init.BlockInit;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
@@ -43,6 +43,9 @@ public class DatagenItemTags extends ItemTagsProvider {
 		tag(ItemTags.SLABS).add(family.slab().asItem());
 		tag(ItemTags.STAIRS).add(family.stairs().asItem());
 		tag(ItemTags.WALLS).add(family.wall().asItem());
+		
+		tag(ItemTags.BUTTONS).add(family.button().asItem());
+		tag(ItemTags.STONE_BUTTONS).add(family.button().asItem());
 
 		tag(ItemTags.STONE_CRAFTING_MATERIALS).add(family.base().asItem());
 	}

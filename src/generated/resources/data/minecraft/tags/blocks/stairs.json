@@ -2,6 +2,9 @@
   "values": [
     "machina:anthracite_stairs",
     "machina:feldspar_stairs",
+    "machina:gray_soapstone_stairs",
+    "machina:green_soapstone_stairs",
+    "machina:white_soapstone_stairs",
     "machina:tropical_stairs",
     "machina:pine_stairs"
   ]

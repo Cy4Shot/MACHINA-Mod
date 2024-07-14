@@ -19,7 +19,8 @@ public class BlockFamiliesInit {
 				BlockInit.TROPICAL_TRAPDOOR.get(), BlockInit.TROPICAL_PRESSURE_PLATE.get(),
 				BlockInit.TROPICAL_BUTTON.get(), ItemInit.TROPICAL_SIGN.get(), ItemInit.TROPICAL_HANGING_SIGN.get(),
 				BlockInit.TROPICAL_SIGN.get(), BlockInit.TROPICAL_WALL_SIGN.get(),
-				BlockInit.TROPICAL_HANGING_SIGN.get(), BlockInit.TROPICAL_WALL_HANGING_SIGN.get(), BlockInit.TROPICAL_LEAVES.get()));
+				BlockInit.TROPICAL_HANGING_SIGN.get(), BlockInit.TROPICAL_WALL_HANGING_SIGN.get(),
+				BlockInit.TROPICAL_LEAVES.get()));
 		WOODS.add(new WoodFamily(BlockInit.PINE_LOG.get(), BlockInit.PINE_WOOD.get(), BlockInit.STRIPPED_PINE_LOG.get(),
 				BlockInit.STRIPPED_PINE_WOOD.get(), BlockInit.PINE_PLANKS.get(), BlockInit.PINE_STAIRS.get(),
 				BlockInit.PINE_SLAB.get(), BlockInit.PINE_FENCE.get(), BlockInit.PINE_FENCE_GATE.get(),
@@ -27,11 +28,22 @@ public class BlockFamiliesInit {
 				BlockInit.PINE_BUTTON.get(), ItemInit.PINE_SIGN.get(), ItemInit.PINE_HANGING_SIGN.get(),
 				BlockInit.PINE_SIGN.get(), BlockInit.PINE_WALL_SIGN.get(), BlockInit.PINE_HANGING_SIGN.get(),
 				BlockInit.PINE_WALL_HANGING_SIGN.get(), BlockInit.PINE_LEAVES.get()));
-		
-		STONES.add(new StoneFamily(BlockInit.ANTHRACITE.get(), BlockInit.ANTHRACITE_SLAB.get(), BlockInit.ANTHRACITE_STAIRS.get(),
-				BlockInit.ANTHRACITE_WALL.get()));
-		STONES.add(new StoneFamily(BlockInit.FELDSPAR.get(), BlockInit.FELDSPAR_SLAB.get(), BlockInit.FELDSPAR_STAIRS.get(),
-				BlockInit.FELDSPAR_WALL.get()));
+
+		STONES.add(new StoneFamily(BlockInit.ANTHRACITE.get(), BlockInit.ANTHRACITE_SLAB.get(),
+				BlockInit.ANTHRACITE_STAIRS.get(), BlockInit.ANTHRACITE_WALL.get(),
+				BlockInit.ANTHRACITE_PRESSURE_PLATE.get(), BlockInit.ANTHRACITE_BUTTON.get()));
+		STONES.add(new StoneFamily(BlockInit.FELDSPAR.get(), BlockInit.FELDSPAR_SLAB.get(),
+				BlockInit.FELDSPAR_STAIRS.get(), BlockInit.FELDSPAR_WALL.get(), BlockInit.FELDSPAR_PRESSURE_PLATE.get(),
+				BlockInit.FELDSPAR_BUTTON.get()));
+		STONES.add(new StoneFamily(BlockInit.GRAY_SOAPSTONE.get(), BlockInit.GRAY_SOAPSTONE_SLAB.get(),
+				BlockInit.GRAY_SOAPSTONE_STAIRS.get(), BlockInit.GRAY_SOAPSTONE_WALL.get(),
+				BlockInit.GRAY_SOAPSTONE_PRESSURE_PLATE.get(), BlockInit.GRAY_SOAPSTONE_BUTTON.get()));
+		STONES.add(new StoneFamily(BlockInit.GREEN_SOAPSTONE.get(), BlockInit.GREEN_SOAPSTONE_SLAB.get(),
+				BlockInit.GREEN_SOAPSTONE_STAIRS.get(), BlockInit.GREEN_SOAPSTONE_WALL.get(),
+				BlockInit.GREEN_SOAPSTONE_PRESSURE_PLATE.get(), BlockInit.GREEN_SOAPSTONE_BUTTON.get()));
+		STONES.add(new StoneFamily(BlockInit.WHITE_SOAPSTONE.get(), BlockInit.WHITE_SOAPSTONE_SLAB.get(),
+				BlockInit.WHITE_SOAPSTONE_STAIRS.get(), BlockInit.WHITE_SOAPSTONE_WALL.get(),
+				BlockInit.WHITE_SOAPSTONE_PRESSURE_PLATE.get(), BlockInit.WHITE_SOAPSTONE_BUTTON.get()));
 	}
 
 	public static final record WoodFamily(Block log, Block wood, Block stripped_log, Block stripped_wood, Block planks,
@@ -39,6 +51,8 @@ public class BlockFamiliesInit {
 			Block button, Item sign, Item hangingsign, Block signblock, Block wallsignblock, Block hangingsignblock,
 			Block hangingwallsignblock, Block leaves) {
 	}
-	
-	public static final record StoneFamily(Block base, Block slab, Block stairs, Block wall) {}
+
+	public static final record StoneFamily(Block base, Block slab, Block stairs, Block wall, Block pressure_plate,
+			Block button) {
+	}
 }

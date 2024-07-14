@@ -6,6 +6,9 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import com.machina.datagen.server.provider.BlockLootTableProvider;
+import com.machina.registration.init.BlockFamiliesInit;
+import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
+import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
@@ -27,68 +30,54 @@ public class DatagenLootTables extends LootTableProvider {
 		@Override
 		protected void generate() {
 			dropSelf(BlockInit.ALUMINUM_BLOCK.get());
-			dropSelf(BlockInit.ANTHRACITE.get());
-			slab(BlockInit.ANTHRACITE_SLAB.get());
-			dropSelf(BlockInit.ANTHRACITE_STAIRS.get());
-			dropSelf(BlockInit.ANTHRACITE_WALL.get());
-			dropSelf(BlockInit.FELDSPAR.get());
-			slab(BlockInit.FELDSPAR_SLAB.get());
-			dropSelf(BlockInit.FELDSPAR_STAIRS.get());
-			dropSelf(BlockInit.FELDSPAR_WALL.get());
 			
 			dropWithSilk(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get());
 			dropSelf(BlockInit.TROPICAL_DIRT.get());
-
-			dropSelf(BlockInit.TROPICAL_BUTTON.get());
-			dropSelf(BlockInit.TROPICAL_DOOR.get());
-			dropSelf(BlockInit.TROPICAL_FENCE.get());
-			dropSelf(BlockInit.TROPICAL_FENCE_GATE.get());
-			dropSelf(BlockInit.TROPICAL_HANGING_SIGN.get());
-			dropSelf(BlockInit.TROPICAL_LOG.get());
-			dropSelf(BlockInit.TROPICAL_PLANKS.get());
-			leaves(BlockInit.TROPICAL_LEAVES.get());
-			dropSelf(BlockInit.TROPICAL_PRESSURE_PLATE.get());
-			dropSelf(BlockInit.TROPICAL_SIGN.get());
-			slab(BlockInit.TROPICAL_SLAB.get());
-			dropSelf(BlockInit.TROPICAL_STAIRS.get());
-			dropSelf(BlockInit.TROPICAL_TRAPDOOR.get());
-			dropSelf(BlockInit.TROPICAL_WALL_HANGING_SIGN.get());
-			dropSelf(BlockInit.TROPICAL_WALL_SIGN.get());
-			dropSelf(BlockInit.TROPICAL_WOOD.get());
-			dropSelf(BlockInit.STRIPPED_TROPICAL_LOG.get());
-			dropSelf(BlockInit.STRIPPED_TROPICAL_WOOD.get());
 			
-			dropSelf(BlockInit.PINE_BUTTON.get());
-			dropSelf(BlockInit.PINE_DOOR.get());
-			dropSelf(BlockInit.PINE_FENCE.get());
-			dropSelf(BlockInit.PINE_FENCE_GATE.get());
-			dropSelf(BlockInit.PINE_HANGING_SIGN.get());
-			dropSelf(BlockInit.PINE_LOG.get());
-			dropSelf(BlockInit.PINE_PLANKS.get());
-			leaves(BlockInit.PINE_LEAVES.get());
-			dropSelf(BlockInit.PINE_PRESSURE_PLATE.get());
-			dropSelf(BlockInit.PINE_SIGN.get());
-			slab(BlockInit.PINE_SLAB.get());
-			dropSelf(BlockInit.PINE_STAIRS.get());
-			dropSelf(BlockInit.PINE_TRAPDOOR.get());
-			dropSelf(BlockInit.PINE_WALL_HANGING_SIGN.get());
-			dropSelf(BlockInit.PINE_WALL_SIGN.get());
-			dropSelf(BlockInit.PINE_WOOD.get());
-			dropSelf(BlockInit.STRIPPED_PINE_LOG.get());
-			dropSelf(BlockInit.STRIPPED_PINE_WOOD.get());
-
 			dropSelf(BlockInit.DRAGON_PEONY.get());
 			pot(BlockInit.POTTED_DRAGON_PEONY.get());
 			dropSelf(BlockInit.ORHPEUM.get());
 			dropSelf(BlockInit.CLOVER.get());
 
-			// Ore
 			ore(BlockInit.ALUMINUM_ORE.get(), ItemInit.RAW_ALUMINUM.get());
 
 			// Fluids
 			for (FluidObject obj : FluidInit.OBJS) {
 				dropNone(obj.block());
 			}
+			
+			BlockFamiliesInit.STONES.forEach(this::stoneFamily);
+			BlockFamiliesInit.WOODS.forEach(this::woodFamily);
+		}
+		
+		private void stoneFamily(StoneFamily family) {
+			dropSelf(family.base());
+			dropSelf(family.stairs());
+			dropSelf(family.wall());
+			dropSelf(family.button());
+			dropSelf(family.pressure_plate());
+			slab(family.slab());
+		}
+		
+		private void woodFamily(WoodFamily family) {
+			dropSelf(family.button());
+			dropSelf(family.door());
+			dropSelf(family.fence());
+			dropSelf(family.fencegate());
+			dropSelf(family.hangingsignblock());
+			dropSelf(family.log());
+			dropSelf(family.planks());
+			dropSelf(family.pressure_plate());
+			dropSelf(family.signblock());
+			dropSelf(family.stairs());
+			dropSelf(family.trapdoor());
+			dropSelf(family.wallsignblock());
+			dropSelf(family.hangingwallsignblock());
+			dropSelf(family.wood());
+			dropSelf(family.stripped_log());
+			dropSelf(family.stripped_wood());
+			leaves(family.leaves());
+			slab(family.slab());
 		}
 
 		@Override
