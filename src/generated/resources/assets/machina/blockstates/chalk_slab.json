@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/chalk_slab"
+    },
+    "type=double": {
+      "model": "machina:block/chalk"
+    },
+    "type=top": {
+      "model": "machina:block/chalk_slab_top"
+    }
+  }
+}

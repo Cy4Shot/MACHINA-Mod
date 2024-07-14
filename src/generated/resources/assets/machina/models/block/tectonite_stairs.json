@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "machina:block/tectonite",
+    "side": "machina:block/tectonite",
+    "top": "machina:block/tectonite"
+  }
+}

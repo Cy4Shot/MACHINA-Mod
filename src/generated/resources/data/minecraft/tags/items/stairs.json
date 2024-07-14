@@ -5,6 +5,13 @@
     "machina:gray_soapstone_stairs",
     "machina:green_soapstone_stairs",
     "machina:white_soapstone_stairs",
+    "machina:shale_stairs",
+    "machina:tectonite_stairs",
+    "machina:marble_stairs",
+    "machina:chalk_stairs",
+    "machina:limestone_stairs",
+    "machina:migmatite_stairs",
+    "machina:gneiss_stairs",
     "machina:tropical_stairs",
     "machina:pine_stairs"
   ]

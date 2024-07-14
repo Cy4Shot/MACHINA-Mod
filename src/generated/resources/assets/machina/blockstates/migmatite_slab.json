@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/migmatite_slab"
+    },
+    "type=double": {
+      "model": "machina:block/migmatite"
+    },
+    "type=top": {
+      "model": "machina:block/migmatite_slab_top"
+    }
+  }
+}

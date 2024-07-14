@@ -72,18 +72,69 @@ public class BlockInit {
 	public static final RegistryObject<WallBlock> GRAY_SOAPSTONE_WALL = wall("gray_soapstone_wall", Blocks.ANDESITE_WALL);
 	public static final RegistryObject<PressurePlateBlock> GRAY_SOAPSTONE_PRESSURE_PLATE = stone_pressure_plate("gray_soapstone_pressure_plate", Blocks.STONE_PRESSURE_PLATE);
 	public static final RegistryObject<ButtonBlock> GRAY_SOAPSTONE_BUTTON = stone_button("gray_soapstone_button", Blocks.STONE_BUTTON);
+	
 	public static final RegistryObject<Block> GREEN_SOAPSTONE = block("green_soapstone", Blocks.ANDESITE);
 	public static final RegistryObject<SlabBlock> GREEN_SOAPSTONE_SLAB = slab("green_soapstone_slab", Blocks.ANDESITE_SLAB);
 	public static final RegistryObject<StairBlock> GREEN_SOAPSTONE_STAIRS = stairs("green_soapstone_stairs", GREEN_SOAPSTONE, Blocks.ANDESITE_SLAB);
 	public static final RegistryObject<WallBlock> GREEN_SOAPSTONE_WALL = wall("green_soapstone_wall", Blocks.ANDESITE_WALL);
 	public static final RegistryObject<PressurePlateBlock> GREEN_SOAPSTONE_PRESSURE_PLATE = stone_pressure_plate("green_soapstone_pressure_plate", Blocks.STONE_PRESSURE_PLATE);
 	public static final RegistryObject<ButtonBlock> GREEN_SOAPSTONE_BUTTON = stone_button("green_soapstone_button", Blocks.STONE_BUTTON);
+	
 	public static final RegistryObject<Block> WHITE_SOAPSTONE = block("white_soapstone", Blocks.ANDESITE);
 	public static final RegistryObject<SlabBlock> WHITE_SOAPSTONE_SLAB = slab("white_soapstone_slab", Blocks.ANDESITE_SLAB);
 	public static final RegistryObject<StairBlock> WHITE_SOAPSTONE_STAIRS = stairs("white_soapstone_stairs", WHITE_SOAPSTONE, Blocks.ANDESITE_SLAB);
 	public static final RegistryObject<WallBlock> WHITE_SOAPSTONE_WALL = wall("white_soapstone_wall", Blocks.ANDESITE_WALL);
 	public static final RegistryObject<PressurePlateBlock> WHITE_SOAPSTONE_PRESSURE_PLATE = stone_pressure_plate("white_soapstone_pressure_plate", Blocks.STONE_PRESSURE_PLATE);
 	public static final RegistryObject<ButtonBlock> WHITE_SOAPSTONE_BUTTON = stone_button("white_soapstone_button", Blocks.STONE_BUTTON);
+	
+	public static final RegistryObject<Block> SHALE = block("shale", Blocks.ANDESITE);
+	public static final RegistryObject<SlabBlock> SHALE_SLAB = slab("shale_slab", Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<StairBlock> SHALE_STAIRS = stairs("shale_stairs", SHALE, Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<WallBlock> SHALE_WALL = wall("shale_wall", Blocks.ANDESITE_WALL);
+	public static final RegistryObject<PressurePlateBlock> SHALE_PRESSURE_PLATE = stone_pressure_plate("shale_pressure_plate", Blocks.STONE_PRESSURE_PLATE);
+	public static final RegistryObject<ButtonBlock> SHALE_BUTTON = stone_button("shale_button", Blocks.STONE_BUTTON);
+	
+	public static final RegistryObject<Block> TECTONITE = block("tectonite", Blocks.ANDESITE);
+	public static final RegistryObject<SlabBlock> TECTONITE_SLAB = slab("tectonite_slab", Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<StairBlock> TECTONITE_STAIRS = stairs("tectonite_stairs", TECTONITE, Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<WallBlock> TECTONITE_WALL = wall("tectonite_wall", Blocks.ANDESITE_WALL);
+	public static final RegistryObject<PressurePlateBlock> TECTONITE_PRESSURE_PLATE = stone_pressure_plate("tectonite_pressure_plate", Blocks.STONE_PRESSURE_PLATE);
+	public static final RegistryObject<ButtonBlock> TECTONITE_BUTTON = stone_button("tectonite_button", Blocks.STONE_BUTTON);
+	
+	public static final RegistryObject<Block> MARBLE = block("marble", Blocks.ANDESITE);
+	public static final RegistryObject<SlabBlock> MARBLE_SLAB = slab("marble_slab", Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<StairBlock> MARBLE_STAIRS = stairs("marble_stairs", MARBLE, Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<WallBlock> MARBLE_WALL = wall("marble_wall", Blocks.ANDESITE_WALL);
+	public static final RegistryObject<PressurePlateBlock> MARBLE_PRESSURE_PLATE = stone_pressure_plate("marble_pressure_plate", Blocks.STONE_PRESSURE_PLATE);
+	public static final RegistryObject<ButtonBlock> MARBLE_BUTTON = stone_button("marble_button", Blocks.STONE_BUTTON);
+	
+	public static final RegistryObject<Block> CHALK = block("chalk", Blocks.ANDESITE);
+	public static final RegistryObject<SlabBlock> CHALK_SLAB = slab("chalk_slab", Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<StairBlock> CHALK_STAIRS = stairs("chalk_stairs", CHALK, Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<WallBlock> CHALK_WALL = wall("chalk_wall", Blocks.ANDESITE_WALL);
+	public static final RegistryObject<PressurePlateBlock> CHALK_PRESSURE_PLATE = stone_pressure_plate("chalk_pressure_plate", Blocks.STONE_PRESSURE_PLATE);
+	public static final RegistryObject<ButtonBlock> CHALK_BUTTON = stone_button("chalk_button", Blocks.STONE_BUTTON);
+	
+	public static final RegistryObject<Block> LIMESTONE = block("limestone", Blocks.ANDESITE);
+	public static final RegistryObject<SlabBlock> LIMESTONE_SLAB = slab("limestone_slab", Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<StairBlock> LIMESTONE_STAIRS = stairs("limestone_stairs", LIMESTONE, Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<WallBlock> LIMESTONE_WALL = wall("limestone_wall", Blocks.ANDESITE_WALL);
+	public static final RegistryObject<PressurePlateBlock> LIMESTONE_PRESSURE_PLATE = stone_pressure_plate("limestone_pressure_plate", Blocks.STONE_PRESSURE_PLATE);
+	public static final RegistryObject<ButtonBlock> LIMESTONE_BUTTON = stone_button("limestone_button", Blocks.STONE_BUTTON);
+	
+	public static final RegistryObject<Block> MIGMATITE = block("migmatite", Blocks.ANDESITE);
+	public static final RegistryObject<SlabBlock> MIGMATITE_SLAB = slab("migmatite_slab", Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<StairBlock> MIGMATITE_STAIRS = stairs("migmatite_stairs", MIGMATITE, Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<WallBlock> MIGMATITE_WALL = wall("migmatite_wall", Blocks.ANDESITE_WALL);
+	public static final RegistryObject<PressurePlateBlock> MIGMATITE_PRESSURE_PLATE = stone_pressure_plate("migmatite_pressure_plate", Blocks.STONE_PRESSURE_PLATE);
+	public static final RegistryObject<ButtonBlock> MIGMATITE_BUTTON = stone_button("migmatite_button", Blocks.STONE_BUTTON);
+	
+	public static final RegistryObject<Block> GNEISS = block("gneiss", Blocks.ANDESITE);
+	public static final RegistryObject<SlabBlock> GNEISS_SLAB = slab("gneiss_slab", Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<StairBlock> GNEISS_STAIRS = stairs("gneiss_stairs", GNEISS, Blocks.ANDESITE_SLAB);
+	public static final RegistryObject<WallBlock> GNEISS_WALL = wall("gneiss_wall", Blocks.ANDESITE_WALL);
+	public static final RegistryObject<PressurePlateBlock> GNEISS_PRESSURE_PLATE = stone_pressure_plate("gneiss_pressure_plate", Blocks.STONE_PRESSURE_PLATE);
+	public static final RegistryObject<ButtonBlock> GNEISS_BUTTON = stone_button("gneiss_button", Blocks.STONE_BUTTON);
 	
 	public static final RegistryObject<Block> TROPICAL_GRASS_BLOCK = block("tropical_grass_block", Blocks.GRASS_BLOCK);
 	public static final RegistryObject<Block> TROPICAL_DIRT = block("tropical_dirt", Blocks.DIRT);

@@ -69,18 +69,69 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.GRAY_SOAPSTONE_WALL, "Gray Soapstone Wall");
 		add(BlockInit.GRAY_SOAPSTONE_BUTTON, "Gray Soapstone Button");
 		add(BlockInit.GRAY_SOAPSTONE_PRESSURE_PLATE, "Gray Soapstone Pressure Plate");
+		
 		add(BlockInit.GREEN_SOAPSTONE, "Green Soapstone");
 		add(BlockInit.GREEN_SOAPSTONE_SLAB, "Green Soapstone Slab");
 		add(BlockInit.GREEN_SOAPSTONE_STAIRS, "Green Soapstone Stairs");
 		add(BlockInit.GREEN_SOAPSTONE_WALL, "Green Soapstone Wall");
 		add(BlockInit.GREEN_SOAPSTONE_BUTTON, "Green Soapstone Button");
 		add(BlockInit.GREEN_SOAPSTONE_PRESSURE_PLATE, "Green Soapstone Pressure Plate");
+		
 		add(BlockInit.WHITE_SOAPSTONE, "White Soapstone");
 		add(BlockInit.WHITE_SOAPSTONE_SLAB, "White Soapstone Slab");
 		add(BlockInit.WHITE_SOAPSTONE_STAIRS, "White Soapstone Stairs");
 		add(BlockInit.WHITE_SOAPSTONE_WALL, "White Soapstone Wall");
 		add(BlockInit.WHITE_SOAPSTONE_BUTTON, "White Soapstone Button");
 		add(BlockInit.WHITE_SOAPSTONE_PRESSURE_PLATE, "White Soapstone Pressure Plate");
+		
+		add(BlockInit.SHALE, "Shale");
+		add(BlockInit.SHALE_SLAB, "Shale Slab");
+		add(BlockInit.SHALE_STAIRS, "Shale Stairs");
+		add(BlockInit.SHALE_WALL, "Shale Wall");
+		add(BlockInit.SHALE_BUTTON, "Shale Button");
+		add(BlockInit.SHALE_PRESSURE_PLATE, "Shale Pressure Plate");
+		
+		add(BlockInit.TECTONITE, "Tectonite");
+		add(BlockInit.TECTONITE_SLAB, "Tectonite Slab");
+		add(BlockInit.TECTONITE_STAIRS, "Tectonite Stairs");
+		add(BlockInit.TECTONITE_WALL, "Tectonite Wall");
+		add(BlockInit.TECTONITE_BUTTON, "Tectonite Button");
+		add(BlockInit.TECTONITE_PRESSURE_PLATE, "Tectonite Pressure Plate");
+		
+		add(BlockInit.MARBLE, "Marble");
+		add(BlockInit.MARBLE_SLAB, "Marble Slab");
+		add(BlockInit.MARBLE_STAIRS, "Marble Stairs");
+		add(BlockInit.MARBLE_WALL, "Marble Wall");
+		add(BlockInit.MARBLE_BUTTON, "Marble Button");
+		add(BlockInit.MARBLE_PRESSURE_PLATE, "Marble Pressure Plate");
+		
+		add(BlockInit.CHALK, "Chalk");
+		add(BlockInit.CHALK_SLAB, "Chalk Slab");
+		add(BlockInit.CHALK_STAIRS, "Chalk Stairs");
+		add(BlockInit.CHALK_WALL, "Chalk Wall");
+		add(BlockInit.CHALK_BUTTON, "Chalk Button");
+		add(BlockInit.CHALK_PRESSURE_PLATE, "Chalk Pressure Plate");
+		
+		add(BlockInit.LIMESTONE, "Limestone");
+		add(BlockInit.LIMESTONE_SLAB, "Limestone Slab");
+		add(BlockInit.LIMESTONE_STAIRS, "Limestone Stairs");
+		add(BlockInit.LIMESTONE_WALL, "Limestone Wall");
+		add(BlockInit.LIMESTONE_BUTTON, "Limestone Button");
+		add(BlockInit.LIMESTONE_PRESSURE_PLATE, "Limestone Pressure Plate");
+		
+		add(BlockInit.MIGMATITE, "Migmatite");
+		add(BlockInit.MIGMATITE_SLAB, "Migmatite Slab");
+		add(BlockInit.MIGMATITE_STAIRS, "Migmatite Stairs");
+		add(BlockInit.MIGMATITE_WALL, "Migmatite Wall");
+		add(BlockInit.MIGMATITE_BUTTON, "Migmatite Button");
+		add(BlockInit.MIGMATITE_PRESSURE_PLATE, "Migmatite Pressure Plate");
+		
+		add(BlockInit.GNEISS, "Gneiss");
+		add(BlockInit.GNEISS_SLAB, "Gneiss Slab");
+		add(BlockInit.GNEISS_STAIRS, "Gneiss Stairs");
+		add(BlockInit.GNEISS_WALL, "Gneiss Wall");
+		add(BlockInit.GNEISS_BUTTON, "Gneiss Button");
+		add(BlockInit.GNEISS_PRESSURE_PLATE, "Gneiss Pressure Plate");
 		
 		add(BlockInit.TROPICAL_GRASS_BLOCK, "Tropical Grass Block");
 		add(BlockInit.TROPICAL_DIRT, "Tropical Dirt");

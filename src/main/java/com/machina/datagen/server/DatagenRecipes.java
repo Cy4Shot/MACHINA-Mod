@@ -25,6 +25,7 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
 public class DatagenRecipes extends RecipeProvider implements IConditionBuilder {
@@ -42,6 +43,23 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 		compact(gen, BlockInit.ALUMINUM_BLOCK.get(), ItemInit.ALUMINUM_INGOT.get());
 		compact(gen, ItemInit.ALUMINUM_INGOT.get(), ItemInit.ALUMINUM_NUGGET.get());
 		compact(gen, Items.COAL, ItemInit.COAL_CHUNK.get());
+
+		//@formatter:off
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BlockInit.ANTHRACITE.get())
+			.requires(Blocks.STONE)
+			.requires(ItemInit.COAL_CHUNK.get())
+			.unlockedBy(getHasName(BlockInit.ANTHRACITE.get()), has(BlockInit.ANTHRACITE.get()))
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(BlockInit.ANTHRACITE.get()));
+		
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BlockInit.MIGMATITE.get())
+			.pattern("SG")
+			.pattern("GS")
+			.define('S', Blocks.STONE)
+			.define('G', Blocks.GRANITE)
+			.unlockedBy(getHasName(BlockInit.MIGMATITE.get()), has(BlockInit.MIGMATITE.get()))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(BlockInit.MIGMATITE.get()));
+		//@formatter:on
 
 		BlockFamiliesInit.STONES.forEach(x -> stoneFamily(gen, x));
 		BlockFamiliesInit.WOODS.forEach(x -> woodFamily(gen, x));

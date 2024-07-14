@@ -44,6 +44,27 @@ public class BlockFamiliesInit {
 		STONES.add(new StoneFamily(BlockInit.WHITE_SOAPSTONE.get(), BlockInit.WHITE_SOAPSTONE_SLAB.get(),
 				BlockInit.WHITE_SOAPSTONE_STAIRS.get(), BlockInit.WHITE_SOAPSTONE_WALL.get(),
 				BlockInit.WHITE_SOAPSTONE_PRESSURE_PLATE.get(), BlockInit.WHITE_SOAPSTONE_BUTTON.get()));
+		STONES.add(new StoneFamily(BlockInit.SHALE.get(), BlockInit.SHALE_SLAB.get(),
+				BlockInit.SHALE_STAIRS.get(), BlockInit.SHALE_WALL.get(), BlockInit.SHALE_PRESSURE_PLATE.get(),
+				BlockInit.SHALE_BUTTON.get()));
+		STONES.add(new StoneFamily(BlockInit.TECTONITE.get(), BlockInit.TECTONITE_SLAB.get(),
+				BlockInit.TECTONITE_STAIRS.get(), BlockInit.TECTONITE_WALL.get(), BlockInit.TECTONITE_PRESSURE_PLATE.get(),
+				BlockInit.TECTONITE_BUTTON.get()));
+		STONES.add(new StoneFamily(BlockInit.MARBLE.get(), BlockInit.MARBLE_SLAB.get(),
+				BlockInit.MARBLE_STAIRS.get(), BlockInit.MARBLE_WALL.get(), BlockInit.MARBLE_PRESSURE_PLATE.get(),
+				BlockInit.MARBLE_BUTTON.get()));
+		STONES.add(new StoneFamily(BlockInit.CHALK.get(), BlockInit.CHALK_SLAB.get(),
+				BlockInit.CHALK_STAIRS.get(), BlockInit.CHALK_WALL.get(), BlockInit.CHALK_PRESSURE_PLATE.get(),
+				BlockInit.CHALK_BUTTON.get()));
+		STONES.add(new StoneFamily(BlockInit.LIMESTONE.get(), BlockInit.LIMESTONE_SLAB.get(),
+				BlockInit.LIMESTONE_STAIRS.get(), BlockInit.LIMESTONE_WALL.get(), BlockInit.LIMESTONE_PRESSURE_PLATE.get(),
+				BlockInit.LIMESTONE_BUTTON.get()));
+		STONES.add(new StoneFamily(BlockInit.MIGMATITE.get(), BlockInit.MIGMATITE_SLAB.get(),
+				BlockInit.MIGMATITE_STAIRS.get(), BlockInit.MIGMATITE_WALL.get(), BlockInit.MIGMATITE_PRESSURE_PLATE.get(),
+				BlockInit.MIGMATITE_BUTTON.get()));
+		STONES.add(new StoneFamily(BlockInit.GNEISS.get(), BlockInit.GNEISS_SLAB.get(),
+				BlockInit.GNEISS_STAIRS.get(), BlockInit.GNEISS_WALL.get(), BlockInit.GNEISS_PRESSURE_PLATE.get(),
+				BlockInit.GNEISS_BUTTON.get()));
 	}
 
 	public static final record WoodFamily(Block log, Block wood, Block stripped_log, Block stripped_wood, Block planks,

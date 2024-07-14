@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/tectonite_slab"
+    },
+    "type=double": {
+      "model": "machina:block/tectonite"
+    },
+    "type=top": {
+      "model": "machina:block/tectonite_slab_top"
+    }
+  }
+}

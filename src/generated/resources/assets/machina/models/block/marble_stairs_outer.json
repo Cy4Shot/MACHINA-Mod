@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "machina:block/marble",
+    "side": "machina:block/marble",
+    "top": "machina:block/marble"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/gneiss_slab"
+    },
+    "type=double": {
+      "model": "machina:block/gneiss"
+    },
+    "type=top": {
+      "model": "machina:block/gneiss_slab_top"
+    }
+  }
+}

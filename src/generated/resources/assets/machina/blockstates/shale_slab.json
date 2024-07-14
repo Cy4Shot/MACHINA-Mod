@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/shale_slab"
+    },
+    "type=double": {
+      "model": "machina:block/shale"
+    },
+    "type=top": {
+      "model": "machina:block/shale_slab_top"
+    }
+  }
+}

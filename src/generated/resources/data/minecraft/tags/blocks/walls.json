@@ -4,6 +4,13 @@
     "machina:feldspar_wall",
     "machina:gray_soapstone_wall",
     "machina:green_soapstone_wall",
-    "machina:white_soapstone_wall"
+    "machina:white_soapstone_wall",
+    "machina:shale_wall",
+    "machina:tectonite_wall",
+    "machina:marble_wall",
+    "machina:chalk_wall",
+    "machina:limestone_wall",
+    "machina:migmatite_wall",
+    "machina:gneiss_wall"
   ]
 }

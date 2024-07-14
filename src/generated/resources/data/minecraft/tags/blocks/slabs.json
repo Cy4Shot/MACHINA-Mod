@@ -5,6 +5,13 @@
     "machina:gray_soapstone_slab",
     "machina:green_soapstone_slab",
     "machina:white_soapstone_slab",
+    "machina:shale_slab",
+    "machina:tectonite_slab",
+    "machina:marble_slab",
+    "machina:chalk_slab",
+    "machina:limestone_slab",
+    "machina:migmatite_slab",
+    "machina:gneiss_slab",
     "machina:tropical_slab",
     "machina:pine_slab"
   ]

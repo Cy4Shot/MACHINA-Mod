@@ -64,18 +64,69 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.GRAY_SOAPSTONE_WALL, BlockInit.GRAY_SOAPSTONE);
 		button(BlockInit.GRAY_SOAPSTONE_BUTTON, BlockInit.GRAY_SOAPSTONE);
 		pressure_plate(BlockInit.GRAY_SOAPSTONE_PRESSURE_PLATE, BlockInit.GRAY_SOAPSTONE);
+		
 		cube(BlockInit.GREEN_SOAPSTONE);
 		slab(BlockInit.GREEN_SOAPSTONE_SLAB, BlockInit.GREEN_SOAPSTONE);
 		stairs(BlockInit.GREEN_SOAPSTONE_STAIRS, BlockInit.GREEN_SOAPSTONE);
 		wall(BlockInit.GREEN_SOAPSTONE_WALL, BlockInit.GREEN_SOAPSTONE);
 		button(BlockInit.GREEN_SOAPSTONE_BUTTON, BlockInit.GREEN_SOAPSTONE);
 		pressure_plate(BlockInit.GREEN_SOAPSTONE_PRESSURE_PLATE, BlockInit.GREEN_SOAPSTONE);
+		
 		cube(BlockInit.WHITE_SOAPSTONE);
 		slab(BlockInit.WHITE_SOAPSTONE_SLAB, BlockInit.WHITE_SOAPSTONE);
 		stairs(BlockInit.WHITE_SOAPSTONE_STAIRS, BlockInit.WHITE_SOAPSTONE);
 		wall(BlockInit.WHITE_SOAPSTONE_WALL, BlockInit.WHITE_SOAPSTONE);
 		button(BlockInit.WHITE_SOAPSTONE_BUTTON, BlockInit.WHITE_SOAPSTONE);
 		pressure_plate(BlockInit.WHITE_SOAPSTONE_PRESSURE_PLATE, BlockInit.WHITE_SOAPSTONE);
+		
+		cube(BlockInit.SHALE);
+		slab(BlockInit.SHALE_SLAB, BlockInit.SHALE);
+		stairs(BlockInit.SHALE_STAIRS, BlockInit.SHALE);
+		wall(BlockInit.SHALE_WALL, BlockInit.SHALE);
+		button(BlockInit.SHALE_BUTTON, BlockInit.SHALE);
+		pressure_plate(BlockInit.SHALE_PRESSURE_PLATE, BlockInit.SHALE);
+		
+		cube(BlockInit.TECTONITE);
+		slab(BlockInit.TECTONITE_SLAB, BlockInit.TECTONITE);
+		stairs(BlockInit.TECTONITE_STAIRS, BlockInit.TECTONITE);
+		wall(BlockInit.TECTONITE_WALL, BlockInit.TECTONITE);
+		button(BlockInit.TECTONITE_BUTTON, BlockInit.TECTONITE);
+		pressure_plate(BlockInit.TECTONITE_PRESSURE_PLATE, BlockInit.TECTONITE);
+		
+		cube(BlockInit.MARBLE);
+		slab(BlockInit.MARBLE_SLAB, BlockInit.MARBLE);
+		stairs(BlockInit.MARBLE_STAIRS, BlockInit.MARBLE);
+		wall(BlockInit.MARBLE_WALL, BlockInit.MARBLE);
+		button(BlockInit.MARBLE_BUTTON, BlockInit.MARBLE);
+		pressure_plate(BlockInit.MARBLE_PRESSURE_PLATE, BlockInit.MARBLE);
+		
+		cube(BlockInit.CHALK);
+		slab(BlockInit.CHALK_SLAB, BlockInit.CHALK);
+		stairs(BlockInit.CHALK_STAIRS, BlockInit.CHALK);
+		wall(BlockInit.CHALK_WALL, BlockInit.CHALK);
+		button(BlockInit.CHALK_BUTTON, BlockInit.CHALK);
+		pressure_plate(BlockInit.CHALK_PRESSURE_PLATE, BlockInit.CHALK);
+
+		cube(BlockInit.LIMESTONE);
+		slab(BlockInit.LIMESTONE_SLAB, BlockInit.LIMESTONE);
+		stairs(BlockInit.LIMESTONE_STAIRS, BlockInit.LIMESTONE);
+		wall(BlockInit.LIMESTONE_WALL, BlockInit.LIMESTONE);
+		button(BlockInit.LIMESTONE_BUTTON, BlockInit.LIMESTONE);
+		pressure_plate(BlockInit.LIMESTONE_PRESSURE_PLATE, BlockInit.LIMESTONE);
+
+		cube(BlockInit.MIGMATITE);
+		slab(BlockInit.MIGMATITE_SLAB, BlockInit.MIGMATITE);
+		stairs(BlockInit.MIGMATITE_STAIRS, BlockInit.MIGMATITE);
+		wall(BlockInit.MIGMATITE_WALL, BlockInit.MIGMATITE);
+		button(BlockInit.MIGMATITE_BUTTON, BlockInit.MIGMATITE);
+		pressure_plate(BlockInit.MIGMATITE_PRESSURE_PLATE, BlockInit.MIGMATITE);
+
+		cube(BlockInit.GNEISS);
+		slab(BlockInit.GNEISS_SLAB, BlockInit.GNEISS);
+		stairs(BlockInit.GNEISS_STAIRS, BlockInit.GNEISS);
+		wall(BlockInit.GNEISS_WALL, BlockInit.GNEISS);
+		button(BlockInit.GNEISS_BUTTON, BlockInit.GNEISS);
+		pressure_plate(BlockInit.GNEISS_PRESSURE_PLATE, BlockInit.GNEISS);
 
 		cubeBottomTop(BlockInit.TROPICAL_GRASS_BLOCK);
 		cube(BlockInit.TROPICAL_DIRT);

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "machina:migmatite"
+    }
+  ],
+  "result": {
+    "item": "machina:migmatite_button"
+  }
+}

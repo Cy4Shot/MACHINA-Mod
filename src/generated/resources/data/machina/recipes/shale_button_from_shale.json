@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "machina:shale"
+    }
+  ],
+  "result": {
+    "item": "machina:shale_button"
+  }
+}
