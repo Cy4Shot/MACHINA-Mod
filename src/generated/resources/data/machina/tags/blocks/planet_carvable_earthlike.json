@@ -4,7 +4,18 @@
     "machina:tropical_dirt",
     "machina:tropical_grass_block",
     "minecraft:gravel",
-    "minecraft:andesite",
-    "minecraft:water"
+    "minecraft:water",
+    "machina:anthracite",
+    "machina:feldspar",
+    "machina:gray_soapstone",
+    "machina:green_soapstone",
+    "machina:white_soapstone",
+    "machina:shale",
+    "machina:tectonite",
+    "machina:marble",
+    "machina:chalk",
+    "machina:limestone",
+    "machina:migmatite",
+    "machina:gneiss"
   ]
 }

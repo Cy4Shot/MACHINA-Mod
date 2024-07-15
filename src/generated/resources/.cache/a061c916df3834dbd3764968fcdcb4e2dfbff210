@@ -1,7 +1,7 @@
-// 1.20.1	2024-07-14T15:20:33.5708811	Tags for minecraft:block mod id machina
-f2c0ecf26598429d32618dd96267268fc5da2e30 data/machina/tags/blocks/planet_carvable_anthracite.json
-c4984d10c795aa40f528f3a8d320f404848a4748 data/machina/tags/blocks/planet_carvable_earthlike.json
-81df986c748566de5eebfeb5c8ca237efc42d4ba data/machina/tags/blocks/planet_carvable_martian.json
+// 1.20.1	2024-07-15T14:48:41.2206803	Tags for minecraft:block mod id machina
+bb4f66ddc2cc92eeaee44b07472cc2496d649764 data/machina/tags/blocks/planet_carvable_anthracite.json
+0b1b7d755c788a75cbd5b040d841f893eb2f44a6 data/machina/tags/blocks/planet_carvable_earthlike.json
+99f92b8eecb1e7befdb07aaef7cb8b130d284c16 data/machina/tags/blocks/planet_carvable_martian.json
 73546511b0ca14e26814ecd0b7100c3050621402 data/machina/tags/blocks/planet_growable_anthracite.json
 2c36d98948e2322a4de8ac48b1109225d7707766 data/machina/tags/blocks/planet_growable_earthlike.json
 92b3b4915faf1a313f2bf58a562d99fa0f91b813 data/machina/tags/blocks/planet_growable_martian.json

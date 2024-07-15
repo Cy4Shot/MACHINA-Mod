@@ -7,16 +7,18 @@ import javax.annotation.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 import com.machina.Machina;
-import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.BlockFamiliesInit;
 import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
 import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
+import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.TagInit.BlockTagInit;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -41,27 +43,28 @@ public class DatagenBlockTags extends BlockTagsProvider {
 		tag(BlockTagInit.MARTIAN_GROWABLE).add(Blocks.RED_SAND);
 
 		tag(BlockTagInit.EARTHLIKE_CARVABLE).add(Blocks.STONE, BlockInit.TROPICAL_DIRT.get(),
-				BlockInit.TROPICAL_GRASS_BLOCK.get(), Blocks.GRAVEL, Blocks.ANDESITE, Blocks.WATER);
-		tag(BlockTagInit.ANTHRACITE_CARVABLE).add(Blocks.COAL_ORE, Blocks.STONE, Blocks.GRAVEL,
-				BlockInit.ANTHRACITE.get(), Blocks.WATER);
+				BlockInit.TROPICAL_GRASS_BLOCK.get(), Blocks.GRAVEL, Blocks.WATER);
+		tag(BlockTagInit.ANTHRACITE_CARVABLE).add(Blocks.COAL_ORE, Blocks.STONE, Blocks.GRAVEL, Blocks.WATER);
 		tag(BlockTagInit.MARTIAN_CARVABLE).add(Blocks.RED_SAND, Blocks.RED_SANDSTONE, Blocks.SMOOTH_RED_SANDSTONE,
-				BlockInit.FELDSPAR.get(), Blocks.WATER);
-		
+				Blocks.WATER);
+
 		BlockFamiliesInit.STONES.forEach(this::stoneFamily);
 		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
 	}
-	
+
 	private void stoneFamily(StoneFamily family) {
 		tag(BlockTags.SLABS).add(family.slab());
 		tag(BlockTags.STAIRS).add(family.stairs());
 		tag(BlockTags.WALLS).add(family.wall());
-		
+
 		tag(BlockTags.BUTTONS).add(family.button());
 		tag(BlockTags.STONE_BUTTONS).add(family.button());
 		tag(BlockTags.PRESSURE_PLATES).add(family.pressure_plate());
 		tag(BlockTags.STONE_PRESSURE_PLATES).add(family.pressure_plate());
 
 		tag(BlockTags.OVERWORLD_CARVER_REPLACEABLES).add(family.base());
+		for (TagKey<Block> t : BlockTagInit.CARVABLES)
+			tag(t).add(family.base());
 	}
 
 	private void woodFamily(WoodFamily family) {

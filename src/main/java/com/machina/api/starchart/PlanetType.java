@@ -50,12 +50,14 @@ public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Un
 						Codec.INT.fieldOf("rarity").forGetter(Lakes::rarity)).apply(instance, Lakes::new));
 	}
 
-	public record Vegetation(List<Grass> grass, Map<TreeType, Tree> trees, List<PlanetBushFeatureConfig> bushes) {
-		public static final Codec<Vegetation> CODEC = RecordCodecBuilder.create(instance -> instance
-				.group(Codec.list(Grass.CODEC).fieldOf("grass").forGetter(Vegetation::grass),
-						Codec.unboundedMap(TreeType.CODEC, Tree.CODEC).fieldOf("trees").forGetter(Vegetation::trees),
-						Codec.list(PlanetBushFeatureConfig.CODEC).fieldOf("bushes").forGetter(Vegetation::bushes))
-				.apply(instance, Vegetation::new));
+	public record Vegetation(List<Grass> grass, Map<TreeType, Tree> trees, int max_trees_per_biome) {
+		public static final Codec<Vegetation> CODEC = RecordCodecBuilder
+				.create(instance -> instance
+						.group(Codec.list(Grass.CODEC).fieldOf("grass").forGetter(Vegetation::grass),
+								Codec.unboundedMap(TreeType.CODEC, Tree.CODEC).fieldOf("trees")
+										.forGetter(Vegetation::trees),
+								Codec.INT.fieldOf("max_trees_per_biome").forGetter(Vegetation::max_trees_per_biome))
+						.apply(instance, Vegetation::new));
 	}
 
 	public record Grass(int min, int max, WeightedStateProviderProvider provider) {
@@ -69,12 +71,13 @@ public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Un
 				.apply(instance, Grass::new));
 	}
 
-	public record Tree(BlockState log, BlockState leaves, BlockState leavesextra, int every) {
-		public static final Codec<Tree> CODEC = RecordCodecBuilder
-				.create(instance -> instance.group(BlockState.CODEC.fieldOf("log").forGetter(Tree::log),
+	public record Tree(BlockState log, BlockState leaves, int every, PlanetBushFeatureConfig bush) {
+		public static final Codec<Tree> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(BlockState.CODEC.fieldOf("log").forGetter(Tree::log),
 						BlockState.CODEC.fieldOf("leaves").forGetter(Tree::leaves),
-						BlockState.CODEC.fieldOf("leavesextra").forGetter(Tree::leavesextra),
-						Codec.INT.fieldOf("every").forGetter(Tree::every)).apply(instance, Tree::new));
+						Codec.INT.fieldOf("every").forGetter(Tree::every),
+						PlanetBushFeatureConfig.CODEC.fieldOf("bush").forGetter(Tree::bush))
+				.apply(instance, Tree::new));
 	}
 
 	public record Underground(RockType rock, List<OreVein> ores) {
@@ -94,15 +97,14 @@ public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Un
 						.apply(instance, RockType::new));
 	}
 
-	public record OreVein(BlockState ore, int size, float exposure_removal_chance, int per_chunk) {
+	public record OreVein(BlockState ore, int size, float exposure_removal_chance, int per_chunk, int minY, int maxY) {
 		public static final Codec<OreVein> CODEC = RecordCodecBuilder
-				.create(instance -> instance
-						.group(BlockState.CODEC.fieldOf("ore").forGetter(OreVein::ore),
-								Codec.INT.fieldOf("size").forGetter(OreVein::size),
-								Codec.FLOAT.fieldOf("exposure_removal_chance")
-										.forGetter(OreVein::exposure_removal_chance),
-								Codec.INT.fieldOf("per_chunk").forGetter(OreVein::per_chunk))
-						.apply(instance, OreVein::new));
+				.create(instance -> instance.group(BlockState.CODEC.fieldOf("ore").forGetter(OreVein::ore),
+						Codec.INT.fieldOf("size").forGetter(OreVein::size),
+						Codec.FLOAT.fieldOf("exposure_removal_chance").forGetter(OreVein::exposure_removal_chance),
+						Codec.INT.fieldOf("per_chunk").forGetter(OreVein::per_chunk),
+						Codec.INT.fieldOf("minY").forGetter(OreVein::minY),
+						Codec.INT.fieldOf("maxY").forGetter(OreVein::maxY)).apply(instance, OreVein::new));
 	}
 
 	public record ExtraRules(VegetationRules veg, UndergroundRules cave) {

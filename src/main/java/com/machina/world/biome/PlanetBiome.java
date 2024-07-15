@@ -152,7 +152,7 @@ public class PlanetBiome extends Biome {
 				add(builder, Decoration.UNDERGROUND_ORES, Feature.ORE,
 						new OreConfiguration(new TagMatchTest(BlockTags.OVERWORLD_CARVER_REPLACEABLES), ore.ore(),
 								ore.size(), ore.exposure_removal_chance()),
-						count(ore.per_chunk()), spread(), range(0, 256), biome());
+						count(ore.per_chunk()), spread(), range(ore.minY(), ore.maxY()), biome());
 			}
 		}
 	}
@@ -163,27 +163,22 @@ public class PlanetBiome extends Biome {
 
 		if (c.equals(BiomeCategory.MIDDLE)) {
 
+			// Trees
 			if (type.vegetation().trees().size() > 0) {
-				// Tree A
-				PlanetTreeFeature.TreeType tree = MathUtil.randomInList(type.vegetation().trees().keySet(), r);
-				Tree t1 = type.vegetation().trees().get(tree);
-				add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
-						new PlanetTreeFeature.PlanetTreeFeatureConfig(tree, type.rules().veg(), t1), every(t1.every()),
-						spread(), onFloor());
+				for (int i = 0; i < type.vegetation().max_trees_per_biome(); i++) {
+					PlanetTreeFeature.TreeType tree = MathUtil.randomInList(type.vegetation().trees().keySet(), r);
+					Tree t = type.vegetation().trees().get(tree);
+					add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
+							new PlanetTreeFeature.PlanetTreeFeatureConfig(tree, type.rules().veg(), t),
+							every(t.every()), spread(), onFloor());
 
-				// Tree B
-				PlanetTreeFeature.TreeType tree2 = MathUtil.randomInList(type.vegetation().trees().keySet(), r);
-				Tree t2 = type.vegetation().trees().get(tree);
-				add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
-						new PlanetTreeFeature.PlanetTreeFeatureConfig(tree2, type.rules().veg(), t2), every(t2.every()),
-						spread(), onFloor());
-
+					if (t.bush() != null) {
+						add(builder, Decoration.VEGETAL_DECORATION, new PlanetBushFeature(), t.bush(),
+								count(t.bush().perchunk()), spread(), onFloor());
+					}
+				}
 			}
 
-			// Bushes
-			for (PlanetBushFeatureConfig bush : type.vegetation().bushes())
-				add(builder, Decoration.VEGETAL_DECORATION, new PlanetBushFeature(), bush, count(bush.perchunk()),
-						spread(), onFloor());
 		}
 
 		if (!c.isUnderground()) {

@@ -36,11 +36,15 @@ public class PlanetTypeInit {
 	private static final BlockState TROPICAL_DIRT = BlockInit.TROPICAL_DIRT.get().defaultBlockState();
 	private static final BlockState PINE_WOOD = BlockInit.PINE_WOOD.get().defaultBlockState();
 	private static final BlockState PINE_LEAVES = BlockInit.PINE_LEAVES.get().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true);
+	private static final BlockState TROPICAL_WOOD = BlockInit.TROPICAL_WOOD.get().defaultBlockState();
+	private static final BlockState TROPICAL_LEAVES = BlockInit.TROPICAL_LEAVES.get().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true);
 	private static final BlockState STONE = Blocks.STONE.defaultBlockState();
 	private static final BlockState STONE_STAIRS = Blocks.STONE_STAIRS.defaultBlockState();
 	private static final BlockState STONE_SLAB = Blocks.STONE_SLAB.defaultBlockState();
 	private static final BlockState GRAVEL = Blocks.GRAVEL.defaultBlockState();
 	private static final BlockState ANDESITE = Blocks.ANDESITE.defaultBlockState();
+	private static final BlockState GRANITE = Blocks.GRANITE.defaultBlockState();
+	private static final BlockState DIORITE = Blocks.DIORITE.defaultBlockState();
 	private static final BlockState RED_SAND = Blocks.RED_SAND.defaultBlockState();
 	private static final BlockState RED_SANDSTONE = Blocks.RED_SANDSTONE.defaultBlockState();
 	private static final BlockState SMOOTH_RED_SANDSTONE = Blocks.SMOOTH_RED_SANDSTONE.defaultBlockState();
@@ -48,6 +52,17 @@ public class PlanetTypeInit {
 	private static final BlockState FELDSPAR_STAIRS = BlockInit.FELDSPAR_STAIRS.get().defaultBlockState();
 	private static final BlockState FELDSPAR_SLAB = BlockInit.FELDSPAR_SLAB.get().defaultBlockState();
 	private static final BlockState FELDSPAR_WALL = BlockInit.FELDSPAR_WALL.get().defaultBlockState();
+	private static final BlockState GRAY_SOAPSTONE = BlockInit.GRAY_SOAPSTONE.get().defaultBlockState();
+	private static final BlockState GREEN_SOAPSTONE = BlockInit.GREEN_SOAPSTONE.get().defaultBlockState();
+	private static final BlockState WHITE_SOAPSTONE = BlockInit.WHITE_SOAPSTONE.get().defaultBlockState();
+	private static final BlockState ANTHRACITE = BlockInit.ANTHRACITE.get().defaultBlockState();
+	private static final BlockState SHALE = BlockInit.SHALE.get().defaultBlockState();
+	private static final BlockState TECTONITE = BlockInit.TECTONITE.get().defaultBlockState();
+	private static final BlockState MARBLE = BlockInit.MARBLE.get().defaultBlockState();
+	private static final BlockState CHALK = BlockInit.CHALK.get().defaultBlockState();
+	private static final BlockState LIMESTONE = BlockInit.LIMESTONE.get().defaultBlockState();
+	private static final BlockState MIGMATITE = BlockInit.MIGMATITE.get().defaultBlockState();
+	private static final BlockState GNEISS = BlockInit.GNEISS.get().defaultBlockState();
 
 	public static final Map<String, PlanetType> PLANET_TYPES = new HashMap<>();
 
@@ -56,16 +71,36 @@ public class PlanetTypeInit {
 			new Surface(TROPICAL_GRASS_BLOCK, TROPICAL_DIRT, Optional.of(new Lakes(1f, 50))),
 			new Vegetation(
 					List.of(new Grass(5, 10, WeightedStateProviderProvider.builder()
-							.add(Blocks.GRASS.defaultBlockState(), 10)
-							.add(Blocks.FERN.defaultBlockState(), 2)
-							.addHorizontal(BlockInit.CLOVER.get().defaultBlockState(), 1))),
+								.add(Blocks.GRASS.defaultBlockState(), 10)
+								.add(Blocks.FERN.defaultBlockState(), 2)
+								.addHorizontal(BlockInit.CLOVER.get().defaultBlockState(), 1)),
+							new Grass(9, 18, WeightedStateProviderProvider.builder()
+								.add(Blocks.GRASS.defaultBlockState(), 1)
+								.add(Blocks.TALL_GRASS.defaultBlockState(), 1)),
+							new Grass(5, 10, WeightedStateProviderProvider.builder()
+								.add(Blocks.GRASS.defaultBlockState(), 3)
+								.add(Blocks.TALL_GRASS.defaultBlockState(), 1)
+								.add(Blocks.FERN.defaultBlockState(), 1))),
 					Map.of(
-							TreeType.FIR, new Tree(PINE_WOOD, PINE_LEAVES, PINE_LEAVES, 4)),
-					List.of(new PlanetBushFeatureConfig(PINE_LEAVES, 2.5f, 3))),
+							TreeType.FIR, new Tree(PINE_WOOD, PINE_LEAVES, 4, null),
+							TreeType.RADIAL_BAOBAB, new Tree(TROPICAL_WOOD, TROPICAL_LEAVES, 4, new PlanetBushFeatureConfig(TROPICAL_LEAVES, 2.5f, 3)),
+							TreeType.LOLLIPOP, new Tree(TROPICAL_WOOD, TROPICAL_LEAVES, 4, new PlanetBushFeatureConfig(TROPICAL_LEAVES, 2.5f, 3)),
+							TreeType.CONE, new Tree(PINE_WOOD, PINE_LEAVES, 4, new PlanetBushFeatureConfig(PINE_LEAVES, 2.5f, 3))),
+					1),
 			new Underground(
 					new RockType(STONE, STONE_STAIRS, STONE_SLAB, GRAVEL),
 					List.of(
-							new OreVein(ANDESITE, 32, 0f, 8))
+							new OreVein(GREEN_SOAPSTONE, 32, 0f, 8, -64, 128),
+							new OreVein(LIMESTONE, 32, 0f, 8, -64, 128),
+							new OreVein(GNEISS, 32, 0f, 8, -64, 128),
+							new OreVein(ANDESITE, 32, 0f, 4, -64, 128),
+							new OreVein(GRANITE, 32, 0f, 4, -64, 128),
+							new OreVein(DIORITE, 32, 0f, 4, -64, 128),
+							new OreVein(MIGMATITE, 32, 0f, 6, -64, 128),
+							new OreVein(MARBLE, 32, 0f, 6, -64, 128),
+							new OreVein(ANTHRACITE, 32, 0f, 2, -64, 0),
+							new OreVein(SHALE, 32, 0f, 6, -64, 0),
+							new OreVein(CHALK, 32, 0f, 16, 0, 256))
 					),
 			new ExtraRules(
 					new VegetationRules(BlockTagInit.EARTHLIKE_GROWABLE),
