@@ -1,5 +1,13 @@
 {
   "values": [
+    "machina:potted_purple_glowshroom",
+    "machina:potted_pink_glowshroom",
+    "machina:potted_red_glowshroom",
+    "machina:potted_orange_glowshroom",
+    "machina:potted_yellow_glowshroom",
+    "machina:potted_green_glowshroom",
+    "machina:potted_turquoise_glowshroom",
+    "machina:potted_blue_glowshroom",
     "machina:potted_dragon_peony"
   ]
 }

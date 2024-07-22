@@ -171,9 +171,27 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.STRIPPED_PINE_WOOD, "Stripped Pine Wood");
 		
 		add(BlockInit.CLOVER, "Clover");
+		add(BlockInit.ORHPEUM, "Orpheum");
+		
 		add(BlockInit.DRAGON_PEONY, "Dragon Peony");
 		add(BlockInit.POTTED_DRAGON_PEONY, "Potted Dragon Peony");
-		add(BlockInit.ORHPEUM, "Orpheum");
+
+		add(BlockInit.PURPLE_GLOWSHROOM, "Purple Glowshroom");
+		add(BlockInit.POTTED_PURPLE_GLOWSHROOM, "Potted Purple Glowshroom");
+		add(BlockInit.PINK_GLOWSHROOM, "Pink Glowshroom");
+		add(BlockInit.POTTED_PINK_GLOWSHROOM, "Potted Pink Glowshroom");
+		add(BlockInit.RED_GLOWSHROOM, "Red Glowshroom");
+		add(BlockInit.POTTED_RED_GLOWSHROOM, "Potted Red Glowshroom");
+		add(BlockInit.ORANGE_GLOWSHROOM, "Orange Glowshroom");
+		add(BlockInit.POTTED_ORANGE_GLOWSHROOM, "Potted Orange Glowshroom");
+		add(BlockInit.YELLOW_GLOWSHROOM, "Yellow Glowshroom");
+		add(BlockInit.POTTED_YELLOW_GLOWSHROOM, "Potted Yellow Glowshroom");
+		add(BlockInit.GREEN_GLOWSHROOM, "Green Glowshroom");
+		add(BlockInit.POTTED_GREEN_GLOWSHROOM, "Potted Green Glowshroom");
+		add(BlockInit.TURQUOISE_GLOWSHROOM, "Turquoise Glowshroom");
+		add(BlockInit.POTTED_TURQUOISE_GLOWSHROOM, "Potted Turquoise Glowshroom");
+		add(BlockInit.BLUE_GLOWSHROOM, "Blue Glowshroom");
+		add(BlockInit.POTTED_BLUE_GLOWSHROOM, "Potted Blue Glowshroom");
 
 		// Tooltips
 		addTooltip("ldpe", "Low Density Polyethylene");

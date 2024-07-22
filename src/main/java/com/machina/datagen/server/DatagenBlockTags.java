@@ -20,8 +20,12 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 
 public class DatagenBlockTags extends BlockTagsProvider {
 	public DatagenBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
@@ -32,11 +36,19 @@ public class DatagenBlockTags extends BlockTagsProvider {
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
 		tag(BlockTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get());
+		
+		smallFlower(BlockInit.PURPLE_GLOWSHROOM, BlockInit.POTTED_PURPLE_GLOWSHROOM);
+		smallFlower(BlockInit.PINK_GLOWSHROOM, BlockInit.POTTED_PINK_GLOWSHROOM);
+		smallFlower(BlockInit.RED_GLOWSHROOM, BlockInit.POTTED_RED_GLOWSHROOM);
+		smallFlower(BlockInit.ORANGE_GLOWSHROOM, BlockInit.POTTED_ORANGE_GLOWSHROOM);
+		smallFlower(BlockInit.YELLOW_GLOWSHROOM, BlockInit.POTTED_YELLOW_GLOWSHROOM);
+		smallFlower(BlockInit.GREEN_GLOWSHROOM, BlockInit.POTTED_GREEN_GLOWSHROOM);
+		smallFlower(BlockInit.TURQUOISE_GLOWSHROOM, BlockInit.POTTED_TURQUOISE_GLOWSHROOM);
+		smallFlower(BlockInit.BLUE_GLOWSHROOM, BlockInit.POTTED_BLUE_GLOWSHROOM);
 
-		tag(BlockTags.FLOWERS).add(BlockInit.DRAGON_PEONY.get(), BlockInit.ORHPEUM.get());
-		tag(BlockTags.SMALL_FLOWERS).add(BlockInit.DRAGON_PEONY.get());
-		tag(BlockTags.TALL_FLOWERS).add(BlockInit.ORHPEUM.get());
-		tag(BlockTags.FLOWER_POTS).add(BlockInit.POTTED_DRAGON_PEONY.get());
+		smallFlower(BlockInit.DRAGON_PEONY, BlockInit.POTTED_DRAGON_PEONY);
+		tallFlower(BlockInit.ORHPEUM);
+		tag(BlockTags.FLOWERS).add(BlockInit.CLOVER.get());
 
 		tag(BlockTagInit.EARTHLIKE_GROWABLE).add(BlockInit.TROPICAL_GRASS_BLOCK.get());
 		tag(BlockTagInit.ANTHRACITE_GROWABLE).add(Blocks.COAL_ORE);
@@ -50,6 +62,17 @@ public class DatagenBlockTags extends BlockTagsProvider {
 
 		BlockFamiliesInit.STONES.forEach(this::stoneFamily);
 		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
+	}
+	
+	private void smallFlower(RegistryObject<FlowerBlock> flower, RegistryObject<FlowerPotBlock> potted) {
+		tag(BlockTags.FLOWERS).add(flower.get());
+		tag(BlockTags.SMALL_FLOWERS).add(flower.get());
+		tag(BlockTags.FLOWER_POTS).add(potted.get());
+	}
+	
+	private void tallFlower(RegistryObject<TallFlowerBlock> flower) {
+		tag(BlockTags.FLOWERS).add(flower.get());
+		tag(BlockTags.TALL_FLOWERS).add(flower.get());
 	}
 
 	private void stoneFamily(StoneFamily family) {

@@ -181,14 +181,36 @@ public class BlockInit {
 	public static final RegistryObject<PressurePlateBlock> PINE_PRESSURE_PLATE = wood_pressure_plate("pine_pressure_plate", Blocks.OAK_PRESSURE_PLATE, PINE);
 	
 	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
-	public static final RegistryObject<FlowerBlock> DRAGON_PEONY = flower("dragon_peony", () -> MobEffects.LEVITATION, 5, Blocks.DANDELION);
 	public static final RegistryObject<TallFlowerBlock> ORHPEUM = tall_flower	("orpheum", Blocks.PEONY);
+
+	public static final RegistryObject<FlowerBlock> DRAGON_PEONY = flower("dragon_peony", () -> MobEffects.LEVITATION, 5, Blocks.DANDELION);
 	public static final RegistryObject<FlowerPotBlock> POTTED_DRAGON_PEONY = flower_pot("potted_dragon_peony", DRAGON_PEONY);
+
+	public static final RegistryObject<FlowerBlock> PURPLE_GLOWSHROOM = flower("purple_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
+	public static final RegistryObject<FlowerBlock> PINK_GLOWSHROOM = flower("pink_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
+	public static final RegistryObject<FlowerBlock> RED_GLOWSHROOM = flower("red_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
+	public static final RegistryObject<FlowerBlock> ORANGE_GLOWSHROOM = flower("orange_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
+	public static final RegistryObject<FlowerBlock> YELLOW_GLOWSHROOM = flower("yellow_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
+	public static final RegistryObject<FlowerBlock> GREEN_GLOWSHROOM = flower("green_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
+	public static final RegistryObject<FlowerBlock> TURQUOISE_GLOWSHROOM = flower("turquoise_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
+	public static final RegistryObject<FlowerBlock> BLUE_GLOWSHROOM = flower("blue_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
+	public static final RegistryObject<FlowerPotBlock> POTTED_PURPLE_GLOWSHROOM = flower_pot("potted_purple_glowshroom", PURPLE_GLOWSHROOM, light(7));
+	public static final RegistryObject<FlowerPotBlock> POTTED_PINK_GLOWSHROOM = flower_pot("potted_pink_glowshroom", PINK_GLOWSHROOM, light(7));
+	public static final RegistryObject<FlowerPotBlock> POTTED_RED_GLOWSHROOM = flower_pot("potted_red_glowshroom", RED_GLOWSHROOM, light(7));
+	public static final RegistryObject<FlowerPotBlock> POTTED_ORANGE_GLOWSHROOM = flower_pot("potted_orange_glowshroom", ORANGE_GLOWSHROOM, light(7));
+	public static final RegistryObject<FlowerPotBlock> POTTED_YELLOW_GLOWSHROOM = flower_pot("potted_yellow_glowshroom", YELLOW_GLOWSHROOM, light(7));
+	public static final RegistryObject<FlowerPotBlock> POTTED_GREEN_GLOWSHROOM = flower_pot("potted_green_glowshroom", GREEN_GLOWSHROOM, light(7));
+	public static final RegistryObject<FlowerPotBlock> POTTED_TURQUOISE_GLOWSHROOM = flower_pot("potted_turquoise_glowshroom", TURQUOISE_GLOWSHROOM, light(7));
+	public static final RegistryObject<FlowerPotBlock> POTTED_BLUE_GLOWSHROOM = flower_pot("potted_blue_glowshroom", BLUE_GLOWSHROOM, light(7));
 	//@formatter:on
 
 	private static WoodType registerWoodType(String name) {
 		String id = Machina.MOD_ID + ":" + name;
 		return WoodType.register(new WoodType(id, new BlockSetType(id)));
+	}
+	
+	private static Function<Block.Properties, Block.Properties> light(int light) {
+		return p -> p.lightLevel(s -> light);
 	}
 
 	private static <T extends Block> Supplier<T> of(Block block, Function<Block.Properties, Block.Properties> extra,
@@ -284,6 +306,11 @@ public class BlockInit {
 		return register(name, prop, a -> a,
 				p -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, p, BlockSetType.STONE));
 	}
+	
+	public static RegistryObject<FlowerBlock> flower(String name, Supplier<MobEffect> effect, int duration,
+			Block prop, Function<Block.Properties, Block.Properties> extra) {
+		return register(name, prop, extra, p -> new FlowerBlock(effect, duration, p));
+	}
 
 	public static RegistryObject<FlowerBlock> flower(String name, Supplier<MobEffect> effect, int duration,
 			Block prop) {
@@ -296,6 +323,10 @@ public class BlockInit {
 
 	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<FlowerBlock> flower) {
 		return register(name, BlockInit.of(Blocks.FLOWER_POT, a -> a, p -> new FlowerPotBlock(flower.get(), p)));
+	}
+	
+	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<FlowerBlock> flower, Function<Block.Properties, Block.Properties> extra) {
+		return register(name, BlockInit.of(Blocks.FLOWER_POT, extra, p -> new FlowerPotBlock(flower.get(), p)));
 	}
 
 	public static <T extends Block> RegistryObject<T> register(String name, Block prop,

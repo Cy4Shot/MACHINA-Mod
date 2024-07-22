@@ -165,9 +165,26 @@ public class DatagenBlockStates extends BlockStateProvider {
 		trapdoor(BlockInit.PINE_TRAPDOOR);
 		door(BlockInit.PINE_DOOR);
 
-		flower(BlockInit.DRAGON_PEONY);
 		tall_flower(BlockInit.ORHPEUM);
+		flower(BlockInit.DRAGON_PEONY);
 		flower_pot(BlockInit.POTTED_DRAGON_PEONY);
+
+		flower(BlockInit.PURPLE_GLOWSHROOM);
+		flower_pot(BlockInit.POTTED_PURPLE_GLOWSHROOM);
+		flower(BlockInit.PINK_GLOWSHROOM);
+		flower_pot(BlockInit.POTTED_PINK_GLOWSHROOM);
+		flower(BlockInit.RED_GLOWSHROOM);
+		flower_pot(BlockInit.POTTED_RED_GLOWSHROOM);
+		flower(BlockInit.ORANGE_GLOWSHROOM);
+		flower_pot(BlockInit.POTTED_ORANGE_GLOWSHROOM);
+		flower(BlockInit.YELLOW_GLOWSHROOM);
+		flower_pot(BlockInit.POTTED_YELLOW_GLOWSHROOM);
+		flower(BlockInit.GREEN_GLOWSHROOM);
+		flower_pot(BlockInit.POTTED_GREEN_GLOWSHROOM);
+		flower(BlockInit.TURQUOISE_GLOWSHROOM);
+		flower_pot(BlockInit.POTTED_TURQUOISE_GLOWSHROOM);
+		flower(BlockInit.BLUE_GLOWSHROOM);
+		flower_pot(BlockInit.POTTED_BLUE_GLOWSHROOM);
 
 		// Fluids
 		for (FluidObject obj : FluidInit.OBJS) {

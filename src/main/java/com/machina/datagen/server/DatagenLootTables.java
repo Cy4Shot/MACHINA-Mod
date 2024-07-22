@@ -33,7 +33,24 @@ public class DatagenLootTables extends LootTableProvider {
 			
 			dropWithSilk(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get());
 			dropSelf(BlockInit.TROPICAL_DIRT.get());
-			
+
+			dropSelf(BlockInit.PURPLE_GLOWSHROOM.get());
+			pot(BlockInit.POTTED_PURPLE_GLOWSHROOM.get());
+			dropSelf(BlockInit.PINK_GLOWSHROOM.get());
+			pot(BlockInit.POTTED_PINK_GLOWSHROOM.get());
+			dropSelf(BlockInit.RED_GLOWSHROOM.get());
+			pot(BlockInit.POTTED_RED_GLOWSHROOM.get());
+			dropSelf(BlockInit.ORANGE_GLOWSHROOM.get());
+			pot(BlockInit.POTTED_ORANGE_GLOWSHROOM.get());
+			dropSelf(BlockInit.YELLOW_GLOWSHROOM.get());
+			pot(BlockInit.POTTED_YELLOW_GLOWSHROOM.get());
+			dropSelf(BlockInit.GREEN_GLOWSHROOM.get());
+			pot(BlockInit.POTTED_GREEN_GLOWSHROOM.get());
+			dropSelf(BlockInit.TURQUOISE_GLOWSHROOM.get());
+			pot(BlockInit.POTTED_TURQUOISE_GLOWSHROOM.get());
+			dropSelf(BlockInit.BLUE_GLOWSHROOM.get());
+			pot(BlockInit.POTTED_BLUE_GLOWSHROOM.get());
+		
 			dropSelf(BlockInit.DRAGON_PEONY.get());
 			pot(BlockInit.POTTED_DRAGON_PEONY.get());
 			dropSelf(BlockInit.ORHPEUM.get());

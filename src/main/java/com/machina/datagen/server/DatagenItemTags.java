@@ -18,7 +18,11 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 
 public class DatagenItemTags extends ItemTagsProvider {
 	public DatagenItemTags(PackOutput po, CompletableFuture<HolderLookup.Provider> p_275729_,
@@ -31,12 +35,34 @@ public class DatagenItemTags extends ItemTagsProvider {
 
 		tag(ItemTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get().asItem(), BlockInit.TROPICAL_DIRT.get().asItem());
 
-		tag(ItemTags.FLOWERS).add(BlockInit.DRAGON_PEONY.get().asItem(), BlockInit.ORHPEUM.get().asItem());
-		tag(ItemTags.SMALL_FLOWERS).add(BlockInit.DRAGON_PEONY.get().asItem());
-		tag(ItemTags.TALL_FLOWERS).add(BlockInit.ORHPEUM.get().asItem());
+		flower(BlockInit.CLOVER);
+		smallFlower(BlockInit.PURPLE_GLOWSHROOM);
+		smallFlower(BlockInit.PINK_GLOWSHROOM);
+		smallFlower(BlockInit.RED_GLOWSHROOM);
+		smallFlower(BlockInit.ORANGE_GLOWSHROOM);
+		smallFlower(BlockInit.YELLOW_GLOWSHROOM);
+		smallFlower(BlockInit.GREEN_GLOWSHROOM);
+		smallFlower(BlockInit.TURQUOISE_GLOWSHROOM);
+		smallFlower(BlockInit.BLUE_GLOWSHROOM);
+		smallFlower(BlockInit.DRAGON_PEONY);
+		tallFlower(BlockInit.ORHPEUM);
 		
 		BlockFamiliesInit.STONES.forEach(this::stoneFamily);
 		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
+	}
+	
+	private void smallFlower(RegistryObject<FlowerBlock> flower) {
+		flower(flower);
+		tag(ItemTags.SMALL_FLOWERS).add(flower.get().asItem());
+	}
+	
+	private void tallFlower(RegistryObject<TallFlowerBlock> flower) {
+		flower(flower);
+		tag(ItemTags.TALL_FLOWERS).add(flower.get().asItem());
+	}
+	
+	private void flower(RegistryObject<? extends BushBlock> flower) {
+		tag(ItemTags.FLOWERS).add(flower.get().asItem());
 	}
 	
 	private void stoneFamily(StoneFamily family) {
