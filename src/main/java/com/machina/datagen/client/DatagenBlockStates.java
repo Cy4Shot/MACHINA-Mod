@@ -130,6 +130,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 
 		cubeBottomTop(BlockInit.TROPICAL_GRASS_BLOCK);
 		cube(BlockInit.TROPICAL_DIRT);
+		cube(BlockInit.PEAT);
 
 		cube(BlockInit.TROPICAL_PLANKS);
 		leaves(BlockInit.TROPICAL_LEAVES);

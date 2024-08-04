@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-22T15:53:31.2182575	Loot Tables
+// 1.20.1	2024-08-04T12:32:28.8036696	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -99,6 +99,7 @@ b9149a613bd0cc05264469fc5ece099607b4406e data/machina/loot_tables/blocks/nitroge
 e84fa81e787d4c951cf05fb60c2aea50a00be2a9 data/machina/loot_tables/blocks/orange_glowshroom.json
 ed02d3b517f8ee7b167879f986c2956555314914 data/machina/loot_tables/blocks/orpheum.json
 edc62ca0c8ab27ae7412fb309556767d28e05f8c data/machina/loot_tables/blocks/oxygen_block.json
+4ce38d3ce23cf03c6fa29c575d409b474d308904 data/machina/loot_tables/blocks/peat.json
 bcbbf008d1476576f491427a2c78c67721830b9d data/machina/loot_tables/blocks/pine_button.json
 90301ef8db1695731acdf1ace8c0bbb872a80eeb data/machina/loot_tables/blocks/pine_door.json
 5f16f21a839b99ad5c2a17e9663bf79034f34fd9 data/machina/loot_tables/blocks/pine_fence.json

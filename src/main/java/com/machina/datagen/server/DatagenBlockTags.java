@@ -17,8 +17,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -35,7 +33,7 @@ public class DatagenBlockTags extends BlockTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
-		tag(BlockTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get());
+		tag(BlockTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get(), BlockInit.PEAT.get());
 		
 		smallFlower(BlockInit.PURPLE_GLOWSHROOM, BlockInit.POTTED_PURPLE_GLOWSHROOM);
 		smallFlower(BlockInit.PINK_GLOWSHROOM, BlockInit.POTTED_PINK_GLOWSHROOM);
@@ -55,7 +53,7 @@ public class DatagenBlockTags extends BlockTagsProvider {
 		tag(BlockTagInit.MARTIAN_GROWABLE).add(Blocks.RED_SAND);
 
 		tag(BlockTagInit.EARTHLIKE_CARVABLE).add(Blocks.STONE, BlockInit.TROPICAL_DIRT.get(),
-				BlockInit.TROPICAL_GRASS_BLOCK.get(), Blocks.GRAVEL, Blocks.WATER);
+				BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.PEAT.get(), Blocks.GRAVEL, Blocks.WATER);
 		tag(BlockTagInit.ANTHRACITE_CARVABLE).add(Blocks.COAL_ORE, Blocks.STONE, Blocks.GRAVEL, Blocks.WATER);
 		tag(BlockTagInit.MARTIAN_CARVABLE).add(Blocks.RED_SAND, Blocks.RED_SANDSTONE, Blocks.SMOOTH_RED_SANDSTONE,
 				Blocks.WATER);

@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-22T15:53:31.2217571	Block States: machina
+// 1.20.1	2024-08-04T12:32:28.8056674	Block States: machina
 d187663fc7bcccef764a874bcbb17418e7742531 assets/machina/blockstates/acetaldehyde_block.json
 299cf136358fcea6715841b98a6ae47b95261cb2 assets/machina/blockstates/acetic_acid_block.json
 50a442d0603d988745db7d24bba69b49421e601f assets/machina/blockstates/aluminum_block.json
@@ -98,6 +98,7 @@ f11e613719ec8750dbe960c830ef10a54e158453 assets/machina/blockstates/molten_lead_
 8bcf62ae5e79391f7910583662b49e6a827012b1 assets/machina/blockstates/orange_glowshroom.json
 e1aa434e15f87f73970f97096fcedd498d7eda77 assets/machina/blockstates/orpheum.json
 57080a0b9ce83df9de048b0d82dc1c64911654e2 assets/machina/blockstates/oxygen_block.json
+96fab622caebbaafcf2b85c74c7d8495cc7a4d9b assets/machina/blockstates/peat.json
 57563e9f1240e081e8bc16f201f383f822a64458 assets/machina/blockstates/pine_button.json
 d6d45695a51112e956bd5c74833bb50830897cf4 assets/machina/blockstates/pine_door.json
 b5740b8deed4d93e43c49ab82baa40ce22fe91ea assets/machina/blockstates/pine_fence.json
@@ -353,6 +354,7 @@ ca971c412ce8faa35d5ee185025f3d7e05437a8c assets/machina/models/block/orange_glow
 bdc1b5cd7a816b23bdc59653a860eb21e5481ca3 assets/machina/models/block/orpheum_bottom.json
 74177627e86924cbc148b9b7e3ee0f6f81b3532d assets/machina/models/block/orpheum_top.json
 c386fc7575d856e6168441973b81d312463e3e9e assets/machina/models/block/oxygen_block.json
+872872ea10b87aaf744d5c373c097d83cfb74171 assets/machina/models/block/peat.json
 f4f266b1acb0d0ab9ab58f0b91041c443ccc3bcb assets/machina/models/block/pine_button.json
 49d866b6bf7daea2a015f231732cce6286aef471 assets/machina/models/block/pine_button_inventory.json
 33fbc32cb9d2ca9b131fd144cfc0caa80709bdcd assets/machina/models/block/pine_button_pressed.json
@@ -561,6 +563,7 @@ e490740c80f7ba5e29b5116772ecaa790d1234f4 assets/machina/models/item/marble_slab.
 60ae4a78d2ce96fe4ef919ead02e785c3a7f8af1 assets/machina/models/item/migmatite_wall.json
 3447e25ff3b852a7232b5cbfcccfc7f2b0bee474 assets/machina/models/item/orange_glowshroom.json
 4a655c77ee915678cda4d4f22f4c05d2c998c504 assets/machina/models/item/orpheum.json
+57f8042d888e59c0767ff5f0b26d1edd74357d15 assets/machina/models/item/peat.json
 7ea58f924fc41b5a8ee3bcab1e01e67d5ddaf462 assets/machina/models/item/pine_button.json
 d97924cb75a5a3cfa17eaa06082c41299a457499 assets/machina/models/item/pine_door.json
 b15bd22130004ac019e62b5ef02c814125050678 assets/machina/models/item/pine_fence.json

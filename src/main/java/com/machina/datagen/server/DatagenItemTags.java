@@ -33,7 +33,8 @@ public class DatagenItemTags extends ItemTagsProvider {
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
 
-		tag(ItemTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get().asItem(), BlockInit.TROPICAL_DIRT.get().asItem());
+		tag(ItemTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get().asItem(), BlockInit.TROPICAL_DIRT.get().asItem(),
+				BlockInit.PEAT.get().asItem());
 
 		flower(BlockInit.CLOVER);
 		smallFlower(BlockInit.PURPLE_GLOWSHROOM);
@@ -46,36 +47,36 @@ public class DatagenItemTags extends ItemTagsProvider {
 		smallFlower(BlockInit.BLUE_GLOWSHROOM);
 		smallFlower(BlockInit.DRAGON_PEONY);
 		tallFlower(BlockInit.ORPHEUM);
-		
+
 		BlockFamiliesInit.STONES.forEach(this::stoneFamily);
 		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
 	}
-	
+
 	private void smallFlower(RegistryObject<FlowerBlock> flower) {
 		flower(flower);
 		tag(ItemTags.SMALL_FLOWERS).add(flower.get().asItem());
 	}
-	
+
 	private void tallFlower(RegistryObject<TallFlowerBlock> flower) {
 		flower(flower);
 		tag(ItemTags.TALL_FLOWERS).add(flower.get().asItem());
 	}
-	
+
 	private void flower(RegistryObject<? extends BushBlock> flower) {
 		tag(ItemTags.FLOWERS).add(flower.get().asItem());
 	}
-	
+
 	private void stoneFamily(StoneFamily family) {
 		tag(ItemTags.SLABS).add(family.slab().asItem());
 		tag(ItemTags.STAIRS).add(family.stairs().asItem());
 		tag(ItemTags.WALLS).add(family.wall().asItem());
-		
+
 		tag(ItemTags.BUTTONS).add(family.button().asItem());
 		tag(ItemTags.STONE_BUTTONS).add(family.button().asItem());
 
 		tag(ItemTags.STONE_CRAFTING_MATERIALS).add(family.base().asItem());
 	}
-	
+
 	private void woodFamily(WoodFamily family) {
 		tag(ItemTags.SLABS).add(family.slab().asItem());
 		tag(ItemTags.STAIRS).add(family.stairs().asItem());
@@ -94,7 +95,8 @@ public class DatagenItemTags extends ItemTagsProvider {
 		tag(ItemTags.SIGNS).add(family.sign());
 		tag(ItemTags.HANGING_SIGNS).add(family.hangingsign());
 
-		tag(ItemTags.LOGS).add(family.log().asItem(), family.stripped_log().asItem(), family.wood().asItem(), family.stripped_wood().asItem());
+		tag(ItemTags.LOGS).add(family.log().asItem(), family.stripped_log().asItem(), family.wood().asItem(),
+				family.stripped_wood().asItem());
 		tag(ItemTags.PLANKS).add(family.planks().asItem());
 		tag(ItemTags.LEAVES).add(family.leaves().asItem());
 	}
