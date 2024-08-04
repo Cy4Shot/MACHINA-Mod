@@ -1,15 +1,16 @@
 package com.machina.registration.init;
 
-import java.util.function.Supplier;
+import java.util.List;
+import java.util.function.Consumer;
 
 import com.machina.Machina;
+import com.machina.registration.init.FluidInit.FluidObject;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.CreativeModeTab.DisplayItemsGenerator;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -17,16 +18,86 @@ public class TabInit {
 	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister
 			.create(Registries.CREATIVE_MODE_TAB, Machina.MOD_ID);
 
-	public static final RegistryObject<CreativeModeTab> MACHINA_RESOURCES = create("machina",
-			() -> new ItemStack(ItemInit.TRANSISTOR.get()), (pParameters, add) -> {
-				for (RegistryObject<Item> e : ItemInit.ITEMS.getEntries()) {
-					add.accept(e.get());
+	public static final RegistryObject<CreativeModeTab> MACHINA_RESOURCES = create("machina_resources",
+			ItemInit.AMMONIUM_NITRATE, a -> {
+				add(a, ItemInit.ALUMINUM_NUGGET);
+				add(a, ItemInit.ALUMINUM_INGOT);
+				add(a, BlockInit.ALUMINUM_BLOCK);
+				add(a, ItemInit.RAW_ALUMINUM);
+
+				add(a, ItemInit.COAL_CHUNK);
+
+				add(a, ItemInit.SILICON);
+				add(a, ItemInit.RAW_SILICON_BLEND);
+				add(a, ItemInit.SILICON_BOLUS);
+				add(a, ItemInit.HIGH_PURITY_SILICON);
+
+				add(a, ItemInit.LDPE);
+				add(a, ItemInit.HDPE);
+				add(a, ItemInit.UHMWPE);
+
+				add(a, ItemInit.AMMONIUM_NITRATE);
+				add(a, ItemInit.CALCIUM_SULPHATE);
+				add(a, ItemInit.HEXAMINE);
+				add(a, ItemInit.NITRONIUM_TETRAFLUOROBORATE);
+				add(a, ItemInit.PALLADIUM_CHLORIDE);
+				add(a, ItemInit.PALLADIUM_ON_CARBON);
+				add(a, ItemInit.SODIUM_CARBONATE);
+				add(a, ItemInit.SODIUM_HYDROXIDE);
+
+				for (FluidObject e : FluidInit.OBJS) {
+					add(a, e.bucket());
 				}
 			});
 
-	public static final RegistryObject<CreativeModeTab> create(String name, Supplier<ItemStack> item,
-			DisplayItemsGenerator gen) {
-		return CREATIVE_MODE_TABS.register(name, () -> CreativeModeTab.builder().icon(item)
-				.title(Component.translatable(Machina.MOD_ID + ".creativemodetab." + name)).displayItems(gen).build());
+	public static final RegistryObject<CreativeModeTab> MACHINA_WORLDGEN = create("machina_worldgen",
+			BlockInit.TROPICAL_GRASS_BLOCK, a -> {
+				add(a, BlockInit.TROPICAL_GRASS_BLOCK);
+				add(a, BlockInit.TROPICAL_DIRT);
+				add(a, BlockInit.ALUMINUM_ORE);
+
+				add(a, BlockFamiliesInit.WOODS);
+				add(a, BlockFamiliesInit.STONES);
+
+				add(a, BlockInit.CLOVER);
+				add(a, BlockInit.ORPHEUM);
+				add(a, BlockInit.DRAGON_PEONY);
+				add(a, BlockInit.PURPLE_GLOWSHROOM);
+				add(a, BlockInit.PINK_GLOWSHROOM);
+				add(a, BlockInit.RED_GLOWSHROOM);
+				add(a, BlockInit.ORANGE_GLOWSHROOM);
+				add(a, BlockInit.YELLOW_GLOWSHROOM);
+				add(a, BlockInit.GREEN_GLOWSHROOM);
+				add(a, BlockInit.TURQUOISE_GLOWSHROOM);
+				add(a, BlockInit.BLUE_GLOWSHROOM);
+			});
+
+	public static final RegistryObject<CreativeModeTab> MACHINA_MISCELLANEOUS = create("machina_misc",
+			ItemInit.LOGIC_UNIT, a -> {
+				add(a, ItemInit.COPPER_COIL);
+				add(a, ItemInit.LOGIC_UNIT);
+				add(a, ItemInit.PROCESSOR);
+				add(a, ItemInit.PROCESSOR_CORE);
+				add(a, ItemInit.TRANSISTOR);
+			});
+
+	public static final void add(CreativeModeTab.Output adder, ItemLike item) {
+		adder.accept(item);
+	}
+
+	public static final void add(CreativeModeTab.Output adder, RegistryObject<? extends ItemLike> item) {
+		add(adder, item.get());
+	}
+
+	public static final void add(CreativeModeTab.Output adder, List<? extends BlockFamiliesInit.BlockFamily> family) {
+		family.forEach(f -> f.tab().forEach(i -> add(adder, i)));
+	}
+
+	public static final RegistryObject<CreativeModeTab> create(String name, RegistryObject<? extends ItemLike> item,
+			Consumer<CreativeModeTab.Output> gen) {
+		return CREATIVE_MODE_TABS.register(name,
+				() -> CreativeModeTab.builder().icon(() -> new ItemStack(item.get()))
+						.title(Component.translatable(Machina.MOD_ID + ".creativemodetab." + name))
+						.displayItems((p, a) -> gen.accept(a)).build());
 	}
 }

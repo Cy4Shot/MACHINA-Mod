@@ -181,7 +181,7 @@ public class BlockInit {
 	public static final RegistryObject<PressurePlateBlock> PINE_PRESSURE_PLATE = wood_pressure_plate("pine_pressure_plate", Blocks.OAK_PRESSURE_PLATE, PINE);
 	
 	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
-	public static final RegistryObject<TallFlowerBlock> ORHPEUM = tall_flower	("orpheum", Blocks.PEONY);
+	public static final RegistryObject<TallFlowerBlock> ORPHEUM = tall_flower("orpheum", Blocks.PEONY);
 
 	public static final RegistryObject<FlowerBlock> DRAGON_PEONY = flower("dragon_peony", () -> MobEffects.LEVITATION, 5, Blocks.DANDELION);
 	public static final RegistryObject<FlowerPotBlock> POTTED_DRAGON_PEONY = flower_pot("potted_dragon_peony", DRAGON_PEONY);
@@ -208,7 +208,7 @@ public class BlockInit {
 		String id = Machina.MOD_ID + ":" + name;
 		return WoodType.register(new WoodType(id, new BlockSetType(id)));
 	}
-	
+
 	private static Function<Block.Properties, Block.Properties> light(int light) {
 		return p -> p.lightLevel(s -> light);
 	}
@@ -306,9 +306,9 @@ public class BlockInit {
 		return register(name, prop, a -> a,
 				p -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, p, BlockSetType.STONE));
 	}
-	
-	public static RegistryObject<FlowerBlock> flower(String name, Supplier<MobEffect> effect, int duration,
-			Block prop, Function<Block.Properties, Block.Properties> extra) {
+
+	public static RegistryObject<FlowerBlock> flower(String name, Supplier<MobEffect> effect, int duration, Block prop,
+			Function<Block.Properties, Block.Properties> extra) {
 		return register(name, prop, extra, p -> new FlowerBlock(effect, duration, p));
 	}
 
@@ -324,8 +324,9 @@ public class BlockInit {
 	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<FlowerBlock> flower) {
 		return register(name, BlockInit.of(Blocks.FLOWER_POT, a -> a, p -> new FlowerPotBlock(flower.get(), p)));
 	}
-	
-	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<FlowerBlock> flower, Function<Block.Properties, Block.Properties> extra) {
+
+	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<FlowerBlock> flower,
+			Function<Block.Properties, Block.Properties> extra) {
 		return register(name, BlockInit.of(Blocks.FLOWER_POT, extra, p -> new FlowerPotBlock(flower.get(), p)));
 	}
 
