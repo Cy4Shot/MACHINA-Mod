@@ -71,6 +71,14 @@ public class TabInit {
 				add(a, BlockInit.GREEN_GLOWSHROOM);
 				add(a, BlockInit.TURQUOISE_GLOWSHROOM);
 				add(a, BlockInit.BLUE_GLOWSHROOM);
+				
+				add(a, ItemInit.TAMA_SPORE);
+				add(a, ItemInit.STRAPPLE);
+				add(a, ItemInit.ARGO_BERRY);
+				add(a, ItemInit.Y2_NANA);
+				add(a, ItemInit.AVA_FRUIT);
+				add(a, ItemInit.GRELP_BERRY);
+				add(a, ItemInit.SPARR_BALL);
 			});
 
 	public static final RegistryObject<CreativeModeTab> MACHINA_MISCELLANEOUS = create("machina_misc",

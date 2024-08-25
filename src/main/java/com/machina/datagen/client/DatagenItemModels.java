@@ -56,6 +56,14 @@ public class DatagenItemModels extends ItemModelProvider {
 		
 		simpleItem(ItemInit.PINE_SIGN);
 		simpleItem(ItemInit.PINE_HANGING_SIGN);
+		
+		simpleItem(ItemInit.TAMA_SPORE);
+		simpleItem(ItemInit.STRAPPLE);
+		simpleItem(ItemInit.ARGO_BERRY);
+		simpleItem(ItemInit.Y2_NANA);
+		simpleItem(ItemInit.AVA_FRUIT);
+		simpleItem(ItemInit.GRELP_BERRY);
+		simpleItem(ItemInit.SPARR_BALL);
 
 		for (FluidObject obj : FluidInit.OBJS) {
 			bucket(obj);

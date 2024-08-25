@@ -46,6 +46,14 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(ItemInit.LOGIC_UNIT, "Logic Unit");
 		add(ItemInit.PROCESSOR_CORE, "Processor Core");
 		add(ItemInit.COAL_CHUNK, "Coal Chunk");
+		
+		add(ItemInit.TAMA_SPORE, "Tama Spore");
+		add(ItemInit.STRAPPLE, "Strapple");
+		add(ItemInit.ARGO_BERRY, "Argo Berry");
+		add(ItemInit.Y2_NANA, "Y2-Nana");
+		add(ItemInit.AVA_FRUIT, "Ava Fruit");
+		add(ItemInit.GRELP_BERRY, "Grelp Berry");
+		add(ItemInit.SPARR_BALL, "Sparr Ball");
 
 		// Blocks
 		add(BlockInit.ALUMINUM_BLOCK, "Aluminum Block");

@@ -9,6 +9,7 @@ import com.machina.api.block.MachinaSignBlock;
 import com.machina.api.block.MachinaWallSignBlock;
 import com.machina.api.item.ChemicalItem;
 
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
@@ -48,6 +49,14 @@ public class ItemInit {
 	public static final RegistryObject<Item> HEXAMINE = basic("hexamine", p -> new ChemicalItem(p, "(CH2)6N4"));
 	public static final RegistryObject<Item> NITRONIUM_TETRAFLUOROBORATE = basic("nitronium_tetrafluoroborate", p -> new ChemicalItem(p, "NO2BF4"));
 	
+	public static final RegistryObject<Item> TAMA_SPORE = food("tama_spore", 4, 0f, 0);
+	public static final RegistryObject<Item> STRAPPLE = food("strapple", 4, 0.3f, 0);
+	public static final RegistryObject<Item> ARGO_BERRY = food("argo_berry", 2, 0.5f, 0);
+	public static final RegistryObject<Item> Y2_NANA = food("y2_nana", 2, 0.15f, 0);
+	public static final RegistryObject<Item> AVA_FRUIT = food("ava_fruit", 3, 0.3f, 0);
+	public static final RegistryObject<Item> GRELP_BERRY = food("grelp_berry", 0, 0.1f, 3);
+	public static final RegistryObject<Item> SPARR_BALL = food("sparr_ball", 1, 0.6f, 0);
+	
 	public static final RegistryObject<SignItem> TROPICAL_SIGN = sign("tropical_sign", BlockInit.TROPICAL_SIGN, BlockInit.TROPICAL_WALL_SIGN);
 	public static final RegistryObject<HangingSignItem> TROPICAL_HANGING_SIGN = hanging_sign("tropical_hanging_sign", BlockInit.TROPICAL_HANGING_SIGN, BlockInit.TROPICAL_WALL_HANGING_SIGN);
 	public static final RegistryObject<SignItem> PINE_SIGN = sign("pine_sign", BlockInit.PINE_SIGN, BlockInit.PINE_WALL_SIGN);
@@ -56,6 +65,22 @@ public class ItemInit {
 
 	public static RegistryObject<Item> basic(String name) {
 		return register(name, () -> ItemBuilder.basicItem());
+	}
+
+	public static RegistryObject<Item> food(String name, int nut, float sat, int flags) {
+		return props(name, p -> {
+			FoodProperties.Builder b = (new FoodProperties.Builder()).nutrition(nut).saturationMod(sat);
+			if ((flags & 1) == 1) {
+				b = b.fast();
+			}
+			if (((flags << 1) & 1) == 1) {
+				b = b.alwaysEat();
+			}
+			if (((flags << 2) & 1) == 1) {
+				b = b.meat();
+			}
+			return p.food(b.build());
+		});
 	}
 
 	public static RegistryObject<SignItem> sign(String name, RegistryObject<MachinaSignBlock> standing,
@@ -67,6 +92,11 @@ public class ItemInit {
 			RegistryObject<MachinaHangingSignBlock> standing, RegistryObject<MachinaHangingWallSignBlock> wall) {
 		return register(name,
 				() -> new HangingSignItem(standing.get(), wall.get(), (new Item.Properties()).stacksTo(16)));
+	}
+
+	public static RegistryObject<Item> props(String name,
+			NonNullFunction<Item.Properties, Item.Properties> propsProcessor) {
+		return register(name, () -> ItemBuilder.props(propsProcessor));
 	}
 
 	public static <T extends Item> RegistryObject<T> basic(String name, NonNullFunction<Item.Properties, T> factory) {
@@ -87,6 +117,10 @@ public class ItemInit {
 
 		public static Item basicItem() {
 			return new ItemBuilder<>(Item::new).build();
+		}
+
+		public static Item props(NonNullFunction<Item.Properties, Item.Properties> propsProcessor) {
+			return new ItemBuilder<Item>(p -> new Item(propsProcessor.apply(p))).build();
 		}
 
 		public static <T extends Item> T basicItem(NonNullFunction<Item.Properties, T> factory) {
