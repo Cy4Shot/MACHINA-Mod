@@ -33,8 +33,9 @@ public class DatagenBlockTags extends BlockTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
-		tag(BlockTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get(), BlockInit.PEAT.get());
-		
+		tag(BlockTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get(),
+				BlockInit.FOREST_DIRT.get(), BlockInit.PEAT.get());
+
 		smallFlower(BlockInit.PURPLE_GLOWSHROOM, BlockInit.POTTED_PURPLE_GLOWSHROOM);
 		smallFlower(BlockInit.PINK_GLOWSHROOM, BlockInit.POTTED_PINK_GLOWSHROOM);
 		smallFlower(BlockInit.RED_GLOWSHROOM, BlockInit.POTTED_RED_GLOWSHROOM);
@@ -61,13 +62,13 @@ public class DatagenBlockTags extends BlockTagsProvider {
 		BlockFamiliesInit.STONES.forEach(this::stoneFamily);
 		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
 	}
-	
+
 	private void smallFlower(RegistryObject<FlowerBlock> flower, RegistryObject<FlowerPotBlock> potted) {
 		tag(BlockTags.FLOWERS).add(flower.get());
 		tag(BlockTags.SMALL_FLOWERS).add(flower.get());
 		tag(BlockTags.FLOWER_POTS).add(potted.get());
 	}
-	
+
 	private void tallFlower(RegistryObject<TallFlowerBlock> flower) {
 		tag(BlockTags.FLOWERS).add(flower.get());
 		tag(BlockTags.TALL_FLOWERS).add(flower.get());

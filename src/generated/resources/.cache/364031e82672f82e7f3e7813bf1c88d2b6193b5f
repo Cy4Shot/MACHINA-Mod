@@ -1,6 +1,6 @@
-// 1.20.1	2024-08-04T12:32:28.8026678	Tags for minecraft:item mod id machina
+// 1.20.1	2024-08-26T23:18:11.3572528	Tags for minecraft:item mod id machina
 614e73f4b331f5c56d1f8d7090f1af252df1bac7 data/minecraft/tags/items/buttons.json
-2d244b2e062e1c09dbe4588c54ccf0bb9a3f675d data/minecraft/tags/items/dirt.json
+002173dc1335a103d3d2ed7534ad70931b9d345a data/minecraft/tags/items/dirt.json
 a866778291017b2c15f8e08277580f002cc0a08b data/minecraft/tags/items/doors.json
 58ebe2439ac81747e6947be1c18b1d52b3e689ba data/minecraft/tags/items/fences.json
 fda66dfcd82560dec8d213ed1f7e47eda62fbf42 data/minecraft/tags/items/fence_gates.json

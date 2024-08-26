@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-04T12:32:28.8036696	Loot Tables
+// 1.20.1	2024-08-26T23:18:11.3582519	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -40,6 +40,7 @@ ffcd88cf47464a52db92bcaabdd4d33000690cc2 data/machina/loot_tables/blocks/feldspa
 1fce548d0a691015cfc0e08407539783e70c1085 data/machina/loot_tables/blocks/feldspar_slab.json
 c3f27482a5e2e50513e901e6cc83c5752209f970 data/machina/loot_tables/blocks/feldspar_stairs.json
 6568f51a8081f7ed2e7eed57e47ede89db67b1e3 data/machina/loot_tables/blocks/feldspar_wall.json
+12c78d36cd2d515a1920254ace48b73b8ab5c456 data/machina/loot_tables/blocks/forest_dirt.json
 e1dafa928f0cf47882c6e69cb121fff05c73defe data/machina/loot_tables/blocks/formaldehyde_block.json
 4f4b4c3c30d7233910bedfad8ea9daa9e0114dfe data/machina/loot_tables/blocks/glyoxal_block.json
 bc06d43f87571eb91c5695e1311f3fc5f03f8680 data/machina/loot_tables/blocks/gneiss.json

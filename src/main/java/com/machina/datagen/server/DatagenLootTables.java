@@ -33,6 +33,7 @@ public class DatagenLootTables extends LootTableProvider {
 			
 			dropWithSilk(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get());
 			dropSelf(BlockInit.TROPICAL_DIRT.get());
+			dropSelf(BlockInit.FOREST_DIRT.get());
 			dropSelf(BlockInit.PEAT.get());
 
 			dropSelf(BlockInit.PURPLE_GLOWSHROOM.get());

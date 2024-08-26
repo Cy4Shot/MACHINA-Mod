@@ -54,6 +54,7 @@ public class TabInit {
 			BlockInit.TROPICAL_GRASS_BLOCK, a -> {
 				add(a, BlockInit.TROPICAL_GRASS_BLOCK);
 				add(a, BlockInit.TROPICAL_DIRT);
+				add(a, BlockInit.FOREST_DIRT);
 				add(a, BlockInit.PEAT);
 				add(a, BlockInit.ALUMINUM_ORE);
 
@@ -79,6 +80,7 @@ public class TabInit {
 				add(a, ItemInit.AVA_FRUIT);
 				add(a, ItemInit.GRELP_BERRY);
 				add(a, ItemInit.SPARR_BALL);
+				add(a, ItemInit.ERBI_POD);
 			});
 
 	public static final RegistryObject<CreativeModeTab> MACHINA_MISCELLANEOUS = create("machina_misc",

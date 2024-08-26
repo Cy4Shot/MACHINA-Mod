@@ -64,6 +64,7 @@ public class DatagenItemModels extends ItemModelProvider {
 		simpleItem(ItemInit.AVA_FRUIT);
 		simpleItem(ItemInit.GRELP_BERRY);
 		simpleItem(ItemInit.SPARR_BALL);
+		simpleItem(ItemInit.ERBI_POD);
 
 		for (FluidObject obj : FluidInit.OBJS) {
 			bucket(obj);

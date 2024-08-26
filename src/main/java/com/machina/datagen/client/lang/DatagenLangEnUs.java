@@ -54,6 +54,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(ItemInit.AVA_FRUIT, "Ava Fruit");
 		add(ItemInit.GRELP_BERRY, "Grelp Berry");
 		add(ItemInit.SPARR_BALL, "Sparr Ball");
+		add(ItemInit.ERBI_POD, "Erbi Pod");
 
 		// Blocks
 		add(BlockInit.ALUMINUM_BLOCK, "Aluminum Block");
@@ -145,6 +146,7 @@ public class DatagenLangEnUs extends DatagenLang {
 
 		add(BlockInit.TROPICAL_GRASS_BLOCK, "Tropical Grass Block");
 		add(BlockInit.TROPICAL_DIRT, "Tropical Dirt");
+		add(BlockInit.FOREST_DIRT, "Forest Dirt");
 		add(BlockInit.PEAT, "Peat");
 
 		add(BlockInit.TROPICAL_BUTTON, "Tropical Button");

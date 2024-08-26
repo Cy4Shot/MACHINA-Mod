@@ -34,7 +34,7 @@ public class DatagenItemTags extends ItemTagsProvider {
 	protected void addTags(@NotNull Provider pProvider) {
 
 		tag(ItemTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get().asItem(), BlockInit.TROPICAL_DIRT.get().asItem(),
-				BlockInit.PEAT.get().asItem());
+				BlockInit.FOREST_DIRT.get().asItem(), BlockInit.PEAT.get().asItem());
 
 		flower(BlockInit.CLOVER);
 		smallFlower(BlockInit.PURPLE_GLOWSHROOM);

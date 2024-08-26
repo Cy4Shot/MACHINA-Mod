@@ -56,6 +56,7 @@ public class ItemInit {
 	public static final RegistryObject<Item> AVA_FRUIT = food("ava_fruit", 3, 0.3f, 0);
 	public static final RegistryObject<Item> GRELP_BERRY = food("grelp_berry", 0, 0.1f, 3);
 	public static final RegistryObject<Item> SPARR_BALL = food("sparr_ball", 1, 0.6f, 0);
+	public static final RegistryObject<Item> ERBI_POD = food("erbi_pod", 6, 0.1f, 0);
 	
 	public static final RegistryObject<SignItem> TROPICAL_SIGN = sign("tropical_sign", BlockInit.TROPICAL_SIGN, BlockInit.TROPICAL_WALL_SIGN);
 	public static final RegistryObject<HangingSignItem> TROPICAL_HANGING_SIGN = hanging_sign("tropical_hanging_sign", BlockInit.TROPICAL_HANGING_SIGN, BlockInit.TROPICAL_WALL_HANGING_SIGN);
