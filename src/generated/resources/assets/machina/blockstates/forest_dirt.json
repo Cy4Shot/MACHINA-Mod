@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "machina:block/forest_dirt"
-    }
+    "": [
+      {
+        "model": "machina:block/forest_dirt"
+      },
+      {
+        "model": "machina:block/forest_dirt",
+        "y": 270
+      },
+      {
+        "model": "machina:block/forest_dirt",
+        "y": 180
+      },
+      {
+        "model": "machina:block/forest_dirt",
+        "y": 90
+      }
+    ]
   }
 }

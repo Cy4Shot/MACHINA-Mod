@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "machina:block/tropical_grass_block"
-    }
+    "": [
+      {
+        "model": "machina:block/tropical_grass_block"
+      },
+      {
+        "model": "machina:block/tropical_grass_block",
+        "y": 270
+      },
+      {
+        "model": "machina:block/tropical_grass_block",
+        "y": 180
+      },
+      {
+        "model": "machina:block/tropical_grass_block",
+        "y": 90
+      }
+    ]
   }
 }

@@ -1,7 +1,9 @@
 package com.machina.world.biome;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.NavigableMap;
 import java.util.Random;
 import java.util.TreeMap;
@@ -16,7 +18,6 @@ import com.machina.api.starchart.obj.Planet;
 import com.machina.api.util.math.MathUtil;
 import com.machina.registration.init.SoundInit;
 import com.machina.world.feature.PlanetBushFeature;
-import com.machina.world.feature.PlanetBushFeature.PlanetBushFeatureConfig;
 import com.machina.world.feature.PlanetCaveSlopeFeature;
 import com.machina.world.feature.PlanetCaveSlopeFeature.PlanetCaveSlopeFeatureConfig;
 import com.machina.world.feature.PlanetGrassFeature;
@@ -96,6 +97,8 @@ public class PlanetBiome extends Biome {
 	}
 
 	public final BiomeCategory cat;
+	public final Planet p;
+	private final List<Tree> trees;
 
 	public PlanetBiome(Planet planet, int id, long seed) {
 		this(planet, generateRandom(planet.name(), id, seed), id, categories.get(categories.floorKey(id)));
@@ -108,9 +111,42 @@ public class PlanetBiome extends Biome {
 	}
 
 	private PlanetBiome(Planet p, Random r, int i, BiomeCategory c) {
-		super(createClimate(p, r, i, c), createEffects(p, r, i, c), createGeneration(p, r, i, c),
-				MobSpawnSettings.EMPTY);
+		this(createClimate(p, r, i, c), createEffects(p, r, i, c), createGeneration(p, r, i, c), MobSpawnSettings.EMPTY,
+				c, p);
+	}
+
+	private record BiomeGenSettings(BiomeGenerationSettings settings, List<Tree> trees) {
+	}
+
+	private PlanetBiome(Biome.ClimateSettings climate, BiomeSpecialEffects special, BiomeGenSettings genset,
+			MobSpawnSettings mob, BiomeCategory c, Planet p) {
+		super(climate, special, genset.settings(), mob);
 		this.cat = c;
+		this.p = p;
+		this.trees = genset.trees();
+
+	}
+
+	public BlockState getTopBlock() {
+		for (Tree tree : trees) {
+			if (tree.mod() != null) {
+				return tree.mod().top();
+			}
+		}
+		return null;
+	}
+
+	public BlockState getSecondBlock() {
+		for (Tree tree : trees) {
+			if (tree.mod() != null) {
+				return tree.mod().second();
+			}
+		}
+		return null;
+	}
+
+	public BlockState getThirdBlock() {
+		return null;
 	}
 
 	private static ClimateSettings createClimate(Planet p, Random r, int i, BiomeCategory c) {
@@ -124,13 +160,13 @@ public class PlanetBiome extends Biome {
 				.backgroundMusic(SoundInit.asMusic(SoundInit.MUSIC)).build();
 	}
 
-	private static BiomeGenerationSettings createGeneration(Planet p, Random r, int i, BiomeCategory c) {
+	private static BiomeGenSettings createGeneration(Planet p, Random r, int i, BiomeCategory c) {
 		BiomeGenerationSettings.PlainBuilder builder = new BiomeGenerationSettings.PlainBuilder();
 
 		addUndergroundFeatures(builder, p, c, r);
-		addVegetationFeatures(builder, p, c, r);
+		List<Tree> trees = addVegetationFeatures(builder, p, c, r);
 
-		return builder.build();
+		return new BiomeGenSettings(builder.build(), trees);
 	}
 
 	private static void addUndergroundFeatures(BiomeGenerationSettings.PlainBuilder builder, Planet p, BiomeCategory c,
@@ -157,9 +193,10 @@ public class PlanetBiome extends Biome {
 		}
 	}
 
-	private static void addVegetationFeatures(BiomeGenerationSettings.PlainBuilder builder, Planet p, BiomeCategory c,
-			Random r) {
+	private static List<Tree> addVegetationFeatures(BiomeGenerationSettings.PlainBuilder builder, Planet p,
+			BiomeCategory c, Random r) {
 		PlanetType type = p.type();
+		List<Tree> trees = new ArrayList<Tree>();
 
 		if (c.equals(BiomeCategory.MIDDLE)) {
 
@@ -176,6 +213,8 @@ public class PlanetBiome extends Biome {
 						add(builder, Decoration.VEGETAL_DECORATION, new PlanetBushFeature(), t.bush(),
 								count(t.bush().perchunk()), spread(), onFloor());
 					}
+
+					trees.add(t);
 				}
 			}
 
@@ -204,6 +243,8 @@ public class PlanetBiome extends Biome {
 				}
 			}
 		}
+
+		return trees;
 	}
 
 	private static <FC extends FeatureConfiguration, F extends Feature<FC>> void add(

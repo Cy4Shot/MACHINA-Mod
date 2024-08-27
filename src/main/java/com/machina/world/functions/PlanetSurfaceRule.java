@@ -3,6 +3,10 @@ package com.machina.world.functions;
 import java.util.Arrays;
 import java.util.stream.LongStream;
 
+import javax.annotation.Nullable;
+
+import org.apache.commons.lang3.function.TriFunction;
+
 import com.google.common.collect.ImmutableList;
 import com.machina.api.starchart.PlanetType;
 import com.machina.api.starchart.obj.Planet;
@@ -11,6 +15,8 @@ import com.machina.world.biome.PlanetBiome.BiomeCategory;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
@@ -34,9 +40,9 @@ public class PlanetSurfaceRule {
 	public static SurfaceRules.RuleSource planetLike(Planet p, boolean top, boolean bottom) {
 
 		PlanetType type = p.type();
-		SurfaceRules.RuleSource top_block = makeStateRule(type.surface().top());
-		SurfaceRules.RuleSource second_top_block = makeStateRule(type.surface().second());
-		SurfaceRules.RuleSource rock = makeStateRule(type.underground().rock().base());
+		SurfaceRules.RuleSource top_block = new PlanetBiomeTopBlockRuleSource(type.surface().top());
+		SurfaceRules.RuleSource second_top_block = new PlanetBiomeSecondBlockRuleSource(type.surface().second());
+		SurfaceRules.RuleSource rock = new PlanetBiomeThirdBlockRuleSource(type.underground().rock().base());
 
 		SurfaceRules.ConditionSource cs7 = SurfaceRules.waterBlockCheck(-1, 0);
 		SurfaceRules.ConditionSource cs8 = SurfaceRules.waterBlockCheck(0, 0);
@@ -77,6 +83,81 @@ public class PlanetSurfaceRule {
 	@SuppressWarnings("unused")
 	private static AndConditionSource or(SurfaceRules.ConditionSource... ts) {
 		return new AndConditionSource(ts);
+	}
+
+	static record PlanetBiomeTopBlockRuleSource(BlockState fallback) implements SurfaceRules.RuleSource {
+		static final KeyDispatchDataCodec<PlanetBiomeTopBlockRuleSource> CODEC = KeyDispatchDataCodec
+				.of(BlockState.CODEC.xmap(PlanetBiomeTopBlockRuleSource::new, PlanetBiomeTopBlockRuleSource::fallback));
+
+		public KeyDispatchDataCodec<PlanetBiomeTopBlockRuleSource> codec() {
+			return CODEC;
+		}
+
+		public SurfaceRules.SurfaceRule apply(SurfaceRules.Context ctx) {
+			return new StateRule((x, y, z) -> {
+				Holder<Biome> biome = ctx.biomeGetter.apply(new BlockPos(x, y, z));
+				if (biome.get() != null && biome.get() instanceof PlanetBiome) {
+					BlockState state = ((PlanetBiome) biome.get()).getTopBlock();
+					if (state != null) {
+						return state;
+					}
+				}
+				return fallback;
+			});
+		}
+	}
+
+	static record PlanetBiomeSecondBlockRuleSource(BlockState fallback) implements SurfaceRules.RuleSource {
+		static final KeyDispatchDataCodec<PlanetBiomeSecondBlockRuleSource> CODEC = KeyDispatchDataCodec
+				.of(BlockState.CODEC.xmap(PlanetBiomeSecondBlockRuleSource::new,
+						PlanetBiomeSecondBlockRuleSource::fallback));
+
+		public KeyDispatchDataCodec<PlanetBiomeSecondBlockRuleSource> codec() {
+			return CODEC;
+		}
+
+		public SurfaceRules.SurfaceRule apply(SurfaceRules.Context ctx) {
+			return new StateRule((x, y, z) -> {
+				Holder<Biome> biome = ctx.biomeGetter.apply(new BlockPos(x, y, z));
+				if (biome.get() != null && biome.get() instanceof PlanetBiome) {
+					BlockState state = ((PlanetBiome) biome.get()).getSecondBlock();
+					if (state != null) {
+						return state;
+					}
+				}
+				return fallback;
+			});
+		}
+	}
+
+	static record PlanetBiomeThirdBlockRuleSource(BlockState fallback) implements SurfaceRules.RuleSource {
+		static final KeyDispatchDataCodec<PlanetBiomeThirdBlockRuleSource> CODEC = KeyDispatchDataCodec.of(
+				BlockState.CODEC.xmap(PlanetBiomeThirdBlockRuleSource::new, PlanetBiomeThirdBlockRuleSource::fallback));
+
+		public KeyDispatchDataCodec<PlanetBiomeThirdBlockRuleSource> codec() {
+			return CODEC;
+		}
+
+		public SurfaceRules.SurfaceRule apply(SurfaceRules.Context ctx) {
+			return new StateRule((x, y, z) -> {
+				Holder<Biome> biome = ctx.biomeGetter.apply(new BlockPos(x, y, z));
+				if (biome.get() != null && biome.get() instanceof PlanetBiome) {
+					BlockState state = ((PlanetBiome) biome.get()).getThirdBlock();
+					if (state != null) {
+						return state;
+					}
+				}
+				return fallback;
+			});
+		}
+	}
+
+	static record StateRule(TriFunction<Integer, Integer, Integer, BlockState> state)
+			implements SurfaceRules.SurfaceRule {
+		@Nullable
+		public BlockState tryApply(int x, int y, int z) {
+			return state.apply(x, y, z);
+		}
 	}
 
 	static final class PlanetBiomeConditionSource implements SurfaceRules.ConditionSource {

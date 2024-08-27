@@ -34,7 +34,7 @@ public class DatagenBlockTags extends BlockTagsProvider {
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
 		tag(BlockTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get(),
-				BlockInit.FOREST_DIRT.get(), BlockInit.PEAT.get());
+				BlockInit.FOREST_GRASS_BLOCK.get(), BlockInit.FOREST_DIRT.get(), BlockInit.PEAT.get());
 
 		smallFlower(BlockInit.PURPLE_GLOWSHROOM, BlockInit.POTTED_PURPLE_GLOWSHROOM);
 		smallFlower(BlockInit.PINK_GLOWSHROOM, BlockInit.POTTED_PINK_GLOWSHROOM);
@@ -54,7 +54,8 @@ public class DatagenBlockTags extends BlockTagsProvider {
 		tag(BlockTagInit.MARTIAN_GROWABLE).add(Blocks.RED_SAND);
 
 		tag(BlockTagInit.EARTHLIKE_CARVABLE).add(Blocks.STONE, BlockInit.TROPICAL_DIRT.get(),
-				BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.PEAT.get(), Blocks.GRAVEL, Blocks.WATER);
+				BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.FOREST_GRASS_BLOCK.get(), BlockInit.FOREST_DIRT.get(),
+				BlockInit.PEAT.get(), Blocks.GRAVEL, Blocks.WATER);
 		tag(BlockTagInit.ANTHRACITE_CARVABLE).add(Blocks.COAL_ORE, Blocks.STONE, Blocks.GRAVEL, Blocks.WATER);
 		tag(BlockTagInit.MARTIAN_CARVABLE).add(Blocks.RED_SAND, Blocks.RED_SANDSTONE, Blocks.SMOOTH_RED_SANDSTONE,
 				Blocks.WATER);

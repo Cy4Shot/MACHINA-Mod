@@ -71,13 +71,14 @@ public record PlanetType(Shape shape, Surface surface, Vegetation vegetation, Un
 				.apply(instance, Grass::new));
 	}
 
-	public record Tree(BlockState log, BlockState leaves, int every, PlanetBushFeatureConfig bush) {
-		public static final Codec<Tree> CODEC = RecordCodecBuilder.create(instance -> instance
-				.group(BlockState.CODEC.fieldOf("log").forGetter(Tree::log),
+	public record Tree(BlockState log, BlockState leaves, int every, PlanetBushFeatureConfig bush, Surface mod) {
+
+		public static final Codec<Tree> CODEC = RecordCodecBuilder
+				.create(instance -> instance.group(BlockState.CODEC.fieldOf("log").forGetter(Tree::log),
 						BlockState.CODEC.fieldOf("leaves").forGetter(Tree::leaves),
 						Codec.INT.fieldOf("every").forGetter(Tree::every),
-						PlanetBushFeatureConfig.CODEC.fieldOf("bush").forGetter(Tree::bush))
-				.apply(instance, Tree::new));
+						PlanetBushFeatureConfig.CODEC.fieldOf("bush").forGetter(Tree::bush),
+						Surface.CODEC.fieldOf("mod").forGetter(Tree::mod)).apply(instance, Tree::new));
 	}
 
 	public record Underground(RockType rock, List<OreVein> ores) {

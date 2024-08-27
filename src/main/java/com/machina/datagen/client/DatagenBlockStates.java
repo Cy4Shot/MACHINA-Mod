@@ -57,49 +57,49 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.FELDSPAR_WALL, BlockInit.FELDSPAR);
 		button(BlockInit.FELDSPAR_BUTTON, BlockInit.FELDSPAR);
 		pressure_plate(BlockInit.FELDSPAR_PRESSURE_PLATE, BlockInit.FELDSPAR);
-		
+
 		cube(BlockInit.GRAY_SOAPSTONE);
 		slab(BlockInit.GRAY_SOAPSTONE_SLAB, BlockInit.GRAY_SOAPSTONE);
 		stairs(BlockInit.GRAY_SOAPSTONE_STAIRS, BlockInit.GRAY_SOAPSTONE);
 		wall(BlockInit.GRAY_SOAPSTONE_WALL, BlockInit.GRAY_SOAPSTONE);
 		button(BlockInit.GRAY_SOAPSTONE_BUTTON, BlockInit.GRAY_SOAPSTONE);
 		pressure_plate(BlockInit.GRAY_SOAPSTONE_PRESSURE_PLATE, BlockInit.GRAY_SOAPSTONE);
-		
+
 		cube(BlockInit.GREEN_SOAPSTONE);
 		slab(BlockInit.GREEN_SOAPSTONE_SLAB, BlockInit.GREEN_SOAPSTONE);
 		stairs(BlockInit.GREEN_SOAPSTONE_STAIRS, BlockInit.GREEN_SOAPSTONE);
 		wall(BlockInit.GREEN_SOAPSTONE_WALL, BlockInit.GREEN_SOAPSTONE);
 		button(BlockInit.GREEN_SOAPSTONE_BUTTON, BlockInit.GREEN_SOAPSTONE);
 		pressure_plate(BlockInit.GREEN_SOAPSTONE_PRESSURE_PLATE, BlockInit.GREEN_SOAPSTONE);
-		
+
 		cube(BlockInit.WHITE_SOAPSTONE);
 		slab(BlockInit.WHITE_SOAPSTONE_SLAB, BlockInit.WHITE_SOAPSTONE);
 		stairs(BlockInit.WHITE_SOAPSTONE_STAIRS, BlockInit.WHITE_SOAPSTONE);
 		wall(BlockInit.WHITE_SOAPSTONE_WALL, BlockInit.WHITE_SOAPSTONE);
 		button(BlockInit.WHITE_SOAPSTONE_BUTTON, BlockInit.WHITE_SOAPSTONE);
 		pressure_plate(BlockInit.WHITE_SOAPSTONE_PRESSURE_PLATE, BlockInit.WHITE_SOAPSTONE);
-		
+
 		cube(BlockInit.SHALE);
 		slab(BlockInit.SHALE_SLAB, BlockInit.SHALE);
 		stairs(BlockInit.SHALE_STAIRS, BlockInit.SHALE);
 		wall(BlockInit.SHALE_WALL, BlockInit.SHALE);
 		button(BlockInit.SHALE_BUTTON, BlockInit.SHALE);
 		pressure_plate(BlockInit.SHALE_PRESSURE_PLATE, BlockInit.SHALE);
-		
+
 		cube(BlockInit.TECTONITE);
 		slab(BlockInit.TECTONITE_SLAB, BlockInit.TECTONITE);
 		stairs(BlockInit.TECTONITE_STAIRS, BlockInit.TECTONITE);
 		wall(BlockInit.TECTONITE_WALL, BlockInit.TECTONITE);
 		button(BlockInit.TECTONITE_BUTTON, BlockInit.TECTONITE);
 		pressure_plate(BlockInit.TECTONITE_PRESSURE_PLATE, BlockInit.TECTONITE);
-		
+
 		cube(BlockInit.MARBLE);
 		slab(BlockInit.MARBLE_SLAB, BlockInit.MARBLE);
 		stairs(BlockInit.MARBLE_STAIRS, BlockInit.MARBLE);
 		wall(BlockInit.MARBLE_WALL, BlockInit.MARBLE);
 		button(BlockInit.MARBLE_BUTTON, BlockInit.MARBLE);
 		pressure_plate(BlockInit.MARBLE_PRESSURE_PLATE, BlockInit.MARBLE);
-		
+
 		cube(BlockInit.CHALK);
 		slab(BlockInit.CHALK_SLAB, BlockInit.CHALK);
 		stairs(BlockInit.CHALK_STAIRS, BlockInit.CHALK);
@@ -128,9 +128,10 @@ public class DatagenBlockStates extends BlockStateProvider {
 		button(BlockInit.GNEISS_BUTTON, BlockInit.GNEISS);
 		pressure_plate(BlockInit.GNEISS_PRESSURE_PLATE, BlockInit.GNEISS);
 
-		cubeBottomTop(BlockInit.TROPICAL_GRASS_BLOCK);
-		cube(BlockInit.TROPICAL_DIRT);
-		cube(BlockInit.FOREST_DIRT);
+		cubeBottomTopRandomRotation(BlockInit.TROPICAL_GRASS_BLOCK);
+		cubeBottomTopRandomRotation(BlockInit.FOREST_GRASS_BLOCK);
+		cubeRandomRotation(BlockInit.TROPICAL_DIRT);
+		cubeRandomRotation(BlockInit.FOREST_DIRT);
 		cube(BlockInit.PEAT);
 
 		cube(BlockInit.TROPICAL_PLANKS);
@@ -149,7 +150,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		sign(BlockInit.TROPICAL_HANGING_SIGN, BlockInit.TROPICAL_WALL_HANGING_SIGN, BlockInit.TROPICAL_PLANKS);
 		trapdoor(BlockInit.TROPICAL_TRAPDOOR);
 		door(BlockInit.TROPICAL_DOOR);
-		
+
 		cube(BlockInit.PINE_PLANKS);
 		leaves(BlockInit.PINE_LEAVES);
 		log(BlockInit.PINE_LOG);
@@ -194,15 +195,28 @@ public class DatagenBlockStates extends BlockStateProvider {
 		}
 	}
 
-	private void cube(RegistryObject<Block> blockRegistryObject) {
-		simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
+	private void cubeRandomRotation(RegistryObject<Block> block) {
+		Block b = block.get();
+		ModelFile model = cubeAll(b);
+		simpleBlock(b, randomRotation(model));
+		simpleBlockItem(b, model);
 	}
 
-	private void cubeBottomTop(RegistryObject<Block> block) {
+	private void cubeBottomTopRandomRotation(RegistryObject<Block> block) {
 		ResourceLocation t = blockTexture(block.get());
 		Block b = block.get();
-		simpleBlockWithItem(b,
-				models().cubeBottomTop(name(b), extend(t, "_side"), extend(t, "_bottom"), extend(t, "_top")));
+		ModelFile model = models().cubeBottomTop(name(b), extend(t, "_side"), extend(t, "_bottom"), extend(t, "_top"));
+		simpleBlock(b, randomRotation(model));
+		simpleBlockItem(b, model);
+	}
+
+	private ConfiguredModel[] randomRotation(ModelFile model) {
+		return ConfiguredModel.builder().modelFile(model).nextModel().rotationY(270).modelFile(model).nextModel()
+				.rotationY(180).modelFile(model).nextModel().rotationY(90).modelFile(model).build();
+	}
+
+	private void cube(RegistryObject<Block> blockRegistryObject) {
+		simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
 	}
 
 	private void leaves(RegistryObject<LeavesBlock> leaves) {

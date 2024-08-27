@@ -34,6 +34,8 @@ public class PlanetTypeInit {
 //	@formatter:off
 	private static final BlockState TROPICAL_GRASS_BLOCK = BlockInit.TROPICAL_GRASS_BLOCK.get().defaultBlockState();
 	private static final BlockState TROPICAL_DIRT = BlockInit.TROPICAL_DIRT.get().defaultBlockState();
+	private static final BlockState FOREST_GRASS_BLOCK = BlockInit.FOREST_GRASS_BLOCK.get().defaultBlockState();
+	private static final BlockState FOREST_DIRT = BlockInit.FOREST_DIRT.get().defaultBlockState();
 	private static final BlockState PINE_WOOD = BlockInit.PINE_WOOD.get().defaultBlockState();
 	private static final BlockState PINE_LEAVES = BlockInit.PINE_LEAVES.get().defaultBlockState().setValue(LeavesBlock.PERSISTENT, true);
 	private static final BlockState TROPICAL_WOOD = BlockInit.TROPICAL_WOOD.get().defaultBlockState();
@@ -82,10 +84,12 @@ public class PlanetTypeInit {
 								.add(Blocks.TALL_GRASS.defaultBlockState(), 1)
 								.add(Blocks.FERN.defaultBlockState(), 1))),
 					Map.of(
-							TreeType.FIR, new Tree(PINE_WOOD, PINE_LEAVES, 4, null),
-							TreeType.RADIAL_BAOBAB, new Tree(TROPICAL_WOOD, TROPICAL_LEAVES, 4, new PlanetBushFeatureConfig(TROPICAL_LEAVES, 2.5f, 3)),
-							TreeType.LOLLIPOP, new Tree(TROPICAL_WOOD, TROPICAL_LEAVES, 4, new PlanetBushFeatureConfig(TROPICAL_LEAVES, 2.5f, 3)),
-							TreeType.CONE, new Tree(PINE_WOOD, PINE_LEAVES, 4, new PlanetBushFeatureConfig(PINE_LEAVES, 2.5f, 3))),
+							TreeType.FIR, new Tree(PINE_WOOD, PINE_LEAVES, 4, null,
+									new Surface(FOREST_GRASS_BLOCK, FOREST_DIRT, Optional.empty())),
+							TreeType.RADIAL_BAOBAB, new Tree(TROPICAL_WOOD, TROPICAL_LEAVES, 4, new PlanetBushFeatureConfig(TROPICAL_LEAVES, 2.5f, 3),
+									new Surface(TROPICAL_GRASS_BLOCK, TROPICAL_DIRT, Optional.empty())),
+							TreeType.LOLLIPOP, new Tree(TROPICAL_WOOD, TROPICAL_LEAVES, 4, new PlanetBushFeatureConfig(TROPICAL_LEAVES, 2.5f, 3), null),
+							TreeType.CONE, new Tree(PINE_WOOD, PINE_LEAVES, 4, new PlanetBushFeatureConfig(PINE_LEAVES, 2.5f, 3), null)),
 					1),
 			new Underground(
 					new RockType(STONE, STONE_STAIRS, STONE_SLAB, GRAVEL),

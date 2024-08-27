@@ -146,6 +146,7 @@ public class DatagenLangEnUs extends DatagenLang {
 
 		add(BlockInit.TROPICAL_GRASS_BLOCK, "Tropical Grass Block");
 		add(BlockInit.TROPICAL_DIRT, "Tropical Dirt");
+		add(BlockInit.FOREST_GRASS_BLOCK, "Forest Grass Block");
 		add(BlockInit.FOREST_DIRT, "Forest Dirt");
 		add(BlockInit.PEAT, "Peat");
 

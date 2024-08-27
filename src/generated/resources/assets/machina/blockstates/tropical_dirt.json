@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "machina:block/tropical_dirt"
-    }
+    "": [
+      {
+        "model": "machina:block/tropical_dirt"
+      },
+      {
+        "model": "machina:block/tropical_dirt",
+        "y": 270
+      },
+      {
+        "model": "machina:block/tropical_dirt",
+        "y": 180
+      },
+      {
+        "model": "machina:block/tropical_dirt",
+        "y": 90
+      }
+    ]
   }
 }
