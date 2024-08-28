@@ -56,6 +56,7 @@ public class TabInit {
 				add(a, BlockInit.FOREST_GRASS_BLOCK);
 				add(a, BlockInit.TROPICAL_DIRT);
 				add(a, BlockInit.FOREST_DIRT);
+				add(a, BlockInit.SILT);
 				add(a, BlockInit.PEAT);
 				add(a, BlockInit.ALUMINUM_ORE);
 

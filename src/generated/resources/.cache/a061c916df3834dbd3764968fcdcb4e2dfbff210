@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-27T18:35:26.1822164	Tags for minecraft:block mod id machina
+// 1.20.1	2024-08-28T23:37:37.0937785	Tags for minecraft:block mod id machina
 c43d228748763dfdc5bfb5bdbafb19dc746337af data/machina/tags/blocks/planet_carvable_anthracite.json
 5b70e6314fcdfde28dd07fb0f0ac4417ca82a108 data/machina/tags/blocks/planet_carvable_earthlike.json
 67d66a14550905a6ff6282e7b4d0706b3555f99f data/machina/tags/blocks/planet_carvable_martian.json
@@ -9,7 +9,7 @@ c43d228748763dfdc5bfb5bdbafb19dc746337af data/machina/tags/blocks/planet_carvabl
 b8e62fd1562c5d9f7b88bd7602a997907b1406ba data/minecraft/tags/blocks/all_signs.json
 614e73f4b331f5c56d1f8d7090f1af252df1bac7 data/minecraft/tags/blocks/buttons.json
 af085738e638d27a341702e9e67b97fc4c372ce5 data/minecraft/tags/blocks/ceiling_hanging_signs.json
-b58113369f52cca15eacea2b8e40f8b533d5b6c3 data/minecraft/tags/blocks/dirt.json
+66beb01efa562db112b335d085ba9f08647ca87d data/minecraft/tags/blocks/dirt.json
 a866778291017b2c15f8e08277580f002cc0a08b data/minecraft/tags/blocks/doors.json
 58ebe2439ac81747e6947be1c18b1d52b3e689ba data/minecraft/tags/blocks/fences.json
 fda66dfcd82560dec8d213ed1f7e47eda62fbf42 data/minecraft/tags/blocks/fence_gates.json

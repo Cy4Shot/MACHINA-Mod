@@ -133,6 +133,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		cubeRandomRotation(BlockInit.TROPICAL_DIRT);
 		cubeRandomRotation(BlockInit.FOREST_DIRT);
 		cube(BlockInit.PEAT);
+		cubeRandomRotation(BlockInit.SILT);
 
 		cube(BlockInit.TROPICAL_PLANKS);
 		leaves(BlockInit.TROPICAL_LEAVES);

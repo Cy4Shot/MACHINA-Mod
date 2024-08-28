@@ -34,7 +34,8 @@ public class DatagenBlockTags extends BlockTagsProvider {
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
 		tag(BlockTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get(),
-				BlockInit.FOREST_GRASS_BLOCK.get(), BlockInit.FOREST_DIRT.get(), BlockInit.PEAT.get());
+				BlockInit.FOREST_GRASS_BLOCK.get(), BlockInit.FOREST_DIRT.get(), BlockInit.PEAT.get(),
+				BlockInit.SILT.get());
 
 		smallFlower(BlockInit.PURPLE_GLOWSHROOM, BlockInit.POTTED_PURPLE_GLOWSHROOM);
 		smallFlower(BlockInit.PINK_GLOWSHROOM, BlockInit.POTTED_PINK_GLOWSHROOM);

@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-27T18:35:26.1802172	Loot Tables
+// 1.20.1	2024-08-28T23:37:37.0837788	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -136,6 +136,7 @@ f6fa8e5b95bcff18a36580b832c00aff2c83724e data/machina/loot_tables/blocks/shale_p
 73eca5f5c5959bcd17d38576a94bde0bde9c7959 data/machina/loot_tables/blocks/shale_slab.json
 6204b0e60962178791d29e8837d4cff256214cdf data/machina/loot_tables/blocks/shale_stairs.json
 80de8000c1de9ae7a3654dd434debf09232aa8ad data/machina/loot_tables/blocks/shale_wall.json
+87d5c3778f82beb9e61252cebe0d759a99fde8d9 data/machina/loot_tables/blocks/silt.json
 494b446c511eabff77fd8ee8155db57a433487a2 data/machina/loot_tables/blocks/stripped_pine_log.json
 fa7d222ba4e2d16a7c620e531febdec328d6d496 data/machina/loot_tables/blocks/stripped_pine_wood.json
 167927c98ee76f23238a3421638ee21ea6a98824 data/machina/loot_tables/blocks/stripped_tropical_log.json

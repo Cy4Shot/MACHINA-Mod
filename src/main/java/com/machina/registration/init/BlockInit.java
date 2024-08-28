@@ -140,6 +140,7 @@ public class BlockInit {
 	public static final RegistryObject<Block> TROPICAL_DIRT = block("tropical_dirt", Blocks.DIRT);
 	public static final RegistryObject<Block> FOREST_GRASS_BLOCK = block("forest_grass_block", Blocks.GRASS_BLOCK);
 	public static final RegistryObject<Block> FOREST_DIRT = block("forest_dirt", Blocks.DIRT);
+	public static final RegistryObject<Block> SILT = block("silt", Blocks.MUD);
 	public static final RegistryObject<Block> PEAT = block("peat", Blocks.MUD);
 	
 	public static final WoodType TROPICAL = registerWoodType("tropical");

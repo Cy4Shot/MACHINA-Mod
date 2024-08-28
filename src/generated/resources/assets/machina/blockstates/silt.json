@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "machina:block/silt"
+      },
+      {
+        "model": "machina:block/silt",
+        "y": 270
+      },
+      {
+        "model": "machina:block/silt",
+        "y": 180
+      },
+      {
+        "model": "machina:block/silt",
+        "y": 90
+      }
+    ]
+  }
+}
