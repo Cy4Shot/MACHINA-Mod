@@ -1,0 +1,143 @@
+{
+	"effects": {
+		"fog_color": 0,
+		"sky_color": 0,
+		"water_color": 0,
+		"water_fog_color": 0,
+		"grass_color": 3563283
+	},
+	"base": "minecraft:stone",
+	"stair": "minecraft:stone_stairs",
+	"slab": "minecraft:stone_slab",
+	"extra": "minecraft:gravel",
+	"top": "machina:forest_grass_block",
+	"second": "machina:forest_dirt",
+	"trees": [
+		{
+			"type": "machina:fir",
+			"wood": "machina:pine_wood",
+			"leaves": "machina:pine_leaves[persistent=true]",
+			"every": 1
+		}
+	],
+	"bushes": [
+		{
+			"block": "machina:pine_leaves[persistent=true]",
+			"radius": 2.5,
+			"perchunk": 3
+		}
+	],
+	"grass": {
+		"enabled": true,
+		"min": 5,
+		"max": 10,
+		"grasses": [
+			{
+				"block": "minecraft:grass",
+				"weight": 10
+			},
+			{
+				"block": "minecraft:fern",
+				"weight": 2
+			},
+			{
+				"block": "machina:clover",
+				"weight": 1
+			}
+		]
+	},
+	"lakes": {
+		"enabled": true,
+		"rarity": 50
+	},
+	"ores": [
+		{
+			"block": "machina:green_soapstone",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"per_chunk": 8,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "machina:limestone",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"per_chunk": 8,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "machina:gneiss",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"per_chunk": 8,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "minecraft:andesite",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"per_chunk": 4,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "minecraft:granite",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"per_chunk": 2,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "minecraft:diorite",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"per_chunk": 2,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "machina:migmatite",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"per_chunk": 6,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "machina:marble",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"per_chunk": 6,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "machina:anthracite",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"per_chunk": 2,
+			"min_y": -64,
+			"max_y": 0
+		},
+		{
+			"block": "machina:shale",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"per_chunk": 6,
+			"min_y": -64,
+			"max_y": 0
+		},
+		{
+			"block": "machina:chalk",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"per_chunk": 10,
+			"min_y": -64,
+			"max_y": 256
+		}
+	]
+}

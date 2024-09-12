@@ -11,7 +11,13 @@
 	},
 	"biomes": [
 		{
-			"name": "machina:tropical_forest",
+			"name": "machina:earthlike_pine_forest",
+			"placements": [
+				"MIDDLE"
+			]
+		},
+		{
+			"name": "machina:earthlike_tropical_forest",
 			"placements": [
 				"MIDDLE"
 			]

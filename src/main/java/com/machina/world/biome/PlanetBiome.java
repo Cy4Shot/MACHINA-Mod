@@ -110,12 +110,14 @@ public class PlanetBiome extends Biome {
 
 		for (PlanetBiomeTree tree : s.trees()) {
 			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
-					new PlanetTreeFeature.PlanetTreeFeatureConfig(tree), every(tree.every()), spread(), onFloor());
+					new PlanetTreeFeature.PlanetTreeFeatureConfig(tree), every(tree.every()), spread(), onFloor(),
+					biome());
 		}
 
 		for (PlanetBiomeBush bush : s.bushes()) {
 			add(builder, Decoration.VEGETAL_DECORATION, new PlanetBushFeature(),
-					new PlanetBushFeature.PlanetBushFeatureConfig(bush), count(bush.perchunk()), spread(), onFloor());
+					new PlanetBushFeature.PlanetBushFeatureConfig(bush), count(bush.perchunk()), spread(), onFloor(),
+					biome());
 		}
 
 		if (s.grass().enabled()) {

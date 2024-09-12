@@ -29,18 +29,19 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 					Codec.list(PlanetBiomeOre.CODEC).fieldOf("ores").forGetter(PlanetBiomeSettings::ores))
 			.apply(instance, PlanetBiomeSettings::new));
 
-	public record PlanetBiomeEffects(int fog_color, int sky_color, int water_color, int water_fog_color) {
+	public record PlanetBiomeEffects(int fog_color, int sky_color, int water_color, int water_fog_color, int grass_color) {
 
 		public static final Codec<PlanetBiomeEffects> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(Codec.INT.fieldOf("fog_color").forGetter(PlanetBiomeEffects::fog_color),
 						Codec.INT.fieldOf("sky_color").forGetter(PlanetBiomeEffects::sky_color),
 						Codec.INT.fieldOf("water_color").forGetter(PlanetBiomeEffects::water_color),
-						Codec.INT.fieldOf("water_fog_color").forGetter(PlanetBiomeEffects::water_fog_color))
+						Codec.INT.fieldOf("water_fog_color").forGetter(PlanetBiomeEffects::water_fog_color),
+						Codec.INT.fieldOf("grass_color").forGetter(PlanetBiomeEffects::grass_color))
 				.apply(instance, PlanetBiomeEffects::new));
 
 		public BiomeSpecialEffects.Builder build() {
 			return new BiomeSpecialEffects.Builder().fogColor(fog_color).skyColor(sky_color).waterColor(water_color)
-					.waterFogColor(water_fog_color);
+					.waterFogColor(water_fog_color).grassColorOverride(grass_color);
 		}
 	}
 

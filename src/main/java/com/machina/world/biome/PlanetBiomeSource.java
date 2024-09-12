@@ -2,7 +2,7 @@ package com.machina.world.biome;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 import com.machina.api.starchart.Starchart;
@@ -70,43 +70,60 @@ public class PlanetBiomeSource {
 						Parameter.span(0.16F, 1.0F), 0L));
 	}
 
-	private void forall(String category, Consumer<Holder<Biome>> action) {
-		boolean found = false;
-		for (BiomePlacement placement : type.biomes()) {
-			if (placement.placements().contains(category)) {
-				found = true;
-				ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, placement.biome());
-				action.accept(this.biomeReg.get(key).get());
-			}
+	private List<BiomePlacement> withCategory(String category) {
+		return type.biomes().stream().filter(x -> x.placements().contains(category)).collect(Collectors.toList());
+	}
+
+	public static List<Parameter> generateIntervals(int n) {
+		List<Parameter> intervals = new ArrayList<>();
+		float intervalSize = 2.0f / n;
+		for (int i = 0; i < n; i++) {
+			float minInterval = -1.0f + i * intervalSize;
+			float maxInterval = minInterval + intervalSize;
+			intervals.add(Parameter.span(minInterval, maxInterval));
+		}
+		return intervals;
+	}
+
+	private void forall(String category, BiConsumer<Holder<Biome>, Parameter> action) {
+		List<BiomePlacement> matching = withCategory(category);
+		List<Parameter> intervals = generateIntervals(matching.size());
+		System.out.println(matching.size());
+		intervals.forEach(x -> System.out.println(x.min() + " " + x.max()));
+		for (int i = 0; i < matching.size(); i++) {
+			ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, matching.get(i).biome());
+			action.accept(this.biomeReg.get(key).get(), intervals.get(i));
 		}
 
-		if (!found) {
-			for (BiomePlacement placement : type.biomes()) {
-				if (placement.placements().contains("FALLBACK")) {
-					found = true;
-					ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, placement.biome());
-					action.accept(this.biomeReg.get(key).get());
-				}
+		if (matching.isEmpty()) {
+			matching = withCategory("FALLBACK");
+			for (int i = 0; i < matching.size(); i++) {
+				ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, matching.get(i).biome());
+				action.accept(this.biomeReg.get(key).get(), FULL);
 			}
 		}
 	}
 
 	private void addOceanBiomes() {
 		if (planet.hasGenLiquid()) {
-			forall("DEEP_OCEAN", ocean -> {
-				addOceanBiome(deepOceanCont, FULL, FULL, 0.0F, ocean);
+			forall("DEEP_OCEAN", (ocean, v) -> {
+				addOceanBiome(deepOceanCont, FULL, FULL, 0.0F, ocean, v);
 			});
-			forall("OCEAN", ocean -> {
-				addOceanBiome(oceanCont, FULL, FULL, 0.0F, ocean);
+			forall("OCEAN", (ocean, v) -> {
+				addOceanBiome(oceanCont, FULL, FULL, 0.0F, ocean, v);
 			});
 		}
 	}
 
 	private void addUndergroundBiomes() {
-		forall("CAVE", cave -> {
-			for (int i = 0; i < 3; i++) {
-				addUndergroundBiome(FULL, FULL, depths[i], FULL, 0.0F, cave);
-			}
+		forall("CAVE_SHALLOW", (cave, v) -> {
+			addUndergroundBiome(FULL, FULL, depths[0], FULL, 0.0F, cave, v);
+		});
+		forall("CAVE_MIDDLE", (cave, v) -> {
+			addUndergroundBiome(FULL, FULL, depths[1], FULL, 0.0F, cave, v);
+		});
+		forall("CAVE_DEEP", (cave, v) -> {
+			addUndergroundBiome(FULL, FULL, depths[2], FULL, 0.0F, cave, v);
 		});
 	}
 
@@ -127,124 +144,124 @@ public class PlanetBiomeSource {
 	}
 
 	private void addPeaks(Parameter depth) {
-		forall("PLATEAU", biome -> {
-			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[2], depth, 0.0F, biome);
-			addSurfaceBiome(farInlandCont, erosions[3], depth, 0.0F, biome);
+		forall("PLATEAU", (biome, v) -> {
+			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[2], depth, 0.0F, biome, v);
+			addSurfaceBiome(farInlandCont, erosions[3], depth, 0.0F, biome, v);
 		});
 
-		forall("PEAK", biome -> {
-			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[0], depth, 0.0F, biome);
-			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[1], depth, 0.0F, biome);
+		forall("PEAK", (biome, v) -> {
+			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[0], depth, 0.0F, biome, v);
+			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[1], depth, 0.0F, biome, v);
 		});
-		forall("MIDDLE", biome -> {
+		forall("MIDDLE", (biome, v) -> {
 			addSurfaceBiome(Parameter.span(coastCont, nearInlandCont), Parameter.span(erosions[2], erosions[3]), depth,
-					0.0F, biome);
-			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[4], depth, 0.0F, biome);
-			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[6], depth, 0.0F, biome);
+					0.0F, biome, v);
+			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[4], depth, 0.0F, biome, v);
+			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[6], depth, 0.0F, biome, v);
 		});
 
 	}
 
 	private void addHighSlice(Parameter depth) {
-		forall("PLATEAU", biome -> {
-			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[2], depth, 0.0F, biome);
-			addSurfaceBiome(farInlandCont, erosions[3], depth, 0.0F, biome);
+		forall("PLATEAU", (biome, v) -> {
+			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[2], depth, 0.0F, biome, v);
+			addSurfaceBiome(farInlandCont, erosions[3], depth, 0.0F, biome, v);
 		});
-		forall("SLOPE", biome -> {
-			addSurfaceBiome(nearInlandCont, erosions[0], depth, 0.0F, biome);
-			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[1], depth, 0.0F, biome);
+		forall("SLOPE", (biome, v) -> {
+			addSurfaceBiome(nearInlandCont, erosions[0], depth, 0.0F, biome, v);
+			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[1], depth, 0.0F, biome, v);
 		});
-		forall("PEAK", biome -> {
-			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[0], depth, 0.0F, biome);
+		forall("PEAK", (biome, v) -> {
+			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[0], depth, 0.0F, biome, v);
 		});
-		forall("MIDDLE", biome -> {
-			addSurfaceBiome(coastCont, Parameter.span(erosions[0], erosions[1]), depth, 0.0F, biome);
+		forall("MIDDLE", (biome, v) -> {
+			addSurfaceBiome(coastCont, Parameter.span(erosions[0], erosions[1]), depth, 0.0F, biome, v);
 			addSurfaceBiome(Parameter.span(coastCont, nearInlandCont), Parameter.span(erosions[2], erosions[3]), depth,
-					0.0F, biome);
-			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[4], depth, 0.0F, biome);
-			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[6], depth, 0.0F, biome);
+					0.0F, biome, v);
+			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[4], depth, 0.0F, biome, v);
+			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[6], depth, 0.0F, biome, v);
 		});
 	}
 
 	private void addMidSlice(Parameter depth) {
-		forall("PLATEAU", biome -> {
-			addSurfaceBiome(farInlandCont, erosions[1], depth, 0.0F, biome);
-			addSurfaceBiome(farInlandCont, erosions[2], depth, 0.0F, biome);
+		forall("PLATEAU", (biome, v) -> {
+			addSurfaceBiome(farInlandCont, erosions[1], depth, 0.0F, biome, v);
+			addSurfaceBiome(farInlandCont, erosions[2], depth, 0.0F, biome, v);
 		});
-		forall("BEACH", biome -> {
+		forall("BEACH", (biome, v) -> {
 			if (depth.max() < 0L) {
-				addSurfaceBiome(coastCont, erosions[4], depth, 0.0F, biome);
+				addSurfaceBiome(coastCont, erosions[4], depth, 0.0F, biome, v);
 			}
 			if (depth.max() < 0L) {
-				addSurfaceBiome(coastCont, erosions[6], depth, 0.0F, biome);
+				addSurfaceBiome(coastCont, erosions[6], depth, 0.0F, biome, v);
 			}
 		});
-		forall("SLOPE", biome -> {
-			addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[0], depth, 0.0F, biome);
+		forall("SLOPE", (biome, v) -> {
+			addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[0], depth, 0.0F, biome, v);
 		});
-		forall("MIDDLE", biome -> {
-			addSurfaceBiome(nearInlandCont, erosions[2], depth, 0.0F, biome);
-			addSurfaceBiome(Parameter.span(coastCont, nearInlandCont), erosions[3], depth, 0.0F, biome);
+		forall("MIDDLE", (biome, v) -> {
+			addSurfaceBiome(nearInlandCont, erosions[2], depth, 0.0F, biome, v);
+			addSurfaceBiome(Parameter.span(coastCont, nearInlandCont), erosions[3], depth, 0.0F, biome, v);
 			if (depth.max() < 0L) {
-				addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[4], depth, 0.0F, biome);
+				addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[4], depth, 0.0F, biome, v);
 			} else {
-				addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[4], depth, 0.0F, biome);
+				addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[4], depth, 0.0F, biome, v);
 			}
 			if (depth.max() >= 0L) {
-				addSurfaceBiome(coastCont, erosions[6], depth, 0.0F, biome);
+				addSurfaceBiome(coastCont, erosions[6], depth, 0.0F, biome, v);
 			}
-			addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[6], depth, 0.0F, biome);
+			addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[6], depth, 0.0F, biome, v);
 		});
 	}
 
 	private void addLowSlice(Parameter depth) {
-		forall("BEACH", biome -> {
-			addSurfaceBiome(coastCont, Parameter.span(erosions[3], erosions[4]), depth, 0.0F, biome);
-			addSurfaceBiome(coastCont, erosions[6], depth, 0.0F, biome);
+		forall("BEACH", (biome, v) -> {
+			addSurfaceBiome(coastCont, Parameter.span(erosions[3], erosions[4]), depth, 0.0F, biome, v);
+			addSurfaceBiome(coastCont, erosions[6], depth, 0.0F, biome, v);
 		});
-		forall("MIDDLE", biome -> {
-			addSurfaceBiome(nearInlandCont, Parameter.span(erosions[2], erosions[3]), depth, 0.0F, biome);
-			addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[4], depth, 0.0F, biome);
-			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[5], depth, 0.0F, biome);
+		forall("MIDDLE", (biome, v) -> {
+			addSurfaceBiome(nearInlandCont, Parameter.span(erosions[2], erosions[3]), depth, 0.0F, biome, v);
+			addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[4], depth, 0.0F, biome, v);
+			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[5], depth, 0.0F, biome, v);
 
-			addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[6], depth, 0.0F, biome);
+			addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[6], depth, 0.0F, biome, v);
 		});
 	}
 
 	private void addValleys(Parameter depth) {
-		forall("BEACH", biome -> {
+		forall("BEACH", (biome, v) -> {
 			if (depth.max() < 0L) {
-				addSurfaceBiome(coastCont, Parameter.span(erosions[0], erosions[1]), depth, 0.0F, biome);
+				addSurfaceBiome(coastCont, Parameter.span(erosions[0], erosions[1]), depth, 0.0F, biome, v);
 			}
 		});
-		forall("RIVER", biome -> {
+		forall("RIVER", (biome, v) -> {
 			if (depth.max() >= 0L) {
-				addSurfaceBiome(coastCont, Parameter.span(erosions[0], erosions[1]), depth, 0.0F, biome);
+				addSurfaceBiome(coastCont, Parameter.span(erosions[0], erosions[1]), depth, 0.0F, biome, v);
 			}
-			addSurfaceBiome(nearInlandCont, Parameter.span(erosions[0], erosions[1]), depth, 0.0F, biome);
+			addSurfaceBiome(nearInlandCont, Parameter.span(erosions[0], erosions[1]), depth, 0.0F, biome, v);
 			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), Parameter.span(erosions[2], erosions[5]), depth,
-					0.0F, biome);
-			addSurfaceBiome(coastCont, erosions[6], depth, 0.0F, biome);
-			addSurfaceBiome(Parameter.span(inlandCont, farInlandCont), erosions[6], depth, 0.0F, biome);
+					0.0F, biome, v);
+			addSurfaceBiome(coastCont, erosions[6], depth, 0.0F, biome, v);
+			addSurfaceBiome(Parameter.span(inlandCont, farInlandCont), erosions[6], depth, 0.0F, biome, v);
 		});
 	}
 
 	private void addSurfaceBiome(Parameter continentalness, Parameter erosion, Parameter weirdness, float offset,
-			Holder<Biome> biome) {
+			Holder<Biome> biome, Parameter variant) {
 		if (biome == null)
 			return;
-		addBiome(FULL, continentalness, erosion, ZERO, weirdness, offset, biome);
-		addBiome(FULL, continentalness, erosion, ONE, weirdness, offset, biome);
+		addBiome(variant, continentalness, erosion, ZERO, weirdness, offset, biome);
+		addBiome(variant, continentalness, erosion, ONE, weirdness, offset, biome);
 	}
 
 	private void addOceanBiome(Parameter continentalness, Parameter erosion, Parameter weirdness, float offset,
-			Holder<Biome> biome) {
-		addBiome(FULL, continentalness, erosion, ZERO, weirdness, offset, biome);
+			Holder<Biome> biome, Parameter variant) {
+		addBiome(variant, continentalness, erosion, ZERO, weirdness, offset, biome);
 	}
 
 	private void addUndergroundBiome(Parameter continentalness, Parameter erosion, Parameter depth, Parameter weirdness,
-			float offset, Holder<Biome> biome) {
-		addBiome(FULL, continentalness, erosion, depth, weirdness, offset, biome);
+			float offset, Holder<Biome> biome, Parameter variant) {
+		addBiome(variant, continentalness, erosion, depth, weirdness, offset, biome);
 	}
 
 	private void addBiome(Parameter variant, Parameter continentalness, Parameter erosion, Parameter depth,

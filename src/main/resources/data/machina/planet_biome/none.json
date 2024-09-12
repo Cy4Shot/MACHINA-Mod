@@ -3,7 +3,8 @@
 		"fog_color": 0,
 		"sky_color": 0,
 		"water_color": 0,
-		"water_fog_color": 0
+		"water_fog_color": 0,
+		"grass_color": 65280
 	},
 	"base": "minecraft:stone",
 	"stair": "minecraft:stone_stairs",

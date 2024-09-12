@@ -50,11 +50,12 @@ public class DatagenBlockTags extends BlockTagsProvider {
 		tallFlower(BlockInit.ORPHEUM);
 		tag(BlockTags.FLOWERS).add(BlockInit.CLOVER.get());
 
-		tag(BlockTagInit.PLANET_GROWABLE).add(BlockInit.TROPICAL_GRASS_BLOCK.get());
+		tag(BlockTagInit.PLANET_GROWABLE).add(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.FOREST_GRASS_BLOCK.get(),
+				BlockInit.TROPICAL_DIRT.get(), BlockInit.FOREST_DIRT.get(), BlockInit.PEAT.get(), BlockInit.SILT.get());
 
 		tag(BlockTagInit.PLANET_CARVABLE).add(Blocks.STONE, BlockInit.TROPICAL_DIRT.get(),
 				BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.FOREST_GRASS_BLOCK.get(), BlockInit.FOREST_DIRT.get(),
-				BlockInit.PEAT.get(), Blocks.GRAVEL, Blocks.WATER);
+				BlockInit.PEAT.get(), BlockInit.SILT.get(), Blocks.GRAVEL, Blocks.WATER);
 
 		BlockFamiliesInit.STONES.forEach(this::stoneFamily);
 		BlockFamiliesInit.WOODS.forEach(this::woodFamily);

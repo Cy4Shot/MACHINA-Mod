@@ -22,12 +22,13 @@ public class PlanetDensityFunction {
 	private static final ResourceKey<DensityFunction> Y = createKey("y");
 	private static final ResourceKey<DensityFunction> SHIFT_X = createKey("shift_x");
 	private static final ResourceKey<DensityFunction> SHIFT_Z = createKey("shift_z");
-	private static final ResourceKey<DensityFunction> CONTINENTS = createKey("overworld/continents");
-	private static final ResourceKey<DensityFunction> EROSION = createKey("overworld/erosion");
+	private static final ResourceKey<DensityFunction> CONTINENTS_LARGE = createKey("overworld_large_biomes/continents");
+	private static final ResourceKey<DensityFunction> EROSION_LARGE = createKey("overworld_large_biomes/erosion");
 	private static final ResourceKey<DensityFunction> RIDGES = createKey("overworld/ridges");
-	private static final ResourceKey<DensityFunction> FACTOR = createKey("overworld/factor");
-	private static final ResourceKey<DensityFunction> DEPTH = createKey("overworld/depth");
-	private static final ResourceKey<DensityFunction> SLOPED_CHEESE = createKey("overworld/sloped_cheese");
+	private static final ResourceKey<DensityFunction> FACTOR_LARGE = createKey("overworld_large_biomes/factor");
+	private static final ResourceKey<DensityFunction> DEPTH_LARGE = createKey("overworld_large_biomes/depth");
+	private static final ResourceKey<DensityFunction> SLOPED_CHEESE_LARGE = createKey(
+			"overworld_large_biomes/sloped_cheese");
 	private static final ResourceKey<DensityFunction> ENTRANCES = createKey("overworld/caves/entrances");
 	private static final ResourceKey<DensityFunction> NOODLE = createKey("overworld/caves/noodle");
 	private static final ResourceKey<DensityFunction> PILLARS = createKey("overworld/caves/pillars");
@@ -46,10 +47,10 @@ public class PlanetDensityFunction {
 		DensityFunction df5 = getFunction(densities, SHIFT_Z);
 		DensityFunction df6 = DensityFunctions.shiftedNoise2d(df4, df5, 0.25D, noises.getOrThrow(Noises.TEMPERATURE));
 		DensityFunction df7 = DensityFunctions.shiftedNoise2d(df4, df5, 0.25D, noises.getOrThrow(Noises.VEGETATION));
-		DensityFunction df8 = getFunction(densities, FACTOR);
-		DensityFunction df9 = getFunction(densities, DEPTH);
+		DensityFunction df8 = getFunction(densities, FACTOR_LARGE);
+		DensityFunction df9 = getFunction(densities, DEPTH_LARGE);
 		DensityFunction df10 = noiseGradientDensity(DensityFunctions.cache2d(df8), df9);
-		DensityFunction df11 = getFunction(densities, SLOPED_CHEESE);
+		DensityFunction df11 = getFunction(densities, SLOPED_CHEESE_LARGE);
 		DensityFunction df12 = DensityFunctions.min(df11,
 				DensityFunctions.mul(DensityFunctions.constant(5.0D), getFunction(densities, ENTRANCES)));
 		DensityFunction df13 = DensityFunctions.rangeChoice(df11, -1000000.0D, 1.5625D, df12,
@@ -71,8 +72,8 @@ public class PlanetDensityFunction {
 		DensityFunction df19 = DensityFunctions.add(DensityFunctions.constant((double) -0.08F),
 				DensityFunctions.max(df17, df18));
 		DensityFunction df20 = DensityFunctions.noise(noises.getOrThrow(Noises.ORE_GAP));
-		return new NoiseRouter(df, df1, df2, df3, df6, df7, getFunction(densities, CONTINENTS),
-				getFunction(densities, EROSION), df9, getFunction(densities, RIDGES),
+		return new NoiseRouter(df, df1, df2, df3, df6, df7, getFunction(densities, CONTINENTS_LARGE),
+				getFunction(densities, EROSION_LARGE), df9, getFunction(densities, RIDGES),
 				slideOverworld(DensityFunctions.add(df10, DensityFunctions.constant(-0.703125D)).clamp(-64.0D, 64.0D)),
 				df14, df16, df19, df20);
 	}
@@ -114,6 +115,7 @@ public class PlanetDensityFunction {
 	}
 
 	private static DensityFunction slideOverworld(DensityFunction df) {
+//		return slide(df, -64, 384, 16, 0, -0.078125D, 0, 24, 0.4D);
 		return slide(df, -64, 384, 80, 64, -0.078125D, 0, 24, 0.1171875D);
 	}
 
