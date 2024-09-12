@@ -2,20 +2,29 @@ package com.machina.events;
 
 import com.machina.Machina;
 import com.machina.api.starchart.Starchart;
-import com.machina.registration.Registration;
+import com.machina.api.starchart.planet_biome.PlanetBiomeLoader;
 import com.machina.registration.init.BlockFamiliesInit;
-import com.machina.registration.init.ItemInit;
 import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
+import com.machina.registration.init.ItemInit;
+import com.machina.registration.init.JsonLoaderInit;
 import com.machina.world.PlanetRegistrationHandler;
+import com.machina.world.biome.PlanetBiome;
 import com.machina.world.data.PlanetDimensionData;
+import com.mojang.serialization.Lifecycle;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.MappedRegistry;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ToolAction;
@@ -26,6 +35,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.LevelEvent;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -35,7 +45,7 @@ public class CommonForgeEvents {
 
 	@SubscribeEvent
 	public static void addReloadListeners(AddReloadListenerEvent event) {
-		event.addListener(Registration.MULTIBLOCK_LOADER);
+		JsonLoaderInit.registerAll(event);
 	}
 
 	@SubscribeEvent
@@ -75,6 +85,29 @@ public class CommonForgeEvents {
 			return;
 		}
 		PlanetDimensionData.getDefaultInstance(server).updateSeed(((ServerLevel) event.getLevel()).getSeed());
+	}
+
+	@SubscribeEvent
+	public static void serverAboutToStart(final ServerAboutToStartEvent event) {
+		MinecraftServer server = event.getServer();
+		PlanetBiomeLoader.INSTANCE.getEntrySet().forEach(e -> {
+			registerBiome(server, e.getKey(), new PlanetBiome(e.getValue()));
+		});
+	}
+
+	private static void registerBiome(MinecraftServer server, ResourceLocation loc, PlanetBiome biome) {
+		ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, loc);
+		Registry<Biome> dimRegFrozen = server.registryAccess().registryOrThrow(Registries.BIOME);
+		if (dimRegFrozen.containsKey(key)) {
+			return;
+		}
+		if (dimRegFrozen instanceof MappedRegistry<Biome> biomeReg) {
+			biomeReg.unfreeze();
+			biomeReg.register(key, biome, Lifecycle.stable());
+		} else {
+			throw new IllegalStateException(
+					String.format("Unable to register dimension %s -- dimension registry not writable", loc));
+		}
 	}
 
 	@SubscribeEvent

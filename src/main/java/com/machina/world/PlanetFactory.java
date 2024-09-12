@@ -1,9 +1,9 @@
 package com.machina.world;
 
 import com.machina.Machina;
-import com.machina.api.starchart.PlanetType;
 import com.machina.api.starchart.Starchart;
 import com.machina.api.starchart.obj.Planet;
+import com.machina.api.starchart.planet_type.PlanetType;
 import com.machina.api.util.MachinaRL;
 import com.machina.api.util.PlanetHelper;
 import com.machina.world.biome.PlanetBiomeSource;
@@ -30,10 +30,9 @@ public class PlanetFactory {
 	public static LevelStem createDimension(MinecraftServer server, ResourceKey<LevelStem> key) {
 		long seed = server.overworld().getSeed();
 		Planet planet = Starchart.system(seed).planets().get(PlanetHelper.getIdDim(key));
-		MultiNoiseBiomeSource bs = new PlanetBiomeSource(key, seed).build();
-
-		RegistryAccess lookup = server.registries().compositeAccess();
 		PlanetType type = planet.type();
+		RegistryAccess lookup = server.registryAccess();
+		MultiNoiseBiomeSource bs = new PlanetBiomeSource(key, seed, lookup).build();
 
 		BlockState fluid = planet.getDominantLiquidBodyBlock();
 		int sea_level = type.shape().sea_level();
@@ -42,8 +41,7 @@ public class PlanetFactory {
 			sea_level = -1;
 		}
 
-		NoiseGeneratorSettings settings = new NoiseGeneratorSettings(type.shape().noise_settings(),
-				type.underground().rock().base(), fluid,
+		NoiseGeneratorSettings settings = new NoiseGeneratorSettings(type.shape().noise_settings(), type.base(), fluid,
 				PlanetDensityFunction.planet(planet, lookup.lookup(Registries.DENSITY_FUNCTION).get(),
 						lookup.lookup(Registries.NOISE).get()),
 				PlanetSurfaceRule.planet(planet), PlanetBiomeSource.spawnTarget(), sea_level, false, true, false,

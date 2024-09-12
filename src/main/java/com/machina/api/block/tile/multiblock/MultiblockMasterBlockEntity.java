@@ -54,7 +54,7 @@ public abstract class MultiblockMasterBlockEntity extends MachinaBlockEntity {
 	public MultiblockMasterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 
-		this.mb = MultiblockLoader.INSTANCE.getMultiblock(getMultiblock());
+		this.mb = MultiblockLoader.INSTANCE.get(getMultiblock());
 	}
 
 	/**

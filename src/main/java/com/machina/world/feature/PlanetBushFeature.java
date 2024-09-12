@@ -1,5 +1,6 @@
 package com.machina.world.feature;
 
+import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeBush;
 import com.machina.api.util.math.MathUtil;
 import com.machina.api.util.math.sdf.SDF;
 import com.machina.api.util.math.sdf.operator.SDFDisplacement;
@@ -13,7 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -21,12 +21,10 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 
 public class PlanetBushFeature extends Feature<PlanetBushFeature.PlanetBushFeatureConfig> {
 
-	public static record PlanetBushFeatureConfig(BlockState state, float radius, int perchunk) implements FeatureConfiguration {
+	public static record PlanetBushFeatureConfig(PlanetBiomeBush bush) implements FeatureConfiguration {
 
 		public static final Codec<PlanetBushFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance
-				.group(BlockState.CODEC.fieldOf("state").forGetter(PlanetBushFeatureConfig::state),
-						Codec.FLOAT.fieldOf("radius").forGetter(PlanetBushFeatureConfig::radius),
-						Codec.INT.fieldOf("perchunk").forGetter(PlanetBushFeatureConfig::perchunk))
+				.group(PlanetBiomeBush.CODEC.fieldOf("bush").forGetter(PlanetBushFeatureConfig::bush))
 				.apply(instance, PlanetBushFeatureConfig::new));
 	}
 
@@ -45,10 +43,10 @@ public class PlanetBushFeature extends Feature<PlanetBushFeature.PlanetBushFeatu
 		BlockPos place = new BlockPos(pos.getX(), y, pos.getZ());
 
 		float sx = MathUtil.randRange(rand, 0.5f, 1.5f);
-		float sy = MathUtil.randRange(rand, 0.3f, 2.5f) / config.radius();
+		float sy = MathUtil.randRange(rand, 0.3f, 2.5f) / config.bush().radius();
 		float sz = MathUtil.randRange(rand, 0.5f, 1.5f);
 
-		SDF blob = new SDFSphere(config.radius()).setBlock(config.state());
+		SDF blob = new SDFSphere(config.bush().radius()).setBlock(config.bush().block());
 		blob = new SDFScale3D(blob, sx, sy, sz);
 		blob = new SDFDisplacement(blob, rand, 4f);
 		blob.addPostProcess(new SDFChanceFilter(rand, 0.85f));

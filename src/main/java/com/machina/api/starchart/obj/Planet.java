@@ -5,15 +5,16 @@ import java.util.List;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.machina.api.starchart.PlanetType;
+import com.machina.api.starchart.planet_type.PlanetType;
+import com.machina.api.starchart.planet_type.PlanetTypeLoader;
 import com.machina.api.util.ChemicalConstants;
 import com.machina.api.util.ChemicalConstants.FluidTempState;
-import com.machina.registration.init.PlanetTypeInit;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-public record Planet(String name, String planet_type, double a, // semi-major axis of the orbit (in AU)
+public record Planet(String name, ResourceLocation planet_type, double a, // semi-major axis of the orbit (in AU)
 		double e, // eccentricity of the orbit
 		double where_in_orbit, // position along orbit (in radians)
 		double mass, // mass (in Earth masses)
@@ -53,7 +54,7 @@ public record Planet(String name, String planet_type, double a, // semi-major ax
 	}
 
 	public PlanetType type() {
-		return PlanetTypeInit.get(planet_type);
+		return PlanetTypeLoader.INSTANCE.get(planet_type);
 	}
 
 	public Vec3 calculateOrbitalCoordinates(double t) {

@@ -1,19 +1,13 @@
 package com.machina.world.functions;
 
-import java.util.Arrays;
-import java.util.stream.LongStream;
-
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.function.TriFunction;
 
 import com.google.common.collect.ImmutableList;
-import com.machina.api.starchart.PlanetType;
 import com.machina.api.starchart.obj.Planet;
+import com.machina.api.starchart.planet_type.PlanetType;
 import com.machina.world.biome.PlanetBiome;
-import com.machina.world.biome.PlanetBiome.BiomeCategory;
-import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.Codec;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -22,7 +16,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.SurfaceRules;
-import net.minecraft.world.level.levelgen.SurfaceRules.Context;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
 public class PlanetSurfaceRule {
@@ -38,11 +31,10 @@ public class PlanetSurfaceRule {
 	}
 
 	public static SurfaceRules.RuleSource planetLike(Planet p, boolean top, boolean bottom) {
-
 		PlanetType type = p.type();
-		SurfaceRules.RuleSource top_block = new PlanetBiomeTopBlockRuleSource(type.surface().top());
-		SurfaceRules.RuleSource second_top_block = new PlanetBiomeSecondBlockRuleSource(type.surface().second());
-		SurfaceRules.RuleSource rock = new PlanetBiomeThirdBlockRuleSource(type.underground().rock().base());
+		SurfaceRules.RuleSource top_block = new PlanetBiomeTopBlockRuleSource(makeStateRule(type.top()));
+		SurfaceRules.RuleSource second_top_block = new PlanetBiomeSecondBlockRuleSource(makeStateRule(type.second()));
+		SurfaceRules.RuleSource rock = new PlanetBiomeThirdBlockRuleSource(makeStateRule(type.base()));
 
 		SurfaceRules.ConditionSource cs7 = SurfaceRules.waterBlockCheck(-1, 0);
 		SurfaceRules.ConditionSource cs8 = SurfaceRules.waterBlockCheck(0, 0);
@@ -71,23 +63,11 @@ public class PlanetSurfaceRule {
 		}));
 	}
 
-	private static PlanetBiomeConditionSource isPlanetBiome(BiomeCategory cat) {
-		return new PlanetBiomeConditionSource(cat);
-	}
-
-	@SuppressWarnings("unused")
-	private static AndConditionSource and(SurfaceRules.ConditionSource... ts) {
-		return new AndConditionSource(ts);
-	}
-
-	@SuppressWarnings("unused")
-	private static AndConditionSource or(SurfaceRules.ConditionSource... ts) {
-		return new AndConditionSource(ts);
-	}
-
-	static record PlanetBiomeTopBlockRuleSource(BlockState fallback) implements SurfaceRules.RuleSource {
-		static final KeyDispatchDataCodec<PlanetBiomeTopBlockRuleSource> CODEC = KeyDispatchDataCodec
-				.of(BlockState.CODEC.xmap(PlanetBiomeTopBlockRuleSource::new, PlanetBiomeTopBlockRuleSource::fallback));
+	public static record PlanetBiomeTopBlockRuleSource(SurfaceRules.RuleSource fallback)
+			implements SurfaceRules.RuleSource {
+		public static final KeyDispatchDataCodec<PlanetBiomeTopBlockRuleSource> CODEC = KeyDispatchDataCodec
+				.of(SurfaceRules.RuleSource.CODEC.xmap(PlanetBiomeTopBlockRuleSource::new,
+						PlanetBiomeTopBlockRuleSource::fallback));
 
 		public KeyDispatchDataCodec<PlanetBiomeTopBlockRuleSource> codec() {
 			return CODEC;
@@ -102,14 +82,15 @@ public class PlanetSurfaceRule {
 						return state;
 					}
 				}
-				return fallback;
+				return fallback.apply(ctx).tryApply(x, y, z);
 			});
 		}
 	}
 
-	static record PlanetBiomeSecondBlockRuleSource(BlockState fallback) implements SurfaceRules.RuleSource {
-		static final KeyDispatchDataCodec<PlanetBiomeSecondBlockRuleSource> CODEC = KeyDispatchDataCodec
-				.of(BlockState.CODEC.xmap(PlanetBiomeSecondBlockRuleSource::new,
+	public static record PlanetBiomeSecondBlockRuleSource(SurfaceRules.RuleSource fallback)
+			implements SurfaceRules.RuleSource {
+		public static final KeyDispatchDataCodec<PlanetBiomeSecondBlockRuleSource> CODEC = KeyDispatchDataCodec
+				.of(SurfaceRules.RuleSource.CODEC.xmap(PlanetBiomeSecondBlockRuleSource::new,
 						PlanetBiomeSecondBlockRuleSource::fallback));
 
 		public KeyDispatchDataCodec<PlanetBiomeSecondBlockRuleSource> codec() {
@@ -125,14 +106,16 @@ public class PlanetSurfaceRule {
 						return state;
 					}
 				}
-				return fallback;
+				return fallback.apply(ctx).tryApply(x, y, z);
 			});
 		}
 	}
 
-	static record PlanetBiomeThirdBlockRuleSource(BlockState fallback) implements SurfaceRules.RuleSource {
-		static final KeyDispatchDataCodec<PlanetBiomeThirdBlockRuleSource> CODEC = KeyDispatchDataCodec.of(
-				BlockState.CODEC.xmap(PlanetBiomeThirdBlockRuleSource::new, PlanetBiomeThirdBlockRuleSource::fallback));
+	public static record PlanetBiomeThirdBlockRuleSource(SurfaceRules.RuleSource fallback)
+			implements SurfaceRules.RuleSource {
+		public static final KeyDispatchDataCodec<PlanetBiomeThirdBlockRuleSource> CODEC = KeyDispatchDataCodec
+				.of(SurfaceRules.RuleSource.CODEC.xmap(PlanetBiomeThirdBlockRuleSource::new,
+						PlanetBiomeThirdBlockRuleSource::fallback));
 
 		public KeyDispatchDataCodec<PlanetBiomeThirdBlockRuleSource> codec() {
 			return CODEC;
@@ -147,123 +130,17 @@ public class PlanetSurfaceRule {
 						return state;
 					}
 				}
-				return fallback;
+				return fallback.apply(ctx).tryApply(x, y, z);
 			});
 		}
 	}
 
-	static record StateRule(TriFunction<Integer, Integer, Integer, BlockState> state)
+	public static record StateRule(TriFunction<Integer, Integer, Integer, BlockState> state)
 			implements SurfaceRules.SurfaceRule {
+
 		@Nullable
 		public BlockState tryApply(int x, int y, int z) {
 			return state.apply(x, y, z);
 		}
 	}
-
-	static final class PlanetBiomeConditionSource implements SurfaceRules.ConditionSource {
-		static final KeyDispatchDataCodec<PlanetBiomeConditionSource> CODEC = KeyDispatchDataCodec
-				.of(BiomeCategory.CODEC.fieldOf("planet_biome_is").xmap(PlanetSurfaceRule::isPlanetBiome, c -> c.cat));
-
-		private final BiomeCategory cat;
-
-		PlanetBiomeConditionSource(BiomeCategory cat) {
-			this.cat = cat;
-		}
-
-		public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
-			return CODEC;
-		}
-
-		public SurfaceRules.Condition apply(final SurfaceRules.Context ctx) {
-			class PlanetBiomeCondition extends SurfaceRules.LazyYCondition {
-				PlanetBiomeCondition() {
-					super(ctx);
-				}
-
-				protected boolean compute() {
-					Biome b = this.context.biome.get().get();
-					if (b instanceof PlanetBiome) {
-						if (PlanetBiomeConditionSource.this.cat.equals(((PlanetBiome) b).cat)) {
-							return true;
-						}
-					}
-					return false;
-				}
-			}
-
-			return new PlanetBiomeCondition();
-		}
-
-		public boolean equals(Object p_209694_) {
-			if (this == p_209694_) {
-				return true;
-			} else if (p_209694_ instanceof PlanetBiomeConditionSource) {
-				PlanetBiomeConditionSource condsrc = (PlanetBiomeConditionSource) p_209694_;
-				return this.cat.equals(condsrc.cat);
-			} else {
-				return false;
-			}
-		}
-
-		public int hashCode() {
-			return this.cat.hashCode();
-		}
-
-		public String toString() {
-			return "PlanetBiomeConditionSource[cat=" + this.cat.name() + "]";
-		}
-	}
-
-	static record AndConditionSource(SurfaceRules.ConditionSource... ts) implements SurfaceRules.ConditionSource {
-		@Override
-		public SurfaceRules.Condition apply(Context t) {
-			return new SurfaceRules.Condition() {
-				@Override
-				public boolean test() {
-					return Arrays.asList(ts).stream().allMatch(x -> x.apply(t).test());
-				}
-			};
-		}
-
-		@Override
-		public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
-			return KeyDispatchDataCodec
-					.of(Codec
-							.compoundList(Codec.LONG,
-									SurfaceRules.ConditionSource.CODEC)
-							.xmap(l -> new AndConditionSource(
-									(SurfaceRules.ConditionSource[]) l.stream().map(Pair::getSecond).toArray()),
-									x -> LongStream.range(0, x.ts().length)
-											.mapToObj(t -> new Pair<Long, SurfaceRules.ConditionSource>(t,
-													(SurfaceRules.ConditionSource) x.ts[(int) t]))
-											.toList()));
-		}
-	}
-
-	static record OrConditionSource(SurfaceRules.ConditionSource... ts) implements SurfaceRules.ConditionSource {
-		@Override
-		public SurfaceRules.Condition apply(Context t) {
-			return new SurfaceRules.Condition() {
-				@Override
-				public boolean test() {
-					return Arrays.asList(ts).stream().anyMatch(x -> x.apply(t).test());
-				}
-			};
-		}
-
-		@Override
-		public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
-			return KeyDispatchDataCodec
-					.of(Codec
-							.compoundList(Codec.LONG,
-									SurfaceRules.ConditionSource.CODEC)
-							.xmap(l -> new OrConditionSource(
-									(SurfaceRules.ConditionSource[]) l.stream().map(Pair::getSecond).toArray()),
-									x -> LongStream.range(0, x.ts().length)
-											.mapToObj(t -> new Pair<Long, SurfaceRules.ConditionSource>(t,
-													(SurfaceRules.ConditionSource) x.ts[(int) t]))
-											.toList()));
-		}
-	}
-
 }

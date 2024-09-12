@@ -37,6 +37,6 @@ public class Datagen {
 		DatagenBlockTags blocks = gen.addProvider(event.includeServer(), new DatagenBlockTags(po, lookup, files));
 		gen.addProvider(event.includeServer(), new DatagenItemTags(po, lookup, blocks.contentsGetter(), files));
 		gen.addProvider(event.includeServer(), new DatagenLootTables(po));
-		gen.addProvider(event.includeClient(), new DatagenRecipes(po));
+		gen.addProvider(event.includeServer(), new DatagenRecipes(po));
 	}
 }

@@ -12,9 +12,11 @@ import com.machina.api.starchart.obj.Moon;
 import com.machina.api.starchart.obj.Planet;
 import com.machina.api.starchart.obj.SolarSystem;
 import com.machina.api.starchart.obj.Star;
+import com.machina.api.starchart.planet_type.PlanetTypeLoader;
 import com.machina.api.util.math.RomanNumber;
-import com.machina.registration.init.PlanetTypeInit;
 import com.mojang.datafixers.util.Pair;
+
+import net.minecraft.resources.ResourceLocation;
 
 public class StarchartGenerator {
 
@@ -56,7 +58,7 @@ public class StarchartGenerator {
 			}
 		}
 		
-		String type = PlanetTypeInit.pickRandom(rand);
+		ResourceLocation type = PlanetTypeLoader.INSTANCE.pickRandom(rand);
 
 		Planet planet = new Planet(name, type, p.a, p.e, p.where_in_orbit, p.mass, p.gas_giant, p.orbit_zone, p.radius,
 				p.density, p.orb_period, p.day, p.resonant_period, p.axial_tilt, p.esc_velocity, p.surf_accel,

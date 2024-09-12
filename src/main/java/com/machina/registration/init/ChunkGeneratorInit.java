@@ -14,5 +14,5 @@ public class ChunkGeneratorInit {
 			.create(Registries.CHUNK_GENERATOR, Machina.MOD_ID);
 
 	public static final RegistryObject<Codec<PlanetChunkGenerator>> PLANET = CHUNK_GENERATORS.register("planet",
-			PlanetChunkGenerator::makeCodec);
+			() -> PlanetChunkGenerator.CODEC);
 }

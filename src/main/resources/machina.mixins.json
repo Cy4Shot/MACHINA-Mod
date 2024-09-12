@@ -5,11 +5,9 @@
 	"refmap": "machina.mixins.refmap.json",
 	"plugin": "com.machina.config.MixinConfig",
 	"mixins": [
-    "LevelMixin",
-    "ServerLevelMixin"
-	],
-	"client": [
-    "WorldOpenFlowsMixin"
+		"LevelMixin",
+		"ServerLevelMixin",
+		"DataLoadContextMixin"
 	],
 	"minVersion": "0.8"
 }

@@ -10,6 +10,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.BiomeSource;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Aquifer.FluidStatus;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
@@ -17,16 +18,11 @@ import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
 public class PlanetChunkGenerator extends NoiseBasedChunkGenerator {
 
-	public static Codec<PlanetChunkGenerator> makeCodec() {
-		//@formatter:off
-		return RecordCodecBuilder.create(instance -> instance.group(
-				BiomeSource.CODEC.fieldOf("biome_source").forGetter(c -> c.biomeSource),
-				NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter(c -> c.settings),
-				Codec.INT.fieldOf("id").forGetter(c -> c.id),
-				Codec.LONG.fieldOf("seed").forGetter(c -> c.seed))
+	public static final Codec<PlanetChunkGenerator> CODEC = RecordCodecBuilder.create(instance -> instance
+			.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter(c -> c.biomeSource),
+					NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter(c -> c.settings),
+					Codec.INT.fieldOf("id").forGetter(c -> c.id), Codec.LONG.fieldOf("seed").forGetter(c -> c.seed))
 			.apply(instance, PlanetChunkGenerator::new));
-		//@formatter:on
-	}
 
 	final int id;
 	final Planet planet;
@@ -47,5 +43,10 @@ public class PlanetChunkGenerator extends NoiseBasedChunkGenerator {
 			NoiseGeneratorSettings s = this.settings.value();
 			return new FluidStatus(s.seaLevel(), s.defaultFluid());
 		});
+	}
+
+	@Override
+	protected Codec<? extends ChunkGenerator> codec() {
+		return CODEC;
 	}
 }

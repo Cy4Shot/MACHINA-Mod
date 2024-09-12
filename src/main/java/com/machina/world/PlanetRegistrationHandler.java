@@ -6,11 +6,7 @@ import java.util.function.BiFunction;
 import com.google.common.collect.ImmutableList;
 import com.machina.api.network.PacketSender;
 import com.machina.api.network.s2c.S2CUpdateDimensionList;
-import com.machina.api.starchart.Starchart;
-import com.machina.api.starchart.obj.Planet;
 import com.machina.api.util.MachinaRL;
-import com.machina.world.biome.PlanetBiome;
-import com.machina.world.biome.PlanetBiomeRegistrationHandler;
 import com.machina.world.data.PlanetDimensionData;
 import com.mojang.serialization.Lifecycle;
 
@@ -46,12 +42,6 @@ public class PlanetRegistrationHandler {
 
 	public static ServerLevel getOrCreateWorld(MinecraftServer server, ResourceKey<Level> worldKey,
 			BiFunction<MinecraftServer, ResourceKey<LevelStem>, LevelStem> dimensionFactory, int id) {
-		final ResourceKey<LevelStem> dimensionKey = ResourceKey.create(Registries.LEVEL_STEM, worldKey.location());
-		long seed = server.getLevel(Level.OVERWORLD).getSeed();
-		Planet p = Starchart.system(seed).planets().get(id);
-		for (int b : PlanetDimensionData.getDefaultInstance(server).ids.get(id)) {
-			PlanetBiomeRegistrationHandler.getOrCreate(server, () -> new PlanetBiome(p, id, seed), dimensionKey, b);
-		}
 		Map<ResourceKey<Level>, ServerLevel> map = server.forgeGetWorldMap();
 		ServerLevel existingLevel = map.get(worldKey);
 		return existingLevel == null ? createAndRegister(server, map, worldKey, dimensionFactory, id) : existingLevel;

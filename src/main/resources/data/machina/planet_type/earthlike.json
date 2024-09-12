@@ -1,0 +1,29 @@
+{
+	"name": "machina:earthlike",
+	"shape": {
+		"sea_level": 60,
+		"noise_settings": {
+			"minY": -64,
+			"height": 384,
+			"noiseSizeHorizontal": 1,
+			"noiseSizeVertical": 2
+		}
+	},
+	"biomes": [
+		{
+			"name": "machina:tropical_forest",
+			"placements": [
+				"MIDDLE"
+			]
+		},
+		{
+			"name": "machina:none",
+			"placements": [
+				"FALLBACK"
+			]
+		}
+	],
+	"default_top": "minecraft:grass_block",
+	"default_second": "minecraft:dirt",
+	"default_base": "minecraft:stone"
+}

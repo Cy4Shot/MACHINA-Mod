@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.google.common.base.Joiner;
+import com.machina.api.util.loader.JsonInfo;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import net.minecraft.commands.arguments.blocks.BlockStateParser;
@@ -30,7 +31,7 @@ public class Multiblock {
 	public String[][][] structure;
 	public String[][][] renderStructure;
 
-	public class MultiblockJsonInfo {
+	public class MultiblockJsonInfo implements JsonInfo<Multiblock> {
 		public List<Integer> size;
 		public String controller;
 		public String controller_replacable;

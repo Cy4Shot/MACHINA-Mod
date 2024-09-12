@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 public class PlanetGrassFeature extends Feature<PlanetGrassFeature.PlanetGrassFeatureConfig> {
 
@@ -21,15 +20,14 @@ public class PlanetGrassFeature extends Feature<PlanetGrassFeature.PlanetGrassFe
 	private static int Y_SPREAD = 3;
 	private static int TRIES = 32;
 
-	public static record PlanetGrassFeatureConfig(BlockStateProvider provider) implements FeatureConfiguration {
+	public static record PlanetGrassFeatureConfig(WeightedStateProviderProvider provider)
+			implements FeatureConfiguration {
 
-		public PlanetGrassFeatureConfig(WeightedStateProviderProvider.Builder builder) {
-			this(builder.build());
-		}
-
-		public static final Codec<PlanetGrassFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance
-				.group(BlockStateProvider.CODEC.fieldOf("provider").forGetter(PlanetGrassFeatureConfig::provider))
-				.apply(instance, PlanetGrassFeatureConfig::new));
+		public static final Codec<PlanetGrassFeatureConfig> CODEC = RecordCodecBuilder
+				.create(instance -> instance
+						.group(WeightedStateProviderProvider.CODEC.fieldOf("provider")
+								.forGetter(PlanetGrassFeatureConfig::provider))
+						.apply(instance, PlanetGrassFeatureConfig::new));
 	}
 
 	public PlanetGrassFeature() {
