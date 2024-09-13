@@ -221,7 +221,7 @@ public abstract class SDF {
 		}
 	}
 
-	public void fillRecursiveShift(ServerLevelAccessor world, BlockPos start,
+	public Set<BlockPos> fillRecursiveShift(ServerLevelAccessor world, BlockPos start,
 			Function<MutableBlockPos, Boolean> shifter) {
 		Map<BlockPos, PosInfo> mapWorld = Maps.newHashMap();
 		Map<BlockPos, PosInfo> addInfo = Maps.newHashMap();
@@ -258,6 +258,7 @@ public abstract class SDF {
 		}
 
 		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
+		Set<BlockPos> positions = Sets.newHashSet();
 		if (infos.size() > 0) {
 			Collections.sort(infos);
 			postProcesses.forEach((postProcess) -> {
@@ -267,8 +268,10 @@ public abstract class SDF {
 			});
 			infos.forEach((info) -> {
 				MutableBlockPos mbp = info.getPos().mutable();
-				if (shifter.apply(mbp))
+				if (shifter.apply(mbp)) {
 					world.setBlock(mbp.immutable(), info.getState(), UPDATE_FLAGS);
+					positions.add(mbp.immutable());
+				}
 			});
 
 			infos.clear();
@@ -284,10 +287,13 @@ public abstract class SDF {
 				if (shifter.apply(mbp)) {
 					if (canReplace.apply(world.getBlockState(mbp.immutable()))) {
 						world.setBlock(mbp.immutable(), info.getState(), UPDATE_FLAGS);
+						positions.add(mbp.immutable());
 					}
 				}
 			});
 		}
+
+		return positions;
 	}
 
 	public Set<BlockPos> getPositions(ServerLevelAccessor world, BlockPos start) {

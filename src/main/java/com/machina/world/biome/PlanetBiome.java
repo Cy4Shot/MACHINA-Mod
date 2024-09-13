@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeBush;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeOre;
+import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeRock;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
 import com.machina.registration.init.SoundInit;
 import com.machina.world.feature.PlanetBushFeature;
@@ -14,6 +15,7 @@ import com.machina.world.feature.PlanetGrassFeature;
 import com.machina.world.feature.PlanetGrassFeature.PlanetGrassFeatureConfig;
 import com.machina.world.feature.PlanetLakeFeature;
 import com.machina.world.feature.PlanetOreFeature;
+import com.machina.world.feature.PlanetRockFeature;
 import com.machina.world.feature.PlanetTreeFeature;
 
 import net.minecraft.core.Holder;
@@ -128,8 +130,15 @@ public class PlanetBiome extends Biome {
 		}
 
 		if (s.lakes().enabled()) {
-			add(builder, Decoration.LAKES, new PlanetLakeFeature(), new PlanetLakeFeature.PlanetLakeFeatureConfig(s),
-					every(s.lakes().rarity()), spread(), onSurface(), biome());
+			add(builder, Decoration.LAKES, new PlanetLakeFeature(),
+					new PlanetLakeFeature.PlanetLakeFeatureConfig(s.lakes().base()), every(s.lakes().rarity()),
+					spread(), onSurface(), biome());
+		}
+
+		for (PlanetBiomeRock rock : s.rocks()) {
+			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetRockFeature(),
+					new PlanetRockFeature.PlanetRockFeatureConfig(rock), count(rock.perchunk()), spread(), onSurface(),
+					biome());
 		}
 	}
 

@@ -9,6 +9,7 @@ import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeGra
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeGrassSettings;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeLakes;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeOre;
+import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeRock;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
 import com.machina.api.util.block.BlockHelper;
 import com.machina.api.util.loader.JsonInfo;
@@ -18,8 +19,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, String top, String second, String stair,
 		String slab, String extra, List<PlanetBiomeTreeJsonInfo> trees, List<PlanetBiomeBushJsonInfo> bushes,
-		PlanetBiomeGrassSettingsJsonInfo grass, PlanetBiomeLakes lakes, List<PlanetBiomeOreJsonInfo> ores)
-		implements JsonInfo<PlanetBiomeSettings> {
+		PlanetBiomeGrassSettingsJsonInfo grass, PlanetBiomeLakesJsonInfo lakes, List<PlanetBiomeRockJsonInfo> rocks,
+		List<PlanetBiomeOreJsonInfo> ores) implements JsonInfo<PlanetBiomeSettings> {
 
 	public static BlockState getBlock(String block) {
 		return BlockHelper.parseState(BlockHelper.blockHolderLookup(), block);
@@ -59,6 +60,23 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		}
 	}
 
+	public record PlanetBiomeLakesJsonInfo(String block, boolean enabled, int rarity)
+			implements JsonInfo<PlanetBiomeLakes> {
+		@Override
+		public PlanetBiomeLakes cast() {
+			return new PlanetBiomeLakes(getBlock(block), enabled, rarity);
+		}
+	}
+
+	public record PlanetBiomeRockJsonInfo(String base, String stair, String slab, String wall, int perchunk,
+			float radius, float deform) implements JsonInfo<PlanetBiomeRock> {
+		@Override
+		public PlanetBiomeRock cast() {
+			return new PlanetBiomeRock(getBlock(base), getBlock(stair), getBlock(slab), getBlock(wall), perchunk,
+					radius, deform);
+		}
+	}
+
 	public record PlanetBiomeOreJsonInfo(String block, int size, float exposure_removal_chance, int per_chunk,
 			int min_y, int max_y) implements JsonInfo<PlanetBiomeOre> {
 		@Override
@@ -73,9 +91,11 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		List<PlanetBiomeBush> bushes = bushes().stream().map(PlanetBiomeBushJsonInfo::cast)
 				.collect(Collectors.toList());
 		PlanetBiomeGrassSettings grass = grass().cast();
+		PlanetBiomeLakes lakes = lakes().cast();
+		List<PlanetBiomeRock> rocks = rocks().stream().map(PlanetBiomeRockJsonInfo::cast).collect(Collectors.toList());
 		List<PlanetBiomeOre> ores = ores().stream().map(PlanetBiomeOreJsonInfo::cast).collect(Collectors.toList());
 
 		return new PlanetBiomeSettings(effects, getBlock(base), getBlock(top), getBlock(second), getBlock(stair),
-				getBlock(slab), getBlock(extra), trees, bushes, grass, lakes, ores);
+				getBlock(slab), getBlock(extra), trees, bushes, grass, lakes, rocks, ores);
 	}
 }

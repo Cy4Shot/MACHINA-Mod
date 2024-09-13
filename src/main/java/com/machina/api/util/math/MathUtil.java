@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.RandomAccess;
 import java.util.Set;
 import java.util.function.DoubleFunction;
 import java.util.stream.Collectors;
@@ -160,5 +162,31 @@ public class MathUtil {
 	public static <T> T randomInList(List<T> set, Random random) {
 		int i = random.nextInt(set.size());
 		return set.get(i);
+	}
+
+	private static final int SHUFFLE_THRESHOLD = 5;
+
+	private static void swap(Object[] arr, int i, int j) {
+		Object tmp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = tmp;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void shuffle(List<?> list, RandomSource rnd) {
+		int size = list.size();
+		if (size < SHUFFLE_THRESHOLD || list instanceof RandomAccess) {
+			for (int i = size; i > 1; i--)
+				Collections.swap(list, i - 1, rnd.nextInt(i));
+		} else {
+			Object[] arr = list.toArray();
+			for (int i = size; i > 1; i--)
+				swap(arr, i - 1, rnd.nextInt(i));
+			ListIterator it = list.listIterator();
+			for (Object e : arr) {
+				it.next();
+				it.set(e);
+			}
+		}
 	}
 }

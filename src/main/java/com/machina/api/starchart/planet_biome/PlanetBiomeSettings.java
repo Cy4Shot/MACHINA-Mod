@@ -12,7 +12,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, BlockState top, BlockState second,
 		BlockState stair, BlockState slab, BlockState extra, List<PlanetBiomeTree> trees, List<PlanetBiomeBush> bushes,
-		PlanetBiomeGrassSettings grass, PlanetBiomeLakes lakes, List<PlanetBiomeOre> ores) {
+		PlanetBiomeGrassSettings grass, PlanetBiomeLakes lakes, List<PlanetBiomeRock> rocks,
+		List<PlanetBiomeOre> ores) {
 
 	public static final Codec<PlanetBiomeSettings> CODEC = RecordCodecBuilder.create(instance -> instance
 			.group(PlanetBiomeEffects.CODEC.fieldOf("effects").forGetter(PlanetBiomeSettings::effects),
@@ -26,10 +27,12 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 					Codec.list(PlanetBiomeBush.CODEC).fieldOf("bushes").forGetter(PlanetBiomeSettings::bushes),
 					PlanetBiomeGrassSettings.CODEC.fieldOf("grass").forGetter(PlanetBiomeSettings::grass),
 					PlanetBiomeLakes.CODEC.fieldOf("lakes").forGetter(PlanetBiomeSettings::lakes),
+					Codec.list(PlanetBiomeRock.CODEC).fieldOf("rocks").forGetter(PlanetBiomeSettings::rocks),
 					Codec.list(PlanetBiomeOre.CODEC).fieldOf("ores").forGetter(PlanetBiomeSettings::ores))
 			.apply(instance, PlanetBiomeSettings::new));
 
-	public record PlanetBiomeEffects(int fog_color, int sky_color, int water_color, int water_fog_color, int grass_color) {
+	public record PlanetBiomeEffects(int fog_color, int sky_color, int water_color, int water_fog_color,
+			int grass_color) {
 
 		public static final Codec<PlanetBiomeEffects> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(Codec.INT.fieldOf("fog_color").forGetter(PlanetBiomeEffects::fog_color),
@@ -97,11 +100,27 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 				.apply(instance, PlanetBiomeGrass::new));
 	}
 
-	public record PlanetBiomeLakes(boolean enabled, int rarity) {
+	public record PlanetBiomeLakes(BlockState base, boolean enabled, int rarity) {
 		public static final Codec<PlanetBiomeLakes> CODEC = RecordCodecBuilder.create(instance -> instance
-				.group(Codec.BOOL.fieldOf("enabled").forGetter(PlanetBiomeLakes::enabled),
+				.group(BlockState.CODEC.fieldOf("base").forGetter(PlanetBiomeLakes::base),
+						Codec.BOOL.fieldOf("enabled").forGetter(PlanetBiomeLakes::enabled),
 						Codec.INT.fieldOf("rarity").forGetter(PlanetBiomeLakes::rarity))
 				.apply(instance, PlanetBiomeLakes::new));
+	}
+
+	public record PlanetBiomeRock(BlockState base, BlockState stair, BlockState slab, BlockState wall, int perchunk,
+			float radius, float deform) {
+
+		public static final Codec<PlanetBiomeRock> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(BlockState.CODEC.fieldOf("base").forGetter(PlanetBiomeRock::base),
+						BlockState.CODEC.fieldOf("stair").forGetter(PlanetBiomeRock::stair),
+						BlockState.CODEC.fieldOf("slab").forGetter(PlanetBiomeRock::slab),
+						BlockState.CODEC.fieldOf("wall").forGetter(PlanetBiomeRock::wall),
+						Codec.INT.fieldOf("perchunk").forGetter(PlanetBiomeRock::perchunk),
+						Codec.FLOAT.fieldOf("radius").forGetter(PlanetBiomeRock::radius),
+						Codec.FLOAT.fieldOf("deform").forGetter(PlanetBiomeRock::deform))
+				.apply(instance, PlanetBiomeRock::new));
+
 	}
 
 	public record PlanetBiomeOre(BlockState block, int size, float exposure_removal_chance, int per_chunk, int min_y,

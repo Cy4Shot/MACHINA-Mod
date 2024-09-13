@@ -4,37 +4,53 @@
 		"sky_color": 0,
 		"water_color": 0,
 		"water_fog_color": 0,
-		"grass_color": 7106858
+		"grass_color": 3563283
 	},
 	"base": "minecraft:stone",
 	"stair": "minecraft:stone_stairs",
 	"slab": "minecraft:stone_slab",
 	"extra": "minecraft:gravel",
-	"top": "machina:tropical_grass_block",
-	"second": "machina:tropical_dirt",
+	"top": "machina:peat",
+	"second": "machina:silt",
 	"trees": [
 		{
-			"type": "machina:radial_baobab",
-			"wood": "machina:tropical_wood",
-			"leaves": "machina:tropical_leaves[persistent=true]",
-			"every": 4
+			"type": "machina:arch",
+			"wood": "machina:pine_wood",
+			"leaves": "machina:pine_leaves[persistent=true]",
+			"every": 5
+		},
+		{
+			"type": "machina:cone",
+			"wood": "machina:pine_wood",
+			"leaves": "machina:pine_leaves[persistent=true]",
+			"every": 3
+		},
+		{
+			"type": "machina:lollipop",
+			"wood": "machina:pine_wood",
+			"leaves": "machina:pine_leaves[persistent=true]",
+			"every": 10
 		}
 	],
 	"bushes": [
 		{
-			"block": "machina:tropical_leaves[persistent=true]",
-			"radius": 2.5,
-			"perchunk": 3
+			"block": "machina:pine_leaves[persistent=true]",
+			"radius": 1.5,
+			"perchunk": 4
 		}
 	],
 	"grass": {
 		"enabled": true,
-		"min": 5,
-		"max": 10,
+		"min": 10,
+		"max": 15,
 		"grasses": [
 			{
 				"block": "minecraft:grass",
 				"weight": 10
+			},
+			{
+				"block": "minecraft:tall_grass",
+				"weight": 3
 			},
 			{
 				"block": "minecraft:fern",
@@ -49,9 +65,18 @@
 	"lakes": {
 		"enabled": true,
 		"block": "machina:silt",
-		"rarity": 20
+		"rarity": 2
 	},
 	"rocks": [
+		{
+			"base": "machina:shale",
+			"stair": "machina:shale_stairs",
+			"slab": "machina:shale_slab",
+			"wall": "machina:shale_wall",
+			"perchunk": 2,
+			"radius": 1.01,
+			"deform": 2.0
+		}
 	],
 	"ores": [
 		{

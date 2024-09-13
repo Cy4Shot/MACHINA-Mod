@@ -23,6 +23,12 @@
 			]
 		},
 		{
+			"name": "machina:earthlike_twisted_marsh",
+			"placements": [
+				"MIDDLE"
+			]
+		},
+		{
 			"name": "machina:none",
 			"placements": [
 				"FALLBACK"

@@ -1,7 +1,6 @@
 package com.machina.world.feature;
 
 import com.machina.api.starchart.obj.Planet;
-import com.machina.api.starchart.planet_biome.PlanetBiomeSettings;
 import com.machina.api.util.PlanetHelper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -21,10 +20,10 @@ public class PlanetLakeFeature extends Feature<PlanetLakeFeature.PlanetLakeFeatu
 
 	private static final BlockState AIR = Blocks.CAVE_AIR.defaultBlockState();
 
-	public record PlanetLakeFeatureConfig(PlanetBiomeSettings settings) implements FeatureConfiguration {
-		public static final Codec<PlanetLakeFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance
-				.group(PlanetBiomeSettings.CODEC.fieldOf("settings").forGetter(PlanetLakeFeatureConfig::settings))
-				.apply(instance, PlanetLakeFeatureConfig::new));
+	public record PlanetLakeFeatureConfig(BlockState state) implements FeatureConfiguration {
+		public static final Codec<PlanetLakeFeatureConfig> CODEC = RecordCodecBuilder.create(
+				instance -> instance.group(BlockState.CODEC.fieldOf("state").forGetter(PlanetLakeFeatureConfig::state))
+						.apply(instance, PlanetLakeFeatureConfig::new));
 	}
 
 	public PlanetLakeFeature() {
@@ -40,7 +39,7 @@ public class PlanetLakeFeature extends Feature<PlanetLakeFeature.PlanetLakeFeatu
 		Planet p = PlanetHelper.getPlanetFor(worldgenlevel.getLevel());
 		BlockState fluid = p.getDominantLiquidBodyBlock();
 		if (fluid == null || fluid.getFluidState().isEmpty()) {
-			return false;
+			fluid = Blocks.WATER.defaultBlockState();
 		}
 
 		if (blockpos.getY() <= worldgenlevel.getMinBuildHeight() + 4) {
@@ -116,7 +115,7 @@ public class PlanetLakeFeature extends Feature<PlanetLakeFeature.PlanetLakeFeatu
 				}
 			}
 
-			BlockState blockstate2 = cfg.settings().base();
+			BlockState blockstate2 = cfg.state();
 			if (!blockstate2.isAir()) {
 				for (int j2 = 0; j2 < 16; ++j2) {
 					for (int j3 = 0; j3 < 16; ++j3) {
@@ -130,7 +129,7 @@ public class PlanetLakeFeature extends Feature<PlanetLakeFeature.PlanetLakeFeatu
 											|| l3 > 0 && aboolean[(j2 * 16 + j3) * 8 + (l3 - 1)]);
 							if (flag2 && (l3 < 4 || randomsource.nextInt(2) != 0)) {
 								BlockState blockstate = worldgenlevel.getBlockState(blockpos.offset(j2, l3, j3));
-								if (blockstate.isSolid() && !blockstate.is(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE)) {
+								if (blockstate.isSolid()) {
 									BlockPos blockpos3 = blockpos.offset(j2, l3, j3);
 									worldgenlevel.setBlock(blockpos3, blockstate2, 2);
 									this.markAboveForPostProcessing(worldgenlevel, blockpos3);

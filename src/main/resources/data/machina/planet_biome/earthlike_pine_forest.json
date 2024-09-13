@@ -48,8 +48,11 @@
 	},
 	"lakes": {
 		"enabled": true,
-		"rarity": 50
+		"block": "machina:peat",
+		"rarity": 10
 	},
+	"rocks": [
+	],
 	"ores": [
 		{
 			"block": "machina:green_soapstone",

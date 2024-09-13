@@ -9,6 +9,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -146,11 +147,13 @@ public class PlanetOreFeature extends Feature<PlanetOreFeature.PlanetOreFeatureC
 														int i3 = SectionPos.sectionRelative(i2);
 														int j3 = SectionPos.sectionRelative(j2);
 														int k3 = SectionPos.sectionRelative(k2);
+														BlockState blockstate = levelchunksection.getBlockState(i3, j3,
+																k3);
 
 														BlockState place = cfg.block();
 
-														if (canPlaceOre(bulksectionaccess::getBlockState, p_225173_,
-																cfg, blockpos$mutableblockpos)) {
+														if (canPlaceOre(blockstate, bulksectionaccess::getBlockState,
+																p_225173_, cfg, blockpos$mutableblockpos)) {
 															levelchunksection.setBlockState(i3, j3, k3, place, false);
 															++i;
 															break;
@@ -171,9 +174,11 @@ public class PlanetOreFeature extends Feature<PlanetOreFeature.PlanetOreFeatureC
 		return i > 0;
 	}
 
-	public static boolean canPlaceOre(Function<BlockPos, BlockState> p_225188_, RandomSource p_225189_,
-			PlanetBiomeOre cfg, BlockPos.MutableBlockPos p_225192_) {
-		if (shouldSkipAirCheck(p_225189_, cfg.exposure_removal_chance())) {
+	public static boolean canPlaceOre(BlockState state, Function<BlockPos, BlockState> p_225188_,
+			RandomSource p_225189_, PlanetBiomeOre cfg, BlockPos.MutableBlockPos p_225192_) {
+		if (!state.is(BlockTags.OVERWORLD_CARVER_REPLACEABLES)) {
+			return false;
+		} else if (shouldSkipAirCheck(p_225189_, cfg.exposure_removal_chance())) {
 			return true;
 		} else {
 			return !isAdjacentToAir(p_225188_, p_225192_);

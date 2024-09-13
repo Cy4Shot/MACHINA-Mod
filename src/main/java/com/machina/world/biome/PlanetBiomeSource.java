@@ -53,10 +53,6 @@ public class PlanetBiomeSource {
 		this.type = planet.type();
 		this.biomeReg = lookup.lookup(Registries.BIOME).get();
 
-		for (ResourceKey<Biome> a : biomeReg.listElementIds().collect(Collectors.toList())) {
-			System.out.println(a.toString());
-		}
-
 		addLandBiomes();
 		addOceanBiomes();
 		addUndergroundBiomes();
@@ -88,8 +84,6 @@ public class PlanetBiomeSource {
 	private void forall(String category, BiConsumer<Holder<Biome>, Parameter> action) {
 		List<BiomePlacement> matching = withCategory(category);
 		List<Parameter> intervals = generateIntervals(matching.size());
-		System.out.println(matching.size());
-		intervals.forEach(x -> System.out.println(x.min() + " " + x.max()));
 		for (int i = 0; i < matching.size(); i++) {
 			ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, matching.get(i).biome());
 			action.accept(this.biomeReg.get(key).get(), intervals.get(i));
