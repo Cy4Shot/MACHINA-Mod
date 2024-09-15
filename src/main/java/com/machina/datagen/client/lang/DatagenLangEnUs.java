@@ -3,6 +3,7 @@ package com.machina.datagen.client.lang;
 import com.machina.Machina;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.FluidInit;
+import com.machina.registration.init.FruitInit;
 import com.machina.registration.init.ItemInit;
 import com.machina.registration.init.TabInit;
 
@@ -47,14 +48,14 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(ItemInit.PROCESSOR_CORE, "Processor Core");
 		add(ItemInit.COAL_CHUNK, "Coal Chunk");
 
-		add(ItemInit.TAMA_SPORE, "Tama Spore");
-		add(ItemInit.STRAPPLE, "Strapple");
-		add(ItemInit.ARGO_BERRY, "Argo Berry");
-		add(ItemInit.Y2_NANA, "Y2-Nana");
-		add(ItemInit.AVA_FRUIT, "Ava Fruit");
-		add(ItemInit.GRELP_BERRY, "Grelp Berry");
-		add(ItemInit.SPARR_BALL, "Sparr Ball");
-		add(ItemInit.ERBI_POD, "Erbi Pod");
+		add(FruitInit.TAMA_SPORE, "Tama Spore");
+		add(FruitInit.STRAPPLE, "Strapple");
+		add(FruitInit.ARGO_BERRY, "Argo Berry");
+		add(FruitInit.Y2_NANA, "Y2-Nana");
+		add(FruitInit.AVA_FRUIT, "Ava Fruit");
+		add(FruitInit.GRELP_BERRY, "Grelp Berry");
+		add(FruitInit.SPARR_BALL, "Sparr Ball");
+		add(FruitInit.ERBI_POD, "Erbi Pod");
 
 		// Blocks
 		add(BlockInit.ALUMINUM_BLOCK, "Aluminum Block");

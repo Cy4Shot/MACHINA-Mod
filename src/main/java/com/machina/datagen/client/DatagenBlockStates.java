@@ -4,6 +4,8 @@ import com.machina.Machina;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
+import com.machina.registration.init.FruitInit;
+import com.machina.registration.init.FruitInit.Fruit;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -130,19 +132,19 @@ public class DatagenBlockStates extends BlockStateProvider {
 
 		cubeBottomTopRandomRotation(BlockInit.TROPICAL_GRASS_BLOCK);
 		cubeBottomTopRandomRotation(BlockInit.FOREST_GRASS_BLOCK);
-		
+
 		cubeRandomRotation(BlockInit.TROPICAL_DIRT);
 		slab(BlockInit.TROPICAL_DIRT_SLAB, BlockInit.TROPICAL_DIRT);
 		stairs(BlockInit.TROPICAL_DIRT_STAIRS, BlockInit.TROPICAL_DIRT);
-		
+
 		cubeRandomRotation(BlockInit.FOREST_DIRT);
 		slab(BlockInit.FOREST_DIRT_SLAB, BlockInit.FOREST_DIRT);
 		stairs(BlockInit.FOREST_DIRT_STAIRS, BlockInit.FOREST_DIRT);
-		
+
 		cube(BlockInit.PEAT);
 		slab(BlockInit.PEAT_SLAB, BlockInit.PEAT);
 		stairs(BlockInit.PEAT_STAIRS, BlockInit.PEAT);
-		
+
 		cubeRandomRotation(BlockInit.SILT);
 		slab(BlockInit.SILT_SLAB, BlockInit.SILT);
 		stairs(BlockInit.SILT_STAIRS, BlockInit.SILT);
@@ -202,10 +204,9 @@ public class DatagenBlockStates extends BlockStateProvider {
 		flower(BlockInit.BLUE_GLOWSHROOM);
 		flower_pot(BlockInit.POTTED_BLUE_GLOWSHROOM);
 
-		// Fluids
-		for (FluidObject obj : FluidInit.OBJS) {
-			fluid(obj);
-		}
+		// Dynamic
+		FruitInit.FRUITS.forEach(this::fruit);
+		FluidInit.OBJS.forEach(this::fluid);
 	}
 
 	private void cubeRandomRotation(RegistryObject<Block> block) {
@@ -324,6 +325,12 @@ public class DatagenBlockStates extends BlockStateProvider {
 		ResourceLocation tex = blockTexture(f);
 		simpleBlock(f, models().cross(name(f), tex).renderType("cutout"));
 		simpleFlatItem(f, tex);
+	}
+
+	private void fruit(Fruit fruit) {
+		Block f = fruit.block().get();
+		ResourceLocation tex = blockTexture(f);
+		simpleBlock(f, models().cross(name(f), tex).renderType("cutout"));
 	}
 
 	private void tall_flower(RegistryObject<TallFlowerBlock> flower) {

@@ -12,6 +12,8 @@ import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
+import com.machina.registration.init.FruitInit;
+import com.machina.registration.init.FruitInit.Fruit;
 import com.machina.registration.init.ItemInit;
 
 import net.minecraft.data.PackOutput;
@@ -54,6 +56,11 @@ public class DatagenLootTables extends LootTableProvider {
 			dropSelf(BlockInit.CLOVER.get());
 
 			ore(BlockInit.ALUMINUM_ORE.get(), ItemInit.RAW_ALUMINUM.get());
+
+			// Fruit
+			for (Fruit fruit : FruitInit.FRUITS) {
+				dropSelf(fruit.block().get());
+			}
 
 			// Fluids
 			for (FluidObject obj : FluidInit.OBJS) {

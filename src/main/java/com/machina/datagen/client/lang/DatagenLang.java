@@ -5,8 +5,11 @@ import java.util.TreeMap;
 
 import javax.swing.text.JTextComponent.KeyBinding;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.machina.Machina;
 import com.machina.registration.init.FluidInit.FluidObject;
+import com.machina.registration.init.FruitInit.Fruit;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.damagesource.DamageSource;
@@ -17,7 +20,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class DatagenLang extends LanguageProvider {
 
@@ -40,6 +42,10 @@ public abstract class DatagenLang extends LanguageProvider {
 		} else if (item instanceof CreativeModeTab) {
 			add(Machina.MOD_ID + ".creativemodetab." + key.getId().getPath(), name);
 		}
+	}
+	
+	protected void add(Fruit fruit, String name) {
+		add(fruit.block(), name);
 	}
 
 	protected void add(Fluid fluid, String name) {

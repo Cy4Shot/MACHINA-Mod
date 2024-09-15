@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 
 import com.machina.Machina;
 import com.machina.registration.init.FluidInit.FluidObject;
+import com.machina.registration.init.FruitInit.Fruit;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -52,12 +53,12 @@ public class TabInit {
 
 	public static final RegistryObject<CreativeModeTab> MACHINA_WORLDGEN = create("machina_worldgen",
 			BlockInit.TROPICAL_GRASS_BLOCK, a -> {
-				add(a, BlockFamiliesInit.DIRTS);
+				family(a, BlockFamiliesInit.DIRTS);
 
 				add(a, BlockInit.ALUMINUM_ORE);
-				add(a, BlockFamiliesInit.STONES);
+				family(a, BlockFamiliesInit.STONES);
 
-				add(a, BlockFamiliesInit.WOODS);
+				family(a, BlockFamiliesInit.WOODS);
 
 				add(a, BlockInit.CLOVER);
 				add(a, BlockInit.ORPHEUM);
@@ -70,15 +71,8 @@ public class TabInit {
 				add(a, BlockInit.GREEN_GLOWSHROOM);
 				add(a, BlockInit.TURQUOISE_GLOWSHROOM);
 				add(a, BlockInit.BLUE_GLOWSHROOM);
-
-				add(a, ItemInit.TAMA_SPORE);
-				add(a, ItemInit.STRAPPLE);
-				add(a, ItemInit.ARGO_BERRY);
-				add(a, ItemInit.Y2_NANA);
-				add(a, ItemInit.AVA_FRUIT);
-				add(a, ItemInit.GRELP_BERRY);
-				add(a, ItemInit.SPARR_BALL);
-				add(a, ItemInit.ERBI_POD);
+				
+				fruit(a, FruitInit.FRUITS);
 			});
 
 	public static final RegistryObject<CreativeModeTab> MACHINA_MISCELLANEOUS = create("machina_misc",
@@ -98,7 +92,15 @@ public class TabInit {
 		add(adder, item.get());
 	}
 
-	public static final void add(CreativeModeTab.Output adder, List<? extends BlockFamiliesInit.BlockFamily> family) {
+	public static final void add(CreativeModeTab.Output adder, Fruit fruit) {
+		add(adder, fruit.item());
+	}
+	
+	public static final void fruit(CreativeModeTab.Output adder, List<Fruit> fruit) {
+		fruit.forEach(f -> add(adder, f));
+	}
+
+	public static final void family(CreativeModeTab.Output adder, List<? extends BlockFamiliesInit.BlockFamily> family) {
 		family.forEach(f -> f.tab().forEach(i -> add(adder, i)));
 	}
 

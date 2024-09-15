@@ -6,6 +6,8 @@ import com.machina.Machina;
 import com.machina.api.util.MachinaRL;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
+import com.machina.registration.init.FruitInit;
+import com.machina.registration.init.FruitInit.Fruit;
 import com.machina.registration.init.ItemInit;
 
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -50,25 +52,16 @@ public class DatagenItemModels extends ItemModelProvider {
 		simpleItem(ItemInit.ALUMINUM_INGOT);
 		simpleItem(ItemInit.ALUMINUM_NUGGET);
 		simpleItem(ItemInit.COAL_CHUNK);
-		
+
 		simpleItem(ItemInit.TROPICAL_SIGN);
 		simpleItem(ItemInit.TROPICAL_HANGING_SIGN);
-		
+
 		simpleItem(ItemInit.PINE_SIGN);
 		simpleItem(ItemInit.PINE_HANGING_SIGN);
-		
-		simpleItem(ItemInit.TAMA_SPORE);
-		simpleItem(ItemInit.STRAPPLE);
-		simpleItem(ItemInit.ARGO_BERRY);
-		simpleItem(ItemInit.Y2_NANA);
-		simpleItem(ItemInit.AVA_FRUIT);
-		simpleItem(ItemInit.GRELP_BERRY);
-		simpleItem(ItemInit.SPARR_BALL);
-		simpleItem(ItemInit.ERBI_POD);
 
-		for (FluidObject obj : FluidInit.OBJS) {
-			bucket(obj);
-		}
+		// Dynamic
+		FruitInit.FRUITS.forEach(this::fruit);
+		FluidInit.OBJS.forEach(this::bucket);
 	}
 
 	private String name(Item item) {
@@ -150,6 +143,10 @@ public class DatagenItemModels extends ItemModelProvider {
 		this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/wall_inventory"))
 				.texture("wall", new ResourceLocation(Machina.MOD_ID,
 						"block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath()));
+	}
+
+	private void fruit(Fruit fruit) {
+		simpleItem(fruit.item());
 	}
 
 	@SuppressWarnings("unused")
