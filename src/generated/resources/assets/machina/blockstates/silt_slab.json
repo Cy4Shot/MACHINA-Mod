@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/silt_slab"
+    },
+    "type=double": {
+      "model": "machina:block/silt"
+    },
+    "type=top": {
+      "model": "machina:block/silt_slab_top"
+    }
+  }
+}

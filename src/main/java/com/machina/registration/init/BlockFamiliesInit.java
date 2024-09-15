@@ -2,6 +2,7 @@ package com.machina.registration.init;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
@@ -9,10 +10,18 @@ import net.minecraft.world.level.block.Block;
 
 public class BlockFamiliesInit {
 
+	public static List<DirtFamily> DIRTS = new ArrayList<>();
 	public static List<WoodFamily> WOODS = new ArrayList<>();
 	public static List<StoneFamily> STONES = new ArrayList<>();
 
 	static {
+		DIRTS.add(new DirtFamily(BlockInit.TROPICAL_DIRT.get(), BlockInit.TROPICAL_DIRT_STAIRS.get(),
+				BlockInit.TROPICAL_DIRT_SLAB.get(), Optional.of(BlockInit.TROPICAL_GRASS_BLOCK.get())));
+		DIRTS.add(new DirtFamily(BlockInit.FOREST_DIRT.get(), BlockInit.FOREST_DIRT_STAIRS.get(),
+				BlockInit.FOREST_DIRT_SLAB.get(), Optional.of(BlockInit.FOREST_GRASS_BLOCK.get())));
+		DIRTS.add(new DirtFamily(BlockInit.PEAT.get(), BlockInit.PEAT_STAIRS.get(), BlockInit.PEAT_SLAB.get()));
+		DIRTS.add(new DirtFamily(BlockInit.SILT.get(), BlockInit.SILT_STAIRS.get(), BlockInit.SILT_SLAB.get()));
+
 		WOODS.add(new WoodFamily(BlockInit.TROPICAL_LOG.get(), BlockInit.TROPICAL_WOOD.get(),
 				BlockInit.STRIPPED_TROPICAL_LOG.get(), BlockInit.STRIPPED_TROPICAL_WOOD.get(),
 				BlockInit.TROPICAL_PLANKS.get(), BlockInit.TROPICAL_STAIRS.get(), BlockInit.TROPICAL_SLAB.get(),
@@ -66,6 +75,22 @@ public class BlockFamiliesInit {
 
 	public static interface BlockFamily {
 		public List<ItemLike> tab();
+	}
+
+	public static final record DirtFamily(Block dirt, Block stairs, Block slab, Optional<Block> grass)
+			implements BlockFamily {
+
+		public DirtFamily(Block dirt, Block stairs, Block slab) {
+			this(dirt, stairs, slab, Optional.empty());
+		}
+
+		@Override
+		public List<ItemLike> tab() {
+			if (grass.isPresent()) {
+				return List.of(grass.get(), dirt, stairs, slab);
+			}
+			return List.of(dirt, stairs, slab);
+		}
 	}
 
 	public static final record WoodFamily(Block log, Block wood, Block stripped_log, Block stripped_wood, Block planks,

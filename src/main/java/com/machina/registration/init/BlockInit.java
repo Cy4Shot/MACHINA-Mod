@@ -137,11 +137,23 @@ public class BlockInit {
 	public static final RegistryObject<ButtonBlock> GNEISS_BUTTON = stone_button("gneiss_button", Blocks.STONE_BUTTON);
 	
 	public static final RegistryObject<Block> TROPICAL_GRASS_BLOCK = block("tropical_grass_block", Blocks.GRASS_BLOCK);
-	public static final RegistryObject<Block> TROPICAL_DIRT = block("tropical_dirt", Blocks.DIRT);
 	public static final RegistryObject<Block> FOREST_GRASS_BLOCK = block("forest_grass_block", Blocks.GRASS_BLOCK);
+	
+	public static final RegistryObject<Block> TROPICAL_DIRT = block("tropical_dirt", Blocks.DIRT);
+	public static final RegistryObject<StairBlock> TROPICAL_DIRT_STAIRS = stairs("tropical_dirt_stairs", TROPICAL_DIRT, Blocks.DIRT);
+	public static final RegistryObject<SlabBlock> TROPICAL_DIRT_SLAB = slab("tropical_dirt_slab", Blocks.DIRT);
+	
 	public static final RegistryObject<Block> FOREST_DIRT = block("forest_dirt", Blocks.DIRT);
+	public static final RegistryObject<StairBlock> FOREST_DIRT_STAIRS = stairs("forest_dirt_stairs", FOREST_DIRT, Blocks.DIRT);
+	public static final RegistryObject<SlabBlock> FOREST_DIRT_SLAB = slab("forest_dirt_slab", Blocks.DIRT);
+	
 	public static final RegistryObject<Block> SILT = block("silt", Blocks.MUD);
+	public static final RegistryObject<StairBlock> SILT_STAIRS = stairs("silt_stairs", SILT, Blocks.MUD);
+	public static final RegistryObject<SlabBlock> SILT_SLAB = slab("silt_slab", Blocks.MUD);
+	
 	public static final RegistryObject<Block> PEAT = block("peat", Blocks.MUD);
+	public static final RegistryObject<StairBlock> PEAT_STAIRS = stairs("peat_stairs", PEAT, Blocks.MUD);
+	public static final RegistryObject<SlabBlock> PEAT_SLAB = slab("peat_slab", Blocks.MUD);
 	
 	public static final WoodType TROPICAL = registerWoodType("tropical");
 	public static final WoodType PINE = registerWoodType("pine");

@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.machina.Machina;
 import com.machina.registration.init.BlockFamiliesInit;
+import com.machina.registration.init.BlockFamiliesInit.DirtFamily;
 import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
 import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 import com.machina.registration.init.BlockInit;
@@ -33,10 +34,6 @@ public class DatagenBlockTags extends BlockTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
-		tag(BlockTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get(),
-				BlockInit.FOREST_GRASS_BLOCK.get(), BlockInit.FOREST_DIRT.get(), BlockInit.PEAT.get(),
-				BlockInit.SILT.get());
-
 		smallFlower(BlockInit.PURPLE_GLOWSHROOM, BlockInit.POTTED_PURPLE_GLOWSHROOM);
 		smallFlower(BlockInit.PINK_GLOWSHROOM, BlockInit.POTTED_PINK_GLOWSHROOM);
 		smallFlower(BlockInit.RED_GLOWSHROOM, BlockInit.POTTED_RED_GLOWSHROOM);
@@ -50,13 +47,9 @@ public class DatagenBlockTags extends BlockTagsProvider {
 		tallFlower(BlockInit.ORPHEUM);
 		tag(BlockTags.FLOWERS).add(BlockInit.CLOVER.get());
 
-		tag(BlockTagInit.PLANET_GROWABLE).add(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.FOREST_GRASS_BLOCK.get(),
-				BlockInit.TROPICAL_DIRT.get(), BlockInit.FOREST_DIRT.get(), BlockInit.PEAT.get(), BlockInit.SILT.get());
+		tag(BlockTagInit.PLANET_CARVABLE).add(Blocks.STONE, Blocks.GRAVEL, Blocks.WATER);
 
-		tag(BlockTagInit.PLANET_CARVABLE).add(Blocks.STONE, BlockInit.TROPICAL_DIRT.get(),
-				BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.FOREST_GRASS_BLOCK.get(), BlockInit.FOREST_DIRT.get(),
-				BlockInit.PEAT.get(), BlockInit.SILT.get(), Blocks.GRAVEL, Blocks.WATER);
-
+		BlockFamiliesInit.DIRTS.forEach(this::dirtFamily);
 		BlockFamiliesInit.STONES.forEach(this::stoneFamily);
 		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
 	}
@@ -70,6 +63,22 @@ public class DatagenBlockTags extends BlockTagsProvider {
 	private void tallFlower(RegistryObject<TallFlowerBlock> flower) {
 		tag(BlockTags.FLOWERS).add(flower.get());
 		tag(BlockTags.TALL_FLOWERS).add(flower.get());
+	}
+
+	private void dirtFamily(DirtFamily family) {
+		tag(BlockTags.DIRT).add(family.dirt());
+		tag(BlockTagInit.PLANET_GROWABLE).add(family.dirt());
+		tag(BlockTagInit.PLANET_CARVABLE).add(family.dirt(), family.slab(), family.stairs());
+		tag(BlockTags.SLABS).add(family.slab());
+		tag(BlockTags.STAIRS).add(family.stairs());
+		tag(BlockTags.OVERWORLD_CARVER_REPLACEABLES).add(family.dirt(), family.slab(), family.stairs());
+
+		if (family.grass().isPresent()) {
+			tag(BlockTags.DIRT).add(family.grass().get());
+			tag(BlockTagInit.PLANET_GROWABLE).add(family.grass().get());
+			tag(BlockTagInit.PLANET_CARVABLE).add(family.grass().get());
+			tag(BlockTags.OVERWORLD_CARVER_REPLACEABLES).add(family.grass().get());
+		}
 	}
 
 	private void stoneFamily(StoneFamily family) {

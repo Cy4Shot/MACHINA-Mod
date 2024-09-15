@@ -130,10 +130,22 @@ public class DatagenBlockStates extends BlockStateProvider {
 
 		cubeBottomTopRandomRotation(BlockInit.TROPICAL_GRASS_BLOCK);
 		cubeBottomTopRandomRotation(BlockInit.FOREST_GRASS_BLOCK);
+		
 		cubeRandomRotation(BlockInit.TROPICAL_DIRT);
+		slab(BlockInit.TROPICAL_DIRT_SLAB, BlockInit.TROPICAL_DIRT);
+		stairs(BlockInit.TROPICAL_DIRT_STAIRS, BlockInit.TROPICAL_DIRT);
+		
 		cubeRandomRotation(BlockInit.FOREST_DIRT);
+		slab(BlockInit.FOREST_DIRT_SLAB, BlockInit.FOREST_DIRT);
+		stairs(BlockInit.FOREST_DIRT_STAIRS, BlockInit.FOREST_DIRT);
+		
 		cube(BlockInit.PEAT);
+		slab(BlockInit.PEAT_SLAB, BlockInit.PEAT);
+		stairs(BlockInit.PEAT_STAIRS, BlockInit.PEAT);
+		
 		cubeRandomRotation(BlockInit.SILT);
+		slab(BlockInit.SILT_SLAB, BlockInit.SILT);
+		stairs(BlockInit.SILT_STAIRS, BlockInit.SILT);
 
 		cube(BlockInit.TROPICAL_PLANKS);
 		leaves(BlockInit.TROPICAL_LEAVES);

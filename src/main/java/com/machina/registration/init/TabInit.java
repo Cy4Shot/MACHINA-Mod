@@ -52,16 +52,12 @@ public class TabInit {
 
 	public static final RegistryObject<CreativeModeTab> MACHINA_WORLDGEN = create("machina_worldgen",
 			BlockInit.TROPICAL_GRASS_BLOCK, a -> {
-				add(a, BlockInit.TROPICAL_GRASS_BLOCK);
-				add(a, BlockInit.FOREST_GRASS_BLOCK);
-				add(a, BlockInit.TROPICAL_DIRT);
-				add(a, BlockInit.FOREST_DIRT);
-				add(a, BlockInit.SILT);
-				add(a, BlockInit.PEAT);
+				add(a, BlockFamiliesInit.DIRTS);
+
 				add(a, BlockInit.ALUMINUM_ORE);
+				add(a, BlockFamiliesInit.STONES);
 
 				add(a, BlockFamiliesInit.WOODS);
-				add(a, BlockFamiliesInit.STONES);
 
 				add(a, BlockInit.CLOVER);
 				add(a, BlockInit.ORPHEUM);
@@ -74,7 +70,7 @@ public class TabInit {
 				add(a, BlockInit.GREEN_GLOWSHROOM);
 				add(a, BlockInit.TURQUOISE_GLOWSHROOM);
 				add(a, BlockInit.BLUE_GLOWSHROOM);
-				
+
 				add(a, ItemInit.TAMA_SPORE);
 				add(a, ItemInit.STRAPPLE);
 				add(a, ItemInit.ARGO_BERRY);

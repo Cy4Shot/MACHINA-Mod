@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "machina:block/tropical_dirt",
+    "side": "machina:block/tropical_dirt",
+    "top": "machina:block/tropical_dirt"
+  }
+}

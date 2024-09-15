@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "machina:block/peat",
+    "side": "machina:block/peat",
+    "top": "machina:block/peat"
+  }
+}

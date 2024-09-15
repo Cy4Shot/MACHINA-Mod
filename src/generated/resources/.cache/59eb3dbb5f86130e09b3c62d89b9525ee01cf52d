@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-28T23:37:37.0837788	Loot Tables
+// 1.20.1	2024-09-15T10:10:19.5184075	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -41,6 +41,8 @@ ffcd88cf47464a52db92bcaabdd4d33000690cc2 data/machina/loot_tables/blocks/feldspa
 c3f27482a5e2e50513e901e6cc83c5752209f970 data/machina/loot_tables/blocks/feldspar_stairs.json
 6568f51a8081f7ed2e7eed57e47ede89db67b1e3 data/machina/loot_tables/blocks/feldspar_wall.json
 12c78d36cd2d515a1920254ace48b73b8ab5c456 data/machina/loot_tables/blocks/forest_dirt.json
+d347a8d106a84a4abf391b524f5621f695629630 data/machina/loot_tables/blocks/forest_dirt_slab.json
+959403e7502e70eebd4eaaa3f0a6a883b7ff7b92 data/machina/loot_tables/blocks/forest_dirt_stairs.json
 65c5aaffd843d1733e8c84b14641d4de97e007c4 data/machina/loot_tables/blocks/forest_grass_block.json
 e1dafa928f0cf47882c6e69cb121fff05c73defe data/machina/loot_tables/blocks/formaldehyde_block.json
 4f4b4c3c30d7233910bedfad8ea9daa9e0114dfe data/machina/loot_tables/blocks/glyoxal_block.json
@@ -102,6 +104,8 @@ e84fa81e787d4c951cf05fb60c2aea50a00be2a9 data/machina/loot_tables/blocks/orange_
 ed02d3b517f8ee7b167879f986c2956555314914 data/machina/loot_tables/blocks/orpheum.json
 edc62ca0c8ab27ae7412fb309556767d28e05f8c data/machina/loot_tables/blocks/oxygen_block.json
 4ce38d3ce23cf03c6fa29c575d409b474d308904 data/machina/loot_tables/blocks/peat.json
+1e952fe37d43a8d0c1f263f123af9667a987b261 data/machina/loot_tables/blocks/peat_slab.json
+bc9827b4efc875331194beeaa72dd2151e1cfb4f data/machina/loot_tables/blocks/peat_stairs.json
 bcbbf008d1476576f491427a2c78c67721830b9d data/machina/loot_tables/blocks/pine_button.json
 90301ef8db1695731acdf1ace8c0bbb872a80eeb data/machina/loot_tables/blocks/pine_door.json
 5f16f21a839b99ad5c2a17e9663bf79034f34fd9 data/machina/loot_tables/blocks/pine_fence.json
@@ -137,6 +141,8 @@ f6fa8e5b95bcff18a36580b832c00aff2c83724e data/machina/loot_tables/blocks/shale_p
 6204b0e60962178791d29e8837d4cff256214cdf data/machina/loot_tables/blocks/shale_stairs.json
 80de8000c1de9ae7a3654dd434debf09232aa8ad data/machina/loot_tables/blocks/shale_wall.json
 87d5c3778f82beb9e61252cebe0d759a99fde8d9 data/machina/loot_tables/blocks/silt.json
+a3071c99556eaf9eeafd52a49c3e0dd2587d53d7 data/machina/loot_tables/blocks/silt_slab.json
+f40552bb6480f2fa458b75f3f2eb0c57bc9a5c1f data/machina/loot_tables/blocks/silt_stairs.json
 494b446c511eabff77fd8ee8155db57a433487a2 data/machina/loot_tables/blocks/stripped_pine_log.json
 fa7d222ba4e2d16a7c620e531febdec328d6d496 data/machina/loot_tables/blocks/stripped_pine_wood.json
 167927c98ee76f23238a3421638ee21ea6a98824 data/machina/loot_tables/blocks/stripped_tropical_log.json
@@ -153,6 +159,8 @@ a44f1a367556672d7a60b40e7e7486875430b331 data/machina/loot_tables/blocks/tectoni
 dfad54333e8fd2fcd0d7ee9bdb7445ae42691677 data/machina/loot_tables/blocks/toluene_block.json
 7fc090c9dd2a7a86a238820e321606cde7db50d9 data/machina/loot_tables/blocks/tropical_button.json
 782ced6a093b5e9dd804a7a1c4d1be37f08eff4d data/machina/loot_tables/blocks/tropical_dirt.json
+b3a1390db8e4d0eb9921d67ee841d4c62110ce4c data/machina/loot_tables/blocks/tropical_dirt_slab.json
+5fce26921666d3922129ac62dca34365266f2d4f data/machina/loot_tables/blocks/tropical_dirt_stairs.json
 ff52f9d76e58b8ecbb6b8c81476eef403b198b24 data/machina/loot_tables/blocks/tropical_door.json
 2f15017ba7a2be9dd7b3ea0af8e5bbc10763c4b9 data/machina/loot_tables/blocks/tropical_fence.json
 643205aeaababd84a78325b4d7e3852e1a6e85b4 data/machina/loot_tables/blocks/tropical_fence_gate.json

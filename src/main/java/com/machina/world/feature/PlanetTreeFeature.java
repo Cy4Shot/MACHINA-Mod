@@ -1,6 +1,7 @@
 package com.machina.world.feature;
 
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
+import com.machina.api.starchart.planet_biome.TreeMaker;
 import com.machina.api.util.math.sdf.SDF;
 import com.machina.registration.init.RegistryInit;
 import com.machina.registration.init.TagInit.BlockTagInit;
@@ -8,18 +9,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatureConfig> {
-
-	@FunctionalInterface
-	public interface TreeMaker {
-		SDF build(PlanetTreeFeatureConfig config, RandomSource random, WorldGenLevel l, BlockPos p);
-	}
 
 	public record PlanetTreeFeatureConfig(PlanetBiomeTree tree) implements FeatureConfiguration {
 		public static final Codec<PlanetTreeFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance

@@ -58,9 +58,8 @@ public class PlanetSurfaceRule {
 					VerticalAnchor.aboveBottom(5)), BEDROCK));
 		}
 		builder.add(SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), rs8));
-		return SurfaceRules.sequence(builder.build().toArray((x) -> {
-			return new SurfaceRules.RuleSource[x];
-		}));
+		builder.add(rock);
+		return SurfaceRules.sequence(builder.build().toArray((x) -> new SurfaceRules.RuleSource[x]));
 	}
 
 	public static record PlanetBiomeTopBlockRuleSource(SurfaceRules.RuleSource fallback)

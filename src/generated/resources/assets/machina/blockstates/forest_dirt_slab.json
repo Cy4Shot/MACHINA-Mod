@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/forest_dirt_slab"
+    },
+    "type=double": {
+      "model": "machina:block/forest_dirt"
+    },
+    "type=top": {
+      "model": "machina:block/forest_dirt_slab_top"
+    }
+  }
+}

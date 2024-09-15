@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/peat_slab"
+    },
+    "type=double": {
+      "model": "machina:block/peat"
+    },
+    "type=top": {
+      "model": "machina:block/peat_slab_top"
+    }
+  }
+}

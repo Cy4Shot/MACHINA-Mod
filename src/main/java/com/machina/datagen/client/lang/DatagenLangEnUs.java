@@ -46,7 +46,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(ItemInit.LOGIC_UNIT, "Logic Unit");
 		add(ItemInit.PROCESSOR_CORE, "Processor Core");
 		add(ItemInit.COAL_CHUNK, "Coal Chunk");
-		
+
 		add(ItemInit.TAMA_SPORE, "Tama Spore");
 		add(ItemInit.STRAPPLE, "Strapple");
 		add(ItemInit.ARGO_BERRY, "Argo Berry");
@@ -145,11 +145,20 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.GNEISS_PRESSURE_PLATE, "Gneiss Pressure Plate");
 
 		add(BlockInit.TROPICAL_GRASS_BLOCK, "Tropical Grass Block");
-		add(BlockInit.TROPICAL_DIRT, "Tropical Dirt");
 		add(BlockInit.FOREST_GRASS_BLOCK, "Forest Grass Block");
+
+		add(BlockInit.TROPICAL_DIRT, "Tropical Dirt");
+		add(BlockInit.TROPICAL_DIRT_STAIRS, "Tropical Dirt Stairs");
+		add(BlockInit.TROPICAL_DIRT_SLAB, "Tropical Dirt Slab");
 		add(BlockInit.FOREST_DIRT, "Forest Dirt");
+		add(BlockInit.FOREST_DIRT_STAIRS, "Forest Dirt Stairs");
+		add(BlockInit.FOREST_DIRT_SLAB, "Forest Dirt Slab");
 		add(BlockInit.PEAT, "Peat");
+		add(BlockInit.PEAT_STAIRS, "Peat Stairs");
+		add(BlockInit.PEAT_SLAB, "Peat Slab");
 		add(BlockInit.SILT, "Silt");
+		add(BlockInit.SILT_STAIRS, "Silt Stairs");
+		add(BlockInit.SILT_SLAB, "Silt Slab");
 
 		add(BlockInit.TROPICAL_BUTTON, "Tropical Button");
 		add(BlockInit.TROPICAL_DOOR, "Tropical Door");

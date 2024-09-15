@@ -1,13 +1,21 @@
 {
   "values": [
     "minecraft:stone",
-    "machina:tropical_dirt",
-    "machina:tropical_grass_block",
-    "machina:forest_grass_block",
-    "machina:forest_dirt",
-    "machina:peat",
-    "machina:silt",
     "minecraft:gravel",
-    "minecraft:water"
+    "minecraft:water",
+    "machina:tropical_dirt",
+    "machina:tropical_dirt_slab",
+    "machina:tropical_dirt_stairs",
+    "machina:tropical_grass_block",
+    "machina:forest_dirt",
+    "machina:forest_dirt_slab",
+    "machina:forest_dirt_stairs",
+    "machina:forest_grass_block",
+    "machina:peat",
+    "machina:peat_slab",
+    "machina:peat_stairs",
+    "machina:silt",
+    "machina:silt_slab",
+    "machina:silt_stairs"
   ]
 }

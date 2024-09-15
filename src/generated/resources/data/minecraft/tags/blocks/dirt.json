@@ -1,9 +1,9 @@
 {
   "values": [
-    "machina:tropical_grass_block",
     "machina:tropical_dirt",
-    "machina:forest_grass_block",
+    "machina:tropical_grass_block",
     "machina:forest_dirt",
+    "machina:forest_grass_block",
     "machina:peat",
     "machina:silt"
   ]

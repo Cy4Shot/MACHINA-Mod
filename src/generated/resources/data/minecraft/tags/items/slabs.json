@@ -1,5 +1,9 @@
 {
   "values": [
+    "machina:tropical_dirt_slab",
+    "machina:forest_dirt_slab",
+    "machina:peat_slab",
+    "machina:silt_slab",
     "machina:anthracite_slab",
     "machina:feldspar_slab",
     "machina:gray_soapstone_slab",

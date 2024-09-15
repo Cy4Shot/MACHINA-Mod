@@ -6,10 +6,10 @@
 		"water_fog_color": 0,
 		"grass_color": 7106858
 	},
-	"base": "minecraft:stone",
-	"stair": "minecraft:stone_stairs",
-	"slab": "minecraft:stone_slab",
-	"extra": "minecraft:gravel",
+	"base": "machina:tropical_dirt",
+	"stair": "machina:tropical_dirt_stairs",
+	"slab": "machina:tropical_dirt_slab",
+	"extra": "machina:silt",
 	"top": "machina:tropical_grass_block",
 	"second": "machina:tropical_dirt",
 	"trees": [

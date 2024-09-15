@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.machina.Machina;
 import com.machina.registration.init.BlockFamiliesInit;
+import com.machina.registration.init.BlockFamiliesInit.DirtFamily;
 import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
 import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 import com.machina.registration.init.BlockInit;
@@ -32,11 +33,6 @@ public class DatagenItemTags extends ItemTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
-
-		tag(ItemTags.DIRT).add(BlockInit.TROPICAL_GRASS_BLOCK.get().asItem(), BlockInit.TROPICAL_DIRT.get().asItem(),
-				BlockInit.FOREST_GRASS_BLOCK.get().asItem(), BlockInit.FOREST_DIRT.get().asItem(),
-				BlockInit.PEAT.get().asItem(), BlockInit.SILT.get().asItem());
-
 		flower(BlockInit.CLOVER);
 		smallFlower(BlockInit.PURPLE_GLOWSHROOM);
 		smallFlower(BlockInit.PINK_GLOWSHROOM);
@@ -49,6 +45,7 @@ public class DatagenItemTags extends ItemTagsProvider {
 		smallFlower(BlockInit.DRAGON_PEONY);
 		tallFlower(BlockInit.ORPHEUM);
 
+		BlockFamiliesInit.DIRTS.forEach(this::dirtFamily);
 		BlockFamiliesInit.STONES.forEach(this::stoneFamily);
 		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
 	}
@@ -65,6 +62,16 @@ public class DatagenItemTags extends ItemTagsProvider {
 
 	private void flower(RegistryObject<? extends BushBlock> flower) {
 		tag(ItemTags.FLOWERS).add(flower.get().asItem());
+	}
+
+	private void dirtFamily(DirtFamily family) {
+		tag(ItemTags.DIRT).add(family.dirt().asItem());
+		tag(ItemTags.SLABS).add(family.slab().asItem());
+		tag(ItemTags.STAIRS).add(family.stairs().asItem());
+
+		if (family.grass().isPresent()) {
+			tag(ItemTags.DIRT).add(family.grass().get().asItem());
+		}
 	}
 
 	private void stoneFamily(StoneFamily family) {

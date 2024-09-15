@@ -30,13 +30,6 @@ public class DatagenLootTables extends LootTableProvider {
 		@Override
 		protected void generate() {
 			dropSelf(BlockInit.ALUMINUM_BLOCK.get());
-			
-			dropWithSilk(BlockInit.TROPICAL_GRASS_BLOCK.get(), BlockInit.TROPICAL_DIRT.get());
-			dropWithSilk(BlockInit.FOREST_GRASS_BLOCK.get(), BlockInit.FOREST_DIRT.get());
-			dropSelf(BlockInit.TROPICAL_DIRT.get());
-			dropSelf(BlockInit.FOREST_DIRT.get());
-			dropSelf(BlockInit.PEAT.get());
-			dropSelf(BlockInit.SILT.get());
 
 			dropSelf(BlockInit.PURPLE_GLOWSHROOM.get());
 			pot(BlockInit.POTTED_PURPLE_GLOWSHROOM.get());
@@ -54,7 +47,7 @@ public class DatagenLootTables extends LootTableProvider {
 			pot(BlockInit.POTTED_TURQUOISE_GLOWSHROOM.get());
 			dropSelf(BlockInit.BLUE_GLOWSHROOM.get());
 			pot(BlockInit.POTTED_BLUE_GLOWSHROOM.get());
-		
+
 			dropSelf(BlockInit.DRAGON_PEONY.get());
 			pot(BlockInit.POTTED_DRAGON_PEONY.get());
 			dropSelf(BlockInit.ORPHEUM.get());
@@ -66,11 +59,19 @@ public class DatagenLootTables extends LootTableProvider {
 			for (FluidObject obj : FluidInit.OBJS) {
 				dropNone(obj.block());
 			}
-			
+
+			BlockFamiliesInit.DIRTS.forEach(this::dirtFamily);
 			BlockFamiliesInit.STONES.forEach(this::stoneFamily);
 			BlockFamiliesInit.WOODS.forEach(this::woodFamily);
 		}
-		
+
+		private void dirtFamily(BlockFamiliesInit.DirtFamily family) {
+			dropSelf(family.dirt());
+			dropSelf(family.stairs());
+			dropSelf(family.slab());
+			family.grass().ifPresent(grass -> dropWithSilk(grass, family.dirt()));
+		}
+
 		private void stoneFamily(StoneFamily family) {
 			dropSelf(family.base());
 			dropSelf(family.stairs());
@@ -79,7 +80,7 @@ public class DatagenLootTables extends LootTableProvider {
 			dropSelf(family.pressure_plate());
 			slab(family.slab());
 		}
-		
+
 		private void woodFamily(WoodFamily family) {
 			dropSelf(family.button());
 			dropSelf(family.door());
