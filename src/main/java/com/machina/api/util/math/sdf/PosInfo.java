@@ -1,6 +1,9 @@
 package com.machina.api.util.math.sdf;
 
 import java.util.Map;
+import java.util.Optional;
+
+import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,10 +15,17 @@ public class PosInfo implements Comparable<PosInfo> {
 	private final Map<BlockPos, PosInfo> blocks;
 	private final Map<BlockPos, PosInfo> add;
 	private final BlockPos pos;
+	private Optional<Pair<BlockPos, BlockState>> extra = Optional.empty();
 	private BlockState state;
 
 	public static PosInfo create(Map<BlockPos, PosInfo> blocks, Map<BlockPos, PosInfo> add, BlockPos pos) {
 		return new PosInfo(blocks, add, pos);
+	}
+	
+	public static PosInfo create(Map<BlockPos, PosInfo> blocks, Map<BlockPos, PosInfo> add, BlockPos pos, BlockState state) {
+		PosInfo info = create(blocks, add, pos);
+		info.setState(state);
+		return info;
 	}
 
 	private PosInfo(Map<BlockPos, PosInfo> blocks, Map<BlockPos, PosInfo> add, BlockPos pos) {
@@ -23,6 +33,13 @@ public class PosInfo implements Comparable<PosInfo> {
 		this.add = add;
 		this.pos = pos;
 		blocks.put(pos, this);
+	}
+	
+	public PosInfo(PosInfo old, BlockState state) {
+		this.blocks = old.blocks;
+		this.add = old.add;
+		this.pos = old.pos;
+		this.state = state;
 	}
 
 	public BlockState getState() {
@@ -100,5 +117,13 @@ public class PosInfo implements Comparable<PosInfo> {
 		PosInfo info = new PosInfo(blocks, add, pos);
 		info.state = state;
 		add.put(pos, info);
+	}
+	
+	public void setExtra(Optional<Pair<BlockPos, BlockState>> extra) {
+		this.extra = extra;
+	}
+	
+	public Optional<Pair<BlockPos, BlockState>> getExtra() {
+		return extra;
 	}
 }

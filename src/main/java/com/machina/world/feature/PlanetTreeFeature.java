@@ -2,13 +2,18 @@ package com.machina.world.feature;
 
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
 import com.machina.api.starchart.planet_biome.TreeMaker;
+import com.machina.api.util.math.MathUtil;
 import com.machina.api.util.math.sdf.SDF;
+import com.machina.api.util.math.sdf.post.SDFFruitPlacer;
 import com.machina.registration.init.RegistryInit;
 import com.machina.registration.init.TagInit.BlockTagInit;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -31,16 +36,26 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 
 	@Override
 	public boolean place(FeaturePlaceContext<PlanetTreeFeatureConfig> ctx) {
-		PlanetTreeFeatureConfig cfg = ctx.config();
+		PlanetBiomeTree cfg = ctx.config().tree();
 		BlockPos origin = ctx.origin();
-		if (!ctx.level().getBlockState(origin.below()).is(BlockTagInit.PLANET_GROWABLE)) {
+		RandomSource random = ctx.random();
+		WorldGenLevel level = ctx.level();
+
+		if (!level.getBlockState(origin.below()).is(BlockTagInit.PLANET_GROWABLE)) {
 			return false;
 		}
-		TreeMaker maker = cfg.getTree();
-		SDF tree = maker.build(cfg, ctx.random(), ctx.level(), ctx.origin());
+
+		TreeMaker maker = ctx.config().getTree();
+		SDF tree = maker.build(cfg, random, level, origin);
 		if (tree == null)
 			return false;
-		tree.fillRecursive(ctx.level(), origin);
+
+		if (random.nextFloat() < cfg.tree_fruit_chance()) {
+			BlockState f = MathUtil.randomInList(cfg.fruit(), random);
+			tree.addPostProcess(new SDFFruitPlacer(random, cfg.fruit_chance(), f, cfg.leaves()));
+		}
+
+		tree.fillRecursive(level, origin);
 		return true;
 	}
 }

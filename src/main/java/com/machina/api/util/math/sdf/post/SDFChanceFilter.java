@@ -7,15 +7,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class SDFChanceFilter implements SDFPostProcessor {
-
-	float chance;
-	RandomSource random;
-	
-	public SDFChanceFilter(RandomSource random, float chance) {
-		this.random = random;
-		this.chance = chance;
-	}
+public record SDFChanceFilter(RandomSource random, float chance) implements SDFPostProcessor {
 
 	@Override
 	public BlockState apply(PosInfo info) {

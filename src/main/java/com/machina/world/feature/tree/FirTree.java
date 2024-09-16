@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.joml.Vector3f;
 
+import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
 import com.machina.api.starchart.planet_biome.TreeMaker;
 import com.machina.api.util.math.MathUtil;
 import com.machina.api.util.math.sdf.SDF;
@@ -14,7 +15,6 @@ import com.machina.api.util.math.sdf.operator.SDFSubtraction;
 import com.machina.api.util.math.sdf.operator.SDFTranslate;
 import com.machina.api.util.math.sdf.operator.SDFUnion;
 import com.machina.api.util.math.sdf.primitive.SDFSphere;
-import com.machina.world.feature.PlanetTreeFeature.PlanetTreeFeatureConfig;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -23,12 +23,12 @@ import net.minecraft.world.level.WorldGenLevel;
 public class FirTree implements TreeMaker {
 
 	@Override
-	public SDF build(PlanetTreeFeatureConfig config, RandomSource random, WorldGenLevel l, BlockPos p) {
+	public SDF build(PlanetBiomeTree config, RandomSource random, WorldGenLevel l, BlockPos p) {
 		int segments = 10 + random.nextInt(5);
 		float size = MathUtil.randRange(random, 40, 70);
 		List<Vector3f> spline = SplineUtil.makeSpline(0, 0, 0, 0, size, 0, segments);
 		SplineUtil.offsetParts(spline, random, 1F, 0.3f, 1F);
-		SDF stem = SplineUtil.buildSDF(spline, 2.0f, 0.8f, config.tree().wood());
+		SDF stem = SplineUtil.buildSDF(spline, 2.0f, 0.8f, config.wood());
 
 		SDF discs = null;
 
@@ -40,7 +40,7 @@ public class FirTree implements TreeMaker {
 			height += sep;
 			Vector3f seg = spline.get(i);
 			float rad = ((float) i / (float) segments) * (toprad - bottomrad) + bottomrad;
-			SDF disc = new SDFSphere(rad).setBlock(config.tree().leaves());
+			SDF disc = new SDFSphere(rad).setBlock(config.leaves());
 			disc = new SDFScale3D(disc, 1, 1.5f / rad, 1);
 			disc = new SDFDisplacement(disc, random, 5f);
 			disc = new SDFTranslate(disc, seg.x, height, seg.z);
@@ -51,7 +51,7 @@ public class FirTree implements TreeMaker {
 				discs = new SDFUnion(disc, discs);
 			}
 		}
-
+	
 		return new SDFUnion(discs, stem);
 	}
 

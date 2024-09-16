@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.joml.Vector3f;
 
+import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
 import com.machina.api.starchart.planet_biome.TreeMaker;
 import com.machina.api.util.math.MathUtil;
 import com.machina.api.util.math.OpenSimplex2F;
@@ -17,7 +18,6 @@ import com.machina.api.util.math.sdf.operator.SDFSubtraction;
 import com.machina.api.util.math.sdf.operator.SDFTranslate;
 import com.machina.api.util.math.sdf.operator.SDFUnion;
 import com.machina.api.util.math.sdf.primitive.SDFSphere;
-import com.machina.world.feature.PlanetTreeFeature.PlanetTreeFeatureConfig;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -32,7 +32,7 @@ public class RadialBaobabTree implements TreeMaker {
 	private List<Vector3f> SIDE2 = SplineUtil.copySpline(SIDE1);
 
 	@Override
-	public SDF build(PlanetTreeFeatureConfig config, RandomSource random, WorldGenLevel l, BlockPos p) {
+	public SDF build(PlanetBiomeTree config, RandomSource random, WorldGenLevel l, BlockPos p) {
 		float size = MathUtil.randRange(random, 6, 12);
 		List<Vector3f> spline = SplineUtil.makeSpline(0, 0, 0, 0, size, 0, 6);
 		SplineUtil.offsetParts(spline, random, 1F, 0, 1F);
@@ -40,7 +40,7 @@ public class RadialBaobabTree implements TreeMaker {
 		OpenSimplex2F noise = new OpenSimplex2F(random.nextLong());
 		float radius = size * MathUtil.randRange(random, 0.9F, 0.95F);
 
-		SDF stem = SplineUtil.buildSDF(spline, 2.3F, 1.2F, config.tree().wood());
+		SDF stem = SplineUtil.buildSDF(spline, 2.3F, 1.2F, config.wood());
 
 		int count = (int) radius;
 		int offset = (int) (BRANCH.get(BRANCH.size() - 1).y() * radius);
@@ -51,23 +51,23 @@ public class RadialBaobabTree implements TreeMaker {
 			List<Vector3f> branch = SplineUtil.copySpline(BRANCH);
 			SplineUtil.rotateSpline(branch, angle);
 			SplineUtil.scale(branch, scale);
-			SDF b1 = SplineUtil.buildSDF(branch, 1, 1, config.tree().wood());
+			SDF b1 = SplineUtil.buildSDF(branch, 1, 1, config.wood());
 			stem = new SDFUnion(stem, b1);
 
 			branch = SplineUtil.copySpline(SIDE1);
 			SplineUtil.rotateSpline(branch, angle);
 			SplineUtil.scale(branch, scale);
-			SDF b2 = SplineUtil.buildSDF(branch, 1, 1, config.tree().wood());
+			SDF b2 = SplineUtil.buildSDF(branch, 1, 1, config.wood());
 			stem = new SDFUnion(stem, b2);
 
 			branch = SplineUtil.copySpline(SIDE2);
 			SplineUtil.rotateSpline(branch, angle);
 			SplineUtil.scale(branch, scale);
-			SDF b3 = SplineUtil.buildSDF(branch, 1, 1, config.tree().wood());
+			SDF b3 = SplineUtil.buildSDF(branch, 1, 1, config.wood());
 			stem = new SDFUnion(stem, b3);
 		}
 
-		SDF sphere = new SDFSphere(radius * 1.15F + 2).setBlock(config.tree().leaves());
+		SDF sphere = new SDFSphere(radius * 1.15F + 2).setBlock(config.leaves());
 		SDF sub = new SDFScale(sphere, 5);
 		sub = new SDFTranslate(sub, 0, -(radius * 1.15F + 2) * 5, 0);
 		sphere = new SDFSubtraction(sphere, sub);

@@ -163,6 +163,11 @@ public class MathUtil {
 		int i = random.nextInt(set.size());
 		return set.get(i);
 	}
+	
+	public static <T> T randomInList(List<T> set, RandomSource random) {
+		int i = random.nextInt(set.size());
+		return set.get(i);
+	}
 
 	private static final int SHUFFLE_THRESHOLD = 5;
 

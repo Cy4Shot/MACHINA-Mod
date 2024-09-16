@@ -17,19 +17,31 @@
 			"type": "machina:arch",
 			"wood": "machina:pine_wood",
 			"leaves": "machina:pine_leaves[persistent=true]",
-			"every": 5
+			"every": 5,
+			"fruits": [
+			],
+			"fruit_chance": 0,
+			"tree_fruit_chance": 0
 		},
 		{
 			"type": "machina:cone",
 			"wood": "machina:pine_wood",
 			"leaves": "machina:pine_leaves[persistent=true]",
-			"every": 3
+			"every": 3,
+			"fruits": [
+			],
+			"fruit_chance": 0,
+			"tree_fruit_chance": 0
 		},
 		{
 			"type": "machina:lollipop",
 			"wood": "machina:pine_wood",
 			"leaves": "machina:pine_leaves[persistent=true]",
-			"every": 10
+			"every": 10,
+			"fruits": [
+			],
+			"fruit_chance": 0,
+			"tree_fruit_chance": 0
 		}
 	],
 	"bushes": [

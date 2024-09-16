@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
@@ -24,9 +26,21 @@ public abstract class SDF {
 
 	public static final int UPDATE_FLAGS = 18;
 
-	@FunctionalInterface
 	public interface SDFPostProcessor {
-		BlockState apply(PosInfo posInfo);
+		default BlockState apply(PosInfo posInfo) {
+			return posInfo.getState();
+		}
+
+		default Optional<Pair<BlockPos, BlockState>> extra(PosInfo posInfo) {
+			return Optional.empty();
+		}
+
+		default void apply(List<PosInfo> infos) {
+			infos.forEach((info) -> {
+				info.setState(apply(info));
+				info.setExtra(extra(info));
+			});
+		}
 	}
 
 	private final List<SDFPostProcessor> postProcesses = Lists.newArrayList();
@@ -84,27 +98,31 @@ public abstract class SDF {
 		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
 		if (infos.size() > 0) {
 			Collections.sort(infos);
-			postProcesses.forEach((postProcess) -> {
-				infos.forEach((info) -> {
-					info.setState(postProcess.apply(info));
-				});
-			});
+			postProcesses.forEach(x -> x.apply(infos));
 			infos.forEach((info) -> {
 				world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
+			});
+			infos.forEach((info) -> {
+				info.getExtra().ifPresent((extra) -> {
+					world.setBlock(extra.getFirst(), extra.getSecond(), UPDATE_FLAGS);
+				});
 			});
 
 			infos.clear();
 			infos.addAll(addInfo.values());
 			Collections.sort(infos);
-			postProcesses.forEach((postProcess) -> {
-				infos.forEach((info) -> {
-					info.setState(postProcess.apply(info));
-				});
-			});
+			postProcesses.forEach(x -> x.apply(infos));
 			infos.forEach((info) -> {
 				if (canReplace.apply(world.getBlockState(info.getPos()))) {
 					world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
 				}
+			});
+			infos.forEach((info) -> {
+				info.getExtra().ifPresent((extra) -> {
+					if (canReplace.apply(world.getBlockState(info.getPos()))) {
+						world.setBlock(extra.getFirst(), extra.getSecond(), UPDATE_FLAGS);
+					}
+				});
 			});
 		}
 	}
@@ -133,27 +151,30 @@ public abstract class SDF {
 		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
 		if (infos.size() > 0) {
 			Collections.sort(infos);
-			postProcesses.forEach((postProcess) -> {
-				infos.forEach((info) -> {
-					info.setState(postProcess.apply(info));
-				});
-			});
+			postProcesses.forEach(x -> x.apply(infos));
 			infos.forEach((info) -> {
 				world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
 			});
-
+			infos.forEach((info) -> {
+				info.getExtra().ifPresent((extra) -> {
+					world.setBlock(extra.getFirst(), extra.getSecond(), UPDATE_FLAGS);
+				});
+			});
 			infos.clear();
 			infos.addAll(addInfo.values());
 			Collections.sort(infos);
-			postProcesses.forEach((postProcess) -> {
-				infos.forEach((info) -> {
-					info.setState(postProcess.apply(info));
-				});
-			});
+			postProcesses.forEach(x -> x.apply(infos));
 			infos.forEach((info) -> {
 				if (canReplace.apply(world.getBlockState(info.getPos()))) {
 					world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
 				}
+			});
+			infos.forEach((info) -> {
+				info.getExtra().ifPresent((extra) -> {
+					if (canReplace.apply(world.getBlockState(info.getPos()))) {
+						world.setBlock(extra.getFirst(), extra.getSecond(), UPDATE_FLAGS);
+					}
+				});
 			});
 		}
 	}
@@ -196,27 +217,31 @@ public abstract class SDF {
 		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
 		if (infos.size() > 0) {
 			Collections.sort(infos);
-			postProcesses.forEach((postProcess) -> {
-				infos.forEach((info) -> {
-					info.setState(postProcess.apply(info));
-				});
-			});
+			postProcesses.forEach(x -> x.apply(infos));
 			infos.forEach((info) -> {
 				world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
+			});
+			infos.forEach((info) -> {
+				info.getExtra().ifPresent((extra) -> {
+					world.setBlock(extra.getFirst(), extra.getSecond(), UPDATE_FLAGS);
+				});
 			});
 
 			infos.clear();
 			infos.addAll(addInfo.values());
 			Collections.sort(infos);
-			postProcesses.forEach((postProcess) -> {
-				infos.forEach((info) -> {
-					info.setState(postProcess.apply(info));
-				});
-			});
+			postProcesses.forEach(x -> x.apply(infos));
 			infos.forEach((info) -> {
 				if (canReplace.apply(world.getBlockState(info.getPos()))) {
 					world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
 				}
+			});
+			infos.forEach((info) -> {
+				info.getExtra().ifPresent((extra) -> {
+					if (canReplace.apply(world.getBlockState(info.getPos()))) {
+						world.setBlock(extra.getFirst(), extra.getSecond(), UPDATE_FLAGS);
+					}
+				});
 			});
 		}
 	}
@@ -261,11 +286,7 @@ public abstract class SDF {
 		Set<BlockPos> positions = Sets.newHashSet();
 		if (infos.size() > 0) {
 			Collections.sort(infos);
-			postProcesses.forEach((postProcess) -> {
-				infos.forEach((info) -> {
-					info.setState(postProcess.apply(info));
-				});
-			});
+			postProcesses.forEach(x -> x.apply(infos));
 			infos.forEach((info) -> {
 				MutableBlockPos mbp = info.getPos().mutable();
 				if (shifter.apply(mbp)) {
@@ -273,15 +294,20 @@ public abstract class SDF {
 					positions.add(mbp.immutable());
 				}
 			});
+			infos.forEach((info) -> {
+				info.getExtra().ifPresent((extra) -> {
+					MutableBlockPos mbp = extra.getFirst().mutable();
+					if (shifter.apply(mbp)) {
+						world.setBlock(mbp.immutable(), extra.getSecond(), UPDATE_FLAGS);
+						positions.add(mbp.immutable());
+					}
+				});
+			});
 
 			infos.clear();
 			infos.addAll(addInfo.values());
 			Collections.sort(infos);
-			postProcesses.forEach((postProcess) -> {
-				infos.forEach((info) -> {
-					info.setState(postProcess.apply(info));
-				});
-			});
+			postProcesses.forEach(x -> x.apply(infos));
 			infos.forEach((info) -> {
 				MutableBlockPos mbp = info.getPos().mutable();
 				if (shifter.apply(mbp)) {
@@ -290,6 +316,17 @@ public abstract class SDF {
 						positions.add(mbp.immutable());
 					}
 				}
+			});
+			infos.forEach((info) -> {
+				info.getExtra().ifPresent((extra) -> {
+					MutableBlockPos mbp = info.getPos().mutable();
+					if (shifter.apply(mbp)) {
+						if (canReplace.apply(world.getBlockState(extra.getFirst()))) {
+							world.setBlock(mbp.immutable(), extra.getSecond(), UPDATE_FLAGS);
+							positions.add(mbp.immutable());
+						}
+					}
+				});
 			});
 		}
 

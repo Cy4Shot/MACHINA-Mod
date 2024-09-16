@@ -48,13 +48,17 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 		}
 	}
 
-	public record PlanetBiomeTree(ResourceLocation tree, BlockState wood, BlockState leaves, int every) {
+	public record PlanetBiomeTree(ResourceLocation tree, BlockState wood, BlockState leaves, int every,
+			List<BlockState> fruit, float fruit_chance, float tree_fruit_chance) {
 
 		public static final Codec<PlanetBiomeTree> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(ResourceLocation.CODEC.fieldOf("tree").forGetter(PlanetBiomeTree::tree),
 						BlockState.CODEC.fieldOf("wood").forGetter(PlanetBiomeTree::wood),
 						BlockState.CODEC.fieldOf("leaves").forGetter(PlanetBiomeTree::leaves),
-						Codec.INT.fieldOf("every").forGetter(PlanetBiomeTree::every))
+						Codec.INT.fieldOf("every").forGetter(PlanetBiomeTree::every),
+						Codec.list(BlockState.CODEC).fieldOf("fruit").forGetter(PlanetBiomeTree::fruit),
+						Codec.FLOAT.fieldOf("fruit_chance").forGetter(PlanetBiomeTree::fruit_chance),
+						Codec.FLOAT.fieldOf("tree_fruit_chance").forGetter(PlanetBiomeTree::tree_fruit_chance))
 				.apply(instance, PlanetBiomeTree::new));
 	}
 

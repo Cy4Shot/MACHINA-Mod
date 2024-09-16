@@ -17,7 +17,12 @@
 			"type": "machina:fir",
 			"wood": "machina:pine_wood",
 			"leaves": "machina:pine_leaves[persistent=true]",
-			"every": 1
+			"every": 1,
+			"fruits": [
+				"machina:strapple"
+			],
+			"fruit_chance": 0.03,
+			"tree_fruit_chance": 0.1
 		}
 	],
 	"bushes": [

@@ -26,12 +26,14 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		return BlockHelper.parseState(BlockHelper.blockHolderLookup(), block);
 	}
 
-	public record PlanetBiomeTreeJsonInfo(String type, String wood, String leaves, int every)
-			implements JsonInfo<PlanetBiomeTree> {
+	public record PlanetBiomeTreeJsonInfo(String type, String wood, String leaves, int every, List<String> fruits,
+			float fruit_chance, float tree_fruit_chance) implements JsonInfo<PlanetBiomeTree> {
 
 		@Override
 		public PlanetBiomeTree cast() {
-			return new PlanetBiomeTree(new ResourceLocation(type), getBlock(wood), getBlock(leaves), every);
+			List<BlockState> fruits = fruits().stream().map(PlanetBiomeJsonInfo::getBlock).collect(Collectors.toList());
+			return new PlanetBiomeTree(new ResourceLocation(type), getBlock(wood), getBlock(leaves), every, fruits,
+					fruit_chance, tree_fruit_chance);
 		}
 	}
 
