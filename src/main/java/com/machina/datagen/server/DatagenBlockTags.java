@@ -18,8 +18,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraftforge.common.data.BlockTagsProvider;
@@ -44,6 +44,8 @@ public class DatagenBlockTags extends BlockTagsProvider {
 		smallFlower(BlockInit.BLUE_GLOWSHROOM, BlockInit.POTTED_BLUE_GLOWSHROOM);
 
 		smallFlower(BlockInit.DRAGON_PEONY, BlockInit.POTTED_DRAGON_PEONY);
+		smallFlower(BlockInit.SMALL_FERN, BlockInit.POTTED_SMALL_FERN);
+		smallFlower(BlockInit.DEAD_SMALL_FERN, BlockInit.POTTED_DEAD_SMALL_FERN);
 		tallFlower(BlockInit.ORPHEUM);
 		tag(BlockTags.FLOWERS).add(BlockInit.CLOVER.get());
 
@@ -54,7 +56,7 @@ public class DatagenBlockTags extends BlockTagsProvider {
 		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
 	}
 
-	private void smallFlower(RegistryObject<FlowerBlock> flower, RegistryObject<FlowerPotBlock> potted) {
+	private void smallFlower(RegistryObject<? extends Block> flower, RegistryObject<FlowerPotBlock> potted) {
 		tag(BlockTags.FLOWERS).add(flower.get());
 		tag(BlockTags.SMALL_FLOWERS).add(flower.get());
 		tag(BlockTags.FLOWER_POTS).add(potted.get());

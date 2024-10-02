@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-15T11:18:26.4700811	Loot Tables
+// 1.20.1	2024-10-02T08:11:51.4987939	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -32,6 +32,7 @@ cd2fec633693d81ea280a2c3b3874b69da182fbe data/machina/loot_tables/blocks/chalk.j
 7417437f539ab791fb99a3c2136f38871b23ebf7 data/machina/loot_tables/blocks/chalk_wall.json
 7bb0a8bbde8ef363472ce0431f322d91ba8e3721 data/machina/loot_tables/blocks/chlorine_block.json
 bb3b07a24377a6282cbbe42301cbaf6d3487548b data/machina/loot_tables/blocks/clover.json
+97abc9049ad396a8b7f45c8f72f16c153d4d72d4 data/machina/loot_tables/blocks/dead_small_fern.json
 51a99f33428f09ca45f3b85aa2173a54356275a1 data/machina/loot_tables/blocks/dragon_peony.json
 3ff82746b009092156a862be1b7ef6069dc2e18f data/machina/loot_tables/blocks/erbi_pod.json
 1c603a49bec68113d639f1077dadcb4c0f1f7b46 data/machina/loot_tables/blocks/ethane_block.json
@@ -128,12 +129,14 @@ a0a260ce5a53b4dbcbda153391d3c783f2a705fc data/machina/loot_tables/blocks/pine_wa
 580e8bbd9cf103648156ba53f6e0daea542de139 data/machina/loot_tables/blocks/pine_wood.json
 d827ff67270e1f51702d4173d5c25c3f813fcc1c data/machina/loot_tables/blocks/pink_glowshroom.json
 e5833acba9753eff156ff71ec27705483246d0f7 data/machina/loot_tables/blocks/potted_blue_glowshroom.json
+f16146280da922e2b4326694b03c264dc278088d data/machina/loot_tables/blocks/potted_dead_small_fern.json
 05994a1248bfbaab320f8a474a74a84816cf935d data/machina/loot_tables/blocks/potted_dragon_peony.json
 3663d64b04d991924c736c79ff58734e6180a220 data/machina/loot_tables/blocks/potted_green_glowshroom.json
 c014c73808b935caaa4895eb8e8214eec8ac5635 data/machina/loot_tables/blocks/potted_orange_glowshroom.json
 e62eb6e877738799a9cabd635efe325b63b3d1f6 data/machina/loot_tables/blocks/potted_pink_glowshroom.json
 5e25fe4450b1b19107011dd4313a801a683ae5e5 data/machina/loot_tables/blocks/potted_purple_glowshroom.json
 0415d06e54cd0d7c93423f7cc26fb314e0d4f1f7 data/machina/loot_tables/blocks/potted_red_glowshroom.json
+2b888bd710cad6c0a35d39fe97853116a7dce6a4 data/machina/loot_tables/blocks/potted_small_fern.json
 f9f87262b8def71907731ef4f0bec90dad974a98 data/machina/loot_tables/blocks/potted_turquoise_glowshroom.json
 f0daf66ae91ef52e28a08daf3591052496a570f2 data/machina/loot_tables/blocks/potted_yellow_glowshroom.json
 1f12c1753b93cd24d1ff61627bafc6eb4a450bfb data/machina/loot_tables/blocks/purple_glowshroom.json
@@ -147,6 +150,7 @@ f6fa8e5b95bcff18a36580b832c00aff2c83724e data/machina/loot_tables/blocks/shale_p
 87d5c3778f82beb9e61252cebe0d759a99fde8d9 data/machina/loot_tables/blocks/silt.json
 a3071c99556eaf9eeafd52a49c3e0dd2587d53d7 data/machina/loot_tables/blocks/silt_slab.json
 f40552bb6480f2fa458b75f3f2eb0c57bc9a5c1f data/machina/loot_tables/blocks/silt_stairs.json
+8154a3cb32f2b9e9d89d163337a2512bfdf54213 data/machina/loot_tables/blocks/small_fern.json
 1e48a5183aa45287542b65252d2342ff81846e6c data/machina/loot_tables/blocks/sparr_ball.json
 e771ae2bc152a22e402241173edf488c07dff9c1 data/machina/loot_tables/blocks/strapple.json
 494b446c511eabff77fd8ee8155db57a433487a2 data/machina/loot_tables/blocks/stripped_pine_log.json

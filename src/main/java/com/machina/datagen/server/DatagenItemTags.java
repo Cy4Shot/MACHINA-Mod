@@ -20,15 +20,14 @@ import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
 public class DatagenItemTags extends ItemTagsProvider {
-	public DatagenItemTags(PackOutput po, CompletableFuture<HolderLookup.Provider> p_275729_,
-			CompletableFuture<TagLookup<Block>> p_275322_, @Nullable ExistingFileHelper existingFileHelper) {
-		super(po, p_275729_, p_275322_, Machina.MOD_ID, existingFileHelper);
+	public DatagenItemTags(PackOutput po, CompletableFuture<HolderLookup.Provider> provider,
+			CompletableFuture<TagLookup<Block>> lookup, @Nullable ExistingFileHelper helper) {
+		super(po, provider, lookup, Machina.MOD_ID, helper);
 	}
 
 	@Override
@@ -43,6 +42,8 @@ public class DatagenItemTags extends ItemTagsProvider {
 		smallFlower(BlockInit.TURQUOISE_GLOWSHROOM);
 		smallFlower(BlockInit.BLUE_GLOWSHROOM);
 		smallFlower(BlockInit.DRAGON_PEONY);
+		smallFlower(BlockInit.SMALL_FERN);
+		smallFlower(BlockInit.DEAD_SMALL_FERN);
 		tallFlower(BlockInit.ORPHEUM);
 
 		BlockFamiliesInit.DIRTS.forEach(this::dirtFamily);
@@ -50,7 +51,7 @@ public class DatagenItemTags extends ItemTagsProvider {
 		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
 	}
 
-	private void smallFlower(RegistryObject<FlowerBlock> flower) {
+	private void smallFlower(RegistryObject<? extends BushBlock> flower) {
 		flower(flower);
 		tag(ItemTags.SMALL_FLOWERS).add(flower.get().asItem());
 	}

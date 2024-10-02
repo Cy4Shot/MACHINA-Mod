@@ -42,8 +42,12 @@
 				"weight": 10
 			},
 			{
-				"block": "minecraft:fern",
+				"block": "machina:small_fern",
 				"weight": 2
+			},
+			{
+				"block": "machina:dead_small_fern",
+				"weight": 1
 			},
 			{
 				"block": "machina:clover",
@@ -57,6 +61,24 @@
 		"rarity": 20
 	},
 	"rocks": [
+		{
+			"base": "machina:feldspar",
+			"stair": "machina:feldspar_stairs",
+			"slab": "machina:feldspar_slab",
+			"wall": "machina:feldspar_wall",
+			"perchunk": 2,
+			"radius": 1.01,
+			"deform": 2.0
+		},
+		{
+			"base": "machina:feldspar",
+			"stair": "machina:feldspar_stairs",
+			"slab": "machina:feldspar_slab",
+			"wall": "machina:feldspar_wall",
+			"perchunk": 1,
+			"radius": 2.51,
+			"deform": 2.0
+		}
 	],
 	"ores": [
 		{

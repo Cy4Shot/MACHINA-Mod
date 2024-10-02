@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
-import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
@@ -184,9 +183,13 @@ public class DatagenBlockStates extends BlockStateProvider {
 		door(BlockInit.PINE_DOOR);
 
 		tall_flower(BlockInit.ORPHEUM);
+		flower(BlockInit.SMALL_FERN);
+		flower(BlockInit.DEAD_SMALL_FERN);
 		flower(BlockInit.DRAGON_PEONY);
 		flower_pot(BlockInit.POTTED_DRAGON_PEONY);
-
+		flower_pot(BlockInit.POTTED_SMALL_FERN);
+		flower_pot(BlockInit.POTTED_DEAD_SMALL_FERN);
+		
 		flower(BlockInit.PURPLE_GLOWSHROOM);
 		flower_pot(BlockInit.POTTED_PURPLE_GLOWSHROOM);
 		flower(BlockInit.PINK_GLOWSHROOM);
@@ -320,8 +323,8 @@ public class DatagenBlockStates extends BlockStateProvider {
 				.modelFile(models().cubeAll(name(obj.block()), new ResourceLocation("block/water_still"))).addModel();
 	}
 
-	private void flower(RegistryObject<FlowerBlock> flower) {
-		FlowerBlock f = flower.get();
+	private void flower(RegistryObject<? extends Block> flower) {
+		Block f = flower.get();
 		ResourceLocation tex = blockTexture(f);
 		simpleBlock(f, models().cross(name(f), tex).renderType("cutout"));
 		simpleFlatItem(f, tex);

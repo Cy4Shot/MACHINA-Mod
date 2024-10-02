@@ -52,6 +52,10 @@ public class DatagenLootTables extends LootTableProvider {
 
 			dropSelf(BlockInit.DRAGON_PEONY.get());
 			pot(BlockInit.POTTED_DRAGON_PEONY.get());
+			dropSelf(BlockInit.SMALL_FERN.get());
+			pot(BlockInit.POTTED_SMALL_FERN.get());
+			dropSelf(BlockInit.DEAD_SMALL_FERN.get());
+			pot(BlockInit.POTTED_DEAD_SMALL_FERN.get());
 			dropSelf(BlockInit.ORPHEUM.get());
 			dropSelf(BlockInit.CLOVER.get());
 

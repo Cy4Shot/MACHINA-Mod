@@ -198,8 +198,12 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.CLOVER, "Clover");
 		add(BlockInit.ORPHEUM, "Orpheum");
 
+		add(BlockInit.SMALL_FERN, "Small Fern");
+		add(BlockInit.DEAD_SMALL_FERN, "Dead Small Fern");
 		add(BlockInit.DRAGON_PEONY, "Dragon Peony");
 		add(BlockInit.POTTED_DRAGON_PEONY, "Potted Dragon Peony");
+		add(BlockInit.POTTED_SMALL_FERN, "Potted Small Fern");
+		add(BlockInit.POTTED_DEAD_SMALL_FERN, "Potted Dead Small Fern");
 
 		add(BlockInit.PURPLE_GLOWSHROOM, "Purple Glowshroom");
 		add(BlockInit.POTTED_PURPLE_GLOWSHROOM, "Potted Purple Glowshroom");
