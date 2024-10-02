@@ -101,7 +101,7 @@ public class BlockFamiliesInit {
 		@Override
 		public List<ItemLike> tab() {
 			return List.of(log, wood, stripped_log, stripped_wood, planks, stairs, slab, fence, fencegate, door,
-					trapdoor, pressure_plate, button, sign, hangingsign);
+					trapdoor, pressure_plate, button, sign, hangingsign, leaves);
 		}
 	}
 

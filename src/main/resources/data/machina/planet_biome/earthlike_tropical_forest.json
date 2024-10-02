@@ -17,12 +17,22 @@
 			"type": "machina:radial_baobab",
 			"wood": "machina:tropical_wood",
 			"leaves": "machina:tropical_leaves[persistent=true]",
-			"every": 4,
+			"every": 6,
 			"fruits": [
 				"machina:tama_spore"
 			],
 			"fruit_chance": 0.03,
 			"tree_fruit_chance": 0.3
+		},
+		{
+			"type": "machina:acacia",
+			"wood": "machina:tropical_wood",
+			"leaves": "machina:tropical_leaves[persistent=true]",
+			"every": 4,
+			"fruits": [
+			],
+			"fruit_chance": 0,
+			"tree_fruit_chance": 0
 		}
 	],
 	"bushes": [

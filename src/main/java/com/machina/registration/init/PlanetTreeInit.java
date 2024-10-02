@@ -1,6 +1,7 @@
 package com.machina.registration.init;
 
 import com.machina.api.starchart.planet_biome.TreeMaker;
+import com.machina.world.feature.tree.AcaciaTree;
 import com.machina.world.feature.tree.ArchTree;
 import com.machina.world.feature.tree.ConeTree;
 import com.machina.world.feature.tree.FirTree;
@@ -19,5 +20,6 @@ public class PlanetTreeInit {
 	public static final RegistryObject<FirTree> FIR = TREES.register("fir", FirTree::new);
 	public static final RegistryObject<ConeTree> CONE = TREES.register("cone", ConeTree::new);
 	public static final RegistryObject<LollipopTree> LOLLIPOP = TREES.register("lollipop", LollipopTree::new);
+	public static final RegistryObject<AcaciaTree> ACACIA = TREES.register("acacia", AcaciaTree::new);
 	//@formatter:on
 }
