@@ -182,11 +182,14 @@ public class DatagenBlockStates extends BlockStateProvider {
 		trapdoor(BlockInit.PINE_TRAPDOOR);
 		door(BlockInit.PINE_DOOR);
 
+		tall_flower(BlockInit.SPINDLEGRASS);
 		tall_flower(BlockInit.ORPHEUM);
+		flower(BlockInit.SPINDLESPROUT);
 		flower(BlockInit.SMALL_FERN);
 		flower(BlockInit.DEAD_SMALL_FERN);
 		flower(BlockInit.DRAGON_PEONY);
 		flower_pot(BlockInit.POTTED_DRAGON_PEONY);
+		flower_pot(BlockInit.POTTED_SPINDLESPROUT);
 		flower_pot(BlockInit.POTTED_SMALL_FERN);
 		flower_pot(BlockInit.POTTED_DEAD_SMALL_FERN);
 		

@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-02T08:11:51.4987939	Loot Tables
+// 1.20.1	2024-10-28T12:53:50.5338355	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -137,6 +137,7 @@ e62eb6e877738799a9cabd635efe325b63b3d1f6 data/machina/loot_tables/blocks/potted_
 5e25fe4450b1b19107011dd4313a801a683ae5e5 data/machina/loot_tables/blocks/potted_purple_glowshroom.json
 0415d06e54cd0d7c93423f7cc26fb314e0d4f1f7 data/machina/loot_tables/blocks/potted_red_glowshroom.json
 2b888bd710cad6c0a35d39fe97853116a7dce6a4 data/machina/loot_tables/blocks/potted_small_fern.json
+09967c1a294f6682e924039e021e88c58ce826e1 data/machina/loot_tables/blocks/potted_spindlesprout.json
 f9f87262b8def71907731ef4f0bec90dad974a98 data/machina/loot_tables/blocks/potted_turquoise_glowshroom.json
 f0daf66ae91ef52e28a08daf3591052496a570f2 data/machina/loot_tables/blocks/potted_yellow_glowshroom.json
 1f12c1753b93cd24d1ff61627bafc6eb4a450bfb data/machina/loot_tables/blocks/purple_glowshroom.json
@@ -152,6 +153,8 @@ a3071c99556eaf9eeafd52a49c3e0dd2587d53d7 data/machina/loot_tables/blocks/silt_sl
 f40552bb6480f2fa458b75f3f2eb0c57bc9a5c1f data/machina/loot_tables/blocks/silt_stairs.json
 8154a3cb32f2b9e9d89d163337a2512bfdf54213 data/machina/loot_tables/blocks/small_fern.json
 1e48a5183aa45287542b65252d2342ff81846e6c data/machina/loot_tables/blocks/sparr_ball.json
+6e8676126810abcb6e26e1a94332cc2aeb9d3391 data/machina/loot_tables/blocks/spindlegrass.json
+0cdfe6bc6dfd0e91ede59d4178f59cefd1b43239 data/machina/loot_tables/blocks/spindlesprout.json
 e771ae2bc152a22e402241173edf488c07dff9c1 data/machina/loot_tables/blocks/strapple.json
 494b446c511eabff77fd8ee8155db57a433487a2 data/machina/loot_tables/blocks/stripped_pine_log.json
 fa7d222ba4e2d16a7c620e531febdec328d6d496 data/machina/loot_tables/blocks/stripped_pine_wood.json

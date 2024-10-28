@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "machina:block/spindlegrass_bottom"
+    },
+    "half=upper": {
+      "model": "machina:block/spindlegrass_top"
+    }
+  }
+}

@@ -60,9 +60,11 @@ public class TabInit {
 
 				family(a, BlockFamiliesInit.WOODS);
 
+				add(a, BlockInit.SPINDLESPROUT);
 				add(a, BlockInit.SMALL_FERN);
 				add(a, BlockInit.DEAD_SMALL_FERN);
 				add(a, BlockInit.CLOVER);
+				add(a, BlockInit.SPINDLEGRASS);
 				add(a, BlockInit.ORPHEUM);
 				add(a, BlockInit.DRAGON_PEONY);
 				add(a, BlockInit.PURPLE_GLOWSHROOM);

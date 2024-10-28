@@ -4,7 +4,7 @@
 		"sky_color": 0,
 		"water_color": 0,
 		"water_fog_color": 0,
-		"grass_color": 7106858
+		"grass_color": 6057754
 	},
 	"base": "machina:tropical_dirt",
 	"stair": "machina:tropical_dirt_stairs",
@@ -57,6 +57,14 @@
 			},
 			{
 				"block": "machina:dead_small_fern",
+				"weight": 1
+			},
+			{
+				"block": "machina:spindlegrass",
+				"weight": 1
+			},
+			{
+				"block": "machina:spindlesprout",
 				"weight": 1
 			},
 			{

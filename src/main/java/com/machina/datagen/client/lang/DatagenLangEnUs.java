@@ -196,8 +196,11 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.STRIPPED_PINE_WOOD, "Stripped Pine Wood");
 
 		add(BlockInit.CLOVER, "Clover");
+		
+		add(BlockInit.SPINDLEGRASS, "Spindlegrass");
 		add(BlockInit.ORPHEUM, "Orpheum");
 
+		add(BlockInit.SPINDLESPROUT, "Spindlesprout");
 		add(BlockInit.SMALL_FERN, "Small Fern");
 		add(BlockInit.DEAD_SMALL_FERN, "Dead Small Fern");
 		add(BlockInit.DRAGON_PEONY, "Dragon Peony");
