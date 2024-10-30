@@ -17,6 +17,7 @@ import com.machina.api.util.math.sdf.post.SDFSelective;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public class ArchTree implements TreeMaker {
@@ -41,5 +42,10 @@ public class ArchTree implements TreeMaker {
 		SDF res = new SDFUnion(leaves, stem);
 		res.addPostProcess(new SDFSelective(new SDFChanceFilter(random, 0.4f), config.leaves().getBlock()));
 		return res;
+	}
+	
+	@Override
+	public BlockState getLeafAttachment(PlanetBiomeTree config, RandomSource random) {
+		return config.wood();
 	}
 }

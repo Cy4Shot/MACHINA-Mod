@@ -23,6 +23,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class RadialBaobabTree implements TreeMaker {
 	private List<Vector3f> BRANCH = Arrays.asList(new Vector3f(0, 0, 0), new Vector3f(0.1F, 0.3F, 0),
@@ -76,5 +77,10 @@ public class RadialBaobabTree implements TreeMaker {
 		SDF leaves = new SDFDisplacement(sphere, random, 3);
 		leaves = new SDFTranslate(leaves, 0, offset, 0);
 		return new SDFUnion(stem, leaves);
+	}
+	
+	@Override
+	public BlockState getLeafAttachment(PlanetBiomeTree config, RandomSource random) {
+		return config.leaves();
 	}
 }

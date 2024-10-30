@@ -18,6 +18,7 @@ import com.machina.api.util.math.sdf.primitive.SDFSphere;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class AcaciaTree implements TreeMaker {
 
@@ -41,6 +42,11 @@ public class AcaciaTree implements TreeMaker {
 
 		// Combine the Stem and Leaves
 		return new SDFUnion(stem, leaves);
+	}
+
+	@Override
+	public BlockState getLeafAttachment(PlanetBiomeTree config, RandomSource random) {
+		return config.leaves();
 	}
 
 }

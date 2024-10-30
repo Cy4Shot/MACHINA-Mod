@@ -19,6 +19,7 @@ import com.machina.api.util.math.sdf.primitive.SDFSphere;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class FirTree implements TreeMaker {
 
@@ -51,8 +52,13 @@ public class FirTree implements TreeMaker {
 				discs = new SDFUnion(disc, discs);
 			}
 		}
-	
+
 		return new SDFUnion(discs, stem);
+	}
+
+	@Override
+	public BlockState getLeafAttachment(PlanetBiomeTree config, RandomSource random) {
+		return config.leaves();
 	}
 
 }

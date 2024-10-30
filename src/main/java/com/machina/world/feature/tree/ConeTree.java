@@ -17,6 +17,7 @@ import com.machina.api.util.math.sdf.primitive.SDFCappedCone;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class ConeTree implements TreeMaker {
 
@@ -35,6 +36,11 @@ public class ConeTree implements TreeMaker {
 		leaves = new SDFDisplacement(leaves, random, 4f);
 
 		return new SDFUnion(stem, leaves);
+	}
+
+	@Override
+	public BlockState getLeafAttachment(PlanetBiomeTree config, RandomSource random) {
+		return config.leaves();
 	}
 
 }

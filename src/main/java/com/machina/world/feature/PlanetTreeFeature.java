@@ -4,7 +4,6 @@ import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTre
 import com.machina.api.starchart.planet_biome.TreeMaker;
 import com.machina.api.util.math.MathUtil;
 import com.machina.api.util.math.sdf.SDF;
-import com.machina.api.util.math.sdf.post.SDFFruitPlacer;
 import com.machina.registration.init.RegistryInit;
 import com.machina.registration.init.TagInit.BlockTagInit;
 import com.mojang.serialization.Codec;
@@ -52,7 +51,7 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 
 		if (random.nextFloat() < cfg.tree_fruit_chance()) {
 			BlockState f = MathUtil.randomInList(cfg.fruit(), random);
-			tree.addPostProcess(new SDFFruitPlacer(random, cfg.fruit_chance(), f, cfg.leaves()));
+			tree.addPostProcess(maker.fruit(random, cfg, f));
 		}
 
 		tree.fillRecursive(level, origin);
