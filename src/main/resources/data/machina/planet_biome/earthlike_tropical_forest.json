@@ -84,7 +84,7 @@
 			"stair": "machina:feldspar_stairs",
 			"slab": "machina:feldspar_slab",
 			"wall": "machina:feldspar_wall",
-			"chance": 2,
+			"chance": 0.25,
 			"radius": 1.01,
 			"deform": 2.0
 		},
@@ -93,7 +93,25 @@
 			"stair": "machina:feldspar_stairs",
 			"slab": "machina:feldspar_slab",
 			"wall": "machina:feldspar_wall",
-			"chance": 1,
+			"chance": 0.5,
+			"radius": 2.51,
+			"deform": 2.0
+		},
+		{
+			"base": "machina:gneiss",
+			"stair": "machina:gneiss_stairs",
+			"slab": "machina:gneiss_slab",
+			"wall": "machina:gneiss_wall",
+			"chance": 0.25,
+			"radius": 1.01,
+			"deform": 2.0
+		},
+		{
+			"base": "machina:gneiss",
+			"stair": "machina:gneiss_stairs",
+			"slab": "machina:gneiss_slab",
+			"wall": "machina:gneiss_wall",
+			"chance": 0.5,
 			"radius": 2.51,
 			"deform": 2.0
 		}
