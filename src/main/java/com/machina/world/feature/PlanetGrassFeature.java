@@ -5,11 +5,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -39,8 +41,8 @@ public class PlanetGrassFeature extends Feature<PlanetGrassFeature.PlanetGrassFe
 		RandomSource rand = ctx.random();
 		BlockPos pos = ctx.origin();
 		WorldGenLevel level = ctx.level();
-		int i = 0;
 		BlockPos.MutableBlockPos mbp = new BlockPos.MutableBlockPos();
+		int i = 0;
 		int j = XZ_SPREAD + 1;
 		int k = Y_SPREAD + 1;
 
@@ -49,7 +51,7 @@ public class PlanetGrassFeature extends Feature<PlanetGrassFeature.PlanetGrassFe
 					rand.nextInt(j) - rand.nextInt(j));
 			if (level.getBlockState(mbp).is(Blocks.AIR)) {
 				if (placeBlock(ctx.config(), level, mbp, rand)) {
-					++i;
+					i++;
 				}
 			}
 		}
@@ -59,6 +61,13 @@ public class PlanetGrassFeature extends Feature<PlanetGrassFeature.PlanetGrassFe
 
 	public boolean placeBlock(PlanetGrassFeatureConfig cfg, WorldGenLevel level, BlockPos pos, RandomSource random) {
 		BlockState blockstate = cfg.provider().getState(random, pos);
+
+		// Apply random horizontal facing if the blockstate supports it
+		if (blockstate.getOptionalValue(BlockStateProperties.HORIZONTAL_FACING).isPresent()) {
+			blockstate = blockstate.setValue(BlockStateProperties.HORIZONTAL_FACING,
+					Direction.Plane.HORIZONTAL.getRandomDirection(random));
+		}
+
 		if (blockstate.canSurvive(level, pos)) {
 			if (blockstate.getBlock() instanceof DoublePlantBlock) {
 				if (!level.isEmptyBlock(pos.above())) {

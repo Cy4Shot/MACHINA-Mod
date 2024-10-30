@@ -17,7 +17,7 @@
 			"type": "machina:fir",
 			"wood": "machina:pine_wood",
 			"leaves": "machina:pine_leaves[persistent=true]",
-			"every": 1,
+			"chance": 1,
 			"fruits": [
 				"machina:strapple"
 			],
@@ -29,7 +29,7 @@
 		{
 			"block": "machina:pine_leaves[persistent=true]",
 			"radius": 2.5,
-			"perchunk": 3
+			"chance": 3
 		}
 	],
 	"grass": {
@@ -54,7 +54,7 @@
 	"lakes": {
 		"enabled": true,
 		"block": "machina:peat",
-		"rarity": 10
+		"chance": 0.1
 	},
 	"rocks": [
 	],
@@ -63,7 +63,7 @@
 			"block": "machina:green_soapstone",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 8,
+			"chance": 8,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -71,7 +71,7 @@
 			"block": "machina:limestone",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 8,
+			"chance": 8,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -79,7 +79,7 @@
 			"block": "machina:gneiss",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 8,
+			"chance": 8,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -87,7 +87,7 @@
 			"block": "minecraft:andesite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 4,
+			"chance": 4,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -95,7 +95,7 @@
 			"block": "minecraft:granite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 2,
+			"chance": 2,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -103,7 +103,7 @@
 			"block": "minecraft:diorite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 2,
+			"chance": 2,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -111,7 +111,7 @@
 			"block": "machina:migmatite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 6,
+			"chance": 6,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -119,7 +119,7 @@
 			"block": "machina:marble",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 6,
+			"chance": 6,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -127,7 +127,7 @@
 			"block": "machina:anthracite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 2,
+			"chance": 2,
 			"min_y": -64,
 			"max_y": 0
 		},
@@ -135,7 +135,7 @@
 			"block": "machina:shale",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 6,
+			"chance": 6,
 			"min_y": -64,
 			"max_y": 0
 		},
@@ -143,7 +143,7 @@
 			"block": "machina:chalk",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 10,
+			"chance": 10,
 			"min_y": -64,
 			"max_y": 256
 		}

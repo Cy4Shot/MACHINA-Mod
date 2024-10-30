@@ -56,7 +56,6 @@ public class PlanetBiome extends Biome {
 			MobSpawnSettings mob, PlanetBiomeSettings s) {
 		super(climate, special, genset, mob);
 		this.settings = s;
-
 	}
 
 	public BlockState getTopBlock() {
@@ -103,7 +102,7 @@ public class PlanetBiome extends Biome {
 		// Ores
 		for (PlanetBiomeOre ore : s.ores()) {
 			add(builder, Decoration.UNDERGROUND_ORES, new PlanetOreFeature(),
-					new PlanetOreFeature.PlanetOreFeatureConfig(ore), count(ore.per_chunk()), spread(),
+					new PlanetOreFeature.PlanetOreFeatureConfig(ore), chance(ore.chance()), spread(),
 					range(ore.min_y(), ore.max_y()), biome());
 		}
 	}
@@ -112,13 +111,13 @@ public class PlanetBiome extends Biome {
 
 		for (PlanetBiomeTree tree : s.trees()) {
 			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),
-					new PlanetTreeFeature.PlanetTreeFeatureConfig(tree), every(tree.every()), spread(), onFloor(),
+					new PlanetTreeFeature.PlanetTreeFeatureConfig(tree), chance(tree.chance()), spread(), onFloor(),
 					biome());
 		}
 
 		for (PlanetBiomeBush bush : s.bushes()) {
 			add(builder, Decoration.VEGETAL_DECORATION, new PlanetBushFeature(),
-					new PlanetBushFeature.PlanetBushFeatureConfig(bush), count(bush.perchunk()), spread(), onFloor(),
+					new PlanetBushFeature.PlanetBushFeatureConfig(bush), chance(bush.chance()), spread(), onFloor(),
 					biome());
 		}
 
@@ -131,13 +130,13 @@ public class PlanetBiome extends Biome {
 
 		if (s.lakes().enabled()) {
 			add(builder, Decoration.LAKES, new PlanetLakeFeature(),
-					new PlanetLakeFeature.PlanetLakeFeatureConfig(s.lakes().base()), every(s.lakes().rarity()),
+					new PlanetLakeFeature.PlanetLakeFeatureConfig(s.lakes().base()), chance(s.lakes().chance()),
 					spread(), onSurface(), biome());
 		}
 
 		for (PlanetBiomeRock rock : s.rocks()) {
 			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetRockFeature(),
-					new PlanetRockFeature.PlanetRockFeatureConfig(rock), count(rock.perchunk()), spread(), onSurface(),
+					new PlanetRockFeature.PlanetRockFeatureConfig(rock), chance(rock.chance()), spread(), onSurface(),
 					biome());
 		}
 	}
@@ -147,6 +146,10 @@ public class PlanetBiome extends Biome {
 			PlacementModifier... placements) {
 		builder.addFeature(decorationLevel, Holder.direct(
 				new PlacedFeature(Holder.direct(new ConfiguredFeature<>(feature, config)), Arrays.asList(placements))));
+	}
+
+	private static PlacementModifier chance(float chance) {
+		return chance > 1 ? count((int) chance) : every(chance == 0 ? 0 : (int) (1 / chance));
 	}
 
 	private static RarityFilter every(int every) {

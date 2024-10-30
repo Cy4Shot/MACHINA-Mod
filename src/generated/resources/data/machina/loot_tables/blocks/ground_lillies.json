@@ -21,11 +21,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "machina:spindlegrass"
+          "name": "machina:ground_lillies"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "machina:blocks/spindlegrass"
+  "random_sequence": "machina:blocks/ground_lillies"
 }

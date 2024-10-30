@@ -48,26 +48,26 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 		}
 	}
 
-	public record PlanetBiomeTree(ResourceLocation tree, BlockState wood, BlockState leaves, int every,
+	public record PlanetBiomeTree(ResourceLocation tree, BlockState wood, BlockState leaves, float chance,
 			List<BlockState> fruit, float fruit_chance, float tree_fruit_chance) {
 
 		public static final Codec<PlanetBiomeTree> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(ResourceLocation.CODEC.fieldOf("tree").forGetter(PlanetBiomeTree::tree),
 						BlockState.CODEC.fieldOf("wood").forGetter(PlanetBiomeTree::wood),
 						BlockState.CODEC.fieldOf("leaves").forGetter(PlanetBiomeTree::leaves),
-						Codec.INT.fieldOf("every").forGetter(PlanetBiomeTree::every),
+						Codec.FLOAT.fieldOf("chance").forGetter(PlanetBiomeTree::chance),
 						Codec.list(BlockState.CODEC).fieldOf("fruit").forGetter(PlanetBiomeTree::fruit),
 						Codec.FLOAT.fieldOf("fruit_chance").forGetter(PlanetBiomeTree::fruit_chance),
 						Codec.FLOAT.fieldOf("tree_fruit_chance").forGetter(PlanetBiomeTree::tree_fruit_chance))
 				.apply(instance, PlanetBiomeTree::new));
 	}
 
-	public record PlanetBiomeBush(BlockState block, float radius, int perchunk) {
+	public record PlanetBiomeBush(BlockState block, float radius, float chance) {
 
 		public static final Codec<PlanetBiomeBush> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(BlockState.CODEC.fieldOf("bush").forGetter(PlanetBiomeBush::block),
 						Codec.FLOAT.fieldOf("radius").forGetter(PlanetBiomeBush::radius),
-						Codec.INT.fieldOf("perchunk").forGetter(PlanetBiomeBush::perchunk))
+						Codec.FLOAT.fieldOf("chance").forGetter(PlanetBiomeBush::chance))
 				.apply(instance, PlanetBiomeBush::new));
 	}
 
@@ -104,15 +104,15 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 				.apply(instance, PlanetBiomeGrass::new));
 	}
 
-	public record PlanetBiomeLakes(BlockState base, boolean enabled, int rarity) {
+	public record PlanetBiomeLakes(BlockState base, boolean enabled, float chance) {
 		public static final Codec<PlanetBiomeLakes> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(BlockState.CODEC.fieldOf("base").forGetter(PlanetBiomeLakes::base),
 						Codec.BOOL.fieldOf("enabled").forGetter(PlanetBiomeLakes::enabled),
-						Codec.INT.fieldOf("rarity").forGetter(PlanetBiomeLakes::rarity))
+						Codec.FLOAT.fieldOf("chance").forGetter(PlanetBiomeLakes::chance))
 				.apply(instance, PlanetBiomeLakes::new));
 	}
 
-	public record PlanetBiomeRock(BlockState base, BlockState stair, BlockState slab, BlockState wall, int perchunk,
+	public record PlanetBiomeRock(BlockState base, BlockState stair, BlockState slab, BlockState wall, float chance,
 			float radius, float deform) {
 
 		public static final Codec<PlanetBiomeRock> CODEC = RecordCodecBuilder.create(instance -> instance
@@ -120,14 +120,14 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 						BlockState.CODEC.fieldOf("stair").forGetter(PlanetBiomeRock::stair),
 						BlockState.CODEC.fieldOf("slab").forGetter(PlanetBiomeRock::slab),
 						BlockState.CODEC.fieldOf("wall").forGetter(PlanetBiomeRock::wall),
-						Codec.INT.fieldOf("perchunk").forGetter(PlanetBiomeRock::perchunk),
+						Codec.FLOAT.fieldOf("chance").forGetter(PlanetBiomeRock::chance),
 						Codec.FLOAT.fieldOf("radius").forGetter(PlanetBiomeRock::radius),
 						Codec.FLOAT.fieldOf("deform").forGetter(PlanetBiomeRock::deform))
 				.apply(instance, PlanetBiomeRock::new));
 
 	}
 
-	public record PlanetBiomeOre(BlockState block, int size, float exposure_removal_chance, int per_chunk, int min_y,
+	public record PlanetBiomeOre(BlockState block, int size, float exposure_removal_chance, float chance, int min_y,
 			int max_y) {
 
 		public static final Codec<PlanetBiomeOre> CODEC = RecordCodecBuilder.create(instance -> instance
@@ -135,7 +135,7 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 						Codec.INT.fieldOf("size").forGetter(PlanetBiomeOre::size),
 						Codec.FLOAT.fieldOf("exposure_removal_chance")
 								.forGetter(PlanetBiomeOre::exposure_removal_chance),
-						Codec.INT.fieldOf("per_chunk").forGetter(PlanetBiomeOre::per_chunk),
+						Codec.FLOAT.fieldOf("chance").forGetter(PlanetBiomeOre::chance),
 						Codec.INT.fieldOf("min_y").forGetter(PlanetBiomeOre::min_y),
 						Codec.INT.fieldOf("max_y").forGetter(PlanetBiomeOre::max_y))
 				.apply(instance, PlanetBiomeOre::new));

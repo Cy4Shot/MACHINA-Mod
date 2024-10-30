@@ -60,6 +60,8 @@ public class TabInit {
 
 				family(a, BlockFamiliesInit.WOODS);
 
+				add(a, BlockInit.TWISTED_GRASS);
+				add(a, BlockInit.GROUND_LILLIES);
 				add(a, BlockInit.SPINDLESPROUT);
 				add(a, BlockInit.SMALL_FERN);
 				add(a, BlockInit.DEAD_SMALL_FERN);
@@ -75,6 +77,7 @@ public class TabInit {
 				add(a, BlockInit.GREEN_GLOWSHROOM);
 				add(a, BlockInit.TURQUOISE_GLOWSHROOM);
 				add(a, BlockInit.BLUE_GLOWSHROOM);
+				add(a, BlockInit.PURPLE_PETALS);
 				
 				fruit(a, FruitInit.FRUITS);
 			});

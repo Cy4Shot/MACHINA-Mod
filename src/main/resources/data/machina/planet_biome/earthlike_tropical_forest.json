@@ -17,7 +17,7 @@
 			"type": "machina:radial_baobab",
 			"wood": "machina:tropical_wood",
 			"leaves": "machina:tropical_leaves[persistent=true]",
-			"every": 6,
+			"chance": 0.17,
 			"fruits": [
 				"machina:tama_spore"
 			],
@@ -28,7 +28,7 @@
 			"type": "machina:acacia",
 			"wood": "machina:tropical_wood",
 			"leaves": "machina:tropical_leaves[persistent=true]",
-			"every": 4,
+			"chance": 0.25,
 			"fruits": [
 			],
 			"fruit_chance": 0,
@@ -39,7 +39,7 @@
 		{
 			"block": "machina:tropical_leaves[persistent=true]",
 			"radius": 2.5,
-			"perchunk": 3
+			"chance": 3
 		}
 	],
 	"grass": {
@@ -76,7 +76,7 @@
 	"lakes": {
 		"enabled": true,
 		"block": "machina:silt",
-		"rarity": 20
+		"chance": 0.05
 	},
 	"rocks": [
 		{
@@ -84,7 +84,7 @@
 			"stair": "machina:feldspar_stairs",
 			"slab": "machina:feldspar_slab",
 			"wall": "machina:feldspar_wall",
-			"perchunk": 2,
+			"chance": 2,
 			"radius": 1.01,
 			"deform": 2.0
 		},
@@ -93,7 +93,7 @@
 			"stair": "machina:feldspar_stairs",
 			"slab": "machina:feldspar_slab",
 			"wall": "machina:feldspar_wall",
-			"perchunk": 1,
+			"chance": 1,
 			"radius": 2.51,
 			"deform": 2.0
 		}
@@ -103,7 +103,7 @@
 			"block": "machina:green_soapstone",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 8,
+			"chance": 8,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -111,7 +111,7 @@
 			"block": "machina:limestone",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 8,
+			"chance": 8,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -119,7 +119,7 @@
 			"block": "machina:gneiss",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 8,
+			"chance": 8,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -127,7 +127,7 @@
 			"block": "minecraft:andesite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 4,
+			"chance": 4,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -135,7 +135,7 @@
 			"block": "minecraft:granite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 2,
+			"chance": 2,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -143,7 +143,7 @@
 			"block": "minecraft:diorite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 2,
+			"chance": 2,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -151,7 +151,7 @@
 			"block": "machina:migmatite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 6,
+			"chance": 6,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -159,7 +159,7 @@
 			"block": "machina:marble",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 6,
+			"chance": 6,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -167,7 +167,7 @@
 			"block": "machina:anthracite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 2,
+			"chance": 2,
 			"min_y": -64,
 			"max_y": 0
 		},
@@ -175,7 +175,7 @@
 			"block": "machina:shale",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 6,
+			"chance": 6,
 			"min_y": -64,
 			"max_y": 0
 		},
@@ -183,7 +183,7 @@
 			"block": "machina:chalk",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 10,
+			"chance": 10,
 			"min_y": -64,
 			"max_y": 256
 		}

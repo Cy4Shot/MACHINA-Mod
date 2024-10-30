@@ -181,6 +181,8 @@ public class DatagenBlockStates extends BlockStateProvider {
 		sign(BlockInit.PINE_HANGING_SIGN, BlockInit.PINE_WALL_HANGING_SIGN, BlockInit.PINE_PLANKS);
 		trapdoor(BlockInit.PINE_TRAPDOOR);
 		door(BlockInit.PINE_DOOR);
+		
+		flower(BlockInit.TWISTED_GRASS);
 
 		tall_flower(BlockInit.SPINDLEGRASS);
 		tall_flower(BlockInit.ORPHEUM);

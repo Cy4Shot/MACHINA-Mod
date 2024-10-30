@@ -17,7 +17,7 @@
 			"type": "machina:arch",
 			"wood": "machina:pine_wood",
 			"leaves": "machina:pine_leaves[persistent=true]",
-			"every": 5,
+			"chance": 0.2,
 			"fruits": [
 			],
 			"fruit_chance": 0,
@@ -27,7 +27,7 @@
 			"type": "machina:cone",
 			"wood": "machina:pine_wood",
 			"leaves": "machina:pine_leaves[persistent=true]",
-			"every": 3,
+			"chance": 0.33,
 			"fruits": [
 			],
 			"fruit_chance": 0,
@@ -37,7 +37,7 @@
 			"type": "machina:lollipop",
 			"wood": "machina:pine_wood",
 			"leaves": "machina:pine_leaves[persistent=true]",
-			"every": 10,
+			"chance": 0.1,
 			"fruits": [
 			],
 			"fruit_chance": 0,
@@ -48,29 +48,37 @@
 		{
 			"block": "machina:pine_leaves[persistent=true]",
 			"radius": 1.5,
-			"perchunk": 4
+			"chance": 4
 		}
 	],
 	"grass": {
 		"enabled": true,
-		"min": 10,
-		"max": 15,
+		"min": 15,
+		"max": 20,
 		"grasses": [
 			{
-				"block": "minecraft:grass",
-				"weight": 100
+				"block": "machina:twisted_grass",
+				"weight": 70
 			},
 			{
-				"block": "minecraft:tall_grass",
-				"weight": 30
+				"block": "machina:ground_lillies",
+				"weight": 13
 			},
 			{
-				"block": "minecraft:fern",
-				"weight": 20
+				"block": "machina:purple_petals[flower_amount=1]",
+				"weight": 3
 			},
 			{
-				"block": "machina:clover",
-				"weight": 10
+				"block": "machina:purple_petals[flower_amount=2]",
+				"weight": 3
+			},
+			{
+				"block": "machina:purple_petals[flower_amount=3]",
+				"weight": 3
+			},
+			{
+				"block": "machina:purple_petals[flower_amount=4]",
+				"weight": 2
 			},
 			{
 				"block": "machina:purple_glowshroom",
@@ -86,7 +94,7 @@
 			},
 			{
 				"block": "machina:dragon_peony",
-				"weight": 3
+				"weight": 4
 			},
 			{
 				"block": "machina:orpheum",
@@ -97,7 +105,7 @@
 	"lakes": {
 		"enabled": true,
 		"block": "machina:silt",
-		"rarity": 2
+		"chance": 0.5
 	},
 	"rocks": [
 		{
@@ -105,7 +113,7 @@
 			"stair": "machina:shale_stairs",
 			"slab": "machina:shale_slab",
 			"wall": "machina:shale_wall",
-			"perchunk": 2,
+			"chance": 2,
 			"radius": 1.01,
 			"deform": 2.0
 		}
@@ -115,7 +123,7 @@
 			"block": "machina:green_soapstone",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 8,
+			"chance": 8,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -123,7 +131,7 @@
 			"block": "machina:limestone",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 8,
+			"chance": 8,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -131,7 +139,7 @@
 			"block": "machina:gneiss",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 8,
+			"chance": 8,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -139,7 +147,7 @@
 			"block": "minecraft:andesite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 4,
+			"chance": 4,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -147,7 +155,7 @@
 			"block": "minecraft:granite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 2,
+			"chance": 2,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -155,7 +163,7 @@
 			"block": "minecraft:diorite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 2,
+			"chance": 2,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -163,7 +171,7 @@
 			"block": "machina:migmatite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 6,
+			"chance": 6,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -171,7 +179,7 @@
 			"block": "machina:marble",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 6,
+			"chance": 6,
 			"min_y": -64,
 			"max_y": 128
 		},
@@ -179,7 +187,7 @@
 			"block": "machina:anthracite",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 2,
+			"chance": 2,
 			"min_y": -64,
 			"max_y": 0
 		},
@@ -187,7 +195,7 @@
 			"block": "machina:shale",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 6,
+			"chance": 6,
 			"min_y": -64,
 			"max_y": 0
 		},
@@ -195,7 +203,7 @@
 			"block": "machina:chalk",
 			"size": 32,
 			"exposure_removal_chance": 0,
-			"per_chunk": 10,
+			"chance": 10,
 			"min_y": -64,
 			"max_y": 256
 		}

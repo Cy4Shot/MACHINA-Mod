@@ -20,6 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
@@ -196,10 +198,14 @@ public class BlockInit {
 	public static final RegistryObject<FenceGateBlock> PINE_FENCE_GATE = fence_gate("pine_fence_gate", Blocks.OAK_FENCE_GATE, PINE);
 	public static final RegistryObject<PressurePlateBlock> PINE_PRESSURE_PLATE = wood_pressure_plate("pine_pressure_plate", Blocks.OAK_PRESSURE_PLATE, PINE);
 	
+	public static final RegistryObject<BushBlock> TWISTED_GRASS = register("twisted_grass", Blocks.GRASS, BushBlock::new);
+	public static final RegistryObject<SmallFlowerBlock> GROUND_LILLIES = register("ground_lillies", Blocks.PINK_PETALS, SmallFlowerBlock::new);
+	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
+	public static final RegistryObject<PinkPetalsBlock> PURPLE_PETALS = register("purple_petals", Blocks.PINK_PETALS, PinkPetalsBlock::new);
+	
 	public static final RegistryObject<SmallFlowerBlock> SPINDLESPROUT = register("spindlesprout", Blocks.FERN, SmallFlowerBlock::new);
 	public static final RegistryObject<SmallFlowerBlock> SMALL_FERN = register("small_fern", Blocks.FERN, SmallFlowerBlock::new);
 	public static final RegistryObject<SmallFlowerBlock> DEAD_SMALL_FERN = register("dead_small_fern", Blocks.FERN, SmallFlowerBlock::new);
-	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
 	
 	public static final RegistryObject<TallFlowerBlock> SPINDLEGRASS = tall_flower("spindlegrass", Blocks.SUNFLOWER);
 	public static final RegistryObject<TallFlowerBlock> ORPHEUM = tall_flower("orpheum", Blocks.PEONY);

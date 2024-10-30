@@ -1,0 +1,20 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "machina:block/ground_lillies",
+			"y": 0
+		},
+		"facing=south": {
+			"model": "machina:block/ground_lillies",
+			"y": 180
+		},
+		"facing=east": {
+			"model": "machina:block/ground_lillies",
+			"y": 90
+		},
+		"facing=west": {
+			"model": "machina:block/ground_lillies",
+			"y": 270
+		}
+	}
+}

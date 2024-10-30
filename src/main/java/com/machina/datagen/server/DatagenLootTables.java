@@ -59,9 +59,12 @@ public class DatagenLootTables extends LootTableProvider {
 			dropSelf(BlockInit.DEAD_SMALL_FERN.get());
 			pot(BlockInit.POTTED_DEAD_SMALL_FERN.get());
 			
-			dropSelf(BlockInit.SPINDLEGRASS.get());
+			dropAsSilk(BlockInit.SPINDLEGRASS.get());
 			dropSelf(BlockInit.ORPHEUM.get());
-			dropSelf(BlockInit.CLOVER.get());
+			dropAsSilk(BlockInit.CLOVER.get());
+			dropAsSilk(BlockInit.GROUND_LILLIES.get());
+			dropAsSilk(BlockInit.TWISTED_GRASS.get());
+			dropAsSilk(BlockInit.PURPLE_PETALS.get());
 
 			ore(BlockInit.ALUMINUM_ORE.get(), ItemInit.RAW_ALUMINUM.get());
 

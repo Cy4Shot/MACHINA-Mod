@@ -33,6 +33,8 @@ public class DatagenItemTags extends ItemTagsProvider {
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
 		flower(BlockInit.CLOVER);
+		flower(BlockInit.GROUND_LILLIES);
+		flower(BlockInit.PURPLE_PETALS);
 		smallFlower(BlockInit.PURPLE_GLOWSHROOM);
 		smallFlower(BlockInit.PINK_GLOWSHROOM);
 		smallFlower(BlockInit.RED_GLOWSHROOM);

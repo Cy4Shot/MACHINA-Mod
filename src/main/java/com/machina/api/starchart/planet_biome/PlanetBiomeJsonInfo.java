@@ -26,13 +26,13 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		return BlockHelper.parseState(BlockHelper.blockHolderLookup(), block);
 	}
 
-	public record PlanetBiomeTreeJsonInfo(String type, String wood, String leaves, int every, List<String> fruits,
+	public record PlanetBiomeTreeJsonInfo(String type, String wood, String leaves, float chance, List<String> fruits,
 			float fruit_chance, float tree_fruit_chance) implements JsonInfo<PlanetBiomeTree> {
 
 		@Override
 		public PlanetBiomeTree cast() {
 			List<BlockState> fruits = fruits().stream().map(PlanetBiomeJsonInfo::getBlock).collect(Collectors.toList());
-			return new PlanetBiomeTree(new ResourceLocation(type), getBlock(wood), getBlock(leaves), every, fruits,
+			return new PlanetBiomeTree(new ResourceLocation(type), getBlock(wood), getBlock(leaves), chance, fruits,
 					fruit_chance, tree_fruit_chance);
 		}
 	}
@@ -62,28 +62,28 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		}
 	}
 
-	public record PlanetBiomeLakesJsonInfo(String block, boolean enabled, int rarity)
+	public record PlanetBiomeLakesJsonInfo(String block, boolean enabled, float chance)
 			implements JsonInfo<PlanetBiomeLakes> {
 		@Override
 		public PlanetBiomeLakes cast() {
-			return new PlanetBiomeLakes(getBlock(block), enabled, rarity);
+			return new PlanetBiomeLakes(getBlock(block), enabled, chance);
 		}
 	}
 
-	public record PlanetBiomeRockJsonInfo(String base, String stair, String slab, String wall, int perchunk,
+	public record PlanetBiomeRockJsonInfo(String base, String stair, String slab, String wall, float chance,
 			float radius, float deform) implements JsonInfo<PlanetBiomeRock> {
 		@Override
 		public PlanetBiomeRock cast() {
-			return new PlanetBiomeRock(getBlock(base), getBlock(stair), getBlock(slab), getBlock(wall), perchunk,
-					radius, deform);
+			return new PlanetBiomeRock(getBlock(base), getBlock(stair), getBlock(slab), getBlock(wall), chance, radius,
+					deform);
 		}
 	}
 
-	public record PlanetBiomeOreJsonInfo(String block, int size, float exposure_removal_chance, int per_chunk,
-			int min_y, int max_y) implements JsonInfo<PlanetBiomeOre> {
+	public record PlanetBiomeOreJsonInfo(String block, int size, float exposure_removal_chance, float chance, int min_y,
+			int max_y) implements JsonInfo<PlanetBiomeOre> {
 		@Override
 		public PlanetBiomeOre cast() {
-			return new PlanetBiomeOre(getBlock(block), size, exposure_removal_chance, per_chunk, min_y, max_y);
+			return new PlanetBiomeOre(getBlock(block), size, exposure_removal_chance, chance, min_y, max_y);
 		}
 	}
 
