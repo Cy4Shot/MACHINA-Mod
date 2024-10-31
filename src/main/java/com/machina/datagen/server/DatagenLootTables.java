@@ -50,6 +50,8 @@ public class DatagenLootTables extends LootTableProvider {
 			dropSelf(BlockInit.BLUE_GLOWSHROOM.get());
 			pot(BlockInit.POTTED_BLUE_GLOWSHROOM.get());
 
+			dropSelf(BlockInit.SPRUCE_CUP.get());
+			pot(BlockInit.POTTED_SPRUCE_CUP.get());
 			dropSelf(BlockInit.DRAGON_PEONY.get());
 			pot(BlockInit.POTTED_DRAGON_PEONY.get());
 			dropSelf(BlockInit.SPINDLESPROUT.get());

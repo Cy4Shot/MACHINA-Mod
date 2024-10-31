@@ -212,7 +212,9 @@ public class BlockInit {
 	public static final RegistryObject<TallFlowerBlock> ORPHEUM = tall_flower("orpheum", Blocks.PEONY);
 
 	public static final RegistryObject<FlowerBlock> DRAGON_PEONY = flower("dragon_peony", () -> MobEffects.LEVITATION, 5, Blocks.DANDELION);
+	public static final RegistryObject<FlowerBlock> SPRUCE_CUP = flower("spruce_cup", () -> MobEffects.UNLUCK, 50, Blocks.BROWN_MUSHROOM);
 	public static final RegistryObject<FlowerPotBlock> POTTED_DRAGON_PEONY = flower_pot("potted_dragon_peony", DRAGON_PEONY);
+	public static final RegistryObject<FlowerPotBlock> POTTED_SPRUCE_CUP = flower_pot("potted_spruce_cup", SPRUCE_CUP);
 	public static final RegistryObject<FlowerPotBlock> POTTED_SPINDLESPROUT = flower_pot("potted_spindlesprout", SPINDLESPROUT);
 	public static final RegistryObject<FlowerPotBlock> POTTED_SMALL_FERN = flower_pot("potted_small_fern", SMALL_FERN);
 	public static final RegistryObject<FlowerPotBlock> POTTED_DEAD_SMALL_FERN = flower_pot("potted_dead_small_fern", DEAD_SMALL_FERN);

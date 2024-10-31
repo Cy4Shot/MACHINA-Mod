@@ -70,6 +70,7 @@ public class TabInit {
 				add(a, BlockInit.SPINDLEGRASS);
 				add(a, BlockInit.ORPHEUM);
 				add(a, BlockInit.DRAGON_PEONY);
+				add(a, BlockInit.SPRUCE_CUP);
 				add(a, BlockInit.PURPLE_GLOWSHROOM);
 				add(a, BlockInit.PINK_GLOWSHROOM);
 				add(a, BlockInit.RED_GLOWSHROOM);

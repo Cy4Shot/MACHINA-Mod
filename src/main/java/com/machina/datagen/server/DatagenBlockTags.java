@@ -34,6 +34,7 @@ public class DatagenBlockTags extends BlockTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
+		smallFlower(BlockInit.SPRUCE_CUP, BlockInit.POTTED_SPRUCE_CUP);
 		smallFlower(BlockInit.PURPLE_GLOWSHROOM, BlockInit.POTTED_PURPLE_GLOWSHROOM);
 		smallFlower(BlockInit.PINK_GLOWSHROOM, BlockInit.POTTED_PINK_GLOWSHROOM);
 		smallFlower(BlockInit.RED_GLOWSHROOM, BlockInit.POTTED_RED_GLOWSHROOM);
