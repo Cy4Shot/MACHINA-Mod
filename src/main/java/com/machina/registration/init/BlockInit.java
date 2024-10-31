@@ -197,7 +197,8 @@ public class BlockInit {
 	public static final RegistryObject<FenceBlock> PINE_FENCE = fence("pine_fence", Blocks.OAK_FENCE);
 	public static final RegistryObject<FenceGateBlock> PINE_FENCE_GATE = fence_gate("pine_fence_gate", Blocks.OAK_FENCE_GATE, PINE);
 	public static final RegistryObject<PressurePlateBlock> PINE_PRESSURE_PLATE = wood_pressure_plate("pine_pressure_plate", Blocks.OAK_PRESSURE_PLATE, PINE);
-	
+
+	public static final RegistryObject<BushBlock> TROPICAL_GRASS = register("tropical_grass", Blocks.GRASS, BushBlock::new);
 	public static final RegistryObject<BushBlock> TWISTED_GRASS = register("twisted_grass", Blocks.GRASS, BushBlock::new);
 	public static final RegistryObject<SmallFlowerBlock> GROUND_LILLIES = register("ground_lillies", Blocks.PINK_PETALS, SmallFlowerBlock::new);
 	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
@@ -216,7 +217,7 @@ public class BlockInit {
 	public static final RegistryObject<FlowerPotBlock> POTTED_SMALL_FERN = flower_pot("potted_small_fern", SMALL_FERN);
 	public static final RegistryObject<FlowerPotBlock> POTTED_DEAD_SMALL_FERN = flower_pot("potted_dead_small_fern", DEAD_SMALL_FERN);
 
-	public static final RegistryObject<FlowerBlock> PURPLE_GLOWSHROOM = flower("purple_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
+	public static final RegistryObject<FlowerBlock> PURPLE_GLOWSHROOM = flower("purple_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(6));
 	public static final RegistryObject<FlowerBlock> PINK_GLOWSHROOM = flower("pink_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
 	public static final RegistryObject<FlowerBlock> RED_GLOWSHROOM = flower("red_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
 	public static final RegistryObject<FlowerBlock> ORANGE_GLOWSHROOM = flower("orange_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
@@ -249,7 +250,7 @@ public class BlockInit {
 	}
 
 	public static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block) {
-		return BLOCKS.<T>register(name, block);
+		return BLOCKS.register(name, block);
 	}
 
 	public static RegistryObject<Block> block(String name, Block prop) {
@@ -351,10 +352,12 @@ public class BlockInit {
 		return register(name, prop, a -> a, TallFlowerBlock::new);
 	}
 
+	@SuppressWarnings("deprecation")
 	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<? extends Block> flower) {
 		return register(name, BlockInit.of(Blocks.FLOWER_POT, a -> a, p -> new FlowerPotBlock(flower.get(), p)));
 	}
 
+	@SuppressWarnings("deprecation")
 	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<FlowerBlock> flower,
 			Function<Block.Properties, Block.Properties> extra) {
 		return register(name, BlockInit.of(Blocks.FLOWER_POT, extra, p -> new FlowerPotBlock(flower.get(), p)));
@@ -367,18 +370,18 @@ public class BlockInit {
 
 	public static <T extends Block> RegistryObject<T> registerNI(String name, Block prop,
 			Function<Block.Properties, Block.Properties> extra, Function<Block.Properties, T> constructor) {
-		return register(name, BlockInit.<T>of(prop, extra, constructor));
+		return register(name, BlockInit.of(prop, extra, constructor));
 	}
 
 	public static <T extends Block> RegistryObject<T> register(String name, Block prop,
 			Function<Block.Properties, Block.Properties> extra, Function<Block.Properties, T> constructor) {
-		RegistryObject<T> ro = register(name, BlockInit.<T>of(prop, extra, constructor));
+		RegistryObject<T> ro = register(name, BlockInit.of(prop, extra, constructor));
 		registerBlockItem(name, ro);
 		return ro;
 	}
 
-	private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-		return ItemInit.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+	private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
+		ItemInit.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
 	}
 
 	private static boolean always(BlockState state, BlockGetter getter, BlockPos pos) {

@@ -194,7 +194,8 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.PINE_WOOD, "Pine Wood");
 		add(BlockInit.STRIPPED_PINE_LOG, "Stripped Pine Log");
 		add(BlockInit.STRIPPED_PINE_WOOD, "Stripped Pine Wood");
-		
+
+		add(BlockInit.TROPICAL_GRASS, "Tropical Grass");
 		add(BlockInit.TWISTED_GRASS, "Twisted Grass");
 		add(BlockInit.GROUND_LILLIES, "Ground Lillies");
 		add(BlockInit.CLOVER, "Clover");

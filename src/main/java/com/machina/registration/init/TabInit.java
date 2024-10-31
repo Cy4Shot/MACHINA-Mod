@@ -60,6 +60,7 @@ public class TabInit {
 
 				family(a, BlockFamiliesInit.WOODS);
 
+				add(a, BlockInit.TROPICAL_GRASS);
 				add(a, BlockInit.TWISTED_GRASS);
 				add(a, BlockInit.GROUND_LILLIES);
 				add(a, BlockInit.SPINDLESPROUT);
@@ -91,27 +92,27 @@ public class TabInit {
 				add(a, ItemInit.TRANSISTOR);
 			});
 
-	public static final void add(CreativeModeTab.Output adder, ItemLike item) {
+	public static void add(CreativeModeTab.Output adder, ItemLike item) {
 		adder.accept(item);
 	}
 
-	public static final void add(CreativeModeTab.Output adder, RegistryObject<? extends ItemLike> item) {
+	public static void add(CreativeModeTab.Output adder, RegistryObject<? extends ItemLike> item) {
 		add(adder, item.get());
 	}
 
-	public static final void add(CreativeModeTab.Output adder, Fruit fruit) {
+	public static void add(CreativeModeTab.Output adder, Fruit fruit) {
 		add(adder, fruit.item());
 	}
 	
-	public static final void fruit(CreativeModeTab.Output adder, List<Fruit> fruit) {
+	public static void fruit(CreativeModeTab.Output adder, List<Fruit> fruit) {
 		fruit.forEach(f -> add(adder, f));
 	}
 
-	public static final void family(CreativeModeTab.Output adder, List<? extends BlockFamiliesInit.BlockFamily> family) {
+	public static void family(CreativeModeTab.Output adder, List<? extends BlockFamiliesInit.BlockFamily> family) {
 		family.forEach(f -> f.tab().forEach(i -> add(adder, i)));
 	}
 
-	public static final RegistryObject<CreativeModeTab> create(String name, RegistryObject<? extends ItemLike> item,
+	public static RegistryObject<CreativeModeTab> create(String name, RegistryObject<? extends ItemLike> item,
 			Consumer<CreativeModeTab.Output> gen) {
 		return CREATIVE_MODE_TABS.register(name,
 				() -> CreativeModeTab.builder().icon(() -> new ItemStack(item.get()))

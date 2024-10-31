@@ -181,7 +181,8 @@ public class DatagenBlockStates extends BlockStateProvider {
 		sign(BlockInit.PINE_HANGING_SIGN, BlockInit.PINE_WALL_HANGING_SIGN, BlockInit.PINE_PLANKS);
 		trapdoor(BlockInit.PINE_TRAPDOOR);
 		door(BlockInit.PINE_DOOR);
-		
+
+		flower(BlockInit.TROPICAL_GRASS);
 		flower(BlockInit.TWISTED_GRASS);
 
 		tall_flower(BlockInit.SPINDLEGRASS);
@@ -364,6 +365,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 				.texture("layer0", tex);
 	}
 
+	@SuppressWarnings("deprecation")
 	private String name(Block block) {
 		return BuiltInRegistries.BLOCK.getKey(block).getPath();
 	}

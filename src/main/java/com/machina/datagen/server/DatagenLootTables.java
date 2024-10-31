@@ -20,8 +20,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import org.jetbrains.annotations.NotNull;
 
-// TODO: Fix this class. Make a datagen for loot tables.
 public class DatagenLootTables extends LootTableProvider {
 	public DatagenLootTables(PackOutput output) {
 		super(output, Set.of(), List.of(new SubProviderEntry(BlockLoot::new, LootContextParamSets.BLOCK)));
@@ -63,6 +63,7 @@ public class DatagenLootTables extends LootTableProvider {
 			dropSelf(BlockInit.ORPHEUM.get());
 			dropAsSilk(BlockInit.CLOVER.get());
 			dropAsSilk(BlockInit.GROUND_LILLIES.get());
+			dropAsSilk(BlockInit.TROPICAL_GRASS.get());
 			dropAsSilk(BlockInit.TWISTED_GRASS.get());
 			dropAsSilk(BlockInit.PURPLE_PETALS.get());
 
@@ -121,7 +122,7 @@ public class DatagenLootTables extends LootTableProvider {
 		}
 
 		@Override
-		protected Iterable<Block> getKnownBlocks() {
+		protected @NotNull Iterable<Block> getKnownBlocks() {
 			return BlockInit.BLOCKS.getEntries().stream().map(Supplier::get).collect(Collectors.toList());
 		}
 	}
