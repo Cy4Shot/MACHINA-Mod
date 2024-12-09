@@ -57,7 +57,7 @@
 		"max": 10,
 		"grasses": [
 			{
-				"block": "minecraft:grass",
+				"block": "machina:tropical_grass",
 				"weight": 10
 			},
 			{

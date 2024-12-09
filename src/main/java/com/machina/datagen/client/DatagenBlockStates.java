@@ -198,7 +198,8 @@ public class DatagenBlockStates extends BlockStateProvider {
 		sign(BlockInit.PINE_HANGING_SIGN, BlockInit.PINE_WALL_HANGING_SIGN, BlockInit.PINE_PLANKS);
 		trapdoor(BlockInit.PINE_TRAPDOOR);
 		door(BlockInit.PINE_DOOR);
-		
+
+		flower(BlockInit.TROPICAL_GRASS);
 		flower(BlockInit.TWISTED_GRASS);
 
 		tall_flower(BlockInit.SPINDLEGRASS);
@@ -207,10 +208,12 @@ public class DatagenBlockStates extends BlockStateProvider {
 		flower(BlockInit.SMALL_FERN);
 		flower(BlockInit.DEAD_SMALL_FERN);
 		flower(BlockInit.DRAGON_PEONY);
+		flower(BlockInit.SPRUCE_CUP);
 		flower_pot(BlockInit.POTTED_DRAGON_PEONY);
 		flower_pot(BlockInit.POTTED_SPINDLESPROUT);
 		flower_pot(BlockInit.POTTED_SMALL_FERN);
 		flower_pot(BlockInit.POTTED_DEAD_SMALL_FERN);
+		flower_pot(BlockInit.POTTED_SPRUCE_CUP);
 		
 		flower(BlockInit.PURPLE_GLOWSHROOM);
 		flower_pot(BlockInit.POTTED_PURPLE_GLOWSHROOM);
@@ -381,6 +384,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 				.texture("layer0", tex);
 	}
 
+	@SuppressWarnings("deprecation")
 	private String name(Block block) {
 		return BuiltInRegistries.BLOCK.getKey(block).getPath();
 	}

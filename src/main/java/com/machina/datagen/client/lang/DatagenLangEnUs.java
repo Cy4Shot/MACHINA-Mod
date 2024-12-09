@@ -211,7 +211,8 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.PINE_WOOD, "Pine Wood");
 		add(BlockInit.STRIPPED_PINE_LOG, "Stripped Pine Log");
 		add(BlockInit.STRIPPED_PINE_WOOD, "Stripped Pine Wood");
-		
+
+		add(BlockInit.TROPICAL_GRASS, "Tropical Grass");
 		add(BlockInit.TWISTED_GRASS, "Twisted Grass");
 		add(BlockInit.GROUND_LILLIES, "Ground Lillies");
 		add(BlockInit.CLOVER, "Clover");
@@ -221,9 +222,11 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.ORPHEUM, "Orpheum");
 
 		add(BlockInit.SPINDLESPROUT, "Spindlesprout");
+		add(BlockInit.SPRUCE_CUP, "Spruce Cup");
 		add(BlockInit.SMALL_FERN, "Small Fern");
 		add(BlockInit.DEAD_SMALL_FERN, "Dead Small Fern");
 		add(BlockInit.DRAGON_PEONY, "Dragon Peony");
+		add(BlockInit.POTTED_SPRUCE_CUP, "Potted Spruce Cup");
 		add(BlockInit.POTTED_DRAGON_PEONY, "Potted Dragon Peony");
 		add(BlockInit.POTTED_SMALL_FERN, "Potted Small Fern");
 		add(BlockInit.POTTED_DEAD_SMALL_FERN, "Potted Dead Small Fern");

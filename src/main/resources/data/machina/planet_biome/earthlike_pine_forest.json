@@ -42,11 +42,7 @@
 				"weight": 10
 			},
 			{
-				"block": "minecraft:fern",
-				"weight": 2
-			},
-			{
-				"block": "machina:clover",
+				"block": "machina:spruce_cup",
 				"weight": 1
 			}
 		]
@@ -57,6 +53,15 @@
 		"chance": 0.1
 	},
 	"rocks": [
+		{
+			"base": "machina:shale",
+			"stair": "machina:shale_stairs",
+			"slab": "machina:shale_slab",
+			"wall": "machina:shale_wall",
+			"chance": 1,
+			"radius": 1.01,
+			"deform": 2.0
+		}
 	],
 	"ores": [
 		{
