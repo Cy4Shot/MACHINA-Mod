@@ -1,4 +1,4 @@
-// 1.20.1	2024-12-09T18:53:08.6367931	Loot Tables
+// 1.20.1	2024-12-09T19:16:30.1976625	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -155,6 +155,7 @@ e62eb6e877738799a9cabd635efe325b63b3d1f6 data/machina/loot_tables/blocks/potted_
 0415d06e54cd0d7c93423f7cc26fb314e0d4f1f7 data/machina/loot_tables/blocks/potted_red_glowshroom.json
 2b888bd710cad6c0a35d39fe97853116a7dce6a4 data/machina/loot_tables/blocks/potted_small_fern.json
 09967c1a294f6682e924039e021e88c58ce826e1 data/machina/loot_tables/blocks/potted_spindlesprout.json
+d3d2c24aa0a6bd98c717cbee43e198034fc50560 data/machina/loot_tables/blocks/potted_spruce_cup.json
 f9f87262b8def71907731ef4f0bec90dad974a98 data/machina/loot_tables/blocks/potted_turquoise_glowshroom.json
 f0daf66ae91ef52e28a08daf3591052496a570f2 data/machina/loot_tables/blocks/potted_yellow_glowshroom.json
 1f12c1753b93cd24d1ff61627bafc6eb4a450bfb data/machina/loot_tables/blocks/purple_glowshroom.json
@@ -173,6 +174,7 @@ f40552bb6480f2fa458b75f3f2eb0c57bc9a5c1f data/machina/loot_tables/blocks/silt_st
 1e48a5183aa45287542b65252d2342ff81846e6c data/machina/loot_tables/blocks/sparr_ball.json
 e28814bfd2c4a54bbff93294bae3879dd2db02b4 data/machina/loot_tables/blocks/spindlegrass.json
 0cdfe6bc6dfd0e91ede59d4178f59cefd1b43239 data/machina/loot_tables/blocks/spindlesprout.json
+e0197a12fac9915ef6cf16917896158ad6d404fb data/machina/loot_tables/blocks/spruce_cup.json
 e771ae2bc152a22e402241173edf488c07dff9c1 data/machina/loot_tables/blocks/strapple.json
 0575e27026bceaf815d261aa26f0ff68a726f108 data/machina/loot_tables/blocks/stripped_dead_tropical_log.json
 3aa4cdb989cdbed9e562b8d7c759843196d6a5c5 data/machina/loot_tables/blocks/stripped_dead_tropical_wood.json
@@ -198,6 +200,7 @@ b3a1390db8e4d0eb9921d67ee841d4c62110ce4c data/machina/loot_tables/blocks/tropica
 ff52f9d76e58b8ecbb6b8c81476eef403b198b24 data/machina/loot_tables/blocks/tropical_door.json
 2f15017ba7a2be9dd7b3ea0af8e5bbc10763c4b9 data/machina/loot_tables/blocks/tropical_fence.json
 643205aeaababd84a78325b4d7e3852e1a6e85b4 data/machina/loot_tables/blocks/tropical_fence_gate.json
+c53cb5262e098b466b52d18e830626365198ae56 data/machina/loot_tables/blocks/tropical_grass.json
 ea85694c96a997fe24f781abf6765906d4ce65ed data/machina/loot_tables/blocks/tropical_grass_block.json
 58362630f85d4e6e15153a3dba5b2936fe572bdb data/machina/loot_tables/blocks/tropical_hanging_sign.json
 9feea9ba2464c399b1c5870cca485a49aa717764 data/machina/loot_tables/blocks/tropical_leaves.json

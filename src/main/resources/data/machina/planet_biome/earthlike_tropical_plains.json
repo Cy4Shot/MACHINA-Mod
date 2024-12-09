@@ -35,13 +35,15 @@
 			"tree_fruit_chance": 0
 		},
 		{
-			"type": "machina:random_radial_baobab",
+			"type": "machina:dead_radial_baobab",
 			"wood": "machina:dead_tropical_wood",
 			"leaves": "minecraft:air",
 			"chance": 0.1,
-			"fruits": [],
-			"fruit_chance": 0,
-			"tree_fruit_chance": 0
+			"fruits": [
+				"machina:dead_tropical_fence"
+			],
+			"fruit_chance": 0.12,
+			"tree_fruit_chance": 1
 		}
 	],
 	"bushes": [
