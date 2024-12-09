@@ -158,6 +158,7 @@ public class BlockInit {
 	public static final RegistryObject<SlabBlock> PEAT_SLAB = slab("peat_slab", Blocks.MUD);
 	
 	public static final WoodType TROPICAL = registerWoodType("tropical");
+	public static final WoodType DEAD_TROPICAL = registerWoodType("dead_tropical");
 	public static final WoodType PINE = registerWoodType("pine");
 	
 	public static final RegistryObject<RotatedPillarBlock> TROPICAL_LOG = log("tropical_log", Blocks.OAK_LOG);
@@ -178,6 +179,25 @@ public class BlockInit {
 	public static final RegistryObject<FenceBlock> TROPICAL_FENCE = fence("tropical_fence", Blocks.OAK_FENCE);
 	public static final RegistryObject<FenceGateBlock> TROPICAL_FENCE_GATE = fence_gate("tropical_fence_gate", Blocks.OAK_FENCE_GATE, TROPICAL);
 	public static final RegistryObject<PressurePlateBlock> TROPICAL_PRESSURE_PLATE = wood_pressure_plate("tropical_pressure_plate", Blocks.OAK_PRESSURE_PLATE, TROPICAL);
+	
+	public static final RegistryObject<RotatedPillarBlock> DEAD_TROPICAL_LOG = log("dead_tropical_log", Blocks.OAK_LOG);
+	public static final RegistryObject<RotatedPillarBlock> DEAD_TROPICAL_WOOD = log("dead_tropical_wood", Blocks.OAK_WOOD);
+	public static final RegistryObject<RotatedPillarBlock> STRIPPED_DEAD_TROPICAL_LOG = log("stripped_dead_tropical_log", Blocks.STRIPPED_OAK_LOG);
+	public static final RegistryObject<RotatedPillarBlock> STRIPPED_DEAD_TROPICAL_WOOD = log("stripped_dead_tropical_wood", Blocks.STRIPPED_OAK_WOOD);
+	public static final RegistryObject<Block> DEAD_TROPICAL_PLANKS = block("dead_tropical_planks", Blocks.OAK_PLANKS);
+	public static final RegistryObject<LeavesBlock> DEAD_TROPICAL_LEAVES = leaves("dead_tropical_leaves", Blocks.OAK_LEAVES);
+	public static final RegistryObject<SlabBlock> DEAD_TROPICAL_SLAB = slab("dead_tropical_slab", Blocks.OAK_SLAB);
+	public static final RegistryObject<StairBlock> DEAD_TROPICAL_STAIRS = stairs("dead_tropical_stairs", DEAD_TROPICAL_PLANKS, Blocks.OAK_STAIRS);
+	public static final RegistryObject<MachinaSignBlock> DEAD_TROPICAL_SIGN = sign("dead_tropical_sign", Blocks.OAK_SIGN, DEAD_TROPICAL);
+	public static final RegistryObject<MachinaWallSignBlock> DEAD_TROPICAL_WALL_SIGN = wall_sign("dead_tropical_wall_sign", Blocks.OAK_WALL_SIGN, DEAD_TROPICAL);
+	public static final RegistryObject<MachinaHangingSignBlock> DEAD_TROPICAL_HANGING_SIGN = hanging_sign("dead_tropical_hanging_sign", Blocks.OAK_HANGING_SIGN, DEAD_TROPICAL);
+	public static final RegistryObject<MachinaHangingWallSignBlock> DEAD_TROPICAL_WALL_HANGING_SIGN = wall_hanging_sign("dead_tropical_wall_hanging_sign", Blocks.OAK_WALL_HANGING_SIGN, DEAD_TROPICAL);
+	public static final RegistryObject<ButtonBlock> DEAD_TROPICAL_BUTTON = wood_button("dead_tropical_button", Blocks.OAK_BUTTON, DEAD_TROPICAL);
+	public static final RegistryObject<DoorBlock> DEAD_TROPICAL_DOOR = wood_door("dead_tropical_door", Blocks.OAK_DOOR, DEAD_TROPICAL);
+	public static final RegistryObject<TrapDoorBlock> DEAD_TROPICAL_TRAPDOOR = wood_trapdoor("dead_tropical_trapdoor", Blocks.OAK_TRAPDOOR, DEAD_TROPICAL);
+	public static final RegistryObject<FenceBlock> DEAD_TROPICAL_FENCE = fence("dead_tropical_fence", Blocks.OAK_FENCE);
+	public static final RegistryObject<FenceGateBlock> DEAD_TROPICAL_FENCE_GATE = fence_gate("dead_tropical_fence_gate", Blocks.OAK_FENCE_GATE, DEAD_TROPICAL);
+	public static final RegistryObject<PressurePlateBlock> DEAD_TROPICAL_PRESSURE_PLATE = wood_pressure_plate("dead_tropical_pressure_plate", Blocks.OAK_PRESSURE_PLATE, TROPICAL);
 	
 	public static final RegistryObject<RotatedPillarBlock> PINE_LOG = log("pine_log", Blocks.OAK_LOG);
 	public static final RegistryObject<RotatedPillarBlock> PINE_WOOD = log("pine_wood", Blocks.OAK_WOOD);

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "machina:block/dead_tropical_planks",
+    "side": "machina:block/dead_tropical_planks",
+    "top": "machina:block/dead_tropical_planks"
+  }
+}

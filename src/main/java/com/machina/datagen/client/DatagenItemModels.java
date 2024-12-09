@@ -55,6 +55,9 @@ public class DatagenItemModels extends ItemModelProvider {
 
 		simpleItem(ItemInit.TROPICAL_SIGN);
 		simpleItem(ItemInit.TROPICAL_HANGING_SIGN);
+		
+		simpleItem(ItemInit.DEAD_TROPICAL_SIGN);
+		simpleItem(ItemInit.DEAD_TROPICAL_HANGING_SIGN);
 
 		simpleItem(ItemInit.PINE_SIGN);
 		simpleItem(ItemInit.PINE_HANGING_SIGN);

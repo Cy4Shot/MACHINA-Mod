@@ -177,6 +177,23 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.TROPICAL_WOOD, "Tropical Wood");
 		add(BlockInit.STRIPPED_TROPICAL_LOG, "Stripped Tropical Log");
 		add(BlockInit.STRIPPED_TROPICAL_WOOD, "Stripped Tropical Wood");
+		
+		add(BlockInit.DEAD_TROPICAL_BUTTON, "Dead Tropical Button");
+		add(BlockInit.DEAD_TROPICAL_DOOR, "Dead Tropical Door");
+		add(BlockInit.DEAD_TROPICAL_FENCE, "Dead Tropical Fence");
+		add(BlockInit.DEAD_TROPICAL_FENCE_GATE, "Dead Tropical Fence Gate");
+		add(BlockInit.DEAD_TROPICAL_HANGING_SIGN, "Dead Tropical Hanging Sign");
+		add(BlockInit.DEAD_TROPICAL_LOG, "Dead Tropical Log");
+		add(BlockInit.DEAD_TROPICAL_PLANKS, "Dead Tropical Planks");
+		add(BlockInit.DEAD_TROPICAL_LEAVES, "Dead Tropical Leaves");
+		add(BlockInit.DEAD_TROPICAL_PRESSURE_PLATE, "Dead Tropical Pressure Plate");
+		add(BlockInit.DEAD_TROPICAL_SIGN, "Dead Tropical Sign");
+		add(BlockInit.DEAD_TROPICAL_SLAB, "Dead Tropical Slab");
+		add(BlockInit.DEAD_TROPICAL_STAIRS, "Dead Tropical Stairs");
+		add(BlockInit.DEAD_TROPICAL_TRAPDOOR, "Dead Tropical Trapdoor");
+		add(BlockInit.DEAD_TROPICAL_WOOD, "Dead Tropical Wood");
+		add(BlockInit.STRIPPED_DEAD_TROPICAL_LOG, "Stripped Tropical Log");
+		add(BlockInit.STRIPPED_DEAD_TROPICAL_WOOD, "Stripped Tropical Wood");
 
 		add(BlockInit.PINE_BUTTON, "Pine Button");
 		add(BlockInit.PINE_DOOR, "Pine Door");

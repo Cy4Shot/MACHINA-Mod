@@ -17,7 +17,7 @@
 			"type": "machina:radial_baobab",
 			"wood": "machina:tropical_wood",
 			"leaves": "machina:tropical_leaves[persistent=true]",
-			"chance": 0.17,
+			"chance": 0.12,
 			"fruits": [
 				"machina:tama_spore"
 			],
@@ -28,9 +28,18 @@
 			"type": "machina:acacia",
 			"wood": "machina:tropical_wood",
 			"leaves": "machina:tropical_leaves[persistent=true]",
-			"chance": 0.25,
+			"chance": 0.2,
 			"fruits": [
 			],
+			"fruit_chance": 0,
+			"tree_fruit_chance": 0
+		},
+		{
+			"type": "machina:random_radial_baobab",
+			"wood": "machina:dead_tropical_wood",
+			"leaves": "minecraft:air",
+			"chance": 0.1,
+			"fruits": [],
 			"fruit_chance": 0,
 			"tree_fruit_chance": 0
 		}

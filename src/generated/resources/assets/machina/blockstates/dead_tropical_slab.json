@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/dead_tropical_slab"
+    },
+    "type=double": {
+      "model": "machina:block/dead_tropical_planks"
+    },
+    "type=top": {
+      "model": "machina:block/dead_tropical_slab_top"
+    }
+  }
+}

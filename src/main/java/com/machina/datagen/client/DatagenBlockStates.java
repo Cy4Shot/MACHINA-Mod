@@ -164,6 +164,23 @@ public class DatagenBlockStates extends BlockStateProvider {
 		sign(BlockInit.TROPICAL_HANGING_SIGN, BlockInit.TROPICAL_WALL_HANGING_SIGN, BlockInit.TROPICAL_PLANKS);
 		trapdoor(BlockInit.TROPICAL_TRAPDOOR);
 		door(BlockInit.TROPICAL_DOOR);
+		
+		cube(BlockInit.DEAD_TROPICAL_PLANKS);
+		leaves(BlockInit.DEAD_TROPICAL_LEAVES);
+		log(BlockInit.DEAD_TROPICAL_LOG);
+		log(BlockInit.DEAD_TROPICAL_WOOD);
+		log(BlockInit.STRIPPED_DEAD_TROPICAL_LOG);
+		log(BlockInit.STRIPPED_DEAD_TROPICAL_WOOD);
+		slab(BlockInit.DEAD_TROPICAL_SLAB, BlockInit.DEAD_TROPICAL_PLANKS);
+		stairs(BlockInit.DEAD_TROPICAL_STAIRS, BlockInit.DEAD_TROPICAL_PLANKS);
+		button(BlockInit.DEAD_TROPICAL_BUTTON, BlockInit.DEAD_TROPICAL_PLANKS);
+		pressure_plate(BlockInit.DEAD_TROPICAL_PRESSURE_PLATE, BlockInit.DEAD_TROPICAL_PLANKS);
+		fence(BlockInit.DEAD_TROPICAL_FENCE, BlockInit.DEAD_TROPICAL_PLANKS);
+		fence_gate(BlockInit.DEAD_TROPICAL_FENCE_GATE, BlockInit.DEAD_TROPICAL_PLANKS);
+		sign(BlockInit.DEAD_TROPICAL_SIGN, BlockInit.DEAD_TROPICAL_WALL_SIGN, BlockInit.DEAD_TROPICAL_PLANKS);
+		sign(BlockInit.DEAD_TROPICAL_HANGING_SIGN, BlockInit.DEAD_TROPICAL_WALL_HANGING_SIGN, BlockInit.DEAD_TROPICAL_PLANKS);
+		trapdoor(BlockInit.DEAD_TROPICAL_TRAPDOOR);
+		door(BlockInit.DEAD_TROPICAL_DOOR);
 
 		cube(BlockInit.PINE_PLANKS);
 		leaves(BlockInit.PINE_LEAVES);

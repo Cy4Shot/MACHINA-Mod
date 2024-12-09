@@ -7,6 +7,7 @@ import com.machina.world.feature.tree.ConeTree;
 import com.machina.world.feature.tree.FirTree;
 import com.machina.world.feature.tree.LollipopTree;
 import com.machina.world.feature.tree.RadialBaobabTree;
+import com.machina.world.feature.tree.RandomRadialBaobabTree;
 
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -16,6 +17,7 @@ public class PlanetTreeInit {
 
 	//@formatter:off
 	public static final RegistryObject<RadialBaobabTree> RADIAL_BAOBAB = TREES.register("radial_baobab", RadialBaobabTree::new);
+	public static final RegistryObject<RandomRadialBaobabTree> RANDOM_RADIAL_BAOBAB = TREES.register("random_radial_baobab", RandomRadialBaobabTree::new);
 	public static final RegistryObject<ArchTree> ARCH = TREES.register("arch", ArchTree::new);
 	public static final RegistryObject<FirTree> FIR = TREES.register("fir", FirTree::new);
 	public static final RegistryObject<ConeTree> CONE = TREES.register("cone", ConeTree::new);

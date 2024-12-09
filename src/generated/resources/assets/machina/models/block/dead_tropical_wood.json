@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "machina:block/dead_tropical_wood_top",
+    "side": "machina:block/dead_tropical_wood"
+  }
+}

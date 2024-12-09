@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "machina:item/dead_tropical_hanging_sign"
+  }
+}
