@@ -2,6 +2,7 @@
   "values": [
     "machina:tropical_pressure_plate",
     "machina:dead_tropical_pressure_plate",
-    "machina:pine_pressure_plate"
+    "machina:pine_pressure_plate",
+    "machina:coniferous_pressure_plate"
   ]
 }

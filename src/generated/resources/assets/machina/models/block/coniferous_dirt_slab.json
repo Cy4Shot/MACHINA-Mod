@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "machina:block/coniferous_dirt",
+    "side": "machina:block/coniferous_dirt",
+    "top": "machina:block/coniferous_dirt"
+  }
+}

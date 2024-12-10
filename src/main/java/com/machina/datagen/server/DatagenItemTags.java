@@ -1,6 +1,7 @@
 package com.machina.datagen.server;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -18,6 +19,7 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
@@ -48,7 +50,7 @@ public class DatagenItemTags extends ItemTagsProvider {
 		smallFlower(BlockInit.SPINDLESPROUT);
 		smallFlower(BlockInit.SMALL_FERN);
 		smallFlower(BlockInit.DEAD_SMALL_FERN);
-		
+
 		tallFlower(BlockInit.SPINDLEGRASS);
 		tallFlower(BlockInit.ORPHEUM);
 
@@ -113,6 +115,6 @@ public class DatagenItemTags extends ItemTagsProvider {
 		tag(ItemTags.LOGS).add(family.log().asItem(), family.stripped_log().asItem(), family.wood().asItem(),
 				family.stripped_wood().asItem());
 		tag(ItemTags.PLANKS).add(family.planks().asItem());
-		tag(ItemTags.LEAVES).add(family.leaves().asItem());
+		tag(ItemTags.LEAVES).add(Stream.of(family.leaves()).map(Block::asItem).toArray(Item[]::new));
 	}
 }

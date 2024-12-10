@@ -140,6 +140,7 @@ public class BlockInit {
 	
 	public static final RegistryObject<Block> TROPICAL_GRASS_BLOCK = block("tropical_grass_block", Blocks.GRASS_BLOCK);
 	public static final RegistryObject<Block> FOREST_GRASS_BLOCK = block("forest_grass_block", Blocks.GRASS_BLOCK);
+	public static final RegistryObject<Block> CONIFEROUS_GRASS_BLOCK = block("coniferous_grass_block", Blocks.GRASS_BLOCK);
 	
 	public static final RegistryObject<Block> TROPICAL_DIRT = block("tropical_dirt", Blocks.DIRT);
 	public static final RegistryObject<StairBlock> TROPICAL_DIRT_STAIRS = stairs("tropical_dirt_stairs", TROPICAL_DIRT, Blocks.DIRT);
@@ -148,6 +149,10 @@ public class BlockInit {
 	public static final RegistryObject<Block> FOREST_DIRT = block("forest_dirt", Blocks.DIRT);
 	public static final RegistryObject<StairBlock> FOREST_DIRT_STAIRS = stairs("forest_dirt_stairs", FOREST_DIRT, Blocks.DIRT);
 	public static final RegistryObject<SlabBlock> FOREST_DIRT_SLAB = slab("forest_dirt_slab", Blocks.DIRT);
+	
+	public static final RegistryObject<Block> CONIFEROUS_DIRT = block("coniferous_dirt", Blocks.DIRT);
+	public static final RegistryObject<StairBlock> CONIFEROUS_DIRT_STAIRS = stairs("coniferous_dirt_stairs", CONIFEROUS_DIRT, Blocks.DIRT);
+	public static final RegistryObject<SlabBlock> CONIFEROUS_DIRT_SLAB = slab("coniferous_dirt_slab", Blocks.DIRT);
 	
 	public static final RegistryObject<Block> SILT = block("silt", Blocks.MUD);
 	public static final RegistryObject<StairBlock> SILT_STAIRS = stairs("silt_stairs", SILT, Blocks.MUD);
@@ -160,6 +165,7 @@ public class BlockInit {
 	public static final WoodType TROPICAL = registerWoodType("tropical");
 	public static final WoodType DEAD_TROPICAL = registerWoodType("dead_tropical");
 	public static final WoodType PINE = registerWoodType("pine");
+	public static final WoodType CONIFEROUS = registerWoodType("coniferous");
 	
 	public static final RegistryObject<RotatedPillarBlock> TROPICAL_LOG = log("tropical_log", Blocks.OAK_LOG);
 	public static final RegistryObject<RotatedPillarBlock> TROPICAL_WOOD = log("tropical_wood", Blocks.OAK_WOOD);
@@ -217,6 +223,28 @@ public class BlockInit {
 	public static final RegistryObject<FenceBlock> PINE_FENCE = fence("pine_fence", Blocks.OAK_FENCE);
 	public static final RegistryObject<FenceGateBlock> PINE_FENCE_GATE = fence_gate("pine_fence_gate", Blocks.OAK_FENCE_GATE, PINE);
 	public static final RegistryObject<PressurePlateBlock> PINE_PRESSURE_PLATE = wood_pressure_plate("pine_pressure_plate", Blocks.OAK_PRESSURE_PLATE, PINE);
+	
+	public static final RegistryObject<RotatedPillarBlock> CONIFEROUS_LOG = log("coniferous_log", Blocks.OAK_LOG);
+	public static final RegistryObject<RotatedPillarBlock> CONIFEROUS_WOOD = log("coniferous_wood", Blocks.OAK_WOOD);
+	public static final RegistryObject<RotatedPillarBlock> STRIPPED_CONIFEROUS_LOG = log("stripped_coniferous_log", Blocks.STRIPPED_OAK_LOG);
+	public static final RegistryObject<RotatedPillarBlock> STRIPPED_CONIFEROUS_WOOD = log("stripped_coniferous_wood", Blocks.STRIPPED_OAK_WOOD);
+	public static final RegistryObject<Block> CONIFEROUS_PLANKS = block("coniferous_planks", Blocks.OAK_PLANKS);
+	public static final RegistryObject<LeavesBlock> GREEN_CONIFEROUS_LEAVES = leaves("green_coniferous_leaves", Blocks.OAK_LEAVES);
+	public static final RegistryObject<LeavesBlock> YELLOW_CONIFEROUS_LEAVES = leaves("yellow_coniferous_leaves", Blocks.OAK_LEAVES);
+	public static final RegistryObject<LeavesBlock> ORANGE_CONIFEROUS_LEAVES = leaves("orange_coniferous_leaves", Blocks.OAK_LEAVES);
+	public static final RegistryObject<LeavesBlock> RED_CONIFEROUS_LEAVES = leaves("red_coniferous_leaves", Blocks.OAK_LEAVES);
+	public static final RegistryObject<SlabBlock> CONIFEROUS_SLAB = slab("coniferous_slab", Blocks.OAK_SLAB);
+	public static final RegistryObject<StairBlock> CONIFEROUS_STAIRS = stairs("coniferous_stairs", CONIFEROUS_PLANKS, Blocks.OAK_STAIRS);
+	public static final RegistryObject<MachinaSignBlock> CONIFEROUS_SIGN = sign("coniferous_sign", Blocks.OAK_SIGN, CONIFEROUS);
+	public static final RegistryObject<MachinaWallSignBlock> CONIFEROUS_WALL_SIGN = wall_sign("coniferous_wall_sign", Blocks.OAK_WALL_SIGN, CONIFEROUS);
+	public static final RegistryObject<MachinaHangingSignBlock> CONIFEROUS_HANGING_SIGN = hanging_sign("coniferous_hanging_sign", Blocks.OAK_HANGING_SIGN, CONIFEROUS);
+	public static final RegistryObject<MachinaHangingWallSignBlock> CONIFEROUS_WALL_HANGING_SIGN = wall_hanging_sign("coniferous_wall_hanging_sign", Blocks.OAK_WALL_HANGING_SIGN, CONIFEROUS);
+	public static final RegistryObject<ButtonBlock> CONIFEROUS_BUTTON = wood_button("coniferous_button", Blocks.OAK_BUTTON, CONIFEROUS);
+	public static final RegistryObject<DoorBlock> CONIFEROUS_DOOR = wood_door("coniferous_door", Blocks.OAK_DOOR, CONIFEROUS);
+	public static final RegistryObject<TrapDoorBlock> CONIFEROUS_TRAPDOOR = wood_trapdoor("coniferous_trapdoor", Blocks.OAK_TRAPDOOR, CONIFEROUS);
+	public static final RegistryObject<FenceBlock> CONIFEROUS_FENCE = fence("coniferous_fence", Blocks.OAK_FENCE);
+	public static final RegistryObject<FenceGateBlock> CONIFEROUS_FENCE_GATE = fence_gate("coniferous_fence_gate", Blocks.OAK_FENCE_GATE, CONIFEROUS);
+	public static final RegistryObject<PressurePlateBlock> CONIFEROUS_PRESSURE_PLATE = wood_pressure_plate("coniferous_pressure_plate", Blocks.OAK_PRESSURE_PLATE, CONIFEROUS);
 
 	public static final RegistryObject<BushBlock> TROPICAL_GRASS = register("tropical_grass", Blocks.GRASS, BushBlock::new);
 	public static final RegistryObject<BushBlock> TWISTED_GRASS = register("twisted_grass", Blocks.GRASS, BushBlock::new);
@@ -374,12 +402,10 @@ public class BlockInit {
 		return register(name, prop, a -> a, TallFlowerBlock::new);
 	}
 
-	@SuppressWarnings("deprecation")
 	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<? extends Block> flower) {
 		return register(name, BlockInit.of(Blocks.FLOWER_POT, a -> a, p -> new FlowerPotBlock(flower.get(), p)));
 	}
 
-	@SuppressWarnings("deprecation")
 	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<FlowerBlock> flower,
 			Function<Block.Properties, Block.Properties> extra) {
 		return register(name, BlockInit.of(Blocks.FLOWER_POT, extra, p -> new FlowerPotBlock(flower.get(), p)));

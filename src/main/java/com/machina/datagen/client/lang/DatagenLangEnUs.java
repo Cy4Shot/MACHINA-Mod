@@ -147,6 +147,7 @@ public class DatagenLangEnUs extends DatagenLang {
 
 		add(BlockInit.TROPICAL_GRASS_BLOCK, "Tropical Grass Block");
 		add(BlockInit.FOREST_GRASS_BLOCK, "Forest Grass Block");
+		add(BlockInit.CONIFEROUS_GRASS_BLOCK, "Coniferous Grass Block");
 
 		add(BlockInit.TROPICAL_DIRT, "Tropical Dirt");
 		add(BlockInit.TROPICAL_DIRT_STAIRS, "Tropical Dirt Stairs");
@@ -154,6 +155,9 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.FOREST_DIRT, "Forest Dirt");
 		add(BlockInit.FOREST_DIRT_STAIRS, "Forest Dirt Stairs");
 		add(BlockInit.FOREST_DIRT_SLAB, "Forest Dirt Slab");
+		add(BlockInit.CONIFEROUS_DIRT, "Coniferous Dirt");
+		add(BlockInit.CONIFEROUS_DIRT_STAIRS, "Coniferous Dirt Stairs");
+		add(BlockInit.CONIFEROUS_DIRT_SLAB, "Coniferous Dirt Slab");
 		add(BlockInit.PEAT, "Peat");
 		add(BlockInit.PEAT_STAIRS, "Peat Stairs");
 		add(BlockInit.PEAT_SLAB, "Peat Slab");
@@ -211,6 +215,26 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.PINE_WOOD, "Pine Wood");
 		add(BlockInit.STRIPPED_PINE_LOG, "Stripped Pine Log");
 		add(BlockInit.STRIPPED_PINE_WOOD, "Stripped Pine Wood");
+		
+		add(BlockInit.CONIFEROUS_BUTTON, "Coniferous Button");
+		add(BlockInit.CONIFEROUS_DOOR, "Coniferous Door");
+		add(BlockInit.CONIFEROUS_FENCE, "Coniferous Fence");
+		add(BlockInit.CONIFEROUS_FENCE_GATE, "Coniferous Fence Gate");
+		add(BlockInit.CONIFEROUS_HANGING_SIGN, "Coniferous Hanging Sign");
+		add(BlockInit.CONIFEROUS_LOG, "Coniferous Log");
+		add(BlockInit.CONIFEROUS_PLANKS, "Coniferous Planks");
+		add(BlockInit.GREEN_CONIFEROUS_LEAVES, "Green Coniferous Leaves");
+		add(BlockInit.YELLOW_CONIFEROUS_LEAVES, "Yellow Coniferous Leaves");
+		add(BlockInit.ORANGE_CONIFEROUS_LEAVES, "Orange Coniferous Leaves");
+		add(BlockInit.RED_CONIFEROUS_LEAVES, "Red Coniferous Leaves");
+		add(BlockInit.CONIFEROUS_PRESSURE_PLATE, "Coniferous Pressure Plate");
+		add(BlockInit.CONIFEROUS_SIGN, "Coniferous Sign");
+		add(BlockInit.CONIFEROUS_SLAB, "Coniferous Slab");
+		add(BlockInit.CONIFEROUS_STAIRS, "Coniferous Stairs");
+		add(BlockInit.CONIFEROUS_TRAPDOOR, "Coniferous Trapdoor");
+		add(BlockInit.CONIFEROUS_WOOD, "Coniferous Wood");
+		add(BlockInit.STRIPPED_CONIFEROUS_LOG, "Stripped Coniferous Log");
+		add(BlockInit.STRIPPED_CONIFEROUS_WOOD, "Stripped Coniferous Wood");
 
 		add(BlockInit.TROPICAL_GRASS, "Tropical Grass");
 		add(BlockInit.TWISTED_GRASS, "Twisted Grass");

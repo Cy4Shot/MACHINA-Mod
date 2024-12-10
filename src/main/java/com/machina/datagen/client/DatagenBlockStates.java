@@ -131,6 +131,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 
 		cubeBottomTopRandomRotation(BlockInit.TROPICAL_GRASS_BLOCK);
 		cubeBottomTopRandomRotation(BlockInit.FOREST_GRASS_BLOCK);
+		cubeBottomTopRandomRotation(BlockInit.CONIFEROUS_GRASS_BLOCK);
 
 		cubeRandomRotation(BlockInit.TROPICAL_DIRT);
 		slab(BlockInit.TROPICAL_DIRT_SLAB, BlockInit.TROPICAL_DIRT);
@@ -139,6 +140,10 @@ public class DatagenBlockStates extends BlockStateProvider {
 		cubeRandomRotation(BlockInit.FOREST_DIRT);
 		slab(BlockInit.FOREST_DIRT_SLAB, BlockInit.FOREST_DIRT);
 		stairs(BlockInit.FOREST_DIRT_STAIRS, BlockInit.FOREST_DIRT);
+		
+		cubeRandomRotation(BlockInit.CONIFEROUS_DIRT);
+		slab(BlockInit.CONIFEROUS_DIRT_SLAB, BlockInit.CONIFEROUS_DIRT);
+		stairs(BlockInit.CONIFEROUS_DIRT_STAIRS, BlockInit.CONIFEROUS_DIRT);
 
 		cube(BlockInit.PEAT);
 		slab(BlockInit.PEAT_SLAB, BlockInit.PEAT);
@@ -198,6 +203,26 @@ public class DatagenBlockStates extends BlockStateProvider {
 		sign(BlockInit.PINE_HANGING_SIGN, BlockInit.PINE_WALL_HANGING_SIGN, BlockInit.PINE_PLANKS);
 		trapdoor(BlockInit.PINE_TRAPDOOR);
 		door(BlockInit.PINE_DOOR);
+		
+		cube(BlockInit.CONIFEROUS_PLANKS);
+		leaves(BlockInit.GREEN_CONIFEROUS_LEAVES);
+		leaves(BlockInit.YELLOW_CONIFEROUS_LEAVES);
+		leaves(BlockInit.ORANGE_CONIFEROUS_LEAVES);
+		leaves(BlockInit.RED_CONIFEROUS_LEAVES);
+		log(BlockInit.CONIFEROUS_LOG);
+		log(BlockInit.CONIFEROUS_WOOD);
+		log(BlockInit.STRIPPED_CONIFEROUS_LOG);
+		log(BlockInit.STRIPPED_CONIFEROUS_WOOD);
+		slab(BlockInit.CONIFEROUS_SLAB, BlockInit.CONIFEROUS_PLANKS);
+		stairs(BlockInit.CONIFEROUS_STAIRS, BlockInit.CONIFEROUS_PLANKS);
+		button(BlockInit.CONIFEROUS_BUTTON, BlockInit.CONIFEROUS_PLANKS);
+		pressure_plate(BlockInit.CONIFEROUS_PRESSURE_PLATE, BlockInit.CONIFEROUS_PLANKS);
+		fence(BlockInit.CONIFEROUS_FENCE, BlockInit.CONIFEROUS_PLANKS);
+		fence_gate(BlockInit.CONIFEROUS_FENCE_GATE, BlockInit.CONIFEROUS_PLANKS);
+		sign(BlockInit.CONIFEROUS_SIGN, BlockInit.CONIFEROUS_WALL_SIGN, BlockInit.CONIFEROUS_PLANKS);
+		sign(BlockInit.CONIFEROUS_HANGING_SIGN, BlockInit.CONIFEROUS_WALL_HANGING_SIGN, BlockInit.CONIFEROUS_PLANKS);
+		trapdoor(BlockInit.CONIFEROUS_TRAPDOOR);
+		door(BlockInit.CONIFEROUS_DOOR);
 
 		flower(BlockInit.TROPICAL_GRASS);
 		flower(BlockInit.TWISTED_GRASS);
@@ -384,7 +409,6 @@ public class DatagenBlockStates extends BlockStateProvider {
 				.texture("layer0", tex);
 	}
 
-	@SuppressWarnings("deprecation")
 	private String name(Block block) {
 		return BuiltInRegistries.BLOCK.getKey(block).getPath();
 	}

@@ -2,6 +2,7 @@
   "values": [
     "machina:tropical_dirt_stairs",
     "machina:forest_dirt_stairs",
+    "machina:coniferous_dirt_stairs",
     "machina:peat_stairs",
     "machina:silt_stairs",
     "machina:anthracite_stairs",
@@ -18,6 +19,7 @@
     "machina:gneiss_stairs",
     "machina:tropical_stairs",
     "machina:dead_tropical_stairs",
-    "machina:pine_stairs"
+    "machina:pine_stairs",
+    "machina:coniferous_stairs"
   ]
 }

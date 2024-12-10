@@ -11,6 +11,10 @@
     "machina:pine_log",
     "machina:stripped_pine_log",
     "machina:pine_wood",
-    "machina:stripped_pine_wood"
+    "machina:stripped_pine_wood",
+    "machina:coniferous_log",
+    "machina:stripped_coniferous_log",
+    "machina:coniferous_wood",
+    "machina:stripped_coniferous_wood"
   ]
 }

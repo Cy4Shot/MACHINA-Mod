@@ -2,6 +2,7 @@
   "values": [
     "machina:tropical_dirt_slab",
     "machina:forest_dirt_slab",
+    "machina:coniferous_dirt_slab",
     "machina:peat_slab",
     "machina:silt_slab",
     "machina:anthracite_slab",
@@ -18,6 +19,7 @@
     "machina:gneiss_slab",
     "machina:tropical_slab",
     "machina:dead_tropical_slab",
-    "machina:pine_slab"
+    "machina:pine_slab",
+    "machina:coniferous_slab"
   ]
 }

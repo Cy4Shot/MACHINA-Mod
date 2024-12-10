@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/coniferous_slab"
+    },
+    "type=double": {
+      "model": "machina:block/coniferous_planks"
+    },
+    "type=top": {
+      "model": "machina:block/coniferous_slab_top"
+    }
+  }
+}

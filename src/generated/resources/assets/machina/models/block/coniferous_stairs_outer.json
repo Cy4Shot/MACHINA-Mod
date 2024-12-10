@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "machina:block/coniferous_planks",
+    "side": "machina:block/coniferous_planks",
+    "top": "machina:block/coniferous_planks"
+  }
+}

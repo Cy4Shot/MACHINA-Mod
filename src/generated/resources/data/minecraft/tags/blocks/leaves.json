@@ -2,6 +2,10 @@
   "values": [
     "machina:tropical_leaves",
     "machina:dead_tropical_leaves",
-    "machina:pine_leaves"
+    "machina:pine_leaves",
+    "machina:green_coniferous_leaves",
+    "machina:yellow_coniferous_leaves",
+    "machina:orange_coniferous_leaves",
+    "machina:red_coniferous_leaves"
   ]
 }

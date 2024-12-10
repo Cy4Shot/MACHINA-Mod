@@ -1,8 +1,10 @@
 package com.machina.registration.init;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
@@ -19,6 +21,8 @@ public class BlockFamiliesInit {
 				BlockInit.TROPICAL_DIRT_SLAB.get(), Optional.of(BlockInit.TROPICAL_GRASS_BLOCK.get())));
 		DIRTS.add(new DirtFamily(BlockInit.FOREST_DIRT.get(), BlockInit.FOREST_DIRT_STAIRS.get(),
 				BlockInit.FOREST_DIRT_SLAB.get(), Optional.of(BlockInit.FOREST_GRASS_BLOCK.get())));
+		DIRTS.add(new DirtFamily(BlockInit.CONIFEROUS_DIRT.get(), BlockInit.CONIFEROUS_DIRT_STAIRS.get(),
+				BlockInit.CONIFEROUS_DIRT_SLAB.get(), Optional.of(BlockInit.CONIFEROUS_GRASS_BLOCK.get())));
 		DIRTS.add(new DirtFamily(BlockInit.PEAT.get(), BlockInit.PEAT_STAIRS.get(), BlockInit.PEAT_SLAB.get()));
 		DIRTS.add(new DirtFamily(BlockInit.SILT.get(), BlockInit.SILT_STAIRS.get(), BlockInit.SILT_SLAB.get()));
 
@@ -30,23 +34,35 @@ public class BlockFamiliesInit {
 				BlockInit.TROPICAL_BUTTON.get(), ItemInit.TROPICAL_SIGN.get(), ItemInit.TROPICAL_HANGING_SIGN.get(),
 				BlockInit.TROPICAL_SIGN.get(), BlockInit.TROPICAL_WALL_SIGN.get(),
 				BlockInit.TROPICAL_HANGING_SIGN.get(), BlockInit.TROPICAL_WALL_HANGING_SIGN.get(),
-				BlockInit.TROPICAL_LEAVES.get()));
+				new Block[] { BlockInit.TROPICAL_LEAVES.get() }));
 		WOODS.add(new WoodFamily(BlockInit.DEAD_TROPICAL_LOG.get(), BlockInit.DEAD_TROPICAL_WOOD.get(),
 				BlockInit.STRIPPED_DEAD_TROPICAL_LOG.get(), BlockInit.STRIPPED_DEAD_TROPICAL_WOOD.get(),
-				BlockInit.DEAD_TROPICAL_PLANKS.get(), BlockInit.DEAD_TROPICAL_STAIRS.get(), BlockInit.DEAD_TROPICAL_SLAB.get(),
-				BlockInit.DEAD_TROPICAL_FENCE.get(), BlockInit.DEAD_TROPICAL_FENCE_GATE.get(), BlockInit.DEAD_TROPICAL_DOOR.get(),
+				BlockInit.DEAD_TROPICAL_PLANKS.get(), BlockInit.DEAD_TROPICAL_STAIRS.get(),
+				BlockInit.DEAD_TROPICAL_SLAB.get(), BlockInit.DEAD_TROPICAL_FENCE.get(),
+				BlockInit.DEAD_TROPICAL_FENCE_GATE.get(), BlockInit.DEAD_TROPICAL_DOOR.get(),
 				BlockInit.DEAD_TROPICAL_TRAPDOOR.get(), BlockInit.DEAD_TROPICAL_PRESSURE_PLATE.get(),
-				BlockInit.DEAD_TROPICAL_BUTTON.get(), ItemInit.DEAD_TROPICAL_SIGN.get(), ItemInit.DEAD_TROPICAL_HANGING_SIGN.get(),
-				BlockInit.DEAD_TROPICAL_SIGN.get(), BlockInit.DEAD_TROPICAL_WALL_SIGN.get(),
-				BlockInit.DEAD_TROPICAL_HANGING_SIGN.get(), BlockInit.DEAD_TROPICAL_WALL_HANGING_SIGN.get(),
-				BlockInit.DEAD_TROPICAL_LEAVES.get()));
+				BlockInit.DEAD_TROPICAL_BUTTON.get(), ItemInit.DEAD_TROPICAL_SIGN.get(),
+				ItemInit.DEAD_TROPICAL_HANGING_SIGN.get(), BlockInit.DEAD_TROPICAL_SIGN.get(),
+				BlockInit.DEAD_TROPICAL_WALL_SIGN.get(), BlockInit.DEAD_TROPICAL_HANGING_SIGN.get(),
+				BlockInit.DEAD_TROPICAL_WALL_HANGING_SIGN.get(), new Block[] { BlockInit.DEAD_TROPICAL_LEAVES.get() }));
 		WOODS.add(new WoodFamily(BlockInit.PINE_LOG.get(), BlockInit.PINE_WOOD.get(), BlockInit.STRIPPED_PINE_LOG.get(),
 				BlockInit.STRIPPED_PINE_WOOD.get(), BlockInit.PINE_PLANKS.get(), BlockInit.PINE_STAIRS.get(),
 				BlockInit.PINE_SLAB.get(), BlockInit.PINE_FENCE.get(), BlockInit.PINE_FENCE_GATE.get(),
 				BlockInit.PINE_DOOR.get(), BlockInit.PINE_TRAPDOOR.get(), BlockInit.PINE_PRESSURE_PLATE.get(),
 				BlockInit.PINE_BUTTON.get(), ItemInit.PINE_SIGN.get(), ItemInit.PINE_HANGING_SIGN.get(),
 				BlockInit.PINE_SIGN.get(), BlockInit.PINE_WALL_SIGN.get(), BlockInit.PINE_HANGING_SIGN.get(),
-				BlockInit.PINE_WALL_HANGING_SIGN.get(), BlockInit.PINE_LEAVES.get()));
+				BlockInit.PINE_WALL_HANGING_SIGN.get(), new Block[] { BlockInit.PINE_LEAVES.get() }));
+		WOODS.add(new WoodFamily(BlockInit.CONIFEROUS_LOG.get(), BlockInit.CONIFEROUS_WOOD.get(),
+				BlockInit.STRIPPED_CONIFEROUS_LOG.get(), BlockInit.STRIPPED_CONIFEROUS_WOOD.get(),
+				BlockInit.CONIFEROUS_PLANKS.get(), BlockInit.CONIFEROUS_STAIRS.get(), BlockInit.CONIFEROUS_SLAB.get(),
+				BlockInit.CONIFEROUS_FENCE.get(), BlockInit.CONIFEROUS_FENCE_GATE.get(),
+				BlockInit.CONIFEROUS_DOOR.get(), BlockInit.CONIFEROUS_TRAPDOOR.get(),
+				BlockInit.CONIFEROUS_PRESSURE_PLATE.get(), BlockInit.CONIFEROUS_BUTTON.get(),
+				ItemInit.CONIFEROUS_SIGN.get(), ItemInit.CONIFEROUS_HANGING_SIGN.get(), BlockInit.CONIFEROUS_SIGN.get(),
+				BlockInit.CONIFEROUS_WALL_SIGN.get(), BlockInit.CONIFEROUS_HANGING_SIGN.get(),
+				BlockInit.CONIFEROUS_WALL_HANGING_SIGN.get(),
+				new Block[] { BlockInit.GREEN_CONIFEROUS_LEAVES.get(), BlockInit.YELLOW_CONIFEROUS_LEAVES.get(),
+						BlockInit.ORANGE_CONIFEROUS_LEAVES.get(), BlockInit.RED_CONIFEROUS_LEAVES.get() }));
 
 		STONES.add(new StoneFamily(BlockInit.ANTHRACITE.get(), BlockInit.ANTHRACITE_SLAB.get(),
 				BlockInit.ANTHRACITE_STAIRS.get(), BlockInit.ANTHRACITE_WALL.get(),
@@ -105,12 +121,13 @@ public class BlockFamiliesInit {
 	public static final record WoodFamily(Block log, Block wood, Block stripped_log, Block stripped_wood, Block planks,
 			Block stairs, Block slab, Block fence, Block fencegate, Block door, Block trapdoor, Block pressure_plate,
 			Block button, Item sign, Item hangingsign, Block signblock, Block wallsignblock, Block hangingsignblock,
-			Block hangingwallsignblock, Block leaves) implements BlockFamily {
+			Block hangingwallsignblock, Block[] leaves) implements BlockFamily {
 
 		@Override
 		public List<ItemLike> tab() {
-			return List.of(log, wood, stripped_log, stripped_wood, planks, stairs, slab, fence, fencegate, door,
-					trapdoor, pressure_plate, button, sign, hangingsign, leaves);
+			return Stream.concat(Stream.<ItemLike>of(log, wood, stripped_log, stripped_wood, planks, stairs, slab,
+					fence, fencegate, door, trapdoor, pressure_plate, button, sign, hangingsign), Arrays.stream(leaves))
+					.toList();
 		}
 	}
 

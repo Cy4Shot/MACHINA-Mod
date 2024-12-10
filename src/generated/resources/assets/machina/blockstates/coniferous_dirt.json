@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "machina:block/coniferous_dirt"
+      },
+      {
+        "model": "machina:block/coniferous_dirt",
+        "y": 270
+      },
+      {
+        "model": "machina:block/coniferous_dirt",
+        "y": 180
+      },
+      {
+        "model": "machina:block/coniferous_dirt",
+        "y": 90
+      }
+    ]
+  }
+}

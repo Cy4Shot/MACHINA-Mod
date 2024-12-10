@@ -60,7 +60,7 @@ public class DatagenLootTables extends LootTableProvider {
 			pot(BlockInit.POTTED_SMALL_FERN.get());
 			dropSelf(BlockInit.DEAD_SMALL_FERN.get());
 			pot(BlockInit.POTTED_DEAD_SMALL_FERN.get());
-			
+
 			dropAsSilk(BlockInit.SPINDLEGRASS.get());
 			dropSelf(BlockInit.ORPHEUM.get());
 			dropAsSilk(BlockInit.CLOVER.get());
@@ -119,8 +119,10 @@ public class DatagenLootTables extends LootTableProvider {
 			dropSelf(family.wood());
 			dropSelf(family.stripped_log());
 			dropSelf(family.stripped_wood());
-			leaves(family.leaves());
 			slab(family.slab());
+			for (Block leaf : family.leaves()) {
+				leaves(leaf);
+			}
 		}
 
 		@Override

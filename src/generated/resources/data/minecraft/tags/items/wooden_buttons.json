@@ -2,6 +2,7 @@
   "values": [
     "machina:tropical_button",
     "machina:dead_tropical_button",
-    "machina:pine_button"
+    "machina:pine_button",
+    "machina:coniferous_button"
   ]
 }
