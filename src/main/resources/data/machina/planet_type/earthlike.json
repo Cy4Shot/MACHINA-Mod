@@ -29,6 +29,12 @@
 			]
 		},
 		{
+			"name": "machina:earthlike_coniferous_forest",
+			"placements": [
+				"MIDDLE"
+			]
+		},
+		{
 			"name": "machina:none",
 			"placements": [
 				"FALLBACK"

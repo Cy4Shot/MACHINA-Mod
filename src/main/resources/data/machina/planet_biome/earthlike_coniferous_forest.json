@@ -1,0 +1,201 @@
+{
+	"effects": {
+		"fog_color": 0,
+		"sky_color": 0,
+		"water_color": 0,
+		"water_fog_color": 0,
+		"grass_color": 6057754
+	},
+	"base": "machina:coniferous_dirt",
+	"stair": "machina:coniferous_dirt_stairs",
+	"slab": "machina:coniferous_dirt_slab",
+	"extra": "machina:silt",
+	"top": "machina:coniferous_grass_block",
+	"second": "machina:coniferous_dirt",
+	"trees": [
+		{
+			"type": "machina:small_fir",
+			"wood": "machina:coniferous_wood",
+			"leaves": "machina:green_coniferous_leaves[persistent=true]",
+			"chance": 0.8,
+			"fruits": [
+			],
+			"fruit_chance": 0,
+			"tree_fruit_chance": 0
+		},
+		{
+			"type": "machina:small_fir",
+			"wood": "machina:coniferous_wood",
+			"leaves": "machina:yellow_coniferous_leaves[persistent=true]",
+			"chance": 0.8,
+			"fruits": [
+			],
+			"fruit_chance": 0,
+			"tree_fruit_chance": 0
+		},
+		{
+			"type": "machina:small_fir",
+			"wood": "machina:coniferous_wood",
+			"leaves": "machina:orange_coniferous_leaves[persistent=true]",
+			"chance": 0.8,
+			"fruits": [
+			],
+			"fruit_chance": 0,
+			"tree_fruit_chance": 0
+		},
+		{
+			"type": "machina:small_fir",
+			"wood": "machina:coniferous_wood",
+			"leaves": "machina:red_coniferous_leaves[persistent=true]",
+			"chance": 0.8,
+			"fruits": [
+			],
+			"fruit_chance": 0,
+			"tree_fruit_chance": 0
+		}
+	],
+	"bushes": [
+		{
+			"block": "machina:green_coniferous_leaves[persistent=true]",
+			"radius": 1.9,
+			"chance": 0.5
+		},
+		{
+			"block": "machina:yellow_coniferous_leaves[persistent=true]",
+			"radius": 1.9,
+			"chance": 0.5
+		},
+		{
+			"block": "machina:orange_coniferous_leaves[persistent=true]",
+			"radius": 1.9,
+			"chance": 0.5
+		},
+		{
+			"block": "machina:red_coniferous_leaves[persistent=true]",
+			"radius": 1.9,
+			"chance": 0.5
+		}
+	],
+	"grass": {
+		"enabled": false,
+		"min": 5,
+		"max": 10,
+		"grasses": [
+		]
+	},
+	"lakes": {
+		"enabled": false,
+		"block": "minecraft:air",
+		"chance": 0
+	},
+	"rocks": [
+		{
+			"base": "machina:gray_soapstone",
+			"stair": "machina:gray_soapstone_stairs",
+			"slab": "machina:gray_soapstone_slab",
+			"wall": "machina:gray_soapstone_wall",
+			"chance": 1,
+			"radius": 1.01,
+			"deform": 2.0
+		},
+		{
+			"base": "machina:gray_soapstone",
+			"stair": "machina:gray_soapstone_stairs",
+			"slab": "machina:gray_soapstone_slab",
+			"wall": "machina:gray_soapstone_wall",
+			"chance": 2,
+			"radius": 2.51,
+			"deform": 2.0
+		}
+	],
+	"ores": [
+		{
+			"block": "machina:green_soapstone",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"chance": 8,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "machina:limestone",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"chance": 8,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "machina:gneiss",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"chance": 8,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "minecraft:andesite",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"chance": 4,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "minecraft:granite",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"chance": 2,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "minecraft:diorite",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"chance": 2,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "machina:migmatite",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"chance": 6,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "machina:marble",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"chance": 6,
+			"min_y": -64,
+			"max_y": 128
+		},
+		{
+			"block": "machina:anthracite",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"chance": 2,
+			"min_y": -64,
+			"max_y": 0
+		},
+		{
+			"block": "machina:shale",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"chance": 6,
+			"min_y": -64,
+			"max_y": 0
+		},
+		{
+			"block": "machina:chalk",
+			"size": 32,
+			"exposure_removal_chance": 0,
+			"chance": 10,
+			"min_y": -64,
+			"max_y": 256
+		}
+	]
+}
