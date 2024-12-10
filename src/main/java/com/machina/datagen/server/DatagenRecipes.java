@@ -156,6 +156,14 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 			.showNotification(false)
 			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(family.wall()));
 		
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, family.base(), 1)
+			.pattern("PP")
+			.pattern("PP")
+			.define('P', family.pebbles())
+			.unlockedBy(getHasName(family.pebbles()), has(family.pebbles()))
+			.showNotification(false)
+			.save(gen, Machina.MOD_ID + ":crafting_base_from_" + getItemName(family.pebbles()));
+		
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(family.base()), RecipeCategory.BUILDING_BLOCKS, family.slab(), 2)
 			.unlockedBy(getHasName(family.base()), has(family.base()))
 			.save(gen, Machina.MOD_ID + ":stonecutting_" + getItemName(family.slab()));

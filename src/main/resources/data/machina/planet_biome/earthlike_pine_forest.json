@@ -42,6 +42,10 @@
 				"weight": 10
 			},
 			{
+				"block": "machina:shale_pebbles",
+				"weight": 2
+			},
+			{
 				"block": "machina:spruce_cup",
 				"weight": 1
 			}

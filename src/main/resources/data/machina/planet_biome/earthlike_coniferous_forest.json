@@ -77,10 +77,18 @@
 		}
 	],
 	"grass": {
-		"enabled": false,
+		"enabled": true,
 		"min": 5,
 		"max": 10,
 		"grasses": [
+			{
+				"block": "minecraft:grass",
+				"weight": 10
+			},
+			{
+				"block": "machina:gray_soapstone_pebbles",
+				"weight": 1
+			}
 		]
 	},
 	"lakes": {

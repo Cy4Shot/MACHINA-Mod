@@ -55,8 +55,8 @@
 	],
 	"grass": {
 		"enabled": true,
-		"min": 5,
-		"max": 10,
+		"min": 7,
+		"max": 14,
 		"grasses": [
 			{
 				"block": "machina:tropical_grass",
@@ -65,6 +65,14 @@
 			{
 				"block": "machina:small_fern",
 				"weight": 2
+			},
+			{
+				"block": "machina:feldspar_pebbles",
+				"weight": 1
+			},
+			{
+				"block": "machina:gneiss_pebbles",
+				"weight": 1
 			},
 			{
 				"block": "machina:dead_small_fern",

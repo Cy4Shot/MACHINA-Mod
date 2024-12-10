@@ -99,6 +99,7 @@ public class DatagenLootTables extends LootTableProvider {
 			dropSelf(family.wall());
 			dropSelf(family.button());
 			dropSelf(family.pressure_plate());
+			dropSelf(family.pebbles());
 			slab(family.slab());
 		}
 

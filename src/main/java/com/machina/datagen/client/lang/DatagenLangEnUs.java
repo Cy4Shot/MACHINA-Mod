@@ -67,6 +67,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.ANTHRACITE_WALL, "Anthracite Wall");
 		add(BlockInit.ANTHRACITE_BUTTON, "Anthracite Button");
 		add(BlockInit.ANTHRACITE_PRESSURE_PLATE, "Anthracite Pressure Plate");
+		add(BlockInit.ANTHRACITE_PEBBLES, "Anthracite Pebbles");
 
 		add(BlockInit.FELDSPAR, "Feldspar");
 		add(BlockInit.FELDSPAR_SLAB, "Feldspar Slab");
@@ -74,6 +75,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.FELDSPAR_WALL, "Feldspar Wall");
 		add(BlockInit.FELDSPAR_BUTTON, "Feldspar Button");
 		add(BlockInit.FELDSPAR_PRESSURE_PLATE, "Feldspar Pressure Plate");
+		add(BlockInit.FELDSPAR_PEBBLES, "Feldspar Pebbles");
 
 		add(BlockInit.GRAY_SOAPSTONE, "Gray Soapstone");
 		add(BlockInit.GRAY_SOAPSTONE_SLAB, "Gray Soapstone Slab");
@@ -81,6 +83,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.GRAY_SOAPSTONE_WALL, "Gray Soapstone Wall");
 		add(BlockInit.GRAY_SOAPSTONE_BUTTON, "Gray Soapstone Button");
 		add(BlockInit.GRAY_SOAPSTONE_PRESSURE_PLATE, "Gray Soapstone Pressure Plate");
+		add(BlockInit.GRAY_SOAPSTONE_PEBBLES, "Gray Soapstone Pebbles");
 
 		add(BlockInit.GREEN_SOAPSTONE, "Green Soapstone");
 		add(BlockInit.GREEN_SOAPSTONE_SLAB, "Green Soapstone Slab");
@@ -88,6 +91,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.GREEN_SOAPSTONE_WALL, "Green Soapstone Wall");
 		add(BlockInit.GREEN_SOAPSTONE_BUTTON, "Green Soapstone Button");
 		add(BlockInit.GREEN_SOAPSTONE_PRESSURE_PLATE, "Green Soapstone Pressure Plate");
+		add(BlockInit.GREEN_SOAPSTONE_PEBBLES, "Green Soapstone Pebbles");
 
 		add(BlockInit.WHITE_SOAPSTONE, "White Soapstone");
 		add(BlockInit.WHITE_SOAPSTONE_SLAB, "White Soapstone Slab");
@@ -95,6 +99,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.WHITE_SOAPSTONE_WALL, "White Soapstone Wall");
 		add(BlockInit.WHITE_SOAPSTONE_BUTTON, "White Soapstone Button");
 		add(BlockInit.WHITE_SOAPSTONE_PRESSURE_PLATE, "White Soapstone Pressure Plate");
+		add(BlockInit.WHITE_SOAPSTONE_PEBBLES, "White Soapstone Pebbles");
 
 		add(BlockInit.SHALE, "Shale");
 		add(BlockInit.SHALE_SLAB, "Shale Slab");
@@ -102,6 +107,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.SHALE_WALL, "Shale Wall");
 		add(BlockInit.SHALE_BUTTON, "Shale Button");
 		add(BlockInit.SHALE_PRESSURE_PLATE, "Shale Pressure Plate");
+		add(BlockInit.SHALE_PEBBLES, "Shale Pebbles");
 
 		add(BlockInit.TECTONITE, "Tectonite");
 		add(BlockInit.TECTONITE_SLAB, "Tectonite Slab");
@@ -109,6 +115,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.TECTONITE_WALL, "Tectonite Wall");
 		add(BlockInit.TECTONITE_BUTTON, "Tectonite Button");
 		add(BlockInit.TECTONITE_PRESSURE_PLATE, "Tectonite Pressure Plate");
+		add(BlockInit.TECTONITE_PEBBLES, "Tectonite Pebbles");
 
 		add(BlockInit.MARBLE, "Marble");
 		add(BlockInit.MARBLE_SLAB, "Marble Slab");
@@ -116,6 +123,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.MARBLE_WALL, "Marble Wall");
 		add(BlockInit.MARBLE_BUTTON, "Marble Button");
 		add(BlockInit.MARBLE_PRESSURE_PLATE, "Marble Pressure Plate");
+		add(BlockInit.MARBLE_PEBBLES, "Marble Pebbles");
 
 		add(BlockInit.CHALK, "Chalk");
 		add(BlockInit.CHALK_SLAB, "Chalk Slab");
@@ -123,6 +131,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.CHALK_WALL, "Chalk Wall");
 		add(BlockInit.CHALK_BUTTON, "Chalk Button");
 		add(BlockInit.CHALK_PRESSURE_PLATE, "Chalk Pressure Plate");
+		add(BlockInit.CHALK_PEBBLES, "Chalk Pebbles");
 
 		add(BlockInit.LIMESTONE, "Limestone");
 		add(BlockInit.LIMESTONE_SLAB, "Limestone Slab");
@@ -130,6 +139,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.LIMESTONE_WALL, "Limestone Wall");
 		add(BlockInit.LIMESTONE_BUTTON, "Limestone Button");
 		add(BlockInit.LIMESTONE_PRESSURE_PLATE, "Limestone Pressure Plate");
+		add(BlockInit.LIMESTONE_PEBBLES, "Limestone Pebbles");
 
 		add(BlockInit.MIGMATITE, "Migmatite");
 		add(BlockInit.MIGMATITE_SLAB, "Migmatite Slab");
@@ -137,6 +147,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.MIGMATITE_WALL, "Migmatite Wall");
 		add(BlockInit.MIGMATITE_BUTTON, "Migmatite Button");
 		add(BlockInit.MIGMATITE_PRESSURE_PLATE, "Migmatite Pressure Plate");
+		add(BlockInit.MIGMATITE_PEBBLES, "Migmatite Pebbles");
 
 		add(BlockInit.GNEISS, "Gneiss");
 		add(BlockInit.GNEISS_SLAB, "Gneiss Slab");
@@ -144,6 +155,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.GNEISS_WALL, "Gneiss Wall");
 		add(BlockInit.GNEISS_BUTTON, "Gneiss Button");
 		add(BlockInit.GNEISS_PRESSURE_PLATE, "Gneiss Pressure Plate");
+		add(BlockInit.GNEISS_PEBBLES, "Gneiss Pebbles");
 
 		add(BlockInit.TROPICAL_GRASS_BLOCK, "Tropical Grass Block");
 		add(BlockInit.FOREST_GRASS_BLOCK, "Forest Grass Block");
@@ -181,7 +193,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.TROPICAL_WOOD, "Tropical Wood");
 		add(BlockInit.STRIPPED_TROPICAL_LOG, "Stripped Tropical Log");
 		add(BlockInit.STRIPPED_TROPICAL_WOOD, "Stripped Tropical Wood");
-		
+
 		add(BlockInit.DEAD_TROPICAL_BUTTON, "Dead Tropical Button");
 		add(BlockInit.DEAD_TROPICAL_DOOR, "Dead Tropical Door");
 		add(BlockInit.DEAD_TROPICAL_FENCE, "Dead Tropical Fence");
@@ -215,7 +227,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.PINE_WOOD, "Pine Wood");
 		add(BlockInit.STRIPPED_PINE_LOG, "Stripped Pine Log");
 		add(BlockInit.STRIPPED_PINE_WOOD, "Stripped Pine Wood");
-		
+
 		add(BlockInit.CONIFEROUS_BUTTON, "Coniferous Button");
 		add(BlockInit.CONIFEROUS_DOOR, "Coniferous Door");
 		add(BlockInit.CONIFEROUS_FENCE, "Coniferous Fence");
@@ -241,7 +253,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.GROUND_LILLIES, "Ground Lillies");
 		add(BlockInit.CLOVER, "Clover");
 		add(BlockInit.PURPLE_PETALS, "Purple Petals");
-		
+
 		add(BlockInit.SPINDLEGRASS, "Spindlegrass");
 		add(BlockInit.ORPHEUM, "Orpheum");
 

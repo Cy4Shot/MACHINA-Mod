@@ -1,6 +1,10 @@
 package com.machina.datagen.client;
 
+import java.util.function.Function;
+
 import com.machina.Machina;
+import com.machina.api.block.PebbleBlock;
+import com.machina.api.util.MachinaRL;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
@@ -25,6 +29,7 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -51,6 +56,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.ANTHRACITE_WALL, BlockInit.ANTHRACITE);
 		button(BlockInit.ANTHRACITE_BUTTON, BlockInit.ANTHRACITE);
 		pressure_plate(BlockInit.ANTHRACITE_PRESSURE_PLATE, BlockInit.ANTHRACITE);
+		pebble(BlockInit.ANTHRACITE_PEBBLES);
 
 		cube(BlockInit.FELDSPAR);
 		slab(BlockInit.FELDSPAR_SLAB, BlockInit.FELDSPAR);
@@ -58,6 +64,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.FELDSPAR_WALL, BlockInit.FELDSPAR);
 		button(BlockInit.FELDSPAR_BUTTON, BlockInit.FELDSPAR);
 		pressure_plate(BlockInit.FELDSPAR_PRESSURE_PLATE, BlockInit.FELDSPAR);
+		pebble(BlockInit.FELDSPAR_PEBBLES);
 
 		cube(BlockInit.GRAY_SOAPSTONE);
 		slab(BlockInit.GRAY_SOAPSTONE_SLAB, BlockInit.GRAY_SOAPSTONE);
@@ -65,6 +72,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.GRAY_SOAPSTONE_WALL, BlockInit.GRAY_SOAPSTONE);
 		button(BlockInit.GRAY_SOAPSTONE_BUTTON, BlockInit.GRAY_SOAPSTONE);
 		pressure_plate(BlockInit.GRAY_SOAPSTONE_PRESSURE_PLATE, BlockInit.GRAY_SOAPSTONE);
+		pebble(BlockInit.GRAY_SOAPSTONE_PEBBLES);
 
 		cube(BlockInit.GREEN_SOAPSTONE);
 		slab(BlockInit.GREEN_SOAPSTONE_SLAB, BlockInit.GREEN_SOAPSTONE);
@@ -72,6 +80,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.GREEN_SOAPSTONE_WALL, BlockInit.GREEN_SOAPSTONE);
 		button(BlockInit.GREEN_SOAPSTONE_BUTTON, BlockInit.GREEN_SOAPSTONE);
 		pressure_plate(BlockInit.GREEN_SOAPSTONE_PRESSURE_PLATE, BlockInit.GREEN_SOAPSTONE);
+		pebble(BlockInit.GREEN_SOAPSTONE_PEBBLES);
 
 		cube(BlockInit.WHITE_SOAPSTONE);
 		slab(BlockInit.WHITE_SOAPSTONE_SLAB, BlockInit.WHITE_SOAPSTONE);
@@ -79,6 +88,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.WHITE_SOAPSTONE_WALL, BlockInit.WHITE_SOAPSTONE);
 		button(BlockInit.WHITE_SOAPSTONE_BUTTON, BlockInit.WHITE_SOAPSTONE);
 		pressure_plate(BlockInit.WHITE_SOAPSTONE_PRESSURE_PLATE, BlockInit.WHITE_SOAPSTONE);
+		pebble(BlockInit.WHITE_SOAPSTONE_PEBBLES);
 
 		cube(BlockInit.SHALE);
 		slab(BlockInit.SHALE_SLAB, BlockInit.SHALE);
@@ -86,6 +96,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.SHALE_WALL, BlockInit.SHALE);
 		button(BlockInit.SHALE_BUTTON, BlockInit.SHALE);
 		pressure_plate(BlockInit.SHALE_PRESSURE_PLATE, BlockInit.SHALE);
+		pebble(BlockInit.SHALE_PEBBLES);
 
 		cube(BlockInit.TECTONITE);
 		slab(BlockInit.TECTONITE_SLAB, BlockInit.TECTONITE);
@@ -93,6 +104,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.TECTONITE_WALL, BlockInit.TECTONITE);
 		button(BlockInit.TECTONITE_BUTTON, BlockInit.TECTONITE);
 		pressure_plate(BlockInit.TECTONITE_PRESSURE_PLATE, BlockInit.TECTONITE);
+		pebble(BlockInit.TECTONITE_PEBBLES);
 
 		cube(BlockInit.MARBLE);
 		slab(BlockInit.MARBLE_SLAB, BlockInit.MARBLE);
@@ -100,6 +112,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.MARBLE_WALL, BlockInit.MARBLE);
 		button(BlockInit.MARBLE_BUTTON, BlockInit.MARBLE);
 		pressure_plate(BlockInit.MARBLE_PRESSURE_PLATE, BlockInit.MARBLE);
+		pebble(BlockInit.MARBLE_PEBBLES);
 
 		cube(BlockInit.CHALK);
 		slab(BlockInit.CHALK_SLAB, BlockInit.CHALK);
@@ -107,6 +120,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.CHALK_WALL, BlockInit.CHALK);
 		button(BlockInit.CHALK_BUTTON, BlockInit.CHALK);
 		pressure_plate(BlockInit.CHALK_PRESSURE_PLATE, BlockInit.CHALK);
+		pebble(BlockInit.CHALK_PEBBLES);
 
 		cube(BlockInit.LIMESTONE);
 		slab(BlockInit.LIMESTONE_SLAB, BlockInit.LIMESTONE);
@@ -114,6 +128,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.LIMESTONE_WALL, BlockInit.LIMESTONE);
 		button(BlockInit.LIMESTONE_BUTTON, BlockInit.LIMESTONE);
 		pressure_plate(BlockInit.LIMESTONE_PRESSURE_PLATE, BlockInit.LIMESTONE);
+		pebble(BlockInit.LIMESTONE_PEBBLES);
 
 		cube(BlockInit.MIGMATITE);
 		slab(BlockInit.MIGMATITE_SLAB, BlockInit.MIGMATITE);
@@ -121,6 +136,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.MIGMATITE_WALL, BlockInit.MIGMATITE);
 		button(BlockInit.MIGMATITE_BUTTON, BlockInit.MIGMATITE);
 		pressure_plate(BlockInit.MIGMATITE_PRESSURE_PLATE, BlockInit.MIGMATITE);
+		pebble(BlockInit.MIGMATITE_PEBBLES);
 
 		cube(BlockInit.GNEISS);
 		slab(BlockInit.GNEISS_SLAB, BlockInit.GNEISS);
@@ -128,6 +144,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		wall(BlockInit.GNEISS_WALL, BlockInit.GNEISS);
 		button(BlockInit.GNEISS_BUTTON, BlockInit.GNEISS);
 		pressure_plate(BlockInit.GNEISS_PRESSURE_PLATE, BlockInit.GNEISS);
+		pebble(BlockInit.GNEISS_PEBBLES);
 
 		cubeBottomTopRandomRotation(BlockInit.TROPICAL_GRASS_BLOCK);
 		cubeBottomTopRandomRotation(BlockInit.FOREST_GRASS_BLOCK);
@@ -140,7 +157,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		cubeRandomRotation(BlockInit.FOREST_DIRT);
 		slab(BlockInit.FOREST_DIRT_SLAB, BlockInit.FOREST_DIRT);
 		stairs(BlockInit.FOREST_DIRT_STAIRS, BlockInit.FOREST_DIRT);
-		
+
 		cubeRandomRotation(BlockInit.CONIFEROUS_DIRT);
 		slab(BlockInit.CONIFEROUS_DIRT_SLAB, BlockInit.CONIFEROUS_DIRT);
 		stairs(BlockInit.CONIFEROUS_DIRT_STAIRS, BlockInit.CONIFEROUS_DIRT);
@@ -169,7 +186,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		sign(BlockInit.TROPICAL_HANGING_SIGN, BlockInit.TROPICAL_WALL_HANGING_SIGN, BlockInit.TROPICAL_PLANKS);
 		trapdoor(BlockInit.TROPICAL_TRAPDOOR);
 		door(BlockInit.TROPICAL_DOOR);
-		
+
 		cube(BlockInit.DEAD_TROPICAL_PLANKS);
 		leaves(BlockInit.DEAD_TROPICAL_LEAVES);
 		log(BlockInit.DEAD_TROPICAL_LOG);
@@ -183,7 +200,8 @@ public class DatagenBlockStates extends BlockStateProvider {
 		fence(BlockInit.DEAD_TROPICAL_FENCE, BlockInit.DEAD_TROPICAL_PLANKS);
 		fence_gate(BlockInit.DEAD_TROPICAL_FENCE_GATE, BlockInit.DEAD_TROPICAL_PLANKS);
 		sign(BlockInit.DEAD_TROPICAL_SIGN, BlockInit.DEAD_TROPICAL_WALL_SIGN, BlockInit.DEAD_TROPICAL_PLANKS);
-		sign(BlockInit.DEAD_TROPICAL_HANGING_SIGN, BlockInit.DEAD_TROPICAL_WALL_HANGING_SIGN, BlockInit.DEAD_TROPICAL_PLANKS);
+		sign(BlockInit.DEAD_TROPICAL_HANGING_SIGN, BlockInit.DEAD_TROPICAL_WALL_HANGING_SIGN,
+				BlockInit.DEAD_TROPICAL_PLANKS);
 		trapdoor(BlockInit.DEAD_TROPICAL_TRAPDOOR);
 		door(BlockInit.DEAD_TROPICAL_DOOR);
 
@@ -203,7 +221,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		sign(BlockInit.PINE_HANGING_SIGN, BlockInit.PINE_WALL_HANGING_SIGN, BlockInit.PINE_PLANKS);
 		trapdoor(BlockInit.PINE_TRAPDOOR);
 		door(BlockInit.PINE_DOOR);
-		
+
 		cube(BlockInit.CONIFEROUS_PLANKS);
 		leaves(BlockInit.GREEN_CONIFEROUS_LEAVES);
 		leaves(BlockInit.YELLOW_CONIFEROUS_LEAVES);
@@ -239,7 +257,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		flower_pot(BlockInit.POTTED_SMALL_FERN);
 		flower_pot(BlockInit.POTTED_DEAD_SMALL_FERN);
 		flower_pot(BlockInit.POTTED_SPRUCE_CUP);
-		
+
 		flower(BlockInit.PURPLE_GLOWSHROOM);
 		flower_pot(BlockInit.POTTED_PURPLE_GLOWSHROOM);
 		flower(BlockInit.PINK_GLOWSHROOM);
@@ -402,6 +420,20 @@ public class DatagenBlockStates extends BlockStateProvider {
 		FlowerPotBlock p = pot.get();
 		simpleBlock(p, models().withExistingParent(name(p), ModelProvider.BLOCK_FOLDER + "/flower_pot_cross")
 				.texture("plant", blockTexture(p.getContent())).renderType("cutout"));
+	}
+
+	private void pebble(RegistryObject<PebbleBlock> pebble) {
+		PebbleBlock p = pebble.get();
+
+		Function<Integer, ModelFile> getModel = i -> models()
+				.withExistingParent(name(p) + "_" + i, new MachinaRL("block/pebble" + i))
+				.texture("pebbles", blockTexture(p)).renderType("cutout");
+
+		getVariantBuilder(p).forAllStates(
+				state -> ConfiguredModel.builder().modelFile(getModel.apply(state.getValue(PebbleBlock.VARIANT)))
+						.rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
+						.build());
+		simpleFlatItem(p, itemTexture(p));
 	}
 
 	private void simpleFlatItem(Block block, ResourceLocation tex) {

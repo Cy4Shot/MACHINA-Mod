@@ -1,5 +1,6 @@
 package com.machina.world.feature;
 
+import com.machina.api.block.PebbleBlock;
 import com.machina.api.util.block.WeightedStateProviderProvider;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -76,7 +77,11 @@ public class PlanetGrassFeature extends Feature<PlanetGrassFeature.PlanetGrassFe
 
 				DoublePlantBlock.placeAt(level, blockstate, pos, 2);
 			} else {
-				level.setBlock(pos, blockstate, 2);
+				if (blockstate.getBlock() instanceof PebbleBlock) {
+					PebbleBlock.placeAt(level, blockstate, pos, 2);
+				} else {
+					level.setBlock(pos, blockstate, 2);
+				}
 			}
 
 			return true;

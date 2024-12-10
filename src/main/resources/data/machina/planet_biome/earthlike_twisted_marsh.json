@@ -94,6 +94,10 @@
 				"weight": 3
 			},
 			{
+				"block": "machina:shale_pebbles",
+				"weight": 4
+			},
+			{
 				"block": "machina:dragon_peony",
 				"weight": 4
 			},
