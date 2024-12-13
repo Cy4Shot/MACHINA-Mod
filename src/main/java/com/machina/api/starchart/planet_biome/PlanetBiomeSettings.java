@@ -12,8 +12,15 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, BlockState top, BlockState second,
 		BlockState stair, BlockState slab, BlockState extra, List<PlanetBiomeTree> trees, List<PlanetBiomeBush> bushes,
-		PlanetBiomeGrassSettings grass, PlanetBiomeLakes lakes, List<PlanetBiomeRock> rocks,
-		List<PlanetBiomeOre> ores) {
+		PlanetBiomeGrass grass, PlanetBiomeLakes lakes, List<PlanetBiomeRock> rocks, List<PlanetBiomeOre> ores) {
+
+	private static WeightedStateProviderProvider.Builder weighted(List<PlanetBlockWeight> gs) {
+		WeightedStateProviderProvider.Builder builder = WeightedStateProviderProvider.builder();
+		for (PlanetBlockWeight g : gs) {
+			builder.add(g.block(), g.weight());
+		}
+		return builder;
+	}
 
 	public static final Codec<PlanetBiomeSettings> CODEC = RecordCodecBuilder.create(instance -> instance
 			.group(PlanetBiomeEffects.CODEC.fieldOf("effects").forGetter(PlanetBiomeSettings::effects),
@@ -25,7 +32,7 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 					BlockState.CODEC.fieldOf("extra").forGetter(PlanetBiomeSettings::extra),
 					Codec.list(PlanetBiomeTree.CODEC).fieldOf("trees").forGetter(PlanetBiomeSettings::trees),
 					Codec.list(PlanetBiomeBush.CODEC).fieldOf("bushes").forGetter(PlanetBiomeSettings::bushes),
-					PlanetBiomeGrassSettings.CODEC.fieldOf("grass").forGetter(PlanetBiomeSettings::grass),
+					PlanetBiomeGrass.CODEC.fieldOf("grass").forGetter(PlanetBiomeSettings::grass),
 					PlanetBiomeLakes.CODEC.fieldOf("lakes").forGetter(PlanetBiomeSettings::lakes),
 					Codec.list(PlanetBiomeRock.CODEC).fieldOf("rocks").forGetter(PlanetBiomeSettings::rocks),
 					Codec.list(PlanetBiomeOre.CODEC).fieldOf("ores").forGetter(PlanetBiomeSettings::ores))
@@ -71,44 +78,34 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 				.apply(instance, PlanetBiomeBush::new));
 	}
 
-	public record PlanetBiomeGrassSettings(boolean enabled, int min, int max, List<PlanetBiomeGrass> grasses,
-			WeightedStateProviderProvider provider) {
+	public record PlanetBiomeGrass(boolean enabled, int min, int max, WeightedStateProviderProvider provider) {
 
-		public PlanetBiomeGrassSettings(boolean enabled, int min, int max, List<PlanetBiomeGrass> grasses) {
-			this(enabled, min, max, grasses, build(grasses).build());
+		public PlanetBiomeGrass(boolean enabled, int min, int max, List<PlanetBlockWeight> grasses) {
+			this(enabled, min, max, weighted(grasses).build());
 		}
 
-		public static final Codec<PlanetBiomeGrassSettings> CODEC = RecordCodecBuilder.create(instance -> instance
-				.group(Codec.BOOL.fieldOf("enabled").forGetter(PlanetBiomeGrassSettings::enabled),
-						Codec.INT.fieldOf("min").forGetter(PlanetBiomeGrassSettings::min),
-						Codec.INT.fieldOf("max").forGetter(PlanetBiomeGrassSettings::max),
-						Codec.list(PlanetBiomeGrass.CODEC).fieldOf("grasses")
-								.forGetter(PlanetBiomeGrassSettings::grasses),
-						WeightedStateProviderProvider.CODEC.fieldOf("provider")
-								.forGetter(PlanetBiomeGrassSettings::provider))
-				.apply(instance, PlanetBiomeGrassSettings::new));
-
-		public static WeightedStateProviderProvider.Builder build(List<PlanetBiomeGrass> gs) {
-			WeightedStateProviderProvider.Builder builder = WeightedStateProviderProvider.builder();
-			for (PlanetBiomeGrass g : gs) {
-				builder.add(g.block(), g.weight());
-			}
-			return builder;
-		}
-	}
-
-	public record PlanetBiomeGrass(BlockState block, int weight) {
 		public static final Codec<PlanetBiomeGrass> CODEC = RecordCodecBuilder.create(instance -> instance
-				.group(BlockState.CODEC.fieldOf("block").forGetter(PlanetBiomeGrass::block),
-						Codec.INT.fieldOf("weight").forGetter(PlanetBiomeGrass::weight))
+				.group(Codec.BOOL.fieldOf("enabled").forGetter(PlanetBiomeGrass::enabled),
+						Codec.INT.fieldOf("min").forGetter(PlanetBiomeGrass::min),
+						Codec.INT.fieldOf("max").forGetter(PlanetBiomeGrass::max),
+						WeightedStateProviderProvider.CODEC.fieldOf("provider").forGetter(PlanetBiomeGrass::provider))
 				.apply(instance, PlanetBiomeGrass::new));
 	}
 
-	public record PlanetBiomeLakes(BlockState base, boolean enabled, float chance) {
+	public record PlanetBiomeLakes(BlockState base, boolean enabled, float chance, float decorator_chance,
+			WeightedStateProviderProvider provider) {
+
+		public PlanetBiomeLakes(BlockState base, boolean enabled, float chance, float decorator_chance,
+				List<PlanetBlockWeight> decorators) {
+			this(base, enabled, chance, decorator_chance, weighted(decorators).build());
+		}
+
 		public static final Codec<PlanetBiomeLakes> CODEC = RecordCodecBuilder.create(instance -> instance
 				.group(BlockState.CODEC.fieldOf("base").forGetter(PlanetBiomeLakes::base),
 						Codec.BOOL.fieldOf("enabled").forGetter(PlanetBiomeLakes::enabled),
-						Codec.FLOAT.fieldOf("chance").forGetter(PlanetBiomeLakes::chance))
+						Codec.FLOAT.fieldOf("chance").forGetter(PlanetBiomeLakes::chance),
+						Codec.FLOAT.fieldOf("decorator_chance").forGetter(PlanetBiomeLakes::decorator_chance),
+						WeightedStateProviderProvider.CODEC.fieldOf("provider").forGetter(PlanetBiomeLakes::provider))
 				.apply(instance, PlanetBiomeLakes::new));
 	}
 
@@ -139,6 +136,13 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 						Codec.INT.fieldOf("min_y").forGetter(PlanetBiomeOre::min_y),
 						Codec.INT.fieldOf("max_y").forGetter(PlanetBiomeOre::max_y))
 				.apply(instance, PlanetBiomeOre::new));
+	}
+
+	public record PlanetBlockWeight(BlockState block, int weight) {
+		public static final Codec<PlanetBlockWeight> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(BlockState.CODEC.fieldOf("block").forGetter(PlanetBlockWeight::block),
+						Codec.INT.fieldOf("weight").forGetter(PlanetBlockWeight::weight))
+				.apply(instance, PlanetBlockWeight::new));
 	}
 
 }

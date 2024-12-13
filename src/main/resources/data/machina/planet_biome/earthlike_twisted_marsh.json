@@ -54,8 +54,8 @@
 	],
 	"grass": {
 		"enabled": true,
-		"min": 15,
-		"max": 20,
+		"min": 20,
+		"max": 25,
 		"grasses": [
 			{
 				"block": "machina:twisted_grass",
@@ -95,7 +95,7 @@
 			},
 			{
 				"block": "machina:shale_pebbles",
-				"weight": 4
+				"weight": 7
 			},
 			{
 				"block": "machina:dragon_peony",
@@ -110,7 +110,10 @@
 	"lakes": {
 		"enabled": true,
 		"block": "machina:silt",
-		"chance": 0.5
+		"chance": 0.5,
+		"decorator_chance": 0,
+		"decorators": [
+		]
 	},
 	"rocks": [
 		{

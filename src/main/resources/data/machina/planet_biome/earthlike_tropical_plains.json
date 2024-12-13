@@ -95,7 +95,10 @@
 	"lakes": {
 		"enabled": true,
 		"block": "machina:silt",
-		"chance": 0.05
+		"chance": 0.05,
+		"decorator_chance": 0,
+		"decorators": [
+		]
 	},
 	"rocks": [
 		{

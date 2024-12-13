@@ -92,9 +92,16 @@
 		]
 	},
 	"lakes": {
-		"enabled": false,
-		"block": "minecraft:air",
-		"chance": 0
+		"enabled": true,
+		"block": "machina:coniferous_dirt",
+		"chance": 0.3,
+		"decorator_chance": 0.14,
+		"decorators": [
+			{
+				"block": "minecraft:lily_pad",
+				"weight": 1
+			}
+		]
 	},
 	"rocks": [
 		{

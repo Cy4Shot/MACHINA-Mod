@@ -54,7 +54,10 @@
 	"lakes": {
 		"enabled": true,
 		"block": "machina:peat",
-		"chance": 0.1
+		"chance": 0.1,
+		"decorator_chance": 0,
+		"decorators": [
+		]
 	},
 	"rocks": [
 		{

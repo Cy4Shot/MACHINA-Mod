@@ -26,7 +26,10 @@
 	"lakes": {
 		"enabled": false,
 		"block": "minecraft:stone",
-		"chance": 0
+		"chance": 0,
+		"decorator_chance": 0,
+		"decorators": [
+		]
 	},
 	"rocks": [
 	],

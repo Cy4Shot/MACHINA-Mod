@@ -130,8 +130,9 @@ public class PlanetBiome extends Biome {
 
 		if (s.lakes().enabled()) {
 			add(builder, Decoration.LAKES, new PlanetLakeFeature(),
-					new PlanetLakeFeature.PlanetLakeFeatureConfig(s.lakes().base()), chance(s.lakes().chance()),
-					spread(), onSurface(), biome());
+					new PlanetLakeFeature.PlanetLakeFeatureConfig(s.lakes().base(), s.lakes().decorator_chance(),
+							s.lakes().provider()),
+					chance(s.lakes().chance()), spread(), onSurface(), biome());
 		}
 
 		for (PlanetBiomeRock rock : s.rocks()) {

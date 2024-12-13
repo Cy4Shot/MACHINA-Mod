@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeBush;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeEffects;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeGrass;
-import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeGrassSettings;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeLakes;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeOre;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeRock;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
+import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBlockWeight;
 import com.machina.api.util.block.BlockHelper;
 import com.machina.api.util.loader.JsonInfo;
 
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, String top, String second, String stair,
 		String slab, String extra, List<PlanetBiomeTreeJsonInfo> trees, List<PlanetBiomeBushJsonInfo> bushes,
-		PlanetBiomeGrassSettingsJsonInfo grass, PlanetBiomeLakesJsonInfo lakes, List<PlanetBiomeRockJsonInfo> rocks,
+		PlanetBiomeGrassJsonInfo grass, PlanetBiomeLakesJsonInfo lakes, List<PlanetBiomeRockJsonInfo> rocks,
 		List<PlanetBiomeOreJsonInfo> ores) implements JsonInfo<PlanetBiomeSettings> {
 
 	public static BlockState getBlock(String block) {
@@ -45,28 +45,23 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		}
 	}
 
-	public record PlanetBiomeGrassSettingsJsonInfo(boolean enabled, int min, int max,
-			List<PlanetBiomeGrassJsonInfo> grasses) implements JsonInfo<PlanetBiomeGrassSettings> {
-		@Override
-		public PlanetBiomeGrassSettings cast() {
-			List<PlanetBiomeGrass> grasses = grasses().stream().map(PlanetBiomeGrassJsonInfo::cast)
-					.collect(Collectors.toList());
-			return new PlanetBiomeGrassSettings(enabled, min, max, grasses);
-		}
-	}
-
-	public record PlanetBiomeGrassJsonInfo(String block, int weight) implements JsonInfo<PlanetBiomeGrass> {
+	public record PlanetBiomeGrassJsonInfo(boolean enabled, int min, int max, List<PlanetBlockWeightJsonInfo> grasses)
+			implements JsonInfo<PlanetBiomeGrass> {
 		@Override
 		public PlanetBiomeGrass cast() {
-			return new PlanetBiomeGrass(getBlock(block), weight);
+			List<PlanetBlockWeight> grasses = grasses().stream().map(PlanetBlockWeightJsonInfo::cast)
+					.collect(Collectors.toList());
+			return new PlanetBiomeGrass(enabled, min, max, grasses);
 		}
 	}
 
-	public record PlanetBiomeLakesJsonInfo(String block, boolean enabled, float chance)
-			implements JsonInfo<PlanetBiomeLakes> {
+	public record PlanetBiomeLakesJsonInfo(String block, boolean enabled, float chance, float decorator_chance,
+			List<PlanetBlockWeightJsonInfo> decorators) implements JsonInfo<PlanetBiomeLakes> {
 		@Override
 		public PlanetBiomeLakes cast() {
-			return new PlanetBiomeLakes(getBlock(block), enabled, chance);
+			List<PlanetBlockWeight> decorators = decorators().stream().map(PlanetBlockWeightJsonInfo::cast)
+					.collect(Collectors.toList());
+			return new PlanetBiomeLakes(getBlock(block), enabled, chance, decorator_chance, decorators);
 		}
 	}
 
@@ -87,12 +82,19 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		}
 	}
 
+	public record PlanetBlockWeightJsonInfo(String block, int weight) implements JsonInfo<PlanetBlockWeight> {
+		@Override
+		public PlanetBlockWeight cast() {
+			return new PlanetBlockWeight(getBlock(block), weight);
+		}
+	}
+
 	@Override
 	public PlanetBiomeSettings cast() {
 		List<PlanetBiomeTree> trees = trees().stream().map(PlanetBiomeTreeJsonInfo::cast).collect(Collectors.toList());
 		List<PlanetBiomeBush> bushes = bushes().stream().map(PlanetBiomeBushJsonInfo::cast)
 				.collect(Collectors.toList());
-		PlanetBiomeGrassSettings grass = grass().cast();
+		PlanetBiomeGrass grass = grass().cast();
 		PlanetBiomeLakes lakes = lakes().cast();
 		List<PlanetBiomeRock> rocks = rocks().stream().map(PlanetBiomeRockJsonInfo::cast).collect(Collectors.toList());
 		List<PlanetBiomeOre> ores = ores().stream().map(PlanetBiomeOreJsonInfo::cast).collect(Collectors.toList());
