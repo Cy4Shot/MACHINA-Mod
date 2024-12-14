@@ -95,10 +95,38 @@
 		"enabled": true,
 		"block": "machina:coniferous_dirt",
 		"chance": 0.3,
-		"decorator_chance": 0.14,
+		"decorator_chance": 0.25,
 		"decorators": [
 			{
-				"block": "minecraft:lily_pad",
+				"block": "machina:purple_waterlily",
+				"weight": 1
+			},
+			{
+				"block": "machina:pink_waterlily",
+				"weight": 1
+			},
+			{
+				"block": "machina:red_waterlily",
+				"weight": 1
+			},
+			{
+				"block": "machina:orange_waterlily",
+				"weight": 1
+			},
+			{
+				"block": "machina:yellow_waterlily",
+				"weight": 1
+			},
+			{
+				"block": "machina:green_waterlily",
+				"weight": 1
+			},
+			{
+				"block": "machina:turquoise_waterlily",
+				"weight": 1
+			},
+			{
+				"block": "machina:blue_waterlily",
 				"weight": 1
 			}
 		]

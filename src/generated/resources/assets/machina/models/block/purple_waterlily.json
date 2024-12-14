@@ -1,0 +1,7 @@
+{
+  "parent": "machina:block/water_lillies",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "flower": "machina:block/purple_lily_flower"
+  }
+}

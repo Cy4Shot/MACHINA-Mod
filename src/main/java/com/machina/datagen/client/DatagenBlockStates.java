@@ -3,7 +3,9 @@ package com.machina.datagen.client;
 import java.util.function.Function;
 
 import com.machina.Machina;
+import com.machina.api.block.MachinaWaterlilyBlock;
 import com.machina.api.block.PebbleBlock;
+import com.machina.api.block.SmallFlowerBlock;
 import com.machina.api.util.MachinaRL;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.FluidInit;
@@ -258,6 +260,23 @@ public class DatagenBlockStates extends BlockStateProvider {
 		flower_pot(BlockInit.POTTED_DEAD_SMALL_FERN);
 		flower_pot(BlockInit.POTTED_SPRUCE_CUP);
 
+		groundlily(BlockInit.PURPLE_GROUNDLILY, "purple");
+		groundlily(BlockInit.PINK_GROUNDLILY, "pink");
+		groundlily(BlockInit.RED_GROUNDLILY, "red");
+		groundlily(BlockInit.ORANGE_GROUNDLILY, "orange");
+		groundlily(BlockInit.YELLOW_GROUNDLILY, "yellow");
+		groundlily(BlockInit.GREEN_GROUNDLILY, "green");
+		groundlily(BlockInit.TURQUOISE_GROUNDLILY, "turquoise");
+		groundlily(BlockInit.BLUE_GROUNDLILY, "blue");
+		waterlily(BlockInit.PURPLE_WATERLILY, "purple");
+		waterlily(BlockInit.PINK_WATERLILY, "pink");
+		waterlily(BlockInit.RED_WATERLILY, "red");
+		waterlily(BlockInit.ORANGE_WATERLILY, "orange");
+		waterlily(BlockInit.YELLOW_WATERLILY, "yellow");
+		waterlily(BlockInit.GREEN_WATERLILY, "green");
+		waterlily(BlockInit.TURQUOISE_WATERLILY, "turquoise");
+		waterlily(BlockInit.BLUE_WATERLILY, "blue");
+
 		flower(BlockInit.PURPLE_GLOWSHROOM);
 		flower_pot(BlockInit.POTTED_PURPLE_GLOWSHROOM);
 		flower(BlockInit.PINK_GLOWSHROOM);
@@ -434,6 +453,30 @@ public class DatagenBlockStates extends BlockStateProvider {
 						.rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
 						.build());
 		simpleFlatItem(p, itemTexture(p));
+	}
+
+	private void groundlily(RegistryObject<SmallFlowerBlock> lily, String col) {
+		SmallFlowerBlock l = lily.get();
+
+		ModelFile m = models().withExistingParent(name(l), new MachinaRL("block/ground_lillies"))
+				.texture("flower", new MachinaRL("block/" + col + "_lily_flower")).renderType("cutout");
+
+		getVariantBuilder(l).forAllStates(state -> ConfiguredModel.builder().modelFile(m)
+				.rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
+				.build());
+		simpleFlatItem(l, itemTexture(l));
+	}
+
+	private void waterlily(RegistryObject<MachinaWaterlilyBlock> lily, String col) {
+		MachinaWaterlilyBlock l = lily.get();
+
+		ModelFile m = models().withExistingParent(name(l), new MachinaRL("block/water_lillies"))
+				.texture("flower", new MachinaRL("block/" + col + "_lily_flower")).renderType("cutout");
+
+		getVariantBuilder(l).forAllStates(state -> ConfiguredModel.builder().modelFile(m)
+				.rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
+				.build());
+		simpleFlatItem(l, itemTexture(l));
 	}
 
 	private void simpleFlatItem(Block block, ResourceLocation tex) {

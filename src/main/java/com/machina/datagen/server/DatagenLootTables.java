@@ -64,10 +64,26 @@ public class DatagenLootTables extends LootTableProvider {
 			dropAsSilk(BlockInit.SPINDLEGRASS.get());
 			dropSelf(BlockInit.ORPHEUM.get());
 			dropAsSilk(BlockInit.CLOVER.get());
-			dropAsSilk(BlockInit.GROUND_LILLIES.get());
 			dropAsSilk(BlockInit.TROPICAL_GRASS.get());
 			dropAsSilk(BlockInit.TWISTED_GRASS.get());
 			dropAsSilk(BlockInit.PURPLE_PETALS.get());
+			
+			dropAsSilk(BlockInit.PURPLE_GROUNDLILY.get());
+			dropAsSilk(BlockInit.PINK_GROUNDLILY.get());
+			dropAsSilk(BlockInit.RED_GROUNDLILY.get());
+			dropAsSilk(BlockInit.ORANGE_GROUNDLILY.get());
+			dropAsSilk(BlockInit.YELLOW_GROUNDLILY.get());
+			dropAsSilk(BlockInit.GREEN_GROUNDLILY.get());
+			dropAsSilk(BlockInit.TURQUOISE_GROUNDLILY.get());
+			dropAsSilk(BlockInit.BLUE_GROUNDLILY.get());
+			dropAsSilk(BlockInit.PURPLE_WATERLILY.get());
+			dropAsSilk(BlockInit.PINK_WATERLILY.get());
+			dropAsSilk(BlockInit.RED_WATERLILY.get());
+			dropAsSilk(BlockInit.ORANGE_WATERLILY.get());
+			dropAsSilk(BlockInit.YELLOW_WATERLILY.get());
+			dropAsSilk(BlockInit.GREEN_WATERLILY.get());
+			dropAsSilk(BlockInit.TURQUOISE_WATERLILY.get());
+			dropAsSilk(BlockInit.BLUE_WATERLILY.get());
 
 			ore(BlockInit.ALUMINUM_ORE.get(), ItemInit.RAW_ALUMINUM.get());
 

@@ -62,15 +62,36 @@ public class TabInit {
 
 				add(a, BlockInit.TROPICAL_GRASS);
 				add(a, BlockInit.TWISTED_GRASS);
-				add(a, BlockInit.GROUND_LILLIES);
+				
+				add(a, BlockInit.PURPLE_GROUNDLILY);
+				add(a, BlockInit.PINK_GROUNDLILY);
+				add(a, BlockInit.RED_GROUNDLILY);
+				add(a, BlockInit.ORANGE_GROUNDLILY);
+				add(a, BlockInit.YELLOW_GROUNDLILY);
+				add(a, BlockInit.GREEN_GROUNDLILY);
+				add(a, BlockInit.TURQUOISE_GROUNDLILY);
+				add(a, BlockInit.BLUE_GROUNDLILY);
+				add(a, BlockInit.PURPLE_WATERLILY);
+				add(a, BlockInit.PINK_WATERLILY);
+				add(a, BlockInit.RED_WATERLILY);
+				add(a, BlockInit.ORANGE_WATERLILY);
+				add(a, BlockInit.YELLOW_WATERLILY);
+				add(a, BlockInit.GREEN_WATERLILY);
+				add(a, BlockInit.TURQUOISE_WATERLILY);
+				add(a, BlockInit.BLUE_WATERLILY);
+				
 				add(a, BlockInit.SPINDLESPROUT);
 				add(a, BlockInit.SMALL_FERN);
 				add(a, BlockInit.DEAD_SMALL_FERN);
 				add(a, BlockInit.CLOVER);
 				add(a, BlockInit.SPINDLEGRASS);
+				
 				add(a, BlockInit.ORPHEUM);
 				add(a, BlockInit.DRAGON_PEONY);
+				add(a, BlockInit.PURPLE_PETALS);
+				
 				add(a, BlockInit.SPRUCE_CUP);
+				
 				add(a, BlockInit.PURPLE_GLOWSHROOM);
 				add(a, BlockInit.PINK_GLOWSHROOM);
 				add(a, BlockInit.RED_GLOWSHROOM);
@@ -79,7 +100,6 @@ public class TabInit {
 				add(a, BlockInit.GREEN_GLOWSHROOM);
 				add(a, BlockInit.TURQUOISE_GLOWSHROOM);
 				add(a, BlockInit.BLUE_GLOWSHROOM);
-				add(a, BlockInit.PURPLE_PETALS);
 				
 				fruit(a, FruitInit.FRUITS);
 			});

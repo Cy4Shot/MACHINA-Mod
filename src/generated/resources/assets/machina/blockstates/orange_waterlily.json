@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "machina:block/orange_waterlily",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "machina:block/orange_waterlily"
+    },
+    "facing=south": {
+      "model": "machina:block/orange_waterlily",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "machina:block/orange_waterlily",
+      "y": 270
+    }
+  }
+}

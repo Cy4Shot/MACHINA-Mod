@@ -16,7 +16,14 @@
     "machina:spindlegrass",
     "machina:orpheum",
     "machina:clover",
-    "machina:ground_lillies",
+    "machina:purple_groundlily",
+    "machina:pink_groundlily",
+    "machina:red_groundlily",
+    "machina:orange_groundlily",
+    "machina:yellow_groundlily",
+    "machina:green_groundlily",
+    "machina:turquoise_groundlily",
+    "machina:blue_groundlily",
     "machina:purple_petals"
   ]
 }

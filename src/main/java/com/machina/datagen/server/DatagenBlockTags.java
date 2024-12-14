@@ -51,8 +51,10 @@ public class DatagenBlockTags extends BlockTagsProvider {
 		tallFlower(BlockInit.SPINDLEGRASS);
 		tallFlower(BlockInit.ORPHEUM);
 
-		tag(BlockTags.FLOWERS).add(BlockInit.CLOVER.get(), BlockInit.GROUND_LILLIES.get(),
-				BlockInit.PURPLE_PETALS.get());
+		tag(BlockTags.FLOWERS).add(BlockInit.CLOVER.get(), BlockInit.PURPLE_GROUNDLILY.get(),
+				BlockInit.PINK_GROUNDLILY.get(), BlockInit.RED_GROUNDLILY.get(), BlockInit.ORANGE_GROUNDLILY.get(),
+				BlockInit.YELLOW_GROUNDLILY.get(), BlockInit.GREEN_GROUNDLILY.get(),
+				BlockInit.TURQUOISE_GROUNDLILY.get(), BlockInit.BLUE_GROUNDLILY.get(), BlockInit.PURPLE_PETALS.get());
 
 		tag(BlockTagInit.PLANET_CARVABLE).add(Blocks.STONE, Blocks.GRAVEL, Blocks.WATER);
 

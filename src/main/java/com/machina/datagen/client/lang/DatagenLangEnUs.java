@@ -250,7 +250,6 @@ public class DatagenLangEnUs extends DatagenLang {
 
 		add(BlockInit.TROPICAL_GRASS, "Tropical Grass");
 		add(BlockInit.TWISTED_GRASS, "Twisted Grass");
-		add(BlockInit.GROUND_LILLIES, "Ground Lillies");
 		add(BlockInit.CLOVER, "Clover");
 		add(BlockInit.PURPLE_PETALS, "Purple Petals");
 
@@ -266,6 +265,23 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.POTTED_DRAGON_PEONY, "Potted Dragon Peony");
 		add(BlockInit.POTTED_SMALL_FERN, "Potted Small Fern");
 		add(BlockInit.POTTED_DEAD_SMALL_FERN, "Potted Dead Small Fern");
+		
+		add(BlockInit.PURPLE_GROUNDLILY, "Purple Groundlily");
+		add(BlockInit.PINK_GROUNDLILY, "Pink Groundlily");
+		add(BlockInit.RED_GROUNDLILY, "Red Groundlily");
+		add(BlockInit.ORANGE_GROUNDLILY, "Orange Groundlily");
+		add(BlockInit.YELLOW_GROUNDLILY, "Yellow Groundlily");
+		add(BlockInit.GREEN_GROUNDLILY, "Green Groundlily");
+		add(BlockInit.TURQUOISE_GROUNDLILY, "Turquoise Groundlily");
+		add(BlockInit.BLUE_GROUNDLILY, "Blue Groundlily");
+		add(BlockInit.PURPLE_WATERLILY, "Purple Waterlily");
+		add(BlockInit.PINK_WATERLILY, "Pink Waterlily");
+		add(BlockInit.RED_WATERLILY, "Red Waterlily");
+		add(BlockInit.ORANGE_WATERLILY, "Orange Waterlily");
+		add(BlockInit.YELLOW_WATERLILY, "Yellow Waterlily");
+		add(BlockInit.GREEN_WATERLILY, "Green Waterlily");
+		add(BlockInit.TURQUOISE_WATERLILY, "Turquoise Waterlily");
+		add(BlockInit.BLUE_WATERLILY, "Blue Waterlily");
 
 		add(BlockInit.PURPLE_GLOWSHROOM, "Purple Glowshroom");
 		add(BlockInit.POTTED_PURPLE_GLOWSHROOM, "Potted Purple Glowshroom");

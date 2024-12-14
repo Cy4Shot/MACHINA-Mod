@@ -62,8 +62,16 @@
 				"weight": 70
 			},
 			{
-				"block": "machina:ground_lillies",
-				"weight": 13
+				"block": "machina:purple_groundlily",
+				"weight": 4
+			},
+			{
+				"block": "machina:pink_groundlily",
+				"weight": 8
+			},
+			{
+				"block": "machina:blue_groundlily",
+				"weight": 1
 			},
 			{
 				"block": "machina:purple_petals[flower_amount=1]",
@@ -111,8 +119,20 @@
 		"enabled": true,
 		"block": "machina:silt",
 		"chance": 0.5,
-		"decorator_chance": 0,
+		"decorator_chance": 0.4,
 		"decorators": [
+			{
+				"block": "machina:purple_waterlily",
+				"weight": 2
+			},
+			{
+				"block": "machina:pink_waterlily",
+				"weight": 4
+			},
+			{
+				"block": "machina:blue_waterlily",
+				"weight": 1
+			}
 		]
 	},
 	"rocks": [

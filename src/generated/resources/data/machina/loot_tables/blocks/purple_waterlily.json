@@ -21,11 +21,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "machina:ground_lillies"
+          "name": "machina:purple_waterlily"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "machina:blocks/ground_lillies"
+  "random_sequence": "machina:blocks/purple_waterlily"
 }

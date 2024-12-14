@@ -13,6 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -141,6 +142,13 @@ public class PlanetLakeFeature extends Feature<PlanetLakeFeature.PlanetLakeFeatu
 										BlockPos decpos = pos.offset(j2, 4, j3);
 										BlockState deco = cfg.provider().getState(rand, decpos);
 										if (deco.canSurvive(level, decpos)) {
+											// Apply random horizontal facing if the blockstate supports it
+											if (deco.getOptionalValue(BlockStateProperties.HORIZONTAL_FACING)
+													.isPresent()) {
+												deco = deco.setValue(BlockStateProperties.HORIZONTAL_FACING,
+														Direction.Plane.HORIZONTAL.getRandomDirection(rand));
+											}
+
 											level.setBlock(decpos, deco, 2);
 											level.getChunk(decpos).markPosForPostprocessing(decpos);
 										}

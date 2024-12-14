@@ -10,6 +10,7 @@ import com.machina.api.block.MachinaHangingSignBlock;
 import com.machina.api.block.MachinaHangingWallSignBlock;
 import com.machina.api.block.MachinaSignBlock;
 import com.machina.api.block.MachinaWallSignBlock;
+import com.machina.api.block.MachinaWaterlilyBlock;
 import com.machina.api.block.PebbleBlock;
 import com.machina.api.block.SmallFlowerBlock;
 
@@ -18,6 +19,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -261,7 +263,6 @@ public class BlockInit {
 
 	public static final RegistryObject<BushBlock> TROPICAL_GRASS = register("tropical_grass", Blocks.GRASS, BushBlock::new);
 	public static final RegistryObject<BushBlock> TWISTED_GRASS = register("twisted_grass", Blocks.GRASS, BushBlock::new);
-	public static final RegistryObject<SmallFlowerBlock> GROUND_LILLIES = register("ground_lillies", Blocks.PINK_PETALS, SmallFlowerBlock::new);
 	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
 	public static final RegistryObject<PinkPetalsBlock> PURPLE_PETALS = register("purple_petals", Blocks.PINK_PETALS, PinkPetalsBlock::new);
 	
@@ -279,6 +280,24 @@ public class BlockInit {
 	public static final RegistryObject<FlowerPotBlock> POTTED_SPINDLESPROUT = flower_pot("potted_spindlesprout", SPINDLESPROUT);
 	public static final RegistryObject<FlowerPotBlock> POTTED_SMALL_FERN = flower_pot("potted_small_fern", SMALL_FERN);
 	public static final RegistryObject<FlowerPotBlock> POTTED_DEAD_SMALL_FERN = flower_pot("potted_dead_small_fern", DEAD_SMALL_FERN);
+	
+	public static final RegistryObject<SmallFlowerBlock> PURPLE_GROUNDLILY = groundlily("purple_groundlily");
+	public static final RegistryObject<SmallFlowerBlock> PINK_GROUNDLILY = groundlily("pink_groundlily");
+	public static final RegistryObject<SmallFlowerBlock> RED_GROUNDLILY = groundlily("red_groundlily");
+	public static final RegistryObject<SmallFlowerBlock> ORANGE_GROUNDLILY = groundlily("orange_groundlily");
+	public static final RegistryObject<SmallFlowerBlock> YELLOW_GROUNDLILY = groundlily("yellow_groundlily");
+	public static final RegistryObject<SmallFlowerBlock> GREEN_GROUNDLILY = groundlily("green_groundlily");
+	public static final RegistryObject<SmallFlowerBlock> TURQUOISE_GROUNDLILY = groundlily("turquoise_groundlily");
+	public static final RegistryObject<SmallFlowerBlock> BLUE_GROUNDLILY = groundlily("blue_groundlily");
+	
+	public static final RegistryObject<MachinaWaterlilyBlock> PURPLE_WATERLILY = waterlily("purple_waterlily");
+	public static final RegistryObject<MachinaWaterlilyBlock> PINK_WATERLILY = waterlily("pink_waterlily");
+	public static final RegistryObject<MachinaWaterlilyBlock> RED_WATERLILY = waterlily("red_waterlily");
+	public static final RegistryObject<MachinaWaterlilyBlock> ORANGE_WATERLILY = waterlily("orange_waterlily");
+	public static final RegistryObject<MachinaWaterlilyBlock> YELLOW_WATERLILY = waterlily("yellow_waterlily");
+	public static final RegistryObject<MachinaWaterlilyBlock> GREEN_WATERLILY = waterlily("green_waterlily");
+	public static final RegistryObject<MachinaWaterlilyBlock> TURQUOISE_WATERLILY = waterlily("turquoise_waterlily");
+	public static final RegistryObject<MachinaWaterlilyBlock> BLUE_WATERLILY = waterlily("blue_waterlily");
 
 	public static final RegistryObject<FlowerBlock> PURPLE_GLOWSHROOM = flower("purple_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(6));
 	public static final RegistryObject<FlowerBlock> PINK_GLOWSHROOM = flower("pink_glowshroom", () -> MobEffects.GLOWING, 30, Blocks.BROWN_MUSHROOM, light(7));
@@ -423,9 +442,18 @@ public class BlockInit {
 			Function<Block.Properties, Block.Properties> extra) {
 		return register(name, BlockInit.of(Blocks.FLOWER_POT, extra, p -> new FlowerPotBlock(flower.get(), p)));
 	}
-	
+
 	public static RegistryObject<PebbleBlock> pebbles(String name) {
 		return register(name, Blocks.ANDESITE, a -> a.noCollission().noOcclusion(), PebbleBlock::new);
+	}
+
+	public static RegistryObject<SmallFlowerBlock> groundlily(String name) {
+		return register(name, Blocks.PINK_PETALS, a -> a, SmallFlowerBlock::new);
+	}
+
+	public static RegistryObject<MachinaWaterlilyBlock> waterlily(String name) {
+		return registerCI(name, Blocks.LILY_PAD, a -> a, MachinaWaterlilyBlock::new,
+				ro -> new PlaceOnWaterBlockItem(ro.get(), new Item.Properties()));
 	}
 
 	public static <T extends Block> RegistryObject<T> register(String name, Block prop,
@@ -436,6 +464,14 @@ public class BlockInit {
 	public static <T extends Block> RegistryObject<T> registerNI(String name, Block prop,
 			Function<Block.Properties, Block.Properties> extra, Function<Block.Properties, T> constructor) {
 		return register(name, BlockInit.of(prop, extra, constructor));
+	}
+
+	public static <T extends Block> RegistryObject<T> registerCI(String name, Block prop,
+			Function<Block.Properties, Block.Properties> extra, Function<Block.Properties, T> constructor,
+			Function<RegistryObject<T>, ? extends BlockItem> item) {
+		RegistryObject<T> ro = register(name, BlockInit.of(prop, extra, constructor));
+		ItemInit.ITEMS.register(name, () -> item.apply(ro));
+		return ro;
 	}
 
 	public static <T extends Block> RegistryObject<T> register(String name, Block prop,
