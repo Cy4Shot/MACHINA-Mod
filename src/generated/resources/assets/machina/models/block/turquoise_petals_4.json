@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/flowerbed_4",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "flowerbed": "machina:block/turquoise_petals",
+    "stem": "machina:block/petals_stem"
+  }
+}

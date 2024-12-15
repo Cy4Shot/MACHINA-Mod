@@ -26,6 +26,12 @@
     "machina:green_groundlily",
     "machina:turquoise_groundlily",
     "machina:blue_groundlily",
-    "machina:purple_petals"
+    "machina:purple_petals",
+    "machina:red_petals",
+    "machina:orange_petals",
+    "machina:yellow_petals",
+    "machina:green_petals",
+    "machina:turquoise_petals",
+    "machina:blue_petals"
   ]
 }

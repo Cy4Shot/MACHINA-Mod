@@ -93,7 +93,14 @@ public class TabInit {
 				
 				add(a, BlockInit.ORPHEUM);
 				add(a, BlockInit.DRAGON_PEONY);
+				
 				add(a, BlockInit.PURPLE_PETALS);
+				add(a, BlockInit.RED_PETALS);
+				add(a, BlockInit.ORANGE_PETALS);
+				add(a, BlockInit.YELLOW_PETALS);
+				add(a, BlockInit.GREEN_PETALS);
+				add(a, BlockInit.TURQUOISE_PETALS);
+				add(a, BlockInit.BLUE_PETALS);
 				
 				add(a, BlockInit.SPRUCE_CUP);
 				

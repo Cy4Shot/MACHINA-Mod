@@ -2,7 +2,7 @@
   "parent": "minecraft:block/flowerbed_1",
   "render_type": "minecraft:cutout",
   "textures": {
-    "flowerbed": "machina:block/purple_petals",
-    "stem": "machina:block/purple_petals_stem"
+    "flowerbed": "machina:block/blue_petals",
+    "stem": "machina:block/petals_stem"
   }
 }

@@ -78,28 +78,92 @@
 	],
 	"grass": {
 		"enabled": true,
-		"min": 5,
-		"max": 10,
+		"min": 10,
+		"max": 15,
 		"grasses": [
 			{
 				"block": "machina:coniferous_grass",
-				"weight": 10
+				"weight": 160
 			},
 			{
 				"block": "machina:short_coniferous_grass",
-				"weight": 10
+				"weight": 160
 			},
 			{
 				"block": "machina:needlegrass",
-				"weight": 3
+				"weight": 48
 			},
 			{
 				"block": "machina:needlethatch",
-				"weight": 3
+				"weight": 48
 			},
 			{
 				"block": "machina:gray_soapstone_pebbles",
+				"weight": 48
+			},
+			{
+				"block": "machina:red_petals[flower_amount=1]",
+				"weight": 6
+			},
+			{
+				"block": "machina:red_petals[flower_amount=2]",
 				"weight": 3
+			},
+			{
+				"block": "machina:red_petals[flower_amount=3]",
+				"weight": 3
+			},
+			{
+				"block": "machina:red_petals[flower_amount=4]",
+				"weight": 2
+			},
+			{
+				"block": "machina:orange_petals[flower_amount=1]",
+				"weight": 6
+			},
+			{
+				"block": "machina:orange_petals[flower_amount=2]",
+				"weight": 3
+			},
+			{
+				"block": "machina:orange_petals[flower_amount=3]",
+				"weight": 3
+			},
+			{
+				"block": "machina:orange_petals[flower_amount=4]",
+				"weight": 2
+			},
+			{
+				"block": "machina:yellow_petals[flower_amount=1]",
+				"weight": 6
+			},
+			{
+				"block": "machina:yellow_petals[flower_amount=2]",
+				"weight": 3
+			},
+			{
+				"block": "machina:yellow_petals[flower_amount=3]",
+				"weight": 3
+			},
+			{
+				"block": "machina:yellow_petals[flower_amount=4]",
+				"weight": 2
+			},
+			{
+				"block": "machina:green_petals[flower_amount=1]",
+				"weight": 6
+			},
+			{
+				"block": "machina:green_petals[flower_amount=2]",
+				"weight": 3
+			},
+			{
+				"block": "machina:green_petals[flower_amount=3]",
+				"weight": 3
+			},
+			{
+				"block": "machina:green_petals[flower_amount=4]",
+				"weight": 2
 			}
 		]
 	},

@@ -1,4 +1,4 @@
-// 1.20.1	2024-12-15T13:23:27.8173242	Loot Tables
+// 1.20.1	2024-12-15T13:59:54.5348371	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -19,6 +19,7 @@ fc3fe1e4a5937af629ef4f2bc43887e2d48b463b data/machina/loot_tables/blocks/benzyla
 1b6226016087bec1e616a09bf9d16bfd4eb8e31c data/machina/loot_tables/blocks/benzyl_chloride_block.json
 6657627281250b83ea04d45715505111e603bebf data/machina/loot_tables/blocks/blue_glowshroom.json
 15cb785224b235232c4ae573a1799d279c4d3e40 data/machina/loot_tables/blocks/blue_groundlily.json
+78d849aabd4edded80e52d0a9f1709f5b333fc92 data/machina/loot_tables/blocks/blue_petals.json
 61f0266994e3588513fd178abd60dde3ae30d576 data/machina/loot_tables/blocks/blue_waterlily.json
 e3abd5dd850b1c8a5514329f16e8ba1e2b019c5b data/machina/loot_tables/blocks/boron_trifluoride_block.json
 e5574e185b4d9e272c4cdccc7f5ebd250f1ec6be data/machina/loot_tables/blocks/brine_block.json
@@ -108,6 +109,7 @@ aa742365fdfc14880706376b3276ee891db28da8 data/machina/loot_tables/blocks/gray_so
 fe1665c15b3edf409f7e5239271dc35945526b04 data/machina/loot_tables/blocks/green_coniferous_leaves.json
 c2b36f97e28f74b16787b4ac88b80d488889fda5 data/machina/loot_tables/blocks/green_glowshroom.json
 73ee9d923e2c8583a8100381a409db9e2b38a51b data/machina/loot_tables/blocks/green_groundlily.json
+e870ec9e62c18e10088b6131ec42de75a393b09b data/machina/loot_tables/blocks/green_petals.json
 5079beea26dc5c826af00ed64ca6aef858490588 data/machina/loot_tables/blocks/green_soapstone.json
 9542598418a1952a6e16d9800e2f43f68bce7b27 data/machina/loot_tables/blocks/green_soapstone_button.json
 1bbf1f6c4f9c35f2871744a0a6d824b0f723c140 data/machina/loot_tables/blocks/green_soapstone_pebbles.json
@@ -160,6 +162,7 @@ b9149a613bd0cc05264469fc5ece099607b4406e data/machina/loot_tables/blocks/nitroge
 0fdbb83c874a62fa7d32e08581df77d908a55c31 data/machina/loot_tables/blocks/orange_coniferous_leaves.json
 e84fa81e787d4c951cf05fb60c2aea50a00be2a9 data/machina/loot_tables/blocks/orange_glowshroom.json
 9cb68430676b0cf079c0d06b14321ce3789310ee data/machina/loot_tables/blocks/orange_groundlily.json
+d0ac4c5988d15b68ea4829e9406d811c2f156243 data/machina/loot_tables/blocks/orange_petals.json
 c60017c14b4689da076955ab388dba9285dbf987 data/machina/loot_tables/blocks/orange_waterlily.json
 ed02d3b517f8ee7b167879f986c2956555314914 data/machina/loot_tables/blocks/orpheum.json
 edc62ca0c8ab27ae7412fb309556767d28e05f8c data/machina/loot_tables/blocks/oxygen_block.json
@@ -206,6 +209,7 @@ d280dd9aad8d852c4691172ab8cdce825905054d data/machina/loot_tables/blocks/purple_
 4ac9595dd2e337c5e452d371e621c565db0cf3e5 data/machina/loot_tables/blocks/red_coniferous_leaves.json
 dfd57be449fa0e8de3407c568e22da84896f090b data/machina/loot_tables/blocks/red_glowshroom.json
 c10db1a59bdfa9579896528f0b09cc80976ccf79 data/machina/loot_tables/blocks/red_groundlily.json
+f316a112b69f99ba70b0e48dc01a17b0994e4905 data/machina/loot_tables/blocks/red_petals.json
 e19d911c21668377d54a645d13454957de9bcab0 data/machina/loot_tables/blocks/red_waterlily.json
 068a89f22c7809ac758ffc2a4b4ec08197f500e6 data/machina/loot_tables/blocks/shale.json
 b2d39bf343888dd6761206f576197cbca4fc2924 data/machina/loot_tables/blocks/shale_button.json
@@ -267,6 +271,7 @@ c4ea59bf3b100ba405ef5a5fe0cb6a9637779b7a data/machina/loot_tables/blocks/tropica
 861c44995e8671a84670b310c0ea149c7c34a780 data/machina/loot_tables/blocks/tropical_wood.json
 54b7b969d09bd1e5c4af80fff191ffa31ed4e3d3 data/machina/loot_tables/blocks/turquoise_glowshroom.json
 9c4e1ffc485d38d6246328e4dc2c788a2587fb52 data/machina/loot_tables/blocks/turquoise_groundlily.json
+548aa2c1f6e3bee1ef892cdb6eccf7071bc5461e data/machina/loot_tables/blocks/turquoise_petals.json
 1e120d0d866754df5a50fd0b298dc1c8a7d8d18f data/machina/loot_tables/blocks/turquoise_waterlily.json
 37e4de490503c4f8d13a3ba80d366c91bc611ac3 data/machina/loot_tables/blocks/twisted_grass.json
 500c87c3259c701b4ab83e2bdce3570620a8c37c data/machina/loot_tables/blocks/white_soapstone.json
@@ -280,4 +285,5 @@ fa5b2e22bdc08587380e7e828d54df8763c1482d data/machina/loot_tables/blocks/y2_nana
 bcadea4d104a03a71078e4a63b470ea4c259ae99 data/machina/loot_tables/blocks/yellow_coniferous_leaves.json
 ed99877834a58552c785a7863ed84c1020c62269 data/machina/loot_tables/blocks/yellow_glowshroom.json
 200656d617790e06e2ebbc9cc80365d8fde31891 data/machina/loot_tables/blocks/yellow_groundlily.json
+1e1bbddbf9721ae8ec6b20025847f76ba52748c3 data/machina/loot_tables/blocks/yellow_petals.json
 d11d91c37bbbd004a62f6a7f2c5a431cecd4d1d7 data/machina/loot_tables/blocks/yellow_waterlily.json

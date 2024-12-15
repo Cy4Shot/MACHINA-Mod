@@ -44,6 +44,12 @@ public class DatagenItemTags extends ItemTagsProvider {
 		flower(BlockInit.TURQUOISE_GROUNDLILY);
 		flower(BlockInit.BLUE_GROUNDLILY);
 		flower(BlockInit.PURPLE_PETALS);
+		flower(BlockInit.RED_PETALS);
+		flower(BlockInit.ORANGE_PETALS);
+		flower(BlockInit.YELLOW_PETALS);
+		flower(BlockInit.GREEN_PETALS);
+		flower(BlockInit.TURQUOISE_PETALS);
+		flower(BlockInit.BLUE_PETALS);
 		smallFlower(BlockInit.SPRUCE_CUP);
 		smallFlower(BlockInit.PURPLE_GLOWSHROOM);
 		smallFlower(BlockInit.PINK_GLOWSHROOM);

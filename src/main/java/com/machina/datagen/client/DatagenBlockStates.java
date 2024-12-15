@@ -13,6 +13,7 @@ import com.machina.registration.init.FluidInit.FluidObject;
 import com.machina.registration.init.FruitInit;
 import com.machina.registration.init.FruitInit.Fruit;
 
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SignBlock;
@@ -256,10 +258,18 @@ public class DatagenBlockStates extends BlockStateProvider {
 		flower(BlockInit.NEEDLEGRASS);
 		tall_flower(BlockInit.NEEDLETHATCH);
 		tall_flower(BlockInit.SPINDLEGRASS);
-		
+
 		tall_flower(BlockInit.ORPHEUM);
 		flower(BlockInit.DRAGON_PEONY);
-		
+
+		petals(BlockInit.PURPLE_PETALS);
+		petals(BlockInit.RED_PETALS);
+		petals(BlockInit.ORANGE_PETALS);
+		petals(BlockInit.YELLOW_PETALS);
+		petals(BlockInit.GREEN_PETALS);
+		petals(BlockInit.TURQUOISE_PETALS);
+		petals(BlockInit.BLUE_PETALS);
+
 		flower_pot(BlockInit.POTTED_DRAGON_PEONY);
 		flower_pot(BlockInit.POTTED_SPINDLESPROUT);
 		flower_pot(BlockInit.POTTED_SMALL_FERN);
@@ -484,6 +494,69 @@ public class DatagenBlockStates extends BlockStateProvider {
 				.rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
 				.build());
 		simpleFlatItem(l, itemTexture(l));
+	}
+
+	private void petals(RegistryObject<PinkPetalsBlock> petals) {
+		PinkPetalsBlock p = petals.get();
+		ResourceLocation b = blockTexture(p);
+
+		Function<Integer, ModelFile> m = i -> models()
+				.withExistingParent(name(p) + "_" + i, new ResourceLocation("block/flowerbed_" + i))
+				.texture("flowerbed", b).texture("stem", new MachinaRL("block/petals_stem")).renderType("cutout");
+
+		//@formatter:off
+		getMultipartBuilder(p)
+				.part().modelFile(m.apply(1)).addModel()
+					.condition(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
+					.condition(BlockStateProperties.FLOWER_AMOUNT, 1, 2, 3, 4).end()
+				.part().modelFile(m.apply(1)).rotationY(90).addModel()
+					.condition(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
+					.condition(BlockStateProperties.FLOWER_AMOUNT, 1, 2, 3, 4).end()
+				.part().modelFile(m.apply(1)).rotationY(180).addModel()
+					.condition(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 1, 2, 3, 4).end()
+                .part().modelFile(m.apply(1)).rotationY(270).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 1, 2, 3, 4).end()
+                .part().modelFile(m.apply(2)).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 2, 3, 4).end()
+                .part().modelFile(m.apply(2)).rotationY(90).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 2, 3, 4).end()
+                .part().modelFile(m.apply(2)).rotationY(180).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 2, 3, 4).end()
+                .part().modelFile(m.apply(2)).rotationY(270).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 2, 3, 4).end()
+                .part().modelFile(m.apply(3)).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 3, 4).end()
+                .part().modelFile(m.apply(3)).rotationY(90).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 3, 4).end()
+                .part().modelFile(m.apply(3)).rotationY(180).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 3, 4).end()
+                .part().modelFile(m.apply(3)).rotationY(270).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 3, 4).end()
+                .part().modelFile(m.apply(4)).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 4).end()
+                .part().modelFile(m.apply(4)).rotationY(90).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 4).end()
+                .part().modelFile(m.apply(4)).rotationY(180).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 4).end()
+                .part().modelFile(m.apply(4)).rotationY(270).addModel()
+                    .condition(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
+                    .condition(BlockStateProperties.FLOWER_AMOUNT, 4).end();
+		//@formatter:on
+
+		simpleFlatItem(p, itemTexture(p));
 	}
 
 	private void simpleFlatItem(Block block, ResourceLocation tex) {

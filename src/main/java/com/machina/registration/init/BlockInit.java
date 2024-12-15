@@ -275,6 +275,12 @@ public class BlockInit {
 	public static final RegistryObject<TallFlowerBlock> SPINDLEGRASS = tall_flower("spindlegrass", Blocks.SUNFLOWER);
 
 	public static final RegistryObject<PinkPetalsBlock> PURPLE_PETALS = register("purple_petals", Blocks.PINK_PETALS, PinkPetalsBlock::new);
+	public static final RegistryObject<PinkPetalsBlock> RED_PETALS = register("red_petals", Blocks.PINK_PETALS, PinkPetalsBlock::new);
+	public static final RegistryObject<PinkPetalsBlock> ORANGE_PETALS = register("orange_petals", Blocks.PINK_PETALS, PinkPetalsBlock::new);
+	public static final RegistryObject<PinkPetalsBlock> YELLOW_PETALS = register("yellow_petals", Blocks.PINK_PETALS, PinkPetalsBlock::new);
+	public static final RegistryObject<PinkPetalsBlock> GREEN_PETALS = register("green_petals", Blocks.PINK_PETALS, PinkPetalsBlock::new);
+	public static final RegistryObject<PinkPetalsBlock> TURQUOISE_PETALS = register("turquoise_petals", Blocks.PINK_PETALS, PinkPetalsBlock::new);
+	public static final RegistryObject<PinkPetalsBlock> BLUE_PETALS = register("blue_petals", Blocks.PINK_PETALS, PinkPetalsBlock::new);
 	
 	public static final RegistryObject<TallFlowerBlock> ORPHEUM = tall_flower("orpheum", Blocks.PEONY);
 
