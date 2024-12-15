@@ -60,34 +60,42 @@
 		"grasses": [
 			{
 				"block": "machina:tropical_grass",
-				"weight": 10
+				"weight": 200
 			},
 			{
 				"block": "machina:small_fern",
-				"weight": 2
+				"weight": 40
 			},
 			{
 				"block": "machina:feldspar_pebbles",
-				"weight": 1
+				"weight": 20
 			},
 			{
 				"block": "machina:gneiss_pebbles",
-				"weight": 1
+				"weight": 20
 			},
 			{
 				"block": "machina:dead_small_fern",
-				"weight": 1
+				"weight": 20
 			},
 			{
 				"block": "machina:spindlegrass",
-				"weight": 1
+				"weight": 20
 			},
 			{
 				"block": "machina:spindlesprout",
-				"weight": 1
+				"weight": 20
 			},
 			{
 				"block": "machina:clover",
+				"weight": 20
+			},
+			{
+				"block": "machina:yellow_petals[flower_amount=1]",
+				"weight": 1
+			},
+			{
+				"block": "machina:yellow_petals[flower_amount=2]",
 				"weight": 1
 			}
 		]
