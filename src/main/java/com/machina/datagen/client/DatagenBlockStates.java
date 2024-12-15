@@ -246,19 +246,26 @@ public class DatagenBlockStates extends BlockStateProvider {
 
 		flower(BlockInit.TROPICAL_GRASS);
 		flower(BlockInit.TWISTED_GRASS);
+		flower(BlockInit.CONIFEROUS_GRASS);
+		flower(BlockInit.SHORT_CONIFEROUS_GRASS);
 
-		tall_flower(BlockInit.SPINDLEGRASS);
-		tall_flower(BlockInit.ORPHEUM);
 		flower(BlockInit.SPINDLESPROUT);
 		flower(BlockInit.SMALL_FERN);
 		flower(BlockInit.DEAD_SMALL_FERN);
-		flower(BlockInit.DRAGON_PEONY);
 		flower(BlockInit.SPRUCE_CUP);
+		flower(BlockInit.NEEDLEGRASS);
+		tall_flower(BlockInit.NEEDLETHATCH);
+		tall_flower(BlockInit.SPINDLEGRASS);
+		
+		tall_flower(BlockInit.ORPHEUM);
+		flower(BlockInit.DRAGON_PEONY);
+		
 		flower_pot(BlockInit.POTTED_DRAGON_PEONY);
 		flower_pot(BlockInit.POTTED_SPINDLESPROUT);
 		flower_pot(BlockInit.POTTED_SMALL_FERN);
 		flower_pot(BlockInit.POTTED_DEAD_SMALL_FERN);
 		flower_pot(BlockInit.POTTED_SPRUCE_CUP);
+		flower_pot(BlockInit.POTTED_NEEDLEGRASS);
 
 		groundlily(BlockInit.PURPLE_GROUNDLILY, "purple");
 		groundlily(BlockInit.PINK_GROUNDLILY, "pink");

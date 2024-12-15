@@ -54,18 +54,23 @@ public class DatagenLootTables extends LootTableProvider {
 			pot(BlockInit.POTTED_SPRUCE_CUP.get());
 			dropSelf(BlockInit.DRAGON_PEONY.get());
 			pot(BlockInit.POTTED_DRAGON_PEONY.get());
-			dropSelf(BlockInit.SPINDLESPROUT.get());
+			dropAsSilk(BlockInit.SPINDLESPROUT.get());
 			pot(BlockInit.POTTED_SPINDLESPROUT.get());
-			dropSelf(BlockInit.SMALL_FERN.get());
+			dropAsSilk(BlockInit.SMALL_FERN.get());
 			pot(BlockInit.POTTED_SMALL_FERN.get());
-			dropSelf(BlockInit.DEAD_SMALL_FERN.get());
+			dropAsSilk(BlockInit.DEAD_SMALL_FERN.get());
 			pot(BlockInit.POTTED_DEAD_SMALL_FERN.get());
+			dropAsSilk(BlockInit.NEEDLEGRASS.get());
+			pot(BlockInit.POTTED_NEEDLEGRASS.get());
 
 			dropAsSilk(BlockInit.SPINDLEGRASS.get());
+			dropAsSilk(BlockInit.NEEDLETHATCH.get());
 			dropSelf(BlockInit.ORPHEUM.get());
 			dropAsSilk(BlockInit.CLOVER.get());
 			dropAsSilk(BlockInit.TROPICAL_GRASS.get());
 			dropAsSilk(BlockInit.TWISTED_GRASS.get());
+			dropAsSilk(BlockInit.CONIFEROUS_GRASS.get());
+			dropAsSilk(BlockInit.SHORT_CONIFEROUS_GRASS.get());
 			dropAsSilk(BlockInit.PURPLE_PETALS.get());
 			
 			dropAsSilk(BlockInit.PURPLE_GROUNDLILY.get());

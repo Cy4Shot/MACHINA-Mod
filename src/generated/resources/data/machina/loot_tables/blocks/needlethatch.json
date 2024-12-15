@@ -21,11 +21,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "machina:dead_small_fern"
+          "name": "machina:needlethatch"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "machina:blocks/dead_small_fern"
+  "random_sequence": "machina:blocks/needlethatch"
 }

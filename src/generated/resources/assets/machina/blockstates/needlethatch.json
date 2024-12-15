@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "machina:block/needlethatch_bottom"
+    },
+    "half=upper": {
+      "model": "machina:block/needlethatch_top"
+    }
+  }
+}

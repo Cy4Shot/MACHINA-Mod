@@ -57,8 +57,10 @@ public class DatagenItemTags extends ItemTagsProvider {
 		smallFlower(BlockInit.SPINDLESPROUT);
 		smallFlower(BlockInit.SMALL_FERN);
 		smallFlower(BlockInit.DEAD_SMALL_FERN);
+		smallFlower(BlockInit.NEEDLEGRASS);
 
 		tallFlower(BlockInit.SPINDLEGRASS);
+		tallFlower(BlockInit.NEEDLETHATCH);
 		tallFlower(BlockInit.ORPHEUM);
 
 		BlockFamiliesInit.DIRTS.forEach(this::dirtFamily);

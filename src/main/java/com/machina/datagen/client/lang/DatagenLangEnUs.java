@@ -250,21 +250,27 @@ public class DatagenLangEnUs extends DatagenLang {
 
 		add(BlockInit.TROPICAL_GRASS, "Tropical Grass");
 		add(BlockInit.TWISTED_GRASS, "Twisted Grass");
-		add(BlockInit.CLOVER, "Clover");
+		add(BlockInit.CONIFEROUS_GRASS, "Coniferous Grass");
+		add(BlockInit.SHORT_CONIFEROUS_GRASS, "Short Coniferous Grass");
+		
 		add(BlockInit.PURPLE_PETALS, "Purple Petals");
-
-		add(BlockInit.SPINDLEGRASS, "Spindlegrass");
 		add(BlockInit.ORPHEUM, "Orpheum");
+		add(BlockInit.DRAGON_PEONY, "Dragon Peony");
 
+		add(BlockInit.CLOVER, "Clover");
+		add(BlockInit.SPINDLEGRASS, "Spindlegrass");
 		add(BlockInit.SPINDLESPROUT, "Spindlesprout");
 		add(BlockInit.SPRUCE_CUP, "Spruce Cup");
 		add(BlockInit.SMALL_FERN, "Small Fern");
 		add(BlockInit.DEAD_SMALL_FERN, "Dead Small Fern");
-		add(BlockInit.DRAGON_PEONY, "Dragon Peony");
+		add(BlockInit.NEEDLEGRASS, "Needlegrass");
+		add(BlockInit.NEEDLETHATCH, "Needlethatch");
+		
 		add(BlockInit.POTTED_SPRUCE_CUP, "Potted Spruce Cup");
 		add(BlockInit.POTTED_DRAGON_PEONY, "Potted Dragon Peony");
 		add(BlockInit.POTTED_SMALL_FERN, "Potted Small Fern");
 		add(BlockInit.POTTED_DEAD_SMALL_FERN, "Potted Dead Small Fern");
+		add(BlockInit.POTTED_NEEDLEGRASS, "Potted Needlegrass");
 		
 		add(BlockInit.PURPLE_GROUNDLILY, "Purple Groundlily");
 		add(BlockInit.PINK_GROUNDLILY, "Pink Groundlily");

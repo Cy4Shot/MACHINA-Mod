@@ -263,23 +263,30 @@ public class BlockInit {
 
 	public static final RegistryObject<BushBlock> TROPICAL_GRASS = register("tropical_grass", Blocks.GRASS, BushBlock::new);
 	public static final RegistryObject<BushBlock> TWISTED_GRASS = register("twisted_grass", Blocks.GRASS, BushBlock::new);
-	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
-	public static final RegistryObject<PinkPetalsBlock> PURPLE_PETALS = register("purple_petals", Blocks.PINK_PETALS, PinkPetalsBlock::new);
+	public static final RegistryObject<BushBlock> CONIFEROUS_GRASS = register("coniferous_grass", Blocks.GRASS, BushBlock::new);
+	public static final RegistryObject<BushBlock> SHORT_CONIFEROUS_GRASS = register("short_coniferous_grass", Blocks.GRASS, BushBlock::new);
 	
+	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
 	public static final RegistryObject<SmallFlowerBlock> SPINDLESPROUT = register("spindlesprout", Blocks.FERN, SmallFlowerBlock::new);
 	public static final RegistryObject<SmallFlowerBlock> SMALL_FERN = register("small_fern", Blocks.FERN, SmallFlowerBlock::new);
 	public static final RegistryObject<SmallFlowerBlock> DEAD_SMALL_FERN = register("dead_small_fern", Blocks.FERN, SmallFlowerBlock::new);
-	
+	public static final RegistryObject<SmallFlowerBlock> NEEDLEGRASS = register("needlegrass", Blocks.FERN, SmallFlowerBlock::new);
+	public static final RegistryObject<TallFlowerBlock> NEEDLETHATCH = tall_flower("needlethatch", Blocks.SUNFLOWER);
 	public static final RegistryObject<TallFlowerBlock> SPINDLEGRASS = tall_flower("spindlegrass", Blocks.SUNFLOWER);
+
+	public static final RegistryObject<PinkPetalsBlock> PURPLE_PETALS = register("purple_petals", Blocks.PINK_PETALS, PinkPetalsBlock::new);
+	
 	public static final RegistryObject<TallFlowerBlock> ORPHEUM = tall_flower("orpheum", Blocks.PEONY);
 
 	public static final RegistryObject<FlowerBlock> DRAGON_PEONY = flower("dragon_peony", () -> MobEffects.LEVITATION, 5, Blocks.DANDELION);
 	public static final RegistryObject<FlowerBlock> SPRUCE_CUP = flower("spruce_cup", () -> MobEffects.UNLUCK, 50, Blocks.BROWN_MUSHROOM);
+	
 	public static final RegistryObject<FlowerPotBlock> POTTED_DRAGON_PEONY = flower_pot("potted_dragon_peony", DRAGON_PEONY);
 	public static final RegistryObject<FlowerPotBlock> POTTED_SPRUCE_CUP = flower_pot("potted_spruce_cup", SPRUCE_CUP);
 	public static final RegistryObject<FlowerPotBlock> POTTED_SPINDLESPROUT = flower_pot("potted_spindlesprout", SPINDLESPROUT);
 	public static final RegistryObject<FlowerPotBlock> POTTED_SMALL_FERN = flower_pot("potted_small_fern", SMALL_FERN);
 	public static final RegistryObject<FlowerPotBlock> POTTED_DEAD_SMALL_FERN = flower_pot("potted_dead_small_fern", DEAD_SMALL_FERN);
+	public static final RegistryObject<FlowerPotBlock> POTTED_NEEDLEGRASS = flower_pot("potted_needlegrass", NEEDLEGRASS);
 	
 	public static final RegistryObject<SmallFlowerBlock> PURPLE_GROUNDLILY = groundlily("purple_groundlily");
 	public static final RegistryObject<SmallFlowerBlock> PINK_GROUNDLILY = groundlily("pink_groundlily");
