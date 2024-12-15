@@ -3,8 +3,9 @@ package com.machina.registration.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.machina.api.item.FruitItem;
+
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -13,7 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class FruitInit {
 
-	public static record Fruit(RegistryObject<Block> block, RegistryObject<BlockItem> item) {
+	public static record Fruit(RegistryObject<Block> block, RegistryObject<FruitItem> item) {
 	}
 
 	public static final List<Fruit> FRUITS = new ArrayList<>();
@@ -47,8 +48,8 @@ public class FruitInit {
 	private static Fruit register(String name, int nut, float sat, int flags) {
 		RegistryObject<Block> rb = BlockInit.BLOCKS.register(name,
 				() -> new Block(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.CROP)));
-		RegistryObject<BlockItem> ri = ItemInit.ITEMS.register(name,
-				() -> new BlockItem(rb.get(), new Item.Properties().food(food(nut, sat, flags))));
+		RegistryObject<FruitItem> ri = ItemInit.ITEMS.register(name,
+				() -> new FruitItem(rb.get(), new Item.Properties().food(food(nut, sat, flags))));
 
 		Fruit f = new Fruit(rb, ri);
 		FRUITS.add(f);
