@@ -62,6 +62,8 @@ public class TabInit {
 
 				add(a, BlockInit.TROPICAL_GRASS);
 				add(a, BlockInit.TWISTED_GRASS);
+				add(a, BlockInit.CONIFEROUS_GRASS);
+				add(a, BlockInit.SHORT_CONIFEROUS_GRASS);
 				
 				add(a, BlockInit.PURPLE_GROUNDLILY);
 				add(a, BlockInit.PINK_GROUNDLILY);
@@ -79,6 +81,9 @@ public class TabInit {
 				add(a, BlockInit.GREEN_WATERLILY);
 				add(a, BlockInit.TURQUOISE_WATERLILY);
 				add(a, BlockInit.BLUE_WATERLILY);
+				
+				add(a, BlockInit.NEEDLEGRASS);
+				add(a, BlockInit.NEEDLETHATCH);
 				
 				add(a, BlockInit.SPINDLESPROUT);
 				add(a, BlockInit.SMALL_FERN);
