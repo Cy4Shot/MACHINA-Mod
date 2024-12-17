@@ -19,17 +19,17 @@ public class ShroomRock implements RockMaker {
 	@Override
 	public SDF build(PlanetBiomeBigRock config, RandomSource random, WorldGenLevel l, BlockPos p) {
 
-		float height = MathUtil.randRange(random, 8, 16);
-		float baseratio = MathUtil.randRange(random, 0.5f, 0.9f);
+		float height = MathUtil.randRange(random, 15, 20);
+		float baseratio = MathUtil.randRange(random, 0.6f, 1f);
 		float topscale = MathUtil.randRange(random, 0.15f, 0.2f);
-		float toprad = MathUtil.randRange(random, 10, height * 1.4f);
+		float toprad = MathUtil.randRange(random, 10, height * 0.95f);
 		float xoff = MathUtil.randRangeSigned(random, 1f, toprad * 0.15f);
 		float yoff = MathUtil.randRangeSigned(random, 1f, toprad * 0.15f);
 
-		SDF base = new SDFCappedCone(baseratio * height, 1, height).setBlock(config.block());
+		SDF base = new SDFCappedCone(baseratio * height, 1, height * 1.5f).setBlock(config.block());
 		SDF top = new SDFSphere(toprad).setBlock(config.block());
 		top = new SDFScale3D(top, 1, topscale, 1);
-		top = new SDFTranslate(top, xoff, height, yoff);
+		top = new SDFTranslate(top, xoff, height * 1.5f, yoff);
 		top = new SDFDisplacement(top, random, 2f);
 
 		SDF rock = new SDFUnion(base, top);

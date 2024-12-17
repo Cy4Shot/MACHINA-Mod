@@ -76,10 +76,19 @@
 			"type": "machina:wisp",
 			"block": "machina:green_soapstone",
 			"extra": "machina:green_soapstone_wall",
-			"chance": 0.3,
+			"chance": 0.2,
 			"up_extra_chance": 0.3,
 			"down_extra_chance": 0.3,
 			"side_extra_chance": 0
+		},
+		{
+			"type": "machina:shroom",
+			"block": "machina:shale",
+			"extra": "machina:shale_wall",
+			"chance": 0.05,
+			"up_extra_chance": 0,
+			"down_extra_chance": 0.4,
+			"side_extra_chance": 0.3
 		}
 	],
 	"ores": [

@@ -13,13 +13,13 @@
 		{
 			"name": "machina:earthlike_pine_forest",
 			"placements": [
-				"MIDDLE"
+				"MIDDLE", "PLATEAU"
 			]
 		},
 		{
 			"name": "machina:earthlike_tropical_plains",
 			"placements": [
-				"MIDDLE"
+				"MIDDLE", "PLATEAU"
 			]
 		},
 		{
@@ -31,13 +31,19 @@
 		{
 			"name": "machina:earthlike_coniferous_forest",
 			"placements": [
-				"MIDDLE"
+				"MIDDLE", "PLATEAU"
 			]
 		},
 		{
-			"name": "machina:earthlike_soapstone_slope",
+			"name": "machina:earthlike_windswept_slope",
 			"placements": [
 				"SLOPE"
+			]
+		},
+		{
+			"name": "machina:earthlike_windswept_plateau",
+			"placements": [
+				"PLATEAU"
 			]
 		},
 		{
