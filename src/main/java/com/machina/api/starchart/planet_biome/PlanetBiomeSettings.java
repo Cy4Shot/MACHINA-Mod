@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, BlockState top, BlockState second,
 		BlockState stair, BlockState slab, BlockState extra, List<PlanetBiomeTree> trees, List<PlanetBiomeBush> bushes,
-		PlanetBiomeGrass grass, PlanetBiomeLakes lakes, List<PlanetBiomeRock> rocks, List<PlanetBiomeOre> ores) {
+		PlanetBiomeGrass grass, PlanetBiomeLakes lakes, List<PlanetBiomeRock> rocks, List<PlanetBiomeBigRock> big_rocks, List<PlanetBiomeOre> ores) {
 
 	private static WeightedStateProviderProvider.Builder weighted(List<PlanetBlockWeight> gs) {
 		WeightedStateProviderProvider.Builder builder = WeightedStateProviderProvider.builder();
@@ -35,6 +35,7 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 					PlanetBiomeGrass.CODEC.fieldOf("grass").forGetter(PlanetBiomeSettings::grass),
 					PlanetBiomeLakes.CODEC.fieldOf("lakes").forGetter(PlanetBiomeSettings::lakes),
 					Codec.list(PlanetBiomeRock.CODEC).fieldOf("rocks").forGetter(PlanetBiomeSettings::rocks),
+					Codec.list(PlanetBiomeBigRock.CODEC).fieldOf("big_rocks").forGetter(PlanetBiomeSettings::big_rocks),
 					Codec.list(PlanetBiomeOre.CODEC).fieldOf("ores").forGetter(PlanetBiomeSettings::ores))
 			.apply(instance, PlanetBiomeSettings::new));
 
@@ -122,6 +123,15 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 						Codec.FLOAT.fieldOf("deform").forGetter(PlanetBiomeRock::deform))
 				.apply(instance, PlanetBiomeRock::new));
 
+	}
+
+	public record PlanetBiomeBigRock(ResourceLocation rock, BlockState block, float chance) {
+
+		public static final Codec<PlanetBiomeBigRock> CODEC = RecordCodecBuilder.create(instance -> instance
+				.group(ResourceLocation.CODEC.fieldOf("rock").forGetter(PlanetBiomeBigRock::rock),
+						BlockState.CODEC.fieldOf("block").forGetter(PlanetBiomeBigRock::block),
+						Codec.FLOAT.fieldOf("chance").forGetter(PlanetBiomeBigRock::chance))
+				.apply(instance, PlanetBiomeBigRock::new));
 	}
 
 	public record PlanetBiomeOre(BlockState block, int size, float exposure_removal_chance, float chance, int min_y,

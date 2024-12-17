@@ -35,6 +35,12 @@
 			]
 		},
 		{
+			"name": "machina:earthlike_soapstone_slope",
+			"placements": [
+				"SLOPE"
+			]
+		},
+		{
 			"name": "machina:none",
 			"placements": [
 				"FALLBACK"

@@ -3,11 +3,13 @@ package com.machina.world.biome;
 import java.util.Arrays;
 
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings;
+import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeBigRock;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeBush;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeOre;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeRock;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
 import com.machina.registration.init.SoundInit;
+import com.machina.world.feature.PlanetBigRockFeature;
 import com.machina.world.feature.PlanetBushFeature;
 import com.machina.world.feature.PlanetCaveSlopeFeature;
 import com.machina.world.feature.PlanetCaveSlopeFeature.PlanetCaveSlopeFeatureConfig;
@@ -108,6 +110,12 @@ public class PlanetBiome extends Biome {
 	}
 
 	private static void addVegetationFeatures(BiomeGenerationSettings.PlainBuilder builder, PlanetBiomeSettings s) {
+
+		for (PlanetBiomeBigRock rock : s.big_rocks()) {
+			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetBigRockFeature(),
+					new PlanetBigRockFeature.PlanetBigRockFeatureConfig(rock), chance(rock.chance()), spread(),
+					onFloor(), biome());
+		}
 
 		for (PlanetBiomeTree tree : s.trees()) {
 			add(builder, Decoration.SURFACE_STRUCTURES, new PlanetTreeFeature(),

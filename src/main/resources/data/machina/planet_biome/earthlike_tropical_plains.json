@@ -157,6 +157,8 @@
 			"deform": 2.0
 		}
 	],
+	"big_rocks": [
+	],
 	"ores": [
 		{
 			"block": "machina:green_soapstone",

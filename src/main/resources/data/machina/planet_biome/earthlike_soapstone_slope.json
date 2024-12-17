@@ -6,55 +6,27 @@
 		"water_fog_color": 0,
 		"grass_color": 3563283
 	},
-	"base": "machina:forest_dirt",
-	"stair": "machina:forest_dirt_stairs",
-	"slab": "machina:forest_dirt_slab",
-	"extra": "machina:peat",
-	"top": "machina:forest_grass_block",
-	"second": "machina:forest_dirt",
+	"base": "machina:gray_soapstone",
+	"stair": "machina:gray_soapstone_stairs",
+	"slab": "machina:gray_soapstone_slab",
+	"extra": "machina:shale",
+	"top": "machina:gray_soapstone",
+	"second": "machina:gray_soapstone",
 	"trees": [
-		{
-			"type": "machina:fir",
-			"wood": "machina:pine_wood",
-			"leaves": "machina:pine_leaves[persistent=true]",
-			"chance": 1,
-			"fruits": [
-				"machina:strapple"
-			],
-			"fruit_chance": 0.03,
-			"tree_fruit_chance": 0.1
-		}
 	],
 	"bushes": [
-		{
-			"block": "machina:pine_leaves[persistent=true]",
-			"radius": 2.5,
-			"chance": 3
-		}
 	],
 	"grass": {
-		"enabled": true,
+		"enabled": false,
 		"min": 5,
 		"max": 10,
 		"grasses": [
-			{
-				"block": "minecraft:grass",
-				"weight": 10
-			},
-			{
-				"block": "machina:shale_pebbles",
-				"weight": 2
-			},
-			{
-				"block": "machina:spruce_cup",
-				"weight": 1
-			}
 		]
 	},
 	"lakes": {
-		"enabled": true,
-		"block": "machina:peat",
-		"chance": 0.1,
+		"enabled": false,
+		"block": "minecraft:air",
+		"chance": 0.0,
 		"decorator_chance": 0,
 		"decorators": [
 		]
@@ -71,6 +43,11 @@
 		}
 	],
 	"big_rocks": [
+		{
+			"type": "machina:bulb",
+			"block": "machina:green_soapstone",
+			"chance": 1
+		}
 	],
 	"ores": [
 		{

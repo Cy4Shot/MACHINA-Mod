@@ -3,6 +3,7 @@ package com.machina.api.starchart.planet_biome;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeBigRock;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeBush;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeEffects;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeGrass;
@@ -20,7 +21,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, String top, String second, String stair,
 		String slab, String extra, List<PlanetBiomeTreeJsonInfo> trees, List<PlanetBiomeBushJsonInfo> bushes,
 		PlanetBiomeGrassJsonInfo grass, PlanetBiomeLakesJsonInfo lakes, List<PlanetBiomeRockJsonInfo> rocks,
-		List<PlanetBiomeOreJsonInfo> ores) implements JsonInfo<PlanetBiomeSettings> {
+		List<PlanetBiomeBigRockJsonInfo> big_rocks, List<PlanetBiomeOreJsonInfo> ores)
+		implements JsonInfo<PlanetBiomeSettings> {
 
 	public static BlockState getBlock(String block) {
 		return BlockHelper.parseState(BlockHelper.blockHolderLookup(), block);
@@ -74,6 +76,15 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		}
 	}
 
+	public record PlanetBiomeBigRockJsonInfo(String type, String block, float chance)
+			implements JsonInfo<PlanetBiomeBigRock> {
+
+		@Override
+		public PlanetBiomeBigRock cast() {
+			return new PlanetBiomeBigRock(new ResourceLocation(type), getBlock(block), chance);
+		}
+	}
+
 	public record PlanetBiomeOreJsonInfo(String block, int size, float exposure_removal_chance, float chance, int min_y,
 			int max_y) implements JsonInfo<PlanetBiomeOre> {
 		@Override
@@ -97,9 +108,11 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		PlanetBiomeGrass grass = grass().cast();
 		PlanetBiomeLakes lakes = lakes().cast();
 		List<PlanetBiomeRock> rocks = rocks().stream().map(PlanetBiomeRockJsonInfo::cast).collect(Collectors.toList());
+		List<PlanetBiomeBigRock> big_rocks = big_rocks().stream().map(PlanetBiomeBigRockJsonInfo::cast)
+				.collect(Collectors.toList());
 		List<PlanetBiomeOre> ores = ores().stream().map(PlanetBiomeOreJsonInfo::cast).collect(Collectors.toList());
 
 		return new PlanetBiomeSettings(effects, getBlock(base), getBlock(top), getBlock(second), getBlock(stair),
-				getBlock(slab), getBlock(extra), trees, bushes, grass, lakes, rocks, ores);
+				getBlock(slab), getBlock(extra), trees, bushes, grass, lakes, rocks, big_rocks, ores);
 	}
 }
