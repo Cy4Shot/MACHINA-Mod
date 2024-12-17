@@ -56,6 +56,8 @@ public class ItemInit {
 	public static final RegistryObject<HangingSignItem> PINE_HANGING_SIGN = hanging_sign("pine_hanging_sign", BlockInit.PINE_HANGING_SIGN, BlockInit.PINE_WALL_HANGING_SIGN);
 	public static final RegistryObject<SignItem> CONIFEROUS_SIGN = sign("coniferous_sign", BlockInit.CONIFEROUS_SIGN, BlockInit.CONIFEROUS_WALL_SIGN);
 	public static final RegistryObject<HangingSignItem> CONIFEROUS_HANGING_SIGN = hanging_sign("coniferous_hanging_sign", BlockInit.CONIFEROUS_HANGING_SIGN, BlockInit.CONIFEROUS_WALL_HANGING_SIGN);
+	public static final RegistryObject<SignItem> CYCAD_SIGN = sign("cycad_sign", BlockInit.CYCAD_SIGN, BlockInit.CYCAD_WALL_SIGN);
+	public static final RegistryObject<HangingSignItem> CYCAD_HANGING_SIGN = hanging_sign("cycad_hanging_sign", BlockInit.CYCAD_HANGING_SIGN, BlockInit.CYCAD_WALL_HANGING_SIGN);
 	//@formatter:on
 
 	public static RegistryObject<Item> basic(String name) {

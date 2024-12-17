@@ -245,6 +245,23 @@ public class DatagenBlockStates extends BlockStateProvider {
 		sign(BlockInit.CONIFEROUS_HANGING_SIGN, BlockInit.CONIFEROUS_WALL_HANGING_SIGN, BlockInit.CONIFEROUS_PLANKS);
 		trapdoor(BlockInit.CONIFEROUS_TRAPDOOR);
 		door(BlockInit.CONIFEROUS_DOOR);
+		
+		cube(BlockInit.CYCAD_PLANKS);
+		leaves(BlockInit.CYCAD_LEAVES);
+		log(BlockInit.CYCAD_LOG);
+		log(BlockInit.CYCAD_WOOD);
+		log(BlockInit.STRIPPED_CYCAD_LOG);
+		log(BlockInit.STRIPPED_CYCAD_WOOD);
+		slab(BlockInit.CYCAD_SLAB, BlockInit.CYCAD_PLANKS);
+		stairs(BlockInit.CYCAD_STAIRS, BlockInit.CYCAD_PLANKS);
+		button(BlockInit.CYCAD_BUTTON, BlockInit.CYCAD_PLANKS);
+		pressure_plate(BlockInit.CYCAD_PRESSURE_PLATE, BlockInit.CYCAD_PLANKS);
+		fence(BlockInit.CYCAD_FENCE, BlockInit.CYCAD_PLANKS);
+		fence_gate(BlockInit.CYCAD_FENCE_GATE, BlockInit.CYCAD_PLANKS);
+		sign(BlockInit.CYCAD_SIGN, BlockInit.CYCAD_WALL_SIGN, BlockInit.CYCAD_PLANKS);
+		sign(BlockInit.CYCAD_HANGING_SIGN, BlockInit.CYCAD_WALL_HANGING_SIGN, BlockInit.CYCAD_PLANKS);
+		trapdoor(BlockInit.CYCAD_TRAPDOOR);
+		door(BlockInit.CYCAD_DOOR);
 
 		flower(BlockInit.TROPICAL_GRASS);
 		flower(BlockInit.TWISTED_GRASS);

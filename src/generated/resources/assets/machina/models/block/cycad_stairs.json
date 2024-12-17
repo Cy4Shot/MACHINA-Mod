@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "machina:block/cycad_planks",
+    "side": "machina:block/cycad_planks",
+    "top": "machina:block/cycad_planks"
+  }
+}

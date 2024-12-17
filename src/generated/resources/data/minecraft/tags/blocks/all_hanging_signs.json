@@ -7,6 +7,8 @@
     "machina:pine_hanging_sign",
     "machina:pine_wall_hanging_sign",
     "machina:coniferous_hanging_sign",
-    "machina:coniferous_wall_hanging_sign"
+    "machina:coniferous_wall_hanging_sign",
+    "machina:cycad_hanging_sign",
+    "machina:cycad_wall_hanging_sign"
   ]
 }

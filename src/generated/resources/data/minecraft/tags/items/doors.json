@@ -3,6 +3,7 @@
     "machina:tropical_door",
     "machina:dead_tropical_door",
     "machina:pine_door",
-    "machina:coniferous_door"
+    "machina:coniferous_door",
+    "machina:cycad_door"
   ]
 }

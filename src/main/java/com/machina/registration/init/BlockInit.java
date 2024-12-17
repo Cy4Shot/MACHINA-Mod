@@ -181,6 +181,7 @@ public class BlockInit {
 	public static final WoodType DEAD_TROPICAL = registerWoodType("dead_tropical");
 	public static final WoodType PINE = registerWoodType("pine");
 	public static final WoodType CONIFEROUS = registerWoodType("coniferous");
+	public static final WoodType CYCAD = registerWoodType("cycad");
 	
 	public static final RegistryObject<RotatedPillarBlock> TROPICAL_LOG = log("tropical_log", Blocks.OAK_LOG);
 	public static final RegistryObject<RotatedPillarBlock> TROPICAL_WOOD = log("tropical_wood", Blocks.OAK_WOOD);
@@ -260,6 +261,25 @@ public class BlockInit {
 	public static final RegistryObject<FenceBlock> CONIFEROUS_FENCE = fence("coniferous_fence", Blocks.OAK_FENCE);
 	public static final RegistryObject<FenceGateBlock> CONIFEROUS_FENCE_GATE = fence_gate("coniferous_fence_gate", Blocks.OAK_FENCE_GATE, CONIFEROUS);
 	public static final RegistryObject<PressurePlateBlock> CONIFEROUS_PRESSURE_PLATE = wood_pressure_plate("coniferous_pressure_plate", Blocks.OAK_PRESSURE_PLATE, CONIFEROUS);
+	
+	public static final RegistryObject<RotatedPillarBlock> CYCAD_LOG = log("cycad_log", Blocks.OAK_LOG);
+	public static final RegistryObject<RotatedPillarBlock> CYCAD_WOOD = log("cycad_wood", Blocks.OAK_WOOD);
+	public static final RegistryObject<RotatedPillarBlock> STRIPPED_CYCAD_LOG = log("stripped_cycad_log", Blocks.STRIPPED_OAK_LOG);
+	public static final RegistryObject<RotatedPillarBlock> STRIPPED_CYCAD_WOOD = log("stripped_cycad_wood", Blocks.STRIPPED_OAK_WOOD);
+	public static final RegistryObject<Block> CYCAD_PLANKS = block("cycad_planks", Blocks.OAK_PLANKS);
+	public static final RegistryObject<LeavesBlock> CYCAD_LEAVES = leaves("cycad_leaves", Blocks.OAK_LEAVES);
+	public static final RegistryObject<SlabBlock> CYCAD_SLAB = slab("cycad_slab", Blocks.OAK_SLAB);
+	public static final RegistryObject<StairBlock> CYCAD_STAIRS = stairs("cycad_stairs", CYCAD_PLANKS, Blocks.OAK_STAIRS);
+	public static final RegistryObject<MachinaSignBlock> CYCAD_SIGN = sign("cycad_sign", Blocks.OAK_SIGN, CYCAD);
+	public static final RegistryObject<MachinaWallSignBlock> CYCAD_WALL_SIGN = wall_sign("cycad_wall_sign", Blocks.OAK_WALL_SIGN, CYCAD);
+	public static final RegistryObject<MachinaHangingSignBlock> CYCAD_HANGING_SIGN = hanging_sign("cycad_hanging_sign", Blocks.OAK_HANGING_SIGN, CYCAD);
+	public static final RegistryObject<MachinaHangingWallSignBlock> CYCAD_WALL_HANGING_SIGN = wall_hanging_sign("cycad_wall_hanging_sign", Blocks.OAK_WALL_HANGING_SIGN, CYCAD);
+	public static final RegistryObject<ButtonBlock> CYCAD_BUTTON = wood_button("cycad_button", Blocks.OAK_BUTTON, CYCAD);
+	public static final RegistryObject<DoorBlock> CYCAD_DOOR = wood_door("cycad_door", Blocks.OAK_DOOR, CYCAD);
+	public static final RegistryObject<TrapDoorBlock> CYCAD_TRAPDOOR = wood_trapdoor("cycad_trapdoor", Blocks.OAK_TRAPDOOR, CYCAD);
+	public static final RegistryObject<FenceBlock> CYCAD_FENCE = fence("cycad_fence", Blocks.OAK_FENCE);
+	public static final RegistryObject<FenceGateBlock> CYCAD_FENCE_GATE = fence_gate("cycad_fence_gate", Blocks.OAK_FENCE_GATE, CYCAD);
+	public static final RegistryObject<PressurePlateBlock> CYCAD_PRESSURE_PLATE = wood_pressure_plate("cycad_pressure_plate", Blocks.OAK_PRESSURE_PLATE, CYCAD);
 
 	public static final RegistryObject<BushBlock> TROPICAL_GRASS = register("tropical_grass", Blocks.GRASS, BushBlock::new);
 	public static final RegistryObject<BushBlock> TWISTED_GRASS = register("twisted_grass", Blocks.GRASS, BushBlock::new);

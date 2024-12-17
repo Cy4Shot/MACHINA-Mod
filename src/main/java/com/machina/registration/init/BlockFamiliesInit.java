@@ -63,6 +63,16 @@ public class BlockFamiliesInit {
 				BlockInit.CONIFEROUS_WALL_HANGING_SIGN.get(),
 				new Block[] { BlockInit.GREEN_CONIFEROUS_LEAVES.get(), BlockInit.YELLOW_CONIFEROUS_LEAVES.get(),
 						BlockInit.ORANGE_CONIFEROUS_LEAVES.get(), BlockInit.RED_CONIFEROUS_LEAVES.get() }));
+		WOODS.add(new WoodFamily(BlockInit.CYCAD_LOG.get(), BlockInit.CYCAD_WOOD.get(),
+				BlockInit.STRIPPED_CYCAD_LOG.get(), BlockInit.STRIPPED_CYCAD_WOOD.get(),
+				BlockInit.CYCAD_PLANKS.get(), BlockInit.CYCAD_STAIRS.get(), BlockInit.CYCAD_SLAB.get(),
+				BlockInit.CYCAD_FENCE.get(), BlockInit.CYCAD_FENCE_GATE.get(),
+				BlockInit.CYCAD_DOOR.get(), BlockInit.CYCAD_TRAPDOOR.get(),
+				BlockInit.CYCAD_PRESSURE_PLATE.get(), BlockInit.CYCAD_BUTTON.get(),
+				ItemInit.CYCAD_SIGN.get(), ItemInit.CYCAD_HANGING_SIGN.get(), BlockInit.CYCAD_SIGN.get(),
+				BlockInit.CYCAD_WALL_SIGN.get(), BlockInit.CYCAD_HANGING_SIGN.get(),
+				BlockInit.CYCAD_WALL_HANGING_SIGN.get(),
+				new Block[] { BlockInit.CYCAD_LEAVES.get() }));
 
 		STONES.add(new StoneFamily(BlockInit.ANTHRACITE.get(), BlockInit.ANTHRACITE_SLAB.get(),
 				BlockInit.ANTHRACITE_STAIRS.get(), BlockInit.ANTHRACITE_WALL.get(),

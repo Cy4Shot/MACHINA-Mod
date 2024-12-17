@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/cycad_slab"
+    },
+    "type=double": {
+      "model": "machina:block/cycad_planks"
+    },
+    "type=top": {
+      "model": "machina:block/cycad_slab_top"
+    }
+  }
+}

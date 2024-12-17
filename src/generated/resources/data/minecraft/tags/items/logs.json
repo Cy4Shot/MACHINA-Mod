@@ -15,6 +15,10 @@
     "machina:coniferous_log",
     "machina:stripped_coniferous_log",
     "machina:coniferous_wood",
-    "machina:stripped_coniferous_wood"
+    "machina:stripped_coniferous_wood",
+    "machina:cycad_log",
+    "machina:stripped_cycad_log",
+    "machina:cycad_wood",
+    "machina:stripped_cycad_wood"
   ]
 }

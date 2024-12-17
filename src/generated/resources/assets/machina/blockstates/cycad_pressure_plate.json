@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "machina:block/cycad_pressure_plate"
+    },
+    "powered=true": {
+      "model": "machina:block/cycad_pressure_plate_down"
+    }
+  }
+}

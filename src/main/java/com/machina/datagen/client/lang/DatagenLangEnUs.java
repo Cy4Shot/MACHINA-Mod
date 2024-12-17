@@ -247,6 +247,23 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.CONIFEROUS_WOOD, "Coniferous Wood");
 		add(BlockInit.STRIPPED_CONIFEROUS_LOG, "Stripped Coniferous Log");
 		add(BlockInit.STRIPPED_CONIFEROUS_WOOD, "Stripped Coniferous Wood");
+		
+		add(BlockInit.CYCAD_BUTTON, "Cycad Button");
+		add(BlockInit.CYCAD_DOOR, "Cycad Door");
+		add(BlockInit.CYCAD_FENCE, "Cycad Fence");
+		add(BlockInit.CYCAD_FENCE_GATE, "Cycad Fence Gate");
+		add(BlockInit.CYCAD_HANGING_SIGN, "Cycad Hanging Sign");
+		add(BlockInit.CYCAD_LOG, "Cycad Log");
+		add(BlockInit.CYCAD_PLANKS, "Cycad Planks");
+		add(BlockInit.CYCAD_LEAVES, "Cycad Leaves");
+		add(BlockInit.CYCAD_PRESSURE_PLATE, "Cycad Pressure Plate");
+		add(BlockInit.CYCAD_SIGN, "Cycad Sign");
+		add(BlockInit.CYCAD_SLAB, "Cycad Slab");
+		add(BlockInit.CYCAD_STAIRS, "Cycad Stairs");
+		add(BlockInit.CYCAD_TRAPDOOR, "Cycad Trapdoor");
+		add(BlockInit.CYCAD_WOOD, "Cycad Wood");
+		add(BlockInit.STRIPPED_CYCAD_LOG, "Stripped Cycad Log");
+		add(BlockInit.STRIPPED_CYCAD_WOOD, "Stripped Cycad Wood");
 
 		add(BlockInit.TROPICAL_GRASS, "Tropical Grass");
 		add(BlockInit.TWISTED_GRASS, "Twisted Grass");
