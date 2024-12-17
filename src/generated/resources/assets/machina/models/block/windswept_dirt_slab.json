@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "machina:block/windswept_dirt",
+    "side": "machina:block/windswept_dirt",
+    "top": "machina:block/windswept_dirt"
+  }
+}

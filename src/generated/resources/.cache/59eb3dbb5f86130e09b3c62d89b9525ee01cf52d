@@ -1,4 +1,4 @@
-// 1.20.1	2024-12-17T16:08:46.0217802	Loot Tables
+// 1.20.1	2024-12-17T22:02:35.5217212	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -299,6 +299,11 @@ f89e84cdbb3abe2752b1e42f229814ef8baa13c4 data/machina/loot_tables/blocks/white_s
 cd430d349c704e1341ee0b60779627200bfe803a data/machina/loot_tables/blocks/white_soapstone_slab.json
 dea2f5c0fc10e902ad49e702ff53c06db9e1f54b data/machina/loot_tables/blocks/white_soapstone_stairs.json
 bd0ab62bc679811844e021cf433251e18386c8e8 data/machina/loot_tables/blocks/white_soapstone_wall.json
+073bb79920bfc40ec5744149edd424b9ab4661e1 data/machina/loot_tables/blocks/windswept_dirt.json
+34754ac4572e07f92671e092156c7b960510da09 data/machina/loot_tables/blocks/windswept_dirt_slab.json
+349f20bd6d26e9b679bebfa0166e9b54adcaaa8f data/machina/loot_tables/blocks/windswept_dirt_stairs.json
+a7b0071e10ecfed3944084f374355bdac44b4b60 data/machina/loot_tables/blocks/windswept_grass.json
+1d3968b7e051ec2526f2b9b7c4f254fc34cad610 data/machina/loot_tables/blocks/windswept_grass_block.json
 fa5b2e22bdc08587380e7e828d54df8763c1482d data/machina/loot_tables/blocks/y2_nana.json
 bcadea4d104a03a71078e4a63b470ea4c259ae99 data/machina/loot_tables/blocks/yellow_coniferous_leaves.json
 ed99877834a58552c785a7863ed84c1020c62269 data/machina/loot_tables/blocks/yellow_glowshroom.json

@@ -71,6 +71,7 @@ public class DatagenLootTables extends LootTableProvider {
 			dropAsSilk(BlockInit.TWISTED_GRASS.get());
 			dropAsSilk(BlockInit.CONIFEROUS_GRASS.get());
 			dropAsSilk(BlockInit.SHORT_CONIFEROUS_GRASS.get());
+			dropAsSilk(BlockInit.WINDSWEPT_GRASS.get());
 			dropAsSilk(BlockInit.PURPLE_PETALS.get());
 			dropAsSilk(BlockInit.RED_PETALS.get());
 			dropAsSilk(BlockInit.ORANGE_PETALS.get());

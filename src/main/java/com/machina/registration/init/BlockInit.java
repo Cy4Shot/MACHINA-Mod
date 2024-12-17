@@ -156,6 +156,7 @@ public class BlockInit {
 	public static final RegistryObject<Block> TROPICAL_GRASS_BLOCK = block("tropical_grass_block", Blocks.GRASS_BLOCK);
 	public static final RegistryObject<Block> FOREST_GRASS_BLOCK = block("forest_grass_block", Blocks.GRASS_BLOCK);
 	public static final RegistryObject<Block> CONIFEROUS_GRASS_BLOCK = block("coniferous_grass_block", Blocks.GRASS_BLOCK);
+	public static final RegistryObject<Block> WINDSWEPT_GRASS_BLOCK = block("windswept_grass_block", Blocks.GRASS_BLOCK);
 	
 	public static final RegistryObject<Block> TROPICAL_DIRT = block("tropical_dirt", Blocks.DIRT);
 	public static final RegistryObject<StairBlock> TROPICAL_DIRT_STAIRS = stairs("tropical_dirt_stairs", TROPICAL_DIRT, Blocks.DIRT);
@@ -168,6 +169,10 @@ public class BlockInit {
 	public static final RegistryObject<Block> CONIFEROUS_DIRT = block("coniferous_dirt", Blocks.DIRT);
 	public static final RegistryObject<StairBlock> CONIFEROUS_DIRT_STAIRS = stairs("coniferous_dirt_stairs", CONIFEROUS_DIRT, Blocks.DIRT);
 	public static final RegistryObject<SlabBlock> CONIFEROUS_DIRT_SLAB = slab("coniferous_dirt_slab", Blocks.DIRT);
+	
+	public static final RegistryObject<Block> WINDSWEPT_DIRT = block("windswept_dirt", Blocks.DIRT);
+	public static final RegistryObject<StairBlock> WINDSWEPT_DIRT_STAIRS = stairs("windswept_dirt_stairs", WINDSWEPT_DIRT, Blocks.DIRT);
+	public static final RegistryObject<SlabBlock> WINDSWEPT_DIRT_SLAB = slab("windswept_dirt_slab", Blocks.DIRT);
 	
 	public static final RegistryObject<Block> SILT = block("silt", Blocks.MUD);
 	public static final RegistryObject<StairBlock> SILT_STAIRS = stairs("silt_stairs", SILT, Blocks.MUD);
@@ -285,6 +290,7 @@ public class BlockInit {
 	public static final RegistryObject<BushBlock> TWISTED_GRASS = register("twisted_grass", Blocks.GRASS, BushBlock::new);
 	public static final RegistryObject<BushBlock> CONIFEROUS_GRASS = register("coniferous_grass", Blocks.GRASS, BushBlock::new);
 	public static final RegistryObject<BushBlock> SHORT_CONIFEROUS_GRASS = register("short_coniferous_grass", Blocks.GRASS, BushBlock::new);
+	public static final RegistryObject<BushBlock> WINDSWEPT_GRASS = register("windswept_grass", Blocks.GRASS, BushBlock::new);
 	
 	public static final RegistryObject<SmallFlowerBlock> CLOVER = register("clover", Blocks.PINK_PETALS, SmallFlowerBlock::new);
 	public static final RegistryObject<SmallFlowerBlock> SPINDLESPROUT = register("spindlesprout", Blocks.FERN, SmallFlowerBlock::new);
