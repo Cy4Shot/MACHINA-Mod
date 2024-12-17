@@ -76,12 +76,14 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		}
 	}
 
-	public record PlanetBiomeBigRockJsonInfo(String type, String block, float chance)
+	public record PlanetBiomeBigRockJsonInfo(String type, String block, String extra, float chance,
+			float up_extra_chance, float down_extra_chance, float side_extra_chance)
 			implements JsonInfo<PlanetBiomeBigRock> {
 
 		@Override
 		public PlanetBiomeBigRock cast() {
-			return new PlanetBiomeBigRock(new ResourceLocation(type), getBlock(block), chance);
+			return new PlanetBiomeBigRock(new ResourceLocation(type), getBlock(block), getBlock(extra), chance,
+					up_extra_chance, down_extra_chance, side_extra_chance);
 		}
 	}
 

@@ -55,6 +55,11 @@ public abstract class SDF {
 		return this;
 	}
 
+	public SDF addPostProcesses(List<? extends SDFPostProcessor> postProcess) {
+		postProcess.forEach(this.postProcesses::add);
+		return this;
+	}
+
 	public SDF setReplaceFunction(Function<BlockState, Boolean> canReplace) {
 		this.canReplace = canReplace;
 		return this;

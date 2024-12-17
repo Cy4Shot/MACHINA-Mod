@@ -12,6 +12,7 @@ import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FruitInit;
 import com.machina.registration.init.ItemInit;
 import com.machina.registration.init.MaterialRuleInit;
+import com.machina.registration.init.PlanetRockInit;
 import com.machina.registration.init.PlanetTreeInit;
 import com.machina.registration.init.SoundInit;
 import com.machina.registration.init.TabInit;
@@ -31,6 +32,7 @@ public class Registration {
 		registerConfig(ModConfig.Type.COMMON, CommonConfig.COMMON_SPEC);
 
 		PlanetTreeInit.TREES.register(bus);
+		PlanetRockInit.ROCKS.register(bus);
 		SoundInit.SOUNDS.register(bus);
 		ItemInit.ITEMS.register(bus);
 		BlockInit.BLOCKS.register(bus);

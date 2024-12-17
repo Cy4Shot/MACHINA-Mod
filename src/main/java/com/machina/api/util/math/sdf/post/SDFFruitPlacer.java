@@ -1,32 +1,33 @@
 package com.machina.api.util.math.sdf.post;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import com.machina.api.util.math.sdf.PosInfo;
 import com.machina.api.util.math.sdf.SDF.SDFPostProcessor;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 
-public record SDFFruitPlacer(RandomSource random, float chance, BlockState fruit, BlockState leaves)
-		implements SDFPostProcessor {
+public record SDFFruitPlacer(RandomSource random, Direction dir, float chance, BlockState fruit,
+		Predicate<BlockState> attachable) implements SDFPostProcessor {
 
-	public boolean isState(PosInfo pos, BlockPos p, BlockState state) {
-		return pos.getState(p).equals(state);
-	}
-
-	public boolean isAir(PosInfo pos, BlockPos p) {
-		return pos.getState(p).isAir();
+	public boolean isAir(PosInfo pos, int d) {
+		return pos.getState(pos.getPos().relative(dir, d)).isAir();
 	}
 
 	@Override
 	public Optional<Pair<BlockPos, BlockState>> extra(PosInfo posInfo) {
 		BlockPos p = posInfo.getPos();
-		if (isState(posInfo, p, leaves) && random.nextFloat() < chance) {
-			if (isAir(posInfo, p.below()) && isAir(posInfo, p.below(2))) {
-				return Optional.of(Pair.of(p.below(), fruit));
+		if (attachable.test(posInfo.getState(p)) && random.nextFloat() < chance) {
+			if (isAir(posInfo, 1) && isAir(posInfo, 2)) {
+				if (dir != Direction.DOWN) {
+					System.out.println("Fruit placed at " + p + " with dir " + dir);
+				}
+				return Optional.of(Pair.of(p.relative(dir), fruit));
 			}
 		}
 		return Optional.empty();

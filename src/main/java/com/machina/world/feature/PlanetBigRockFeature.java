@@ -42,6 +42,9 @@ public class PlanetBigRockFeature extends Feature<PlanetBigRockFeature.PlanetBig
 		if (rock == null)
 			return false;
 
+		rock = rock.setReplaceFunction(s -> true);
+		rock = rock.addPostProcesses(maker.extras(random, cfg));
+
 		rock.fillRecursive(level, origin);
 		return true;
 	}

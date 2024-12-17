@@ -14,7 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 
-public class BulbRock implements RockMaker {
+public class WispRock implements RockMaker {
 	@Override
 	public SDF build(PlanetBiomeBigRock config, RandomSource random, WorldGenLevel l, BlockPos p) {
 		float size = MathUtil.randRange(random, 6, 12);
