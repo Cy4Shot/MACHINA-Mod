@@ -6,6 +6,7 @@ import com.machina.world.feature.tree.ArchTree;
 import com.machina.world.feature.tree.ConeTree;
 import com.machina.world.feature.tree.DeadRadialBaobabTree;
 import com.machina.world.feature.tree.FirTree;
+import com.machina.world.feature.tree.InvertedMushroomTree;
 import com.machina.world.feature.tree.LollipopTree;
 import com.machina.world.feature.tree.RadialBaobabTree;
 import com.machina.world.feature.tree.SmallFirTree;
@@ -25,5 +26,6 @@ public class PlanetTreeInit {
 	public static final RegistryObject<ConeTree> CONE = TREES.register("cone", ConeTree::new);
 	public static final RegistryObject<LollipopTree> LOLLIPOP = TREES.register("lollipop", LollipopTree::new);
 	public static final RegistryObject<AcaciaTree> ACACIA = TREES.register("acacia", AcaciaTree::new);
+	public static final RegistryObject<InvertedMushroomTree> INVERTED_MUSHROOM = TREES.register("inverted_mushroom", InvertedMushroomTree::new);
 	//@formatter:on
 }

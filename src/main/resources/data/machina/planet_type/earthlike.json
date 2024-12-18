@@ -23,15 +23,21 @@
 			]
 		},
 		{
+			"name": "machina:earthlike_coniferous_forest",
+			"placements": [
+				"MIDDLE", "PLATEAU"
+			]
+		},
+		{
 			"name": "machina:earthlike_twisted_marsh",
 			"placements": [
 				"MIDDLE"
 			]
 		},
 		{
-			"name": "machina:earthlike_coniferous_forest",
+			"name": "machina:earthlike_mushroom_forest",
 			"placements": [
-				"MIDDLE", "PLATEAU"
+				"MIDDLE"
 			]
 		},
 		{

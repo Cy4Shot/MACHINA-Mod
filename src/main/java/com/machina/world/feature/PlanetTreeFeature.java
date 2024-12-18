@@ -5,7 +5,6 @@ import com.machina.api.starchart.planet_biome.TreeMaker;
 import com.machina.api.util.math.MathUtil;
 import com.machina.api.util.math.sdf.SDF;
 import com.machina.registration.init.RegistryInit;
-import com.machina.registration.init.TagInit.BlockTagInit;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
@@ -40,9 +39,9 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 		RandomSource random = ctx.random();
 		WorldGenLevel level = ctx.level();
 
-		if (!level.getBlockState(origin.below()).is(BlockTagInit.PLANET_GROWABLE)) {
-			return false;
-		}
+//		if (!level.getBlockState(origin.below()).is(BlockTagInit.PLANET_GROWABLE)) {
+//			return false;
+//		}
 
 		TreeMaker maker = ctx.config().getTree();
 		SDF tree = maker.build(cfg, random, level, origin);
