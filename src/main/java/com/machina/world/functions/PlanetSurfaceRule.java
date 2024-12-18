@@ -6,7 +6,6 @@ import org.apache.commons.lang3.function.TriFunction;
 
 import com.google.common.collect.ImmutableList;
 import com.machina.api.starchart.obj.Planet;
-import com.machina.api.starchart.planet_type.PlanetType;
 import com.machina.world.biome.PlanetBiome;
 
 import net.minecraft.core.BlockPos;
@@ -21,6 +20,7 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 public class PlanetSurfaceRule {
 
 	private static final SurfaceRules.RuleSource BEDROCK = makeStateRule(Blocks.BEDROCK.defaultBlockState());
+	private static final SurfaceRules.RuleSource AIR = makeStateRule(Blocks.AIR.defaultBlockState());
 
 	private static SurfaceRules.RuleSource makeStateRule(BlockState state) {
 		return SurfaceRules.state(state);
@@ -31,10 +31,9 @@ public class PlanetSurfaceRule {
 	}
 
 	public static SurfaceRules.RuleSource planetLike(Planet p, boolean top, boolean bottom) {
-		PlanetType type = p.type();
-		SurfaceRules.RuleSource top_block = new PlanetBiomeTopBlockRuleSource(makeStateRule(type.top()));
-		SurfaceRules.RuleSource second_top_block = new PlanetBiomeSecondBlockRuleSource(makeStateRule(type.second()));
-		SurfaceRules.RuleSource rock = new PlanetBiomeThirdBlockRuleSource(makeStateRule(type.base()));
+		SurfaceRules.RuleSource top_block = new PlanetBiomeTopBlockRuleSource(AIR);
+		SurfaceRules.RuleSource second_top_block = new PlanetBiomeSecondBlockRuleSource(AIR);
+		SurfaceRules.RuleSource rock = new PlanetBiomeThirdBlockRuleSource(makeStateRule(p.type().base()));
 
 		SurfaceRules.ConditionSource cs7 = SurfaceRules.waterBlockCheck(-1, 0);
 		SurfaceRules.ConditionSource cs8 = SurfaceRules.waterBlockCheck(0, 0);

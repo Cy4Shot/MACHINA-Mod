@@ -47,7 +47,5 @@
 			]
 		}
 	],
-	"default_top": "minecraft:grass_block",
-	"default_second": "minecraft:dirt",
-	"default_base": "minecraft:stone"
+	"base": "minecraft:stone"
 }
