@@ -45,12 +45,6 @@
 			"placements": [
 				"PLATEAU"
 			]
-		},
-		{
-			"name": "machina:none",
-			"placements": [
-				"FALLBACK"
-			]
 		}
 	],
 	"default_top": "minecraft:grass_block",

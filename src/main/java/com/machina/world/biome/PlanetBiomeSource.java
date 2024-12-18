@@ -2,6 +2,7 @@ package com.machina.world.biome;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,20 @@ import net.minecraft.world.level.dimension.LevelStem;
 
 public class PlanetBiomeSource {
 
+	private static final String MIDDLE = "MIDDLE";
+	private static final String PEAK = "PEAK";
+	private static final String SLOPE = "SLOPE";
+	private static final String PLATEAU = "PLATEAU";
+	private static final String BEACH = "BEACH";
+	private static final String RIVER = "RIVER";
+	private static final String CAVE_SHALLOW = "CAVE_SHALLOW";
+	private static final String CAVE_MIDDLE = "CAVE_MIDDLE";
+	private static final String CAVE_DEEP = "CAVE_DEEP";
+	private static final String DEEP_OCEAN = "DEEP_OCEAN";
+	private static final String OCEAN = "OCEAN";
+
+	private static final Set<String> WATER_ONLY = Set.of(DEEP_OCEAN, OCEAN, BEACH, RIVER);
+
 	private static final Parameter ZERO = Parameter.point(0.0F);
 	private static final Parameter ONE = Parameter.point(1.0F);
 	private static final Parameter FULL = Parameter.span(-1.0F, 1.0F);
@@ -42,6 +57,7 @@ public class PlanetBiomeSource {
 	private static final Parameter nearInlandCont = Parameter.span(-0.11F, 0.03F);
 	private static final Parameter midInlandCont = Parameter.span(0.03F, 0.3F);
 	private static final Parameter farInlandCont = Parameter.span(0.3F, 1.0F);
+
 	private final List<Pair<ParameterPoint, Holder<Biome>>> biomes;
 	private final Planet planet;
 	private final PlanetType type;
@@ -67,6 +83,9 @@ public class PlanetBiomeSource {
 	}
 
 	private List<BiomePlacement> withCategory(String category) {
+		if (!planet.hasGenLiquid() && WATER_ONLY.contains(category)) {
+			return List.of();
+		}
 		return type.biomes().stream().filter(x -> x.placements().contains(category)).collect(Collectors.toList());
 	}
 
@@ -88,35 +107,27 @@ public class PlanetBiomeSource {
 			ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, matching.get(i).biome());
 			action.accept(this.biomeReg.get(key).get(), intervals.get(i));
 		}
-
-		if (matching.isEmpty()) {
-			matching = withCategory("FALLBACK");
-			for (int i = 0; i < matching.size(); i++) {
-				ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, matching.get(i).biome());
-				action.accept(this.biomeReg.get(key).get(), FULL);
-			}
-		}
 	}
 
 	private void addOceanBiomes() {
 		if (planet.hasGenLiquid()) {
-			forall("DEEP_OCEAN", (ocean, v) -> {
+			forall(DEEP_OCEAN, (ocean, v) -> {
 				addOceanBiome(deepOceanCont, FULL, FULL, 0.0F, ocean, v);
 			});
-			forall("OCEAN", (ocean, v) -> {
+			forall(OCEAN, (ocean, v) -> {
 				addOceanBiome(oceanCont, FULL, FULL, 0.0F, ocean, v);
 			});
 		}
 	}
 
 	private void addUndergroundBiomes() {
-		forall("CAVE_SHALLOW", (cave, v) -> {
+		forall(CAVE_SHALLOW, (cave, v) -> {
 			addUndergroundBiome(FULL, FULL, depths[0], FULL, 0.0F, cave, v);
 		});
-		forall("CAVE_MIDDLE", (cave, v) -> {
+		forall(CAVE_MIDDLE, (cave, v) -> {
 			addUndergroundBiome(FULL, FULL, depths[1], FULL, 0.0F, cave, v);
 		});
-		forall("CAVE_DEEP", (cave, v) -> {
+		forall(CAVE_DEEP, (cave, v) -> {
 			addUndergroundBiome(FULL, FULL, depths[2], FULL, 0.0F, cave, v);
 		});
 	}
@@ -138,16 +149,16 @@ public class PlanetBiomeSource {
 	}
 
 	private void addPeaks(Parameter depth) {
-		forall("PLATEAU", (biome, v) -> {
+		forall(PLATEAU, (biome, v) -> {
 			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[2], depth, 0.0F, biome, v);
 			addSurfaceBiome(farInlandCont, erosions[3], depth, 0.0F, biome, v);
 		});
 
-		forall("PEAK", (biome, v) -> {
+		forall(PEAK, (biome, v) -> {
 			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[0], depth, 0.0F, biome, v);
 			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[1], depth, 0.0F, biome, v);
 		});
-		forall("MIDDLE", (biome, v) -> {
+		forall(MIDDLE, (biome, v) -> {
 			addSurfaceBiome(Parameter.span(coastCont, nearInlandCont), Parameter.span(erosions[2], erosions[3]), depth,
 					0.0F, biome, v);
 			addSurfaceBiome(Parameter.span(coastCont, farInlandCont), erosions[4], depth, 0.0F, biome, v);
@@ -157,18 +168,18 @@ public class PlanetBiomeSource {
 	}
 
 	private void addHighSlice(Parameter depth) {
-		forall("PLATEAU", (biome, v) -> {
+		forall(PLATEAU, (biome, v) -> {
 			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[2], depth, 0.0F, biome, v);
 			addSurfaceBiome(farInlandCont, erosions[3], depth, 0.0F, biome, v);
 		});
-		forall("SLOPE", (biome, v) -> {
+		forall(SLOPE, (biome, v) -> {
 			addSurfaceBiome(nearInlandCont, erosions[0], depth, 0.0F, biome, v);
 			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[1], depth, 0.0F, biome, v);
 		});
-		forall("PEAK", (biome, v) -> {
+		forall(PEAK, (biome, v) -> {
 			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[0], depth, 0.0F, biome, v);
 		});
-		forall("MIDDLE", (biome, v) -> {
+		forall(MIDDLE, (biome, v) -> {
 			addSurfaceBiome(coastCont, Parameter.span(erosions[0], erosions[1]), depth, 0.0F, biome, v);
 			addSurfaceBiome(Parameter.span(coastCont, nearInlandCont), Parameter.span(erosions[2], erosions[3]), depth,
 					0.0F, biome, v);
@@ -178,11 +189,11 @@ public class PlanetBiomeSource {
 	}
 
 	private void addMidSlice(Parameter depth) {
-		forall("PLATEAU", (biome, v) -> {
+		forall(PLATEAU, (biome, v) -> {
 			addSurfaceBiome(farInlandCont, erosions[1], depth, 0.0F, biome, v);
 			addSurfaceBiome(farInlandCont, erosions[2], depth, 0.0F, biome, v);
 		});
-		forall("BEACH", (biome, v) -> {
+		forall(BEACH, (biome, v) -> {
 			if (depth.max() < 0L) {
 				addSurfaceBiome(coastCont, erosions[4], depth, 0.0F, biome, v);
 			}
@@ -190,10 +201,10 @@ public class PlanetBiomeSource {
 				addSurfaceBiome(coastCont, erosions[6], depth, 0.0F, biome, v);
 			}
 		});
-		forall("SLOPE", (biome, v) -> {
+		forall(SLOPE, (biome, v) -> {
 			addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[0], depth, 0.0F, biome, v);
 		});
-		forall("MIDDLE", (biome, v) -> {
+		forall(MIDDLE, (biome, v) -> {
 			addSurfaceBiome(nearInlandCont, erosions[2], depth, 0.0F, biome, v);
 			addSurfaceBiome(Parameter.span(coastCont, nearInlandCont), erosions[3], depth, 0.0F, biome, v);
 			if (depth.max() < 0L) {
@@ -209,11 +220,11 @@ public class PlanetBiomeSource {
 	}
 
 	private void addLowSlice(Parameter depth) {
-		forall("BEACH", (biome, v) -> {
+		forall(BEACH, (biome, v) -> {
 			addSurfaceBiome(coastCont, Parameter.span(erosions[3], erosions[4]), depth, 0.0F, biome, v);
 			addSurfaceBiome(coastCont, erosions[6], depth, 0.0F, biome, v);
 		});
-		forall("MIDDLE", (biome, v) -> {
+		forall(MIDDLE, (biome, v) -> {
 			addSurfaceBiome(nearInlandCont, Parameter.span(erosions[2], erosions[3]), depth, 0.0F, biome, v);
 			addSurfaceBiome(Parameter.span(nearInlandCont, farInlandCont), erosions[4], depth, 0.0F, biome, v);
 			addSurfaceBiome(Parameter.span(midInlandCont, farInlandCont), erosions[5], depth, 0.0F, biome, v);
@@ -223,12 +234,12 @@ public class PlanetBiomeSource {
 	}
 
 	private void addValleys(Parameter depth) {
-		forall("BEACH", (biome, v) -> {
+		forall(BEACH, (biome, v) -> {
 			if (depth.max() < 0L) {
 				addSurfaceBiome(coastCont, Parameter.span(erosions[0], erosions[1]), depth, 0.0F, biome, v);
 			}
 		});
-		forall("RIVER", (biome, v) -> {
+		forall(RIVER, (biome, v) -> {
 			if (depth.max() >= 0L) {
 				addSurfaceBiome(coastCont, Parameter.span(erosions[0], erosions[1]), depth, 0.0F, biome, v);
 			}
