@@ -15,6 +15,7 @@ import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBlockWei
 import com.machina.api.util.block.BlockHelper;
 import com.machina.api.util.loader.JsonInfo;
 
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -28,14 +29,16 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		return BlockHelper.parseState(BlockHelper.blockHolderLookup(), block);
 	}
 
-	public record PlanetBiomeTreeJsonInfo(String type, String wood, String leaves, float chance, List<String> fruits,
-			float fruit_chance, float tree_fruit_chance) implements JsonInfo<PlanetBiomeTree> {
+	public record PlanetBiomeTreeJsonInfo(String type, List<String> blocks, float chance, List<String> fruits,
+			List<String> fruit_dirs, float fruit_chance, float tree_fruit_chance) implements JsonInfo<PlanetBiomeTree> {
 
 		@Override
 		public PlanetBiomeTree cast() {
+			List<BlockState> blocks = blocks().stream().map(PlanetBiomeJsonInfo::getBlock).collect(Collectors.toList());
 			List<BlockState> fruits = fruits().stream().map(PlanetBiomeJsonInfo::getBlock).collect(Collectors.toList());
-			return new PlanetBiomeTree(new ResourceLocation(type), getBlock(wood), getBlock(leaves), chance, fruits,
-					fruit_chance, tree_fruit_chance);
+			List<Direction> fruit_dirs = fruit_dirs().stream().map(Direction::byName).collect(Collectors.toList());
+			return new PlanetBiomeTree(new ResourceLocation(type), blocks, chance, fruits, fruit_dirs, fruit_chance,
+					tree_fruit_chance);
 		}
 	}
 

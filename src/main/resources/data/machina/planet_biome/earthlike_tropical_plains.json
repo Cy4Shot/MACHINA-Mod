@@ -15,43 +15,60 @@
 	"trees": [
 		{
 			"type": "machina:radial_baobab",
-			"wood": "machina:tropical_wood",
-			"leaves": "machina:tropical_leaves[persistent=true]",
+			"blocks": [
+				"machina:tropical_wood",
+				"machina:tropical_leaves[persistent=true]"
+			],
 			"chance": 0.12,
 			"fruits": [
 				"machina:tama_spore"
+			],
+			"fruit_dirs": [
+				"DOWN"
 			],
 			"fruit_chance": 0.03,
 			"tree_fruit_chance": 0.3
 		},
 		{
 			"type": "machina:acacia",
-			"wood": "machina:tropical_wood",
-			"leaves": "machina:tropical_leaves[persistent=true]",
+			"blocks": [
+				"machina:tropical_wood",
+				"machina:tropical_leaves[persistent=true]"
+			],
 			"chance": 0.2,
 			"fruits": [
+			],
+			"fruit_dirs": [
 			],
 			"fruit_chance": 0,
 			"tree_fruit_chance": 0
 		},
 		{
 			"type": "machina:dead_radial_baobab",
-			"wood": "machina:dead_tropical_wood",
-			"leaves": "minecraft:air",
+			"blocks": [
+				"machina:dead_tropical_wood"
+			],
 			"chance": 0.1,
 			"fruits": [
 				"machina:dead_tropical_fence"
+			],
+			"fruit_dirs": [
+				"DOWN"
 			],
 			"fruit_chance": 0.12,
 			"tree_fruit_chance": 1
 		},
 		{
 			"type": "machina:dead_radial_baobab",
-			"wood": "machina:dead_tropical_wood",
-			"leaves": "minecraft:air",
+			"blocks": [
+				"machina:dead_tropical_wood"
+			],
 			"chance": 0.03,
 			"fruits": [
 				"machina:sparr_ball"
+			],
+			"fruit_dirs": [
+				"DOWN"
 			],
 			"fruit_chance": 0.24,
 			"tree_fruit_chance": 1

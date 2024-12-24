@@ -15,31 +15,44 @@
 	"trees": [
 		{
 			"type": "machina:arch",
-			"wood": "machina:pine_wood",
-			"leaves": "machina:pine_leaves[persistent=true]",
+			"blocks": [
+				"machina:pine_wood",
+				"machina:pine_leaves[persistent=true]"
+			],
 			"chance": 0.2,
 			"fruits": [
 				"machina:pine_fence"
+			],
+			"fruit_dirs": [
+				"DOWN"
 			],
 			"fruit_chance": 0.25,
 			"tree_fruit_chance": 1
 		},
 		{
 			"type": "machina:cone",
-			"wood": "machina:pine_wood",
-			"leaves": "machina:pine_leaves[persistent=true]",
+			"blocks": [
+				"machina:pine_wood",
+				"machina:pine_leaves[persistent=true]"
+			],
 			"chance": 0.33,
 			"fruits": [
+			],
+			"fruit_dirs": [
 			],
 			"fruit_chance": 0,
 			"tree_fruit_chance": 0
 		},
 		{
 			"type": "machina:lollipop",
-			"wood": "machina:pine_wood",
-			"leaves": "machina:pine_leaves[persistent=true]",
+			"blocks": [
+				"machina:pine_wood",
+				"machina:pine_leaves[persistent=true]"
+			],
 			"chance": 0.1,
 			"fruits": [
+			],
+			"fruit_dirs": [
 			],
 			"fruit_chance": 0,
 			"tree_fruit_chance": 0

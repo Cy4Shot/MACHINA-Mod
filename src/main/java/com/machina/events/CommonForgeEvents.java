@@ -76,8 +76,8 @@ public class CommonForgeEvents {
 					event.getPlayer().level().getHeightmapPos(Types.OCEAN_FLOOR, event.getPlayer().blockPosition())
 							.above(5),
 					new PlanetTreeFeature.PlanetTreeFeatureConfig(new PlanetBiomeTree(
-							PlanetTreeInit.BRANCH_FUNNEL_MUSHROOM.getId(), Blocks.DIAMOND_BLOCK.defaultBlockState(),
-							Blocks.GREEN_STAINED_GLASS.defaultBlockState(), 1, List.of(), 0, 0))));
+							PlanetTreeInit.BRANCH_FUNNEL_MUSHROOM.getId(), List.of(Blocks.DIAMOND_BLOCK.defaultBlockState(),
+							Blocks.GREEN_STAINED_GLASS.defaultBlockState()), 1, List.of(), List.of(), 0, 0))));
 			System.out.println("Result: " + val);
 			return;
 		}

@@ -50,7 +50,7 @@ public class PlanetTreeFeature extends Feature<PlanetTreeFeature.PlanetTreeFeatu
 
 		if (random.nextFloat() < cfg.tree_fruit_chance()) {
 			BlockState f = MathUtil.randomInList(cfg.fruit(), random);
-			tree = tree.addPostProcess(maker.fruit(random, cfg, f));
+			tree = tree.addPostProcesses(maker.fruit(random, cfg, f));
 		}
 
 		tree.fillRecursive(level, origin);

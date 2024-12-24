@@ -15,40 +15,56 @@
 	"trees": [
 		{
 			"type": "machina:small_fir",
-			"wood": "machina:coniferous_wood",
-			"leaves": "machina:green_coniferous_leaves[persistent=true]",
+			"blocks": [
+				"machina:coniferous_wood",
+				"machina:green_coniferous_leaves[persistent=true]"
+			],
 			"chance": 0.8,
 			"fruits": [
+			],
+			"fruit_dirs": [
 			],
 			"fruit_chance": 0,
 			"tree_fruit_chance": 0
 		},
 		{
 			"type": "machina:small_fir",
-			"wood": "machina:coniferous_wood",
-			"leaves": "machina:yellow_coniferous_leaves[persistent=true]",
+			"blocks": [
+				"machina:coniferous_wood",
+				"machina:yellow_coniferous_leaves[persistent=true]"
+			],
 			"chance": 0.8,
 			"fruits": [
+			],
+			"fruit_dirs": [
 			],
 			"fruit_chance": 0,
 			"tree_fruit_chance": 0
 		},
 		{
 			"type": "machina:small_fir",
-			"wood": "machina:coniferous_wood",
-			"leaves": "machina:orange_coniferous_leaves[persistent=true]",
+			"blocks": [
+				"machina:coniferous_wood",
+				"machina:orange_coniferous_leaves[persistent=true]"
+			],
 			"chance": 0.8,
 			"fruits": [
+			],
+			"fruit_dirs": [
 			],
 			"fruit_chance": 0,
 			"tree_fruit_chance": 0
 		},
 		{
 			"type": "machina:small_fir",
-			"wood": "machina:coniferous_wood",
-			"leaves": "machina:red_coniferous_leaves[persistent=true]",
+			"blocks": [
+				"machina:coniferous_wood",
+				"machina:red_coniferous_leaves[persistent=true]"
+			],
 			"chance": 0.8,
 			"fruits": [
+			],
+			"fruit_dirs": [
 			],
 			"fruit_chance": 0,
 			"tree_fruit_chance": 0
