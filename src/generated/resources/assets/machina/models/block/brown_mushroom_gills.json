@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "machina:block/brown_mushroom_gills"
+  }
+}

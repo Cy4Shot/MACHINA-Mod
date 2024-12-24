@@ -15,23 +15,25 @@
 	"trees": [
 		{
 			"type": "machina:bell_mushroom",
-			"wood": "machina:coniferous_wood",
-			"leaves": "machina:green_coniferous_leaves[persistent=true]",
+			"wood": "machina:brown_mushroom_stalk",
+			"leaves": "machina:brown_mushroom_cap",
 			"chance": 0.09,
 			"fruits": [
+				"machina:brown_mushroom_gills"
 			],
-			"fruit_chance": 0,
-			"tree_fruit_chance": 0
+			"fruit_chance": 1,
+			"tree_fruit_chance": 1
 		},
 		{
 			"type": "machina:branch_funnel_mushroom",
-			"wood": "machina:coniferous_wood",
-			"leaves": "machina:green_coniferous_leaves[persistent=true]",
+			"wood": "machina:purple_mushroom_stalk",
+			"leaves": "machina:purple_mushroom_cap",
 			"chance": 0.03,
 			"fruits": [
+				"machina:purple_mushroom_gills"
 			],
-			"fruit_chance": 0,
-			"tree_fruit_chance": 0
+			"fruit_chance": 0.5,
+			"tree_fruit_chance": 1
 		}
 	],
 	"bushes": [

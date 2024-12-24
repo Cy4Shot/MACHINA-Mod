@@ -59,6 +59,27 @@ public class TabInit {
 				family(a, BlockFamiliesInit.STONES);
 
 				family(a, BlockFamiliesInit.WOODS);
+				
+				add(a, BlockInit.BROWN_MUSHROOM_STALK);
+				add(a, BlockInit.GREEN_MUSHROOM_STALK);
+				add(a, BlockInit.PURPLE_MUSHROOM_STALK);
+				add(a, BlockInit.YELLOW_MUSHROOM_STALK);
+				add(a, BlockInit.BROWN_MUSHROOM_CAP);
+				add(a, BlockInit.RED_MUSHROOM_CAP);
+				add(a, BlockInit.PURPLE_MUSHROOM_CAP);
+				add(a, BlockInit.YELLOW_MUSHROOM_CAP);
+				add(a, BlockInit.BROWN_MUSHROOM_GILLS);
+				add(a, BlockInit.RED_MUSHROOM_GILLS);
+				add(a, BlockInit.PURPLE_MUSHROOM_GILLS);
+				add(a, BlockInit.YELLOW_MUSHROOM_GILLS);
+				add(a, BlockInit.SPECKLED_BROWN_MUSHROOM_CAP);
+				add(a, BlockInit.SPECKLED_RED_MUSHROOM_CAP);
+				add(a, BlockInit.SPECKLED_PURPLE_MUSHROOM_CAP);
+				add(a, BlockInit.SPECKLED_YELLOW_MUSHROOM_CAP);
+				add(a, BlockInit.IMBUED_BROWN_MUSHROOM_CAP);
+				add(a, BlockInit.IMBUED_RED_MUSHROOM_CAP);
+				add(a, BlockInit.IMBUED_PURPLE_MUSHROOM_CAP);
+				add(a, BlockInit.IMBUED_YELLOW_MUSHROOM_CAP);
 
 				add(a, BlockInit.TROPICAL_GRASS);
 				add(a, BlockInit.TWISTED_GRASS);

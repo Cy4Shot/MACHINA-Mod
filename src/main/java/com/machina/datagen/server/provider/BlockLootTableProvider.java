@@ -10,10 +10,12 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public abstract class BlockLootTableProvider extends BlockLootSubProvider {
@@ -35,6 +37,15 @@ public abstract class BlockLootTableProvider extends BlockLootSubProvider {
 
 	public void dropAsSilk(Block block) {
 		this.dropWhenSilkTouch(block);
+	}
+
+	public void dropAsSilkOr(Block block, ItemLike drop) {
+		this.add(block,
+				LootTable.lootTable()
+						.withPool(LootPool.lootPool().when(HAS_SILK_TOUCH).setRolls(ConstantValue.exactly(1.0F))
+								.add(LootItem.lootTableItem(drop)))
+						.withPool(LootPool.lootPool().when(HAS_NO_SILK_TOUCH).setRolls(ConstantValue.exactly(1.0F))
+								.add(LootItem.lootTableItem(block))));
 	}
 
 	public void dropWithSilk(Block block, ItemLike drop) {

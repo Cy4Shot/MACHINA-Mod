@@ -290,6 +290,27 @@ public class BlockInit {
 	public static final RegistryObject<FenceBlock> CYCAD_FENCE = fence("cycad_fence", Blocks.OAK_FENCE);
 	public static final RegistryObject<FenceGateBlock> CYCAD_FENCE_GATE = fence_gate("cycad_fence_gate", Blocks.OAK_FENCE_GATE, CYCAD);
 	public static final RegistryObject<PressurePlateBlock> CYCAD_PRESSURE_PLATE = wood_pressure_plate("cycad_pressure_plate", Blocks.OAK_PRESSURE_PLATE, CYCAD);
+	
+	public static final RegistryObject<Block> BROWN_MUSHROOM_STALK = block("brown_mushroom_stalk", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> GREEN_MUSHROOM_STALK = block("green_mushroom_stalk", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> PURPLE_MUSHROOM_STALK = block("purple_mushroom_stalk", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> YELLOW_MUSHROOM_STALK = block("yellow_mushroom_stalk", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> BROWN_MUSHROOM_CAP = block("brown_mushroom_cap", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> RED_MUSHROOM_CAP = block("red_mushroom_cap", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> PURPLE_MUSHROOM_CAP = block("purple_mushroom_cap", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> YELLOW_MUSHROOM_CAP = block("yellow_mushroom_cap", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> BROWN_MUSHROOM_GILLS = block("brown_mushroom_gills", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> RED_MUSHROOM_GILLS = block("red_mushroom_gills", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> PURPLE_MUSHROOM_GILLS = block("purple_mushroom_gills", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> YELLOW_MUSHROOM_GILLS = block("yellow_mushroom_gills", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> SPECKLED_BROWN_MUSHROOM_CAP = block("speckled_brown_mushroom_cap", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> SPECKLED_RED_MUSHROOM_CAP = block("speckled_red_mushroom_cap", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> SPECKLED_PURPLE_MUSHROOM_CAP = block("speckled_purple_mushroom_cap", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> SPECKLED_YELLOW_MUSHROOM_CAP = block("speckled_yellow_mushroom_cap", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> IMBUED_BROWN_MUSHROOM_CAP = block("imbued_brown_mushroom_cap", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> IMBUED_RED_MUSHROOM_CAP = block("imbued_red_mushroom_cap", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> IMBUED_PURPLE_MUSHROOM_CAP = block("imbued_purple_mushroom_cap", Blocks.MUSHROOM_STEM);
+	public static final RegistryObject<Block> IMBUED_YELLOW_MUSHROOM_CAP = block("imbued_yellow_mushroom_cap", Blocks.MUSHROOM_STEM);
 
 	public static final RegistryObject<BushBlock> TROPICAL_GRASS = register("tropical_grass", Blocks.GRASS, BushBlock::new);
 	public static final RegistryObject<BushBlock> TWISTED_GRASS = register("twisted_grass", Blocks.GRASS, BushBlock::new);

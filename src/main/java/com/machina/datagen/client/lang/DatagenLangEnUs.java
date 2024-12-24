@@ -272,6 +272,27 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.CYCAD_WOOD, "Cycad Wood");
 		add(BlockInit.STRIPPED_CYCAD_LOG, "Stripped Cycad Log");
 		add(BlockInit.STRIPPED_CYCAD_WOOD, "Stripped Cycad Wood");
+		
+		add(BlockInit.BROWN_MUSHROOM_STALK, "Brown Mushroom Stalk");
+		add(BlockInit.GREEN_MUSHROOM_STALK, "Green Mushroom Stalk");
+		add(BlockInit.PURPLE_MUSHROOM_STALK, "Purple Mushroom Stalk");
+		add(BlockInit.YELLOW_MUSHROOM_STALK, "Yellow Mushroom Stalk");
+		add(BlockInit.BROWN_MUSHROOM_CAP, "Brown Mushroom Cap");
+		add(BlockInit.RED_MUSHROOM_CAP, "Red Mushroom Cap");
+		add(BlockInit.PURPLE_MUSHROOM_CAP, "Purple Mushroom Cap");
+		add(BlockInit.YELLOW_MUSHROOM_CAP, "Yellow Mushroom Cap");
+		add(BlockInit.BROWN_MUSHROOM_GILLS, "Brown Mushroom Gills");
+		add(BlockInit.RED_MUSHROOM_GILLS, "Red Mushroom Gills");
+		add(BlockInit.PURPLE_MUSHROOM_GILLS, "Purple Mushroom Gills");
+		add(BlockInit.YELLOW_MUSHROOM_GILLS, "Yellow Mushroom Gills");
+		add(BlockInit.SPECKLED_BROWN_MUSHROOM_CAP, "Speckled Brown Mushroom Cap");
+		add(BlockInit.SPECKLED_RED_MUSHROOM_CAP, "Speckled Red Mushroom Cap");
+		add(BlockInit.SPECKLED_PURPLE_MUSHROOM_CAP, "Speckled Purple Mushroom Cap");
+		add(BlockInit.SPECKLED_YELLOW_MUSHROOM_CAP, "Speckled Yellow Mushroom Cap");
+		add(BlockInit.IMBUED_BROWN_MUSHROOM_CAP, "Imbued Brown Mushroom Cap");
+		add(BlockInit.IMBUED_RED_MUSHROOM_CAP, "Imbued Red Mushroom Cap");
+		add(BlockInit.IMBUED_PURPLE_MUSHROOM_CAP, "Imbued Purple Mushroom Cap");
+		add(BlockInit.IMBUED_YELLOW_MUSHROOM_CAP, "Imbued Yellow Mushroom Cap");
 
 		add(BlockInit.TROPICAL_GRASS, "Tropical Grass");
 		add(BlockInit.TWISTED_GRASS, "Twisted Grass");

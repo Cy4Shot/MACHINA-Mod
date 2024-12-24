@@ -11,12 +11,15 @@ import com.machina.api.util.math.MathUtil;
 import com.machina.api.util.math.sdf.SDF;
 import com.machina.api.util.math.sdf.SplineUtil;
 import com.machina.api.util.math.sdf.operator.SDFCoordModify;
+import com.machina.api.util.math.sdf.operator.SDFDisplacement;
 import com.machina.api.util.math.sdf.operator.SDFFlatWave;
 import com.machina.api.util.math.sdf.operator.SDFScale3D;
 import com.machina.api.util.math.sdf.operator.SDFSmoothUnion;
 import com.machina.api.util.math.sdf.operator.SDFSubtraction;
 import com.machina.api.util.math.sdf.operator.SDFTranslate;
+import com.machina.api.util.math.sdf.operator.SDFUnion;
 import com.machina.api.util.math.sdf.primitive.SDFCappedCone;
+import com.machina.api.util.math.sdf.primitive.SDFSphere;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -50,11 +53,17 @@ public class BranchFunnelMushroomTree implements TreeMaker {
 		SDF scaledcone = new SDFScale3D(modifiedcone, 2.2f, 1f, 2.2f);
 		SDF translatedcone = new SDFTranslate(scaledcone, xoff, height, zoff);
 		SDF branchedcone = new SDFFlatWave(translatedcone, branches, 0, 1.1f);
-		return new SDFSmoothUnion(stem, branchedcone, 4f);
+		SDF base = new SDFSmoothUnion(stem, branchedcone, 4f);
+		
+		SDF leaves = new SDFSphere(5f).setBlock(config.leaves());
+		leaves = new SDFTranslate(leaves, 0, height + 9f, 0);
+		leaves = new SDFDisplacement(leaves, random, 5f);
+		
+		return new SDFUnion(base, leaves);
 	}
 
 	@Override
 	public BlockState getLeafAttachment(PlanetBiomeTree config, RandomSource random) {
-		return config.wood();
+		return config.leaves();
 	}
 }

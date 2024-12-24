@@ -56,6 +56,6 @@ public class BellMushroomTree implements TreeMaker {
 
 	@Override
 	public BlockState getLeafAttachment(PlanetBiomeTree config, RandomSource random) {
-		return config.wood();
+		return config.leaves();
 	}
 }

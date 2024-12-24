@@ -27,7 +27,7 @@ public class PlanetTreeInit {
 	public static final RegistryObject<ConeTree> CONE = TREES.register("cone", ConeTree::new);
 	public static final RegistryObject<LollipopTree> LOLLIPOP = TREES.register("lollipop", LollipopTree::new);
 	public static final RegistryObject<AcaciaTree> ACACIA = TREES.register("acacia", AcaciaTree::new);
-	public static final RegistryObject<BellMushroomTree> CAPPED_MUSHROOM = TREES.register("bell_mushroom", BellMushroomTree::new);
-	public static final RegistryObject<BranchFunnelMushroomTree> INVERTED_MUSHROOM = TREES.register("branch_funnel_mushroom", BranchFunnelMushroomTree::new);
+	public static final RegistryObject<BellMushroomTree> BELL_MUSHROOM = TREES.register("bell_mushroom", BellMushroomTree::new);
+	public static final RegistryObject<BranchFunnelMushroomTree> BRANCH_FUNNEL_MUSHROOM = TREES.register("branch_funnel_mushroom", BranchFunnelMushroomTree::new);
 	//@formatter:on
 }

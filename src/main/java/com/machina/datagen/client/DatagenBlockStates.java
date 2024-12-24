@@ -149,6 +149,27 @@ public class DatagenBlockStates extends BlockStateProvider {
 		button(BlockInit.GNEISS_BUTTON, BlockInit.GNEISS);
 		pressure_plate(BlockInit.GNEISS_PRESSURE_PLATE, BlockInit.GNEISS);
 		pebble(BlockInit.GNEISS_PEBBLES);
+		
+		cube(BlockInit.BROWN_MUSHROOM_STALK);
+		cube(BlockInit.GREEN_MUSHROOM_STALK);
+		cube(BlockInit.PURPLE_MUSHROOM_STALK);
+		cube(BlockInit.YELLOW_MUSHROOM_STALK);
+		cube(BlockInit.BROWN_MUSHROOM_CAP);
+		cube(BlockInit.RED_MUSHROOM_CAP);
+		cube(BlockInit.PURPLE_MUSHROOM_CAP);
+		cube(BlockInit.YELLOW_MUSHROOM_CAP);
+		cube(BlockInit.BROWN_MUSHROOM_GILLS);
+		cube(BlockInit.RED_MUSHROOM_GILLS);
+		cube(BlockInit.PURPLE_MUSHROOM_GILLS);
+		cube(BlockInit.YELLOW_MUSHROOM_GILLS);
+		cube(BlockInit.SPECKLED_BROWN_MUSHROOM_CAP);
+		cube(BlockInit.SPECKLED_RED_MUSHROOM_CAP);
+		cube(BlockInit.SPECKLED_PURPLE_MUSHROOM_CAP);
+		cube(BlockInit.SPECKLED_YELLOW_MUSHROOM_CAP);
+		cube(BlockInit.IMBUED_BROWN_MUSHROOM_CAP);
+		cube(BlockInit.IMBUED_RED_MUSHROOM_CAP);
+		cube(BlockInit.IMBUED_PURPLE_MUSHROOM_CAP);
+		cube(BlockInit.IMBUED_YELLOW_MUSHROOM_CAP);
 
 		cubeBottomTopRandomRotation(BlockInit.TROPICAL_GRASS_BLOCK);
 		cubeBottomTopRandomRotation(BlockInit.FOREST_GRASS_BLOCK);

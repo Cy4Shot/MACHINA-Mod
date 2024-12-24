@@ -33,6 +33,27 @@ public class DatagenLootTables extends LootTableProvider {
 		protected void generate() {
 			dropSelf(BlockInit.ALUMINUM_BLOCK.get());
 
+			dropSelf(BlockInit.BROWN_MUSHROOM_STALK.get());
+			dropSelf(BlockInit.GREEN_MUSHROOM_STALK.get());
+			dropSelf(BlockInit.PURPLE_MUSHROOM_STALK.get());
+			dropSelf(BlockInit.YELLOW_MUSHROOM_STALK.get());
+			dropSelf(BlockInit.BROWN_MUSHROOM_CAP.get());
+			dropSelf(BlockInit.RED_MUSHROOM_CAP.get());
+			dropSelf(BlockInit.PURPLE_MUSHROOM_CAP.get());
+			dropSelf(BlockInit.YELLOW_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.BROWN_MUSHROOM_GILLS.get(), BlockInit.BROWN_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.RED_MUSHROOM_GILLS.get(), BlockInit.RED_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.PURPLE_MUSHROOM_GILLS.get(), BlockInit.PURPLE_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.YELLOW_MUSHROOM_GILLS.get(), BlockInit.YELLOW_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.SPECKLED_BROWN_MUSHROOM_CAP.get(), BlockInit.BROWN_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.SPECKLED_RED_MUSHROOM_CAP.get(), BlockInit.RED_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.SPECKLED_PURPLE_MUSHROOM_CAP.get(), BlockInit.PURPLE_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.SPECKLED_YELLOW_MUSHROOM_CAP.get(), BlockInit.YELLOW_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.IMBUED_BROWN_MUSHROOM_CAP.get(), BlockInit.BROWN_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.IMBUED_RED_MUSHROOM_CAP.get(), BlockInit.RED_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.IMBUED_PURPLE_MUSHROOM_CAP.get(), BlockInit.PURPLE_MUSHROOM_CAP.get());
+			dropAsSilkOr(BlockInit.IMBUED_YELLOW_MUSHROOM_CAP.get(), BlockInit.YELLOW_MUSHROOM_CAP.get());
+
 			dropSelf(BlockInit.PURPLE_GLOWSHROOM.get());
 			pot(BlockInit.POTTED_PURPLE_GLOWSHROOM.get());
 			dropSelf(BlockInit.PINK_GLOWSHROOM.get());
@@ -80,7 +101,7 @@ public class DatagenLootTables extends LootTableProvider {
 			dropAsSilk(BlockInit.GREEN_PETALS.get());
 			dropAsSilk(BlockInit.TURQUOISE_PETALS.get());
 			dropAsSilk(BlockInit.BLUE_PETALS.get());
-			
+
 			dropAsSilk(BlockInit.PURPLE_GROUNDLILY.get());
 			dropAsSilk(BlockInit.PINK_GROUNDLILY.get());
 			dropAsSilk(BlockInit.RED_GROUNDLILY.get());
