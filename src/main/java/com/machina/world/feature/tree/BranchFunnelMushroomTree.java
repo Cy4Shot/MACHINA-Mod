@@ -23,7 +23,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class InvertedMushroomTree implements TreeMaker {
+public class BranchFunnelMushroomTree implements TreeMaker {
 
 	@Override
 	public SDF build(PlanetBiomeTree config, RandomSource random, WorldGenLevel l, BlockPos p) {

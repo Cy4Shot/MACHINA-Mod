@@ -18,7 +18,6 @@ import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 
 // Modified SDF Library by quiquek. https://github.com/quiqueck/BCLib/
 
@@ -86,125 +85,6 @@ public abstract class SDF {
 						if (this.getDistance(bPos.getX(), bPos.getY(), bPos.getZ()) < 0) {
 							BlockState state = getBlockState(wpos);
 							PosInfo.create(mapWorld, addInfo, wpos).setState(state);
-							add.add(bPos.immutable());
-						}
-					}
-				}
-			}
-
-			blocks.addAll(ends);
-			ends.clear();
-			ends.addAll(add);
-			add.clear();
-
-			run &= !ends.isEmpty();
-		}
-
-		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
-		if (infos.size() > 0) {
-			Collections.sort(infos);
-			postProcesses.forEach(x -> x.apply(infos));
-			infos.forEach((info) -> {
-				world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
-			});
-			infos.forEach((info) -> {
-				info.getExtra().ifPresent((extra) -> {
-					world.setBlock(extra.getFirst(), extra.getSecond(), UPDATE_FLAGS);
-				});
-			});
-
-			infos.clear();
-			infos.addAll(addInfo.values());
-			Collections.sort(infos);
-			postProcesses.forEach(x -> x.apply(infos));
-			infos.forEach((info) -> {
-				if (canReplace.apply(world.getBlockState(info.getPos()))) {
-					world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
-				}
-			});
-			infos.forEach((info) -> {
-				info.getExtra().ifPresent((extra) -> {
-					if (canReplace.apply(world.getBlockState(info.getPos()))) {
-						world.setBlock(extra.getFirst(), extra.getSecond(), UPDATE_FLAGS);
-					}
-				});
-			});
-		}
-	}
-
-	public void fillArea(ServerLevelAccessor world, BlockPos center, AABB box) {
-		Map<BlockPos, PosInfo> mapWorld = Maps.newHashMap();
-		Map<BlockPos, PosInfo> addInfo = Maps.newHashMap();
-
-		MutableBlockPos mut = new MutableBlockPos();
-		for (int y = (int) box.minY; y <= box.maxY; y++) {
-			mut.setY(y);
-			for (int x = (int) box.minX; x <= box.maxX; x++) {
-				mut.setX(x);
-				for (int z = (int) box.minZ; z <= box.maxZ; z++) {
-					mut.setZ(z);
-					if (canReplace.apply(world.getBlockState(mut))) {
-						BlockPos fpos = mut.subtract(center);
-						if (this.getDistance(fpos.getX(), fpos.getY(), fpos.getZ()) < 0) {
-							PosInfo.create(mapWorld, addInfo, mut.immutable()).setState(getBlockState(mut));
-						}
-					}
-				}
-			}
-		}
-
-		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
-		if (infos.size() > 0) {
-			Collections.sort(infos);
-			postProcesses.forEach(x -> x.apply(infos));
-			infos.forEach((info) -> {
-				world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
-			});
-			infos.forEach((info) -> {
-				info.getExtra().ifPresent((extra) -> {
-					world.setBlock(extra.getFirst(), extra.getSecond(), UPDATE_FLAGS);
-				});
-			});
-			infos.clear();
-			infos.addAll(addInfo.values());
-			Collections.sort(infos);
-			postProcesses.forEach(x -> x.apply(infos));
-			infos.forEach((info) -> {
-				if (canReplace.apply(world.getBlockState(info.getPos()))) {
-					world.setBlock(info.getPos(), info.getState(), UPDATE_FLAGS);
-				}
-			});
-			infos.forEach((info) -> {
-				info.getExtra().ifPresent((extra) -> {
-					if (canReplace.apply(world.getBlockState(info.getPos()))) {
-						world.setBlock(extra.getFirst(), extra.getSecond(), UPDATE_FLAGS);
-					}
-				});
-			});
-		}
-	}
-
-	public void fillRecursiveIgnore(ServerLevelAccessor world, BlockPos start, Function<BlockState, Boolean> ignore) {
-		Map<BlockPos, PosInfo> mapWorld = Maps.newHashMap();
-		Map<BlockPos, PosInfo> addInfo = Maps.newHashMap();
-		Set<BlockPos> blocks = Sets.newHashSet();
-		Set<BlockPos> ends = Sets.newHashSet();
-		Set<BlockPos> add = Sets.newHashSet();
-		ends.add(new BlockPos(0, 0, 0));
-		boolean run = true;
-
-		MutableBlockPos bPos = new MutableBlockPos();
-
-		while (run) {
-			for (BlockPos center : ends) {
-				for (Direction dir : Direction.values()) {
-					bPos.set(center).move(dir);
-					BlockPos wpos = bPos.offset(start);
-					BlockState state = world.getBlockState(wpos);
-					boolean ign = ignore.apply(state);
-					if (!blocks.contains(bPos) && (ign || canReplace.apply(state))) {
-						if (this.getDistance(bPos.getX(), bPos.getY(), bPos.getZ()) < 0) {
-							PosInfo.create(mapWorld, addInfo, wpos).setState(ign ? state : getBlockState(bPos));
 							add.add(bPos.immutable());
 						}
 					}
@@ -336,39 +216,5 @@ public abstract class SDF {
 		}
 
 		return positions;
-	}
-
-	public Set<BlockPos> getPositions(ServerLevelAccessor world, BlockPos start) {
-		Set<BlockPos> blocks = Sets.newHashSet();
-		Set<BlockPos> ends = Sets.newHashSet();
-		Set<BlockPos> add = Sets.newHashSet();
-		ends.add(new BlockPos(0, 0, 0));
-		boolean run = true;
-
-		MutableBlockPos bPos = new MutableBlockPos();
-
-		while (run) {
-			for (BlockPos center : ends) {
-				for (Direction dir : Direction.values()) {
-					bPos.set(center).move(dir);
-					BlockPos wpos = bPos.offset(start);
-					BlockState state = world.getBlockState(wpos);
-					if (!blocks.contains(wpos) && canReplace.apply(state)) {
-						if (this.getDistance(bPos.getX(), bPos.getY(), bPos.getZ()) < 0) {
-							add.add(bPos.immutable());
-						}
-					}
-				}
-			}
-
-			ends.forEach((end) -> blocks.add(end.offset(start)));
-			ends.clear();
-			ends.addAll(add);
-			add.clear();
-
-			run &= !ends.isEmpty();
-		}
-
-		return blocks;
 	}
 }

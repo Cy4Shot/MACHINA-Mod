@@ -1,15 +1,21 @@
 package com.machina.events;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.machina.Machina;
 import com.machina.api.starchart.Starchart;
 import com.machina.api.starchart.planet_biome.PlanetBiomeLoader;
+import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
 import com.machina.registration.init.BlockFamiliesInit;
 import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 import com.machina.registration.init.ItemInit;
 import com.machina.registration.init.JsonLoaderInit;
+import com.machina.registration.init.PlanetTreeInit;
 import com.machina.world.PlanetRegistrationHandler;
 import com.machina.world.biome.PlanetBiome;
 import com.machina.world.data.PlanetDimensionData;
+import com.machina.world.feature.PlanetTreeFeature;
 import com.mojang.serialization.Lifecycle;
 
 import net.minecraft.core.BlockPos;
@@ -24,8 +30,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap.Types;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
@@ -59,19 +69,18 @@ public class CommonForgeEvents {
 	@SubscribeEvent
 	public static void onDebug(final ItemTossEvent event) {
 
-//		if (event.getEntity().getItem().getItem().equals(Items.STICK)) {
-//			boolean val = new PlanetTreeFeature().place(new FeaturePlaceContext<>(Optional.empty(),
-//					(WorldGenLevel) event.getPlayer().level(), null, event.getPlayer().getRandom(),
-//					event.getPlayer().level().getHeightmapPos(Types.OCEAN_FLOOR, event.getPlayer().blockPosition())
-//							.above(5),
-//					new PlanetTreeFeature.PlanetTreeFeatureConfig(new PlanetBiomeTree(
-//							PlanetTreeInit.INVERTED_MUSHROOM.getId(), Blocks.DIAMOND_BLOCK.defaultBlockState(),
-//							Blocks.GREEN_STAINED_GLASS.defaultBlockState(), 1, List.of(), 0, 0))));
-//			event.setCanceled(true);
-//
-//			System.out.println("Result: " + val);
-//			return;
-//		}
+		if (event.getEntity().getItem().getItem().equals(Items.STICK)) {
+			System.out.println("Placing tree");
+			boolean val = new PlanetTreeFeature().place(new FeaturePlaceContext<>(Optional.empty(),
+					(WorldGenLevel) event.getPlayer().level(), null, event.getPlayer().getRandom(),
+					event.getPlayer().level().getHeightmapPos(Types.OCEAN_FLOOR, event.getPlayer().blockPosition())
+							.above(5),
+					new PlanetTreeFeature.PlanetTreeFeatureConfig(new PlanetBiomeTree(
+							PlanetTreeInit.CAPPED_MUSHROOM.getId(), Blocks.DIAMOND_BLOCK.defaultBlockState(),
+							Blocks.GREEN_STAINED_GLASS.defaultBlockState(), 1, List.of(), 0, 0))));
+			System.out.println("Result: " + val);
+			return;
+		}
 
 		int id = 8;
 		if (!event.getPlayer().level().isClientSide()) {

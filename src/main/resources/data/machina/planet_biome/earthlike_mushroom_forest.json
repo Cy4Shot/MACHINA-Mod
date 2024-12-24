@@ -14,10 +14,20 @@
 	"second": "machina:windswept_dirt",
 	"trees": [
 		{
-			"type": "machina:inverted_mushroom",
+			"type": "machina:bell_mushroom",
 			"wood": "machina:coniferous_wood",
 			"leaves": "machina:green_coniferous_leaves[persistent=true]",
-			"chance": 0.1,
+			"chance": 0.09,
+			"fruits": [
+			],
+			"fruit_chance": 0,
+			"tree_fruit_chance": 0
+		},
+		{
+			"type": "machina:branch_funnel_mushroom",
+			"wood": "machina:coniferous_wood",
+			"leaves": "machina:green_coniferous_leaves[persistent=true]",
+			"chance": 0.03,
 			"fruits": [
 			],
 			"fruit_chance": 0,
