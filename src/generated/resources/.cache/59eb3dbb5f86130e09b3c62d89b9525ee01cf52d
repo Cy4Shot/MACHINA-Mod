@@ -1,4 +1,4 @@
-// 1.20.1	2024-12-17T22:02:35.5217212	Loot Tables
+// 1.20.1	2024-12-24T17:26:02.65781	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -169,6 +169,11 @@ ad884b112db57a9f15671e3e8980af6f1d47eed6 data/machina/loot_tables/blocks/migmati
 d4c47df92287c79e621c54e08990f8a423a733f0 data/machina/loot_tables/blocks/migmatite_wall.json
 4009b33dac7092ef3f21da4f0a7055049b548c56 data/machina/loot_tables/blocks/molten_bismuth_block.json
 7d21ddce15039c254dd54e793bd08c52b42ff901 data/machina/loot_tables/blocks/molten_lead_block.json
+d8aba5cbc8715e7e683f1bf8f03135dd5b4bda7a data/machina/loot_tables/blocks/mycelial_dirt.json
+a03cbc06e952be2b4f6e5e1ffd52d11034603fe0 data/machina/loot_tables/blocks/mycelial_dirt_slab.json
+04286f63d80b7e489771010728d29f5e2e366d11 data/machina/loot_tables/blocks/mycelial_dirt_stairs.json
+84ac1b41d418391a30a08ad7954ec2b4af159f0d data/machina/loot_tables/blocks/mycelial_grass.json
+5c6bc454832a0d30d258b715b9326dde2fb2b405 data/machina/loot_tables/blocks/mycelial_grass_block.json
 6d4f3e22d0c9758938453f09ca084751d739efc8 data/machina/loot_tables/blocks/needlegrass.json
 e71ac491d50d4ae8203f10305bf6700457fa683e data/machina/loot_tables/blocks/needlethatch.json
 7ec49c041fe229260c0d5551db89a0bd4022054e data/machina/loot_tables/blocks/nitric_acid_block.json

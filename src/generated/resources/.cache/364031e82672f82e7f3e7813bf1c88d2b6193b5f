@@ -1,6 +1,6 @@
-// 1.20.1	2024-12-17T22:02:35.5197237	Tags for minecraft:item mod id machina
+// 1.20.1	2024-12-24T17:26:02.6568108	Tags for minecraft:item mod id machina
 9dce9a4325cb6566bddd6b229a9a33a8f228c0fd data/minecraft/tags/items/buttons.json
-f1ac98773c5f418ed08bb03d49645ab7dbd804c3 data/minecraft/tags/items/dirt.json
+f055533b8c0f73c1b4b5c3d41270498100588ade data/minecraft/tags/items/dirt.json
 96f35ecb1ba7f70af766db1543a669a3422a723c data/minecraft/tags/items/doors.json
 101b9206952d8259cfc2c983b8c9b9e9796d489c data/minecraft/tags/items/fences.json
 747ebb15eb0664b959a3e6ace7c0806607b214fb data/minecraft/tags/items/fence_gates.json
@@ -10,9 +10,9 @@ f1ac98773c5f418ed08bb03d49645ab7dbd804c3 data/minecraft/tags/items/dirt.json
 7d264b8aabe04f3d67feb4394e17aacb0c60b62a data/minecraft/tags/items/logs.json
 32aa74f53cc7afe6f4fa226e8e2ea5e42b207abd data/minecraft/tags/items/planks.json
 946355f8e605b3c7cd2a700282ed1043fd0dd46b data/minecraft/tags/items/signs.json
-1c460ca24628f398ced8599d006e5d004856514b data/minecraft/tags/items/slabs.json
+8256a4ad2aa5f862c5d4924fa6d90ef4c674fe2e data/minecraft/tags/items/slabs.json
 c2ba72bc6bef0df82a063fe7cb5180a527c04e20 data/minecraft/tags/items/small_flowers.json
-c3d767218ce19e0b30a7d4636a15c35bb4964ce8 data/minecraft/tags/items/stairs.json
+1d0c01e2b14f43a45f4f2c59fb583a2f2e6e8528 data/minecraft/tags/items/stairs.json
 6bca87a9d6c87fb63495f404cbd19f858551e319 data/minecraft/tags/items/stone_buttons.json
 01cf2e7bf6c9c2e6c3634178c7e14fe65f117869 data/minecraft/tags/items/stone_crafting_materials.json
 1cc27bfa0180795c508e9de31d6adf9d80acf81d data/minecraft/tags/items/tall_flowers.json

@@ -25,6 +25,8 @@ public class BlockFamiliesInit {
 				BlockInit.CONIFEROUS_DIRT_SLAB.get(), Optional.of(BlockInit.CONIFEROUS_GRASS_BLOCK.get())));
 		DIRTS.add(new DirtFamily("windswept", BlockInit.WINDSWEPT_DIRT.get(), BlockInit.WINDSWEPT_DIRT_STAIRS.get(),
 				BlockInit.WINDSWEPT_DIRT_SLAB.get(), Optional.of(BlockInit.WINDSWEPT_GRASS_BLOCK.get())));
+		DIRTS.add(new DirtFamily("mycelial", BlockInit.MYCELIAL_DIRT.get(), BlockInit.MYCELIAL_DIRT_STAIRS.get(),
+				BlockInit.MYCELIAL_DIRT_SLAB.get(), Optional.of(BlockInit.MYCELIAL_GRASS_BLOCK.get())));
 		DIRTS.add(new DirtFamily("peat", BlockInit.PEAT.get(), BlockInit.PEAT_STAIRS.get(), BlockInit.PEAT_SLAB.get()));
 		DIRTS.add(new DirtFamily("silt", BlockInit.SILT.get(), BlockInit.SILT_STAIRS.get(), BlockInit.SILT_SLAB.get()));
 

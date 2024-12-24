@@ -161,6 +161,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.FOREST_GRASS_BLOCK, "Forest Grass Block");
 		add(BlockInit.CONIFEROUS_GRASS_BLOCK, "Coniferous Grass Block");
 		add(BlockInit.WINDSWEPT_GRASS_BLOCK, "Windswept Grass Block");
+		add(BlockInit.MYCELIAL_GRASS_BLOCK, "Mycelial Grass Block");
 
 		add(BlockInit.TROPICAL_DIRT, "Tropical Dirt");
 		add(BlockInit.TROPICAL_DIRT_STAIRS, "Tropical Dirt Stairs");
@@ -174,6 +175,9 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.WINDSWEPT_DIRT, "Windswept Dirt");
 		add(BlockInit.WINDSWEPT_DIRT_STAIRS, "Windswept Dirt Stairs");
 		add(BlockInit.WINDSWEPT_DIRT_SLAB, "Windswept Dirt Slab");
+		add(BlockInit.MYCELIAL_DIRT, "Mycelial Dirt");
+		add(BlockInit.MYCELIAL_DIRT_STAIRS, "Mycelial Dirt Stairs");
+		add(BlockInit.MYCELIAL_DIRT_SLAB, "Mycelial Dirt Slab");
 		add(BlockInit.PEAT, "Peat");
 		add(BlockInit.PEAT_STAIRS, "Peat Stairs");
 		add(BlockInit.PEAT_SLAB, "Peat Slab");
@@ -274,6 +278,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.CONIFEROUS_GRASS, "Coniferous Grass");
 		add(BlockInit.SHORT_CONIFEROUS_GRASS, "Short Coniferous Grass");
 		add(BlockInit.WINDSWEPT_GRASS, "Windswept Grass");
+		add(BlockInit.MYCELIAL_GRASS, "Mycelial Grass");
 		
 		add(BlockInit.PURPLE_PETALS, "Purple Petals");
 		add(BlockInit.RED_PETALS, "Red Petals");

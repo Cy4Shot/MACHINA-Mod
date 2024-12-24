@@ -154,6 +154,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		cubeBottomTopRandomRotation(BlockInit.FOREST_GRASS_BLOCK);
 		cubeBottomTopRandomRotation(BlockInit.CONIFEROUS_GRASS_BLOCK);
 		cubeBottomTopRandomRotation(BlockInit.WINDSWEPT_GRASS_BLOCK);
+		cubeBottomTopRandomRotation(BlockInit.MYCELIAL_GRASS_BLOCK);
 
 		cubeRandomRotation(BlockInit.TROPICAL_DIRT);
 		slab(BlockInit.TROPICAL_DIRT_SLAB, BlockInit.TROPICAL_DIRT);
@@ -170,6 +171,10 @@ public class DatagenBlockStates extends BlockStateProvider {
 		cubeRandomRotation(BlockInit.WINDSWEPT_DIRT);
 		slab(BlockInit.WINDSWEPT_DIRT_SLAB, BlockInit.WINDSWEPT_DIRT);
 		stairs(BlockInit.WINDSWEPT_DIRT_STAIRS, BlockInit.WINDSWEPT_DIRT);
+		
+		cube(BlockInit.MYCELIAL_DIRT);
+		slab(BlockInit.MYCELIAL_DIRT_SLAB, BlockInit.MYCELIAL_DIRT);
+		stairs(BlockInit.MYCELIAL_DIRT_STAIRS, BlockInit.MYCELIAL_DIRT);
 
 		cube(BlockInit.PEAT);
 		slab(BlockInit.PEAT_SLAB, BlockInit.PEAT);
@@ -273,6 +278,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		flower(BlockInit.CONIFEROUS_GRASS);
 		flower(BlockInit.SHORT_CONIFEROUS_GRASS);
 		flower(BlockInit.WINDSWEPT_GRASS);
+		flower(BlockInit.MYCELIAL_GRASS);
 
 		flower(BlockInit.SPINDLESPROUT);
 		flower(BlockInit.SMALL_FERN);

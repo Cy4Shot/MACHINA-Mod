@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "machina:block/mycelial_dirt_slab"
+    },
+    "type=double": {
+      "model": "machina:block/mycelial_dirt"
+    },
+    "type=top": {
+      "model": "machina:block/mycelial_dirt_slab_top"
+    }
+  }
+}
