@@ -50,12 +50,12 @@ public abstract class SDF {
 	public abstract BlockState getBlockState(BlockPos pos);
 
 	public SDF addPostProcess(SDFPostProcessor postProcess) {
-		this.postProcesses.add(postProcess);
+		this.postProcesses.add(0, postProcess);
 		return this;
 	}
 
 	public SDF addPostProcesses(List<? extends SDFPostProcessor> postProcess) {
-		postProcess.forEach(this.postProcesses::add);
+		postProcess.forEach(this::addPostProcess);
 		return this;
 	}
 

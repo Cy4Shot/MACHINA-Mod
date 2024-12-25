@@ -24,9 +24,6 @@ public record SDFFruitPlacer(RandomSource random, Direction dir, float chance, B
 		BlockPos p = posInfo.getPos();
 		if (attachable.test(posInfo.getState(p)) && random.nextFloat() < chance) {
 			if (isAir(posInfo, 1) && isAir(posInfo, 2)) {
-				if (dir != Direction.DOWN) {
-					System.out.println("Fruit placed at " + p + " with dir " + dir);
-				}
 				return Optional.of(Pair.of(p.relative(dir), fruit));
 			}
 		}

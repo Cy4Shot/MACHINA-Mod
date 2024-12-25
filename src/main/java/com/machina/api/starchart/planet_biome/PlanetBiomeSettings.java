@@ -80,6 +80,18 @@ public record PlanetBiomeSettings(PlanetBiomeEffects effects, BlockState base, B
 		public BlockState leaves() {
 			return blocks.get(1);
 		}
+		
+		public BlockState stem() {
+			return blocks.get(0);
+		}
+		
+		public BlockState cap() {
+			return blocks.get(1);
+		}
+		
+		public BlockState gills() {
+			return blocks.get(2);
+		}
 	}
 
 	public record PlanetBiomeBush(BlockState block, float radius, float chance) {

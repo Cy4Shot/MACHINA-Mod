@@ -35,7 +35,7 @@ public class BranchFunnelMushroomTree implements TreeMaker {
 		float xoff = MathUtil.randRangeSigned(random, 0f, 2f);
 		float zoff = MathUtil.randRangeSigned(random, 0f, 2f);
 		int branches = (int) MathUtil.randRange(random, 6, 13);
-		Function<BlockPos, BlockState> randState = pos -> random.nextInt(10) == 0 ? config.leaves() : config.wood();
+		Function<BlockPos, BlockState> randState = pos -> random.nextInt(10) == 0 ? config.cap() : config.stem();
 
 		List<Vector3f> spline = SplineUtil.makeSpline(0, 0, 0, xoff, height, zoff, (int) height - 2);
 
@@ -54,16 +54,16 @@ public class BranchFunnelMushroomTree implements TreeMaker {
 		SDF translatedcone = new SDFTranslate(scaledcone, xoff, height, zoff);
 		SDF branchedcone = new SDFFlatWave(translatedcone, branches, 0, 1.1f);
 		SDF base = new SDFSmoothUnion(stem, branchedcone, 4f);
-		
-		SDF leaves = new SDFSphere(5f).setBlock(config.leaves());
+
+		SDF leaves = new SDFSphere(5f).setBlock(config.cap());
 		leaves = new SDFTranslate(leaves, 0, height + 9f, 0);
 		leaves = new SDFDisplacement(leaves, random, 5f);
-		
+
 		return new SDFUnion(base, leaves);
 	}
 
 	@Override
 	public BlockState getLeafAttachment(PlanetBiomeTree config, RandomSource random) {
-		return config.leaves();
+		return config.cap();
 	}
 }

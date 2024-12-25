@@ -17,30 +17,38 @@
 			"type": "machina:bell_mushroom",
 			"blocks": [
 				"machina:brown_mushroom_stalk",
-				"machina:brown_mushroom_cap"
+				"machina:brown_mushroom_cap",
+				"machina:brown_mushroom_gills"
 			],
 			"chance": 0.09,
 			"fruits": [
-				"machina:brown_mushroom_gills"
+				"machina:speckled_brown_mushroom_cap"
 			],
 			"fruit_dirs": [
+				"UP",
+				"EAST",
+				"WEST",
+				"NORTH",
+				"SOUTH"
 			],
-			"fruit_chance": 1,
+			"fruit_chance": 0.1,
 			"tree_fruit_chance": 1
 		},
 		{
 			"type": "machina:branch_funnel_mushroom",
 			"blocks": [
 				"machina:purple_mushroom_stalk",
-				"machina:purple_mushroom_cap"
+				"machina:purple_mushroom_cap",
+				"machina:purple_mushroom_gills"
 			],
 			"chance": 0.03,
 			"fruits": [
-				"machina:purple_mushroom_gills"
+				"machina:imbued_purple_mushroom_cap"
 			],
 			"fruit_dirs": [
+			    "UP"
 			],
-			"fruit_chance": 0.5,
+			"fruit_chance": 1,
 			"tree_fruit_chance": 1
 		}
 	],

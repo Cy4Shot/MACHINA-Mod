@@ -36,7 +36,7 @@ public record PlanetBiomeJsonInfo(PlanetBiomeEffects effects, String base, Strin
 		public PlanetBiomeTree cast() {
 			List<BlockState> blocks = blocks().stream().map(PlanetBiomeJsonInfo::getBlock).collect(Collectors.toList());
 			List<BlockState> fruits = fruits().stream().map(PlanetBiomeJsonInfo::getBlock).collect(Collectors.toList());
-			List<Direction> fruit_dirs = fruit_dirs().stream().map(Direction::byName).collect(Collectors.toList());
+			List<Direction> fruit_dirs = fruit_dirs().stream().map(Direction::valueOf).collect(Collectors.toList());
 			return new PlanetBiomeTree(new ResourceLocation(type), blocks, chance, fruits, fruit_dirs, fruit_chance,
 					tree_fruit_chance);
 		}
