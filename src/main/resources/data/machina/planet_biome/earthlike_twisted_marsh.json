@@ -131,7 +131,7 @@
 	"lakes": {
 		"enabled": true,
 		"block": "machina:silt",
-		"chance": 0.5,
+		"chance": 0.9,
 		"decorator_chance": 0.4,
 		"decorators": [
 			{
