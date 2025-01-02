@@ -1,6 +1,8 @@
 package com.machina.api.client.screen;
 
 import com.machina.api.util.MachinaRL;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -12,6 +14,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 
 	protected static final ResourceLocation COMMON_UI = new MachinaRL("textures/gui/common_ui.png");
+	protected static final ResourceLocation BG_OVERLAY = new MachinaRL("textures/gui/bg_overlay.png");
 
 	protected long aliveTicks = 0;
 
@@ -45,6 +48,18 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 	protected void blitCommon(GuiGraphics gui, int x, int y, int u, int v, int w, int h) {
 		gui.blit(COMMON_UI, x, y, u, v, w, h, 512, 512);
 	}
+	
+	protected void blitOverlay(GuiGraphics gui, int x, int y, int w, int h) {
+		RenderSystem.enableBlend();
+		RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
+				GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
+				GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+		RenderSystem.setShaderColor(1f, 1f, 1f, 0.1f);
+		gui.blit(BG_OVERLAY, x, y, 0, 0, w, h, 512, 512);
+		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+		RenderSystem.disableBlend();
+		RenderSystem.defaultBlendFunc();
+	}
 
 	protected void drawInventory(GuiGraphics gui) {
 		int i = midWidth();
@@ -75,5 +90,31 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 		blitCommon(gui, i + k7, j + 193, 368, 0, 14, 2);
 		blitCommon(gui, i + 7, j + 163, 179 + k8, 92, 179, 2);
 	}
-
+	
+	protected void drawOverlay(GuiGraphics gui) {
+		int height = this.height + 4;
+		int width = this.width;
+		
+		int k = (int) (this.aliveTicks / 3 % 4);
+		int cw = width / 512;
+		int ch = height / 512;
+		int tw = cw * 512;
+		int th = ch * 512;
+		
+		for (int i = 0; i < cw; i++) {
+            for (int j = 0; j < ch; j++) {
+                blitOverlay(gui, i * 512, j * 512 + k, 512, 512);
+            }
+		}
+		
+		for (int i = 0; i < cw; i++) {
+			blitOverlay(gui, i * 512, th + k, 512, height - th);
+		}
+		
+		for (int j = 0; j < ch; j++) {
+			blitOverlay(gui, tw, j * 512 + k, width - tw, 512);
+		}
+		
+		blitOverlay(gui, tw, th + k, width - tw, height - th);
+	}
 }
