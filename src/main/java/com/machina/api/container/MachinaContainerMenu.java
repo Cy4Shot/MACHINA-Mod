@@ -62,12 +62,12 @@ public abstract class MachinaContainerMenu<T extends BlockEntity> extends Abstra
 
 		for (int l = 0; l < 3; ++l) {
 			for (int j1 = 0; j1 < 9; ++j1) {
-				this.addSlot(new Slot(inv, j1 + l * 9 + 9 + start, 8 + j1 * 18, 103 + l * 18 + offset));
+				this.addSlot(new Slot(inv, j1 + l * 9 + 9 + start, 8 + j1 * 20, 103 + l * 20 + offset));
 			}
 		}
 
 		for (int i1 = 0; i1 < 9; ++i1) {
-			this.addSlot(new Slot(inv, i1 + start, 8 + i1 * 18, 161 + offset));
+			this.addSlot(new Slot(inv, i1 + start, 8 + i1 * 20, 168 + offset));
 		}
 	}
 
