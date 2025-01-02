@@ -1,4 +1,6 @@
-package com.machina.api.container;
+package com.machina.api.menu;
+
+import com.machina.api.menu.slot.InvSlot;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -58,16 +60,14 @@ public abstract class MachinaContainerMenu<T extends BlockEntity> extends Abstra
 	}
 
 	public void invSlots(Inventory inv, int offset) {
-		int start = getContainerSize();
-
 		for (int l = 0; l < 3; ++l) {
 			for (int j1 = 0; j1 < 9; ++j1) {
-				this.addSlot(new Slot(inv, j1 + l * 9 + 9 + start, 8 + j1 * 20, 103 + l * 20 + offset));
+				this.addSlot(new InvSlot(inv, j1 + l * 9 + 9, 8 + j1 * 20, 103 + l * 20 + offset));
 			}
 		}
 
 		for (int i1 = 0; i1 < 9; ++i1) {
-			this.addSlot(new Slot(inv, i1 + start, 8 + i1 * 20, 168 + offset));
+			this.addSlot(new InvSlot(inv, i1, 8 + i1 * 20, 168 + offset));
 		}
 	}
 

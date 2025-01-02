@@ -16,7 +16,7 @@ import com.machina.api.cap.energy.MachinaEnergyStorage;
 import com.machina.api.cap.fluid.MachinaFluidStorage;
 import com.machina.api.cap.fluid.MachinaTank;
 import com.machina.api.cap.item.MachinaItemStorage;
-import com.machina.api.container.IMachinaMenuProvider;
+import com.machina.api.menu.IMachinaMenuProvider;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

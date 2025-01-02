@@ -1,4 +1,4 @@
-package com.machina.block.menu.slot;
+package com.machina.api.menu.slot;
 
 import java.util.function.Predicate;
 

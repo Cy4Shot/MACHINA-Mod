@@ -1,7 +1,7 @@
 package com.machina.block.menu;
 
-import com.machina.api.container.MachinaContainerMenu;
-import com.machina.block.menu.slot.AcceptSlot;
+import com.machina.api.menu.MachinaContainerMenu;
+import com.machina.api.menu.slot.AcceptSlot;
 import com.machina.block.tile.MachineCaseBlockEntity;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.MenuTypeInit;
