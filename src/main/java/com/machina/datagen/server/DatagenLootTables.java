@@ -31,6 +31,8 @@ public class DatagenLootTables extends LootTableProvider {
 
 		@Override
 		protected void generate() {
+			dropSelf(BlockInit.BASIC_MACHINE_CASE.get());
+			
 			dropSelf(BlockInit.ALUMINUM_BLOCK.get());
 
 			dropSelf(BlockInit.BROWN_MUSHROOM_STALK.get());

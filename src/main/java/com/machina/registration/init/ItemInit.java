@@ -8,6 +8,7 @@ import com.machina.block.MachinaHangingSignBlock;
 import com.machina.block.MachinaHangingWallSignBlock;
 import com.machina.block.MachinaSignBlock;
 import com.machina.block.MachinaWallSignBlock;
+import com.machina.item.BlueprintItem;
 
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
@@ -22,6 +23,8 @@ public class ItemInit {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Machina.MOD_ID);
 
 	//@formatter:off
+	public static final RegistryObject<Item> BLUEPRINT = basic("blueprint", BlueprintItem::new);
+	
 	public static final RegistryObject<Item> RAW_ALUMINUM = basic("raw_aluminum");
 	public static final RegistryObject<Item> ALUMINUM_INGOT = basic("aluminum_ingot");
 	public static final RegistryObject<Item> ALUMINUM_NUGGET = basic("aluminum_nugget");

@@ -20,7 +20,8 @@ public class TabInit {
 			.create(Registries.CREATIVE_MODE_TAB, Machina.MOD_ID);
 
 	public static final RegistryObject<CreativeModeTab> MACHINA_RESOURCES = create("machina_resources",
-			ItemInit.AMMONIUM_NITRATE, a -> {
+			ItemInit.BLUEPRINT, a -> {
+				add(a, ItemInit.BLUEPRINT);
 				add(a, BlockInit.BASIC_MACHINE_CASE);
 				
 				add(a, ItemInit.ALUMINUM_NUGGET);

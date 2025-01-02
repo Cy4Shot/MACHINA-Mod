@@ -13,6 +13,7 @@ import com.machina.api.multiblock.Multiblock;
 import com.machina.api.tile.MachinaBlockEntity;
 import com.machina.block.menu.MachineCaseMenu;
 import com.machina.registration.init.BlockEntityInit;
+import com.machina.registration.init.ItemInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,7 +23,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -45,7 +45,7 @@ public class MachineCaseBlockEntity extends MachinaBlockEntity {
 
 	@Override
 	public void createStorages() {
-		add(new MachinaItemStorage(1, (i, s) -> s.getItem().equals(Items.DIAMOND)));
+		add(new MachinaItemStorage(1, (i, s) -> s.getItem().equals(ItemInit.BLUEPRINT.get())));
 	}
 
 	@Override

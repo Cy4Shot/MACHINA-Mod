@@ -7,6 +7,7 @@ import java.nio.charset.Charset;
 import com.machina.Machina;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 public class StringUtils {
 
@@ -48,7 +49,7 @@ public class StringUtils {
 		return Component.translatable(key, params).getString();
 	}
 
-	public static Component translateMultiblockComp(String key) {
+	public static MutableComponent translateMultiblockComp(String key) {
 		return Component.translatable(Machina.MOD_ID + ".multiblock." + key);
 	}
 }

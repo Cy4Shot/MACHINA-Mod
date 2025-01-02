@@ -23,6 +23,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(TabInit.MACHINA_MISCELLANEOUS, "Machina Miscellaneous");
 
 		// Items
+		add(ItemInit.BLUEPRINT, "Blueprint");
 		add(ItemInit.RAW_ALUMINUM, "Raw Aluminum");
 		add(ItemInit.ALUMINUM_INGOT, "Aluminum Ingot");
 		add(ItemInit.ALUMINUM_NUGGET, "Aluminum Nugget");

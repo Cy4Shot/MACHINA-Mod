@@ -1,4 +1,4 @@
-// 1.20.1	2024-12-24T19:30:37.1483333	Loot Tables
+// 1.20.1	2025-01-02T23:00:38.2367438	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -14,6 +14,7 @@ ab4cd54166411b3a7ed10f070f70d05c4ad8f812 data/machina/loot_tables/blocks/anthrac
 a7338fd5382acc5e0004e3de394a2c74b536fce6 data/machina/loot_tables/blocks/argon_block.json
 06b010bf9ba168aad1098b6d59684a734db6d581 data/machina/loot_tables/blocks/argo_berry.json
 db96cf72c0093a5b6d109ad82db999ba1c354f0a data/machina/loot_tables/blocks/ava_fruit.json
+f8be84875c72f553f6d6fd04b8ec511b71e4baed data/machina/loot_tables/blocks/basic_machine_case.json
 03575f4672c2b5c529e1ee74c0b274d1cfb83fa9 data/machina/loot_tables/blocks/benzene_block.json
 fc3fe1e4a5937af629ef4f2bc43887e2d48b463b data/machina/loot_tables/blocks/benzylamine_block.json
 1b6226016087bec1e616a09bf9d16bfd4eb8e31c data/machina/loot_tables/blocks/benzyl_chloride_block.json

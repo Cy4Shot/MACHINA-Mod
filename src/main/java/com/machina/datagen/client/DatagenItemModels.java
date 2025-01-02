@@ -49,6 +49,8 @@ public class DatagenItemModels extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
+		simpleItem(ItemInit.BLUEPRINT);
+		
 		simpleItem(ItemInit.ALUMINUM_INGOT);
 		simpleItem(ItemInit.ALUMINUM_NUGGET);
 		simpleItem(ItemInit.COAL_CHUNK);
