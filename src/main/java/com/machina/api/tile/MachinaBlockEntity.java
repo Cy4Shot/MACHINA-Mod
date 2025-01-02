@@ -1,4 +1,4 @@
-package com.machina.api.block.tile;
+package com.machina.api.tile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,13 +16,20 @@ import com.machina.api.cap.energy.MachinaEnergyStorage;
 import com.machina.api.cap.fluid.MachinaFluidStorage;
 import com.machina.api.cap.fluid.MachinaTank;
 import com.machina.api.cap.item.MachinaItemStorage;
+import com.machina.api.container.IMachinaMenuProvider;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
+import net.minecraft.world.LockCode;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,27 +38,33 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 
 /**
- * Abstract class to allow Machina BlockEntities to store items, fluids and energy.
+ * Abstract class to allow Machina BlockEntities to store items, fluids and
+ * energy.
+ * 
  * @author Cy4Shot
  * @since Machina v0.1.0
  */
-public abstract class MachinaBlockEntity extends BaseBlockEntity implements Container {
+public abstract class MachinaBlockEntity extends BaseBlockEntity implements Container, IMachinaMenuProvider {
 
+	private LockCode lockKey = LockCode.NO_LOCK;
 	private final List<ICustomStorage> storages = new ArrayList<>();
 	private final LazyOptionalCache<MachinaItemStorage> item = new LazyOptionalCache<>();
 	private final LazyOptionalCache<MachinaEnergyStorage> energy = new LazyOptionalCache<>();
 	private final LazyOptionalCache<MachinaFluidStorage> fluid = new LazyOptionalCache<>();
 
-	
 	/**
 	 * Method in which the storages should be created.</br>
 	 * <ul>
-	 * <li>To create an item storage, use {@code this.item = add(new MachinaItemStorage(...));}</li>
-	 * <li>To create an fluid storage, use {@code this.fluid = add(new MachinaFluidStorage(...));}</li>
-	 * <li>To create an energy storage, use {@code this.energy = add(new MachinaEnergyStorage(...));}</li>
+	 * <li>To create an item storage, use
+	 * {@code this.item = add(new MachinaItemStorage(...));}</li>
+	 * <li>To create an fluid storage, use
+	 * {@code this.fluid = add(new MachinaFluidStorage(...));}</li>
+	 * <li>To create an energy storage, use
+	 * {@code this.energy = add(new MachinaEnergyStorage(...));}</li>
 	 * </ul>
 	 * 
-	 * <i>NOTE: You will need to create the {@code item}, {@code fluid} and {@code energy} variables.
+	 * <i>NOTE: You will need to create the {@code item}, {@code fluid} and
+	 * {@code energy} variables.
 	 * 
 	 * @author Cy4Shot
 	 */
@@ -95,12 +108,14 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Cont
 	public void load(CompoundTag tag) {
 		storages.forEach(storage -> storage.deserialize(tag.getCompound(storage.getTag())));
 		super.load(tag);
+		this.lockKey = LockCode.fromTag(tag);
 	}
 
 	@Override
 	protected void saveAdditional(CompoundTag tag) {
 		storages.forEach(storage -> tag.put(storage.getTag(), storage.serialize()));
 		super.saveAdditional(tag);
+		this.lockKey.addToTag(tag);
 	}
 
 	@Nonnull
@@ -132,7 +147,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Cont
 	@Override
 	public boolean isEmpty() {
 		MachinaItemStorage storage = this.item.get().orElseGet(() -> null);
-		
+
 		if (storage == null) {
 			return true;
 		}
@@ -143,7 +158,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Cont
 	@Override
 	public @NotNull ItemStack getItem(int pIndex) {
 		MachinaItemStorage storage = this.item.get().orElseGet(() -> null);
-		
+
 		if (storage == null) {
 			return ItemStack.EMPTY;
 		}
@@ -155,7 +170,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Cont
 	public @NotNull ItemStack removeItem(int pIndex, int pCount) {
 
 		MachinaItemStorage storage = this.item.get().orElseGet(() -> null);
-		
+
 		if (storage == null) {
 			return ItemStack.EMPTY;
 		}
@@ -255,4 +270,25 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Cont
 		}
 		return storage.tank(id);
 	}
+
+	public boolean canOpen(Player player) {
+		return canUnlock(player, this.lockKey, this.getDisplayName());
+	}
+
+	public static boolean canUnlock(Player player, LockCode lock, Component name) {
+		if (!player.isSpectator() && !lock.unlocksWith(player.getMainHandItem())) {
+			player.displayClientMessage(Component.translatable("container.isLocked", name), true);
+			player.playNotifySound(SoundEvents.CHEST_LOCKED, SoundSource.BLOCKS, 1.0F, 1.0F);
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Nullable
+	public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
+		return this.canOpen(player) ? this.createMenu(id, inv) : null;
+	}
+
+	protected abstract AbstractContainerMenu createMenu(int id, Inventory inv);
 }

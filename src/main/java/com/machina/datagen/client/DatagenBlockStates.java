@@ -3,10 +3,10 @@ package com.machina.datagen.client;
 import java.util.function.Function;
 
 import com.machina.Machina;
-import com.machina.api.block.MachinaWaterlilyBlock;
-import com.machina.api.block.PebbleBlock;
-import com.machina.api.block.SmallFlowerBlock;
 import com.machina.api.util.MachinaRL;
+import com.machina.block.MachinaWaterlilyBlock;
+import com.machina.block.PebbleBlock;
+import com.machina.block.SmallFlowerBlock;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;

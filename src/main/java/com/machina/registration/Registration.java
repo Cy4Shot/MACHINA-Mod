@@ -12,6 +12,7 @@ import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FruitInit;
 import com.machina.registration.init.ItemInit;
 import com.machina.registration.init.MaterialRuleInit;
+import com.machina.registration.init.MenuTypeInit;
 import com.machina.registration.init.PlanetRockInit;
 import com.machina.registration.init.PlanetTreeInit;
 import com.machina.registration.init.SoundInit;
@@ -41,6 +42,7 @@ public class Registration {
 		FluidInit.FLUID_TYPES.register(bus);
 		TabInit.CREATIVE_MODE_TABS.register(bus);
 		BlockEntityInit.BLOCK_ENTITY_TYPES.register(bus);
+		MenuTypeInit.MENU_TYPES.register(bus);
 		BlockStateProviderInit.BLOCK_STATE_PROVIDERS.register(bus);
 		MaterialRuleInit.MATERIAL_RULES.register(bus);
 		ChunkGeneratorInit.CHUNK_GENERATORS.register(bus);

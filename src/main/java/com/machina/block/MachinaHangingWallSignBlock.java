@@ -1,4 +1,4 @@
-package com.machina.api.block;
+package com.machina.block;
 
 import com.machina.registration.init.BlockEntityInit;
 

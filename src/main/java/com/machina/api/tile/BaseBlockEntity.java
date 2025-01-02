@@ -1,4 +1,4 @@
-package com.machina.api.block.tile;
+package com.machina.api.tile;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

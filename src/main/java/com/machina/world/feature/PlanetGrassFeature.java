@@ -1,7 +1,7 @@
 package com.machina.world.feature;
 
-import com.machina.api.block.PebbleBlock;
 import com.machina.api.util.block.WeightedStateProviderProvider;
+import com.machina.block.PebbleBlock;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 

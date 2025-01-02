@@ -7,14 +7,17 @@ import com.machina.api.client.cinema.effect.renderer.CinematicTextOverlay;
 import com.machina.api.client.cinema.effect.renderer.CinematicTextureOverlay;
 import com.machina.api.util.reflect.ClassHelper;
 import com.machina.client.PlanetSpecialEffects;
+import com.machina.client.screen.menu.MachineCaseScreen;
 import com.machina.registration.init.BlockEntityInit;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
 import com.machina.registration.init.KeyBindingInit;
+import com.machina.registration.init.MenuTypeInit;
 import com.machina.world.PlanetFactory;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -36,6 +39,10 @@ public class ClientModEvents {
 		CinematicHandler.setup();
 
 		FluidInit.setRenderLayers();
+
+		event.enqueueWork(() -> {
+			MenuScreens.register(MenuTypeInit.MACHINE_CASE.get(), MachineCaseScreen::new);
+		});
 	}
 
 	@SubscribeEvent

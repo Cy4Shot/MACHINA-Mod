@@ -3,8 +3,9 @@ package com.machina.registration.init;
 import java.util.function.Supplier;
 
 import com.machina.Machina;
-import com.machina.api.block.tile.MachinaHangingSignBlockEntity;
-import com.machina.api.block.tile.MachinaSignBlockEntity;
+import com.machina.block.tile.MachinaHangingSignBlockEntity;
+import com.machina.block.tile.MachinaSignBlockEntity;
+import com.machina.block.tile.MachineCaseBlockEntity;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -17,14 +18,17 @@ public class BlockEntityInit {
 	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister
 			.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Machina.MOD_ID);
 
+	//@formatter:off
+	public static final RegistryObject<BlockEntityType<MachineCaseBlockEntity>> MACHINE_CASE = register("machine_case",
+            MachineCaseBlockEntity::new, () -> BlockInit.BASIC_MACHINE_CASE.get());
+	//@formatter:on
+
 	public static final RegistryObject<BlockEntityType<MachinaSignBlockEntity>> SIGN = registerMany("sign",
 			MachinaSignBlockEntity::new, () -> BlockInit.SIGNS.stream().map(RegistryObject::get).toArray(Block[]::new));
-
 	public static final RegistryObject<BlockEntityType<MachinaHangingSignBlockEntity>> HANGING_SIGN = registerMany(
 			"hanging_sign", MachinaHangingSignBlockEntity::new,
 			() -> BlockInit.HANGING_SIGNS.stream().map(RegistryObject::get).toArray(Block[]::new));
 
-	@SuppressWarnings("unused")
 	private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String n,
 			BlockEntityType.BlockEntitySupplier<T> s, Supplier<Block> b) {
 		return BLOCK_ENTITY_TYPES.register(n, () -> BlockEntityType.Builder.of(s, b.get()).build(null));

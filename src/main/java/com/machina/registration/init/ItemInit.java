@@ -3,11 +3,11 @@ package com.machina.registration.init;
 import java.util.function.Supplier;
 
 import com.machina.Machina;
-import com.machina.api.block.MachinaHangingSignBlock;
-import com.machina.api.block.MachinaHangingWallSignBlock;
-import com.machina.api.block.MachinaSignBlock;
-import com.machina.api.block.MachinaWallSignBlock;
 import com.machina.api.item.ChemicalItem;
+import com.machina.block.MachinaHangingSignBlock;
+import com.machina.block.MachinaHangingWallSignBlock;
+import com.machina.block.MachinaSignBlock;
+import com.machina.block.MachinaWallSignBlock;
 
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;

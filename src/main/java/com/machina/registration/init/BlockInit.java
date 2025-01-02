@@ -6,13 +6,14 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import com.machina.Machina;
-import com.machina.api.block.MachinaHangingSignBlock;
-import com.machina.api.block.MachinaHangingWallSignBlock;
-import com.machina.api.block.MachinaSignBlock;
-import com.machina.api.block.MachinaWallSignBlock;
-import com.machina.api.block.MachinaWaterlilyBlock;
-import com.machina.api.block.PebbleBlock;
-import com.machina.api.block.SmallFlowerBlock;
+import com.machina.block.MachinaHangingSignBlock;
+import com.machina.block.MachinaHangingWallSignBlock;
+import com.machina.block.MachinaSignBlock;
+import com.machina.block.MachinaWallSignBlock;
+import com.machina.block.MachinaWaterlilyBlock;
+import com.machina.block.MachineCaseBlock;
+import com.machina.block.PebbleBlock;
+import com.machina.block.SmallFlowerBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
@@ -54,6 +55,8 @@ public class BlockInit {
 			Machina.MOD_ID);
 
 	//@formatter:off
+	public static final RegistryObject<Block> BASIC_MACHINE_CASE = register("basic_machine_case", Blocks.IRON_BLOCK, MachineCaseBlock::new);
+	
 	public static final RegistryObject<Block> ALUMINUM_BLOCK = block("aluminum_block", Blocks.IRON_BLOCK);
 	public static final RegistryObject<Block> ALUMINUM_ORE = block("aluminum_ore", Blocks.IRON_ORE);
 
