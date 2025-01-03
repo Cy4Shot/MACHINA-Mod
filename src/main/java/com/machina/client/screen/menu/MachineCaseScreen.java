@@ -17,7 +17,7 @@ public class MachineCaseScreen extends MachinaMenuScreen<MachineCaseMenu> {
 
 	@Override
 	protected void renderBg(GuiGraphics gui, float pt, int mx, int my) {
-		drawInventory(gui);
+		drawInventory(gui, mx, my);
 		drawOverlay(gui);
 	}
 
