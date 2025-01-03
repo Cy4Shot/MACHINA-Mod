@@ -4,6 +4,7 @@ import com.machina.api.util.MachinaRL;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -66,19 +67,17 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 	protected void drawInventory(GuiGraphics gui, int mx, int my) {
 		int i = midWidth();
 		int j = midHeight();
-
-		int k1 = (int) Math.max(4 - this.aliveTicks, 0);
-		int k2 = 6 - (int) (this.aliveTicks % 6);
+		boolean hovered = this.hoveredSlot != null && this.hoveredSlot.container == minecraft.player.getInventory();
 
 		int sx, sy;
-		if (this.hoveredSlot != null) {
+		if (hovered) {
 			sx = i + this.hoveredSlot.x + 2;
 			sy = j + this.hoveredSlot.y + 3;
 		} else {
 			sx = Math.min(i + 176, Math.max(i + 3, mx - 5));
 			sy = Math.min(j + 176, Math.max(j + 98, my - 5));
 		}
-		
+
 		if (this.lsx == null || this.lsy == null) {
 			this.lsx = (float) sx;
 			this.lsy = (float) sy;
@@ -87,20 +86,21 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 			this.lsy += (sy - this.lsy) / 50f;
 		}
 
+		int k1 = (int) Math.max(4 - this.aliveTicks, 0);
+		int k2 = 6 - lsx.intValue() % 6;
+
 		// Backdrop
 		blitCommon(gui, i + 3, j + 98, 179, 0, 187, 92);
 		blitCommon(gui, i + 7, j + 102, 0, 84 * k1, 179, 84);
 
 		// Active Slot
-		if (this.hoveredSlot != null) {
+		if (hovered) {
 			blitCommon(gui, i + this.hoveredSlot.x - 1, j + this.hoveredSlot.y - 1, 368, 2, 19, 19);
 		}
 
 		// Decorators
-//		blitCommon(gui, i + 193, lsy.intValue(), 366, 0, 2, 14);
 		blitCommon(gui, i - 2, lsy.intValue(), 366, 0, 2, 14);
 		blitCommon(gui, lsx.intValue(), j + 193, 368, 0, 14, 2);
-
 		blitCommon(gui, i + 7, j + 163, 179 + k2, 92, 179, 2);
 	}
 
