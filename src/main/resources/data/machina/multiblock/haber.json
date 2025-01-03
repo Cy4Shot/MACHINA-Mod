@@ -1,10 +1,10 @@
 {
 	"size": [3, 3, 3],
 	"blocks": {
-		"I": "machina:input_valve",
-		"O": "machina:output_valve",
-		"T": "machina:transposer",
-		"H": "machina:temperature_valve"
+		"I": "minecraft:diamond_block",
+		"O": "minecraft:gold_block",
+		"T": "minecraft:iron_block",
+		"H": "minecraft:emerald_block"
 	},
 	"structure": [
 		["   ", " T ", "   "],

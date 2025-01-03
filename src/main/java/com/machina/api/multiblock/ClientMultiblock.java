@@ -3,14 +3,17 @@ package com.machina.api.multiblock;
 import java.util.function.Predicate;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.ColorResolver;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.lighting.LevelLightEngine;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-public class ClientMultiblock implements BlockGetter {
+public class ClientMultiblock implements BlockAndTintGetter {
 
 	public Multiblock mb;
 
@@ -63,5 +66,20 @@ public class ClientMultiblock implements BlockGetter {
 	@Override
 	public int getMinBuildHeight() {
 		return -128;
+	}
+
+	@Override
+	public float getShade(Direction p_45522_, boolean p_45523_) {
+		return 0;
+	}
+
+	@Override
+	public LevelLightEngine getLightEngine() {
+		return null;
+	}
+
+	@Override
+	public int getBlockTint(BlockPos p_45520_, ColorResolver p_45521_) {
+		return 0;
 	}
 }

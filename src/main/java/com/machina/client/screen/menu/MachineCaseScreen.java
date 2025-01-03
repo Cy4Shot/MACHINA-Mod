@@ -2,6 +2,7 @@ package com.machina.client.screen.menu;
 
 import com.machina.api.client.screen.MachinaMenuScreen;
 import com.machina.block.menu.MachineCaseMenu;
+import com.machina.registration.init.MultiblockInit;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -19,6 +20,7 @@ public class MachineCaseScreen extends MachinaMenuScreen<MachineCaseMenu> {
 	protected void renderBg(GuiGraphics gui, float pt, int mx, int my) {
 		drawInventory(gui, mx, my);
 		drawOverlay(gui);
+		drawMultiblock(gui, MultiblockInit.HABER, 0, 0, 1, pt, 90, 0);
 	}
 
 }

@@ -79,7 +79,7 @@ public class MachineCaseBlockEntity extends MachinaBlockEntity {
 				for (int z = 0; z < size.getZ(); z++) {
 					String v = mb.structure[x][y][z];
 					if (v != " ") {
-						List<BlockState> allowed = mb.map.get(v);
+						List<BlockState> allowed = List.of(mb.map.get(v));
 						BlockPos pos = new BlockPos(cp.getX() + x, cp.getY() + y, cp.getZ() + z);
 						BlockState state = this.level.getBlockState(pos);
 						if (!allowed.contains(state))
