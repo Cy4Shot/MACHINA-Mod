@@ -194,4 +194,13 @@ public class MathUtil {
 			}
 		}
 	}
+	
+	public static int numTrue(boolean... bs) {
+		int num = 0;
+		for (boolean b : bs) {
+			if (b)
+				num++;
+		}
+		return num;
+	}
 }

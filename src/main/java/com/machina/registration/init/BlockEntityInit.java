@@ -6,6 +6,7 @@ import com.machina.Machina;
 import com.machina.block.tile.MachinaHangingSignBlockEntity;
 import com.machina.block.tile.MachinaSignBlockEntity;
 import com.machina.block.tile.MachineCaseBlockEntity;
+import com.machina.block.tile.connector.EnergyCableBlockEntity;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -19,6 +20,8 @@ public class BlockEntityInit {
 			.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Machina.MOD_ID);
 
 	//@formatter:off
+	public static final RegistryObject<BlockEntityType<EnergyCableBlockEntity>> ENERGY_CABLE = register("energy_cable",
+            EnergyCableBlockEntity::new, () -> BlockInit.ENERGY_CABLE.get());
 	public static final RegistryObject<BlockEntityType<MachineCaseBlockEntity>> MACHINE_CASE = register("machine_case",
             MachineCaseBlockEntity::new, () -> BlockInit.BASIC_MACHINE_CASE.get());
 	//@formatter:on

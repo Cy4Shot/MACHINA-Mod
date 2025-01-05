@@ -14,6 +14,7 @@ import com.machina.block.MachinaWaterlilyBlock;
 import com.machina.block.MachineCaseBlock;
 import com.machina.block.PebbleBlock;
 import com.machina.block.SmallFlowerBlock;
+import com.machina.block.connector.EnergyCableBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
@@ -55,7 +56,8 @@ public class BlockInit {
 			Machina.MOD_ID);
 
 	//@formatter:off
-	public static final RegistryObject<Block> BASIC_MACHINE_CASE = register("basic_machine_case", Blocks.IRON_BLOCK, MachineCaseBlock::new);
+	public static final RegistryObject<EnergyCableBlock> ENERGY_CABLE = register("energy_cable", EnergyCableBlock::new);
+	public static final RegistryObject<MachineCaseBlock> BASIC_MACHINE_CASE = register("basic_machine_case", Blocks.IRON_BLOCK, MachineCaseBlock::new);
 	
 	public static final RegistryObject<Block> ALUMINUM_BLOCK = block("aluminum_block", Blocks.IRON_BLOCK);
 	public static final RegistryObject<Block> ALUMINUM_ORE = block("aluminum_ore", Blocks.IRON_ORE);
@@ -400,8 +402,14 @@ public class BlockInit {
 		return () -> constructor.apply((extra.apply(Block.Properties.copy(block))));
 	}
 
-	public static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block) {
+	public static <T extends Block> RegistryObject<T> _register(String name, Supplier<T> block) {
 		return BLOCKS.register(name, block);
+	}
+	
+	public static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block) {
+		RegistryObject<T> ro = _register(name, block);
+		registerBlockItem(name, ro);
+		return ro;
 	}
 
 	public static RegistryObject<Block> block(String name, Block prop) {
@@ -504,12 +512,12 @@ public class BlockInit {
 	}
 
 	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<? extends Block> flower) {
-		return register(name, BlockInit.of(Blocks.FLOWER_POT, a -> a, p -> new FlowerPotBlock(flower.get(), p)));
+		return _register(name, BlockInit.of(Blocks.FLOWER_POT, a -> a, p -> new FlowerPotBlock(flower.get(), p)));
 	}
 
 	public static RegistryObject<FlowerPotBlock> flower_pot(String name, RegistryObject<FlowerBlock> flower,
 			Function<Block.Properties, Block.Properties> extra) {
-		return register(name, BlockInit.of(Blocks.FLOWER_POT, extra, p -> new FlowerPotBlock(flower.get(), p)));
+		return _register(name, BlockInit.of(Blocks.FLOWER_POT, extra, p -> new FlowerPotBlock(flower.get(), p)));
 	}
 
 	public static RegistryObject<PebbleBlock> pebbles(String name) {
@@ -532,20 +540,20 @@ public class BlockInit {
 
 	public static <T extends Block> RegistryObject<T> registerNI(String name, Block prop,
 			Function<Block.Properties, Block.Properties> extra, Function<Block.Properties, T> constructor) {
-		return register(name, BlockInit.of(prop, extra, constructor));
+		return _register(name, BlockInit.of(prop, extra, constructor));
 	}
 
 	public static <T extends Block> RegistryObject<T> registerCI(String name, Block prop,
 			Function<Block.Properties, Block.Properties> extra, Function<Block.Properties, T> constructor,
 			Function<RegistryObject<T>, ? extends BlockItem> item) {
-		RegistryObject<T> ro = register(name, BlockInit.of(prop, extra, constructor));
+		RegistryObject<T> ro = _register(name, BlockInit.of(prop, extra, constructor));
 		ItemInit.ITEMS.register(name, () -> item.apply(ro));
 		return ro;
 	}
 
 	public static <T extends Block> RegistryObject<T> register(String name, Block prop,
 			Function<Block.Properties, Block.Properties> extra, Function<Block.Properties, T> constructor) {
-		RegistryObject<T> ro = register(name, BlockInit.of(prop, extra, constructor));
+		RegistryObject<T> ro = _register(name, BlockInit.of(prop, extra, constructor));
 		registerBlockItem(name, ro);
 		return ro;
 	}

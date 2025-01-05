@@ -3,6 +3,7 @@ package com.machina.datagen.client;
 import java.util.function.Function;
 
 import com.machina.Machina;
+import com.machina.api.block.ConnectorBlock;
 import com.machina.api.util.MachinaRL;
 import com.machina.block.MachinaWaterlilyBlock;
 import com.machina.block.PebbleBlock;
@@ -50,6 +51,8 @@ public class DatagenBlockStates extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
+
+		connector(BlockInit.ENERGY_CABLE);
 
 		cube(BlockInit.ALUMINUM_BLOCK);
 		cube(BlockInit.ALUMINUM_ORE);
@@ -149,7 +152,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		button(BlockInit.GNEISS_BUTTON, BlockInit.GNEISS);
 		pressure_plate(BlockInit.GNEISS_PRESSURE_PLATE, BlockInit.GNEISS);
 		pebble(BlockInit.GNEISS_PEBBLES);
-		
+
 		cube(BlockInit.BROWN_MUSHROOM_STALK);
 		cube(BlockInit.GREEN_MUSHROOM_STALK);
 		cube(BlockInit.PURPLE_MUSHROOM_STALK);
@@ -188,11 +191,11 @@ public class DatagenBlockStates extends BlockStateProvider {
 		cubeRandomRotation(BlockInit.CONIFEROUS_DIRT);
 		slab(BlockInit.CONIFEROUS_DIRT_SLAB, BlockInit.CONIFEROUS_DIRT);
 		stairs(BlockInit.CONIFEROUS_DIRT_STAIRS, BlockInit.CONIFEROUS_DIRT);
-		
+
 		cubeRandomRotation(BlockInit.WINDSWEPT_DIRT);
 		slab(BlockInit.WINDSWEPT_DIRT_SLAB, BlockInit.WINDSWEPT_DIRT);
 		stairs(BlockInit.WINDSWEPT_DIRT_STAIRS, BlockInit.WINDSWEPT_DIRT);
-		
+
 		cube(BlockInit.MYCELIAL_DIRT);
 		slab(BlockInit.MYCELIAL_DIRT_SLAB, BlockInit.MYCELIAL_DIRT);
 		stairs(BlockInit.MYCELIAL_DIRT_STAIRS, BlockInit.MYCELIAL_DIRT);
@@ -276,7 +279,7 @@ public class DatagenBlockStates extends BlockStateProvider {
 		sign(BlockInit.CONIFEROUS_HANGING_SIGN, BlockInit.CONIFEROUS_WALL_HANGING_SIGN, BlockInit.CONIFEROUS_PLANKS);
 		trapdoor(BlockInit.CONIFEROUS_TRAPDOOR);
 		door(BlockInit.CONIFEROUS_DOOR);
-		
+
 		cube(BlockInit.CYCAD_PLANKS);
 		leaves(BlockInit.CYCAD_LEAVES);
 		log(BlockInit.CYCAD_LOG);
@@ -607,6 +610,29 @@ public class DatagenBlockStates extends BlockStateProvider {
 		//@formatter:on
 
 		simpleFlatItem(p, itemTexture(p));
+	}
+
+	private void connector(RegistryObject<? extends ConnectorBlock> connector) {
+		ConnectorBlock p = connector.get();
+		ResourceLocation b = blockTexture(p);
+
+		ModelFile main = models().withExistingParent(name(p), new MachinaRL("block/connector/base"))
+				.texture("connector", b).renderType("cutout");
+		ModelFile multi = models().withExistingParent(name(p) + "_multi", new MachinaRL("block/connector/multi"))
+				.texture("multipart", b).renderType("cutout");
+
+		//@formatter:off
+		getMultipartBuilder(p)
+				.part().modelFile(main).addModel().condition(ConnectorBlock.MIDDLE, false).end()
+				.part().modelFile(multi).addModel().condition(ConnectorBlock.NORTH, true).end()
+				.part().modelFile(multi).rotationY(90).addModel().condition(ConnectorBlock.EAST, true).end()
+				.part().modelFile(multi).rotationX(180).addModel().condition(ConnectorBlock.SOUTH, true).end()
+				.part().modelFile(multi).rotationY(270).addModel().condition(ConnectorBlock.WEST, true).end()
+				.part().modelFile(multi).rotationX(270).addModel().condition(ConnectorBlock.UP, true).end()
+				.part().modelFile(multi).rotationX(90).addModel().condition(ConnectorBlock.DOWN, true).end();
+		//@formatter:on
+
+		simpleBlockItem(p, main);
 	}
 
 	private void simpleFlatItem(Block block, ResourceLocation tex) {

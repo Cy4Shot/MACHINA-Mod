@@ -13,7 +13,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.RegistryLayer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,13 +23,15 @@ import net.minecraftforge.common.util.LazyOptional;
 
 public class BlockHelper {
 	@SuppressWarnings("unchecked")
-	public static <T extends BlockEntity> void doWithTe(Level world, BlockPos pos, Class<T> clazz, Consumer<T> todo) {
+	public static <T extends BlockEntity> boolean doWithTe(BlockGetter world, BlockPos pos, Class<T> clazz, Consumer<T> todo) {
 		BlockEntity e = world.getBlockEntity(pos);
 		if (e == null || !(clazz.isAssignableFrom(e.getClass()))) {
 			Machina.LOGGER.error(String.format("BE at %s is null.", pos.toShortString()));
+			return false;
 		}
 
 		todo.accept((T) e);
+		return true;
 	}
 
 	public static <C> LazyOptional<C> getCapability(BlockGetter world, BlockPos pos, Direction side,

@@ -59,6 +59,9 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(FruitInit.ERBI_POD, "Erbi Pod");
 
 		// Blocks
+		add(BlockInit.ENERGY_CABLE, "Energy Cable");
+		add(BlockInit.BASIC_MACHINE_CASE, "Basic Machine Case");
+		
 		add(BlockInit.ALUMINUM_BLOCK, "Aluminum Block");
 		add(BlockInit.ALUMINUM_ORE, "Aluminum Ore");
 

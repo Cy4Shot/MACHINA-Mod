@@ -22,6 +22,7 @@ public class TabInit {
 	public static final RegistryObject<CreativeModeTab> MACHINA_RESOURCES = create("machina_resources",
 			ItemInit.BLUEPRINT, a -> {
 				add(a, ItemInit.BLUEPRINT);
+				add(a, BlockInit.ENERGY_CABLE);
 				add(a, BlockInit.BASIC_MACHINE_CASE);
 				
 				add(a, ItemInit.ALUMINUM_NUGGET);
