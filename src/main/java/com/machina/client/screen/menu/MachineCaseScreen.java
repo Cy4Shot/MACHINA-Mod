@@ -20,7 +20,6 @@ public class MachineCaseScreen extends MachinaMenuScreen<MachineCaseMenu> {
 	protected void renderBg(GuiGraphics gui, float pt, int mx, int my) {
 		drawInventory(gui, mx, my);
 		drawOverlay(gui);
-		drawMultiblock(gui, MultiblockInit.HABER, 0, 0, 1, pt, 90, 0);
+		drawMultiblock(gui, MultiblockInit.HABER, this.imageWidth / 2, this.imageHeight / 2, 1, pt);
 	}
-
 }

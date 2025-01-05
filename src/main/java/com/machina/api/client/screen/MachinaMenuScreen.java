@@ -8,11 +8,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.joml.Matrix4f;
+import org.lwjgl.glfw.GLFW;
 
 import com.machina.Machina;
 import com.machina.api.multiblock.ClientMultiblock;
 import com.machina.api.multiblock.MultiblockLoader;
 import com.machina.api.util.MachinaRL;
+import com.machina.api.util.math.MathUtil;
 import com.machina.api.util.math.VecUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -45,9 +47,9 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 	protected static final ResourceLocation COMMON_UI = new MachinaRL("textures/gui/common_ui.png");
 	protected static final ResourceLocation BG_OVERLAY = new MachinaRL("textures/gui/bg_overlay.png");
 
-	protected long aliveTicks = 0;
-
+	private long aliveTicks = 0;
 	private Float lsx, lsy = null;
+	private float rotX, rotY;
 
 	public MachinaMenuScreen(T menu, Inventory inv, Component title) {
 		super(menu, inv, title);
@@ -159,8 +161,7 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 		blitOverlay(gui, tw, th + k, width - tw, height - th);
 	}
 
-	public void drawMultiblock(GuiGraphics gui, ResourceLocation mbloc, int xPos, int yPos, int s, float pt,
-			float rotY, float rotX) {
+	public void drawMultiblock(GuiGraphics gui, ResourceLocation mbloc, int xPos, int yPos, int s, float pt) {
 		int x = midWidth() + xPos;
 		int y = midHeight() + yPos;
 		ClientMultiblock mb = new ClientMultiblock(MultiblockLoader.INSTANCE.get(mbloc));
@@ -181,17 +182,17 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 		gui.pose().translate(-(float) sizeX / 2, -(float) sizeY / 2, 0);
 		Matrix4f rotMat = new Matrix4f();
 		rotMat.identity();
-		gui.pose().mulPose(VecUtil.rotationDegrees(VecUtil.XP, -rotX - 30F));
-		rotMat.rotate(VecUtil.rotationDegrees(VecUtil.XP, rotX + 30));
+		gui.pose().mulPose(VecUtil.rotationDegrees(VecUtil.XP, rotX - 30F));
+		rotMat.rotate(VecUtil.rotationDegrees(VecUtil.XP, 30F - rotX));
 
 		float offX = (float) -sizeX / 2;
 		float offZ = (float) -sizeZ / 2 + 1;
 		gui.pose().translate(-offX, 0, -offZ);
-		gui.pose().mulPose(VecUtil.rotationDegrees(VecUtil.YP, rotY + 45));
-		rotMat.rotate(VecUtil.rotationDegrees(VecUtil.YP, -rotY - 45));
+		gui.pose().mulPose(VecUtil.rotationDegrees(VecUtil.YP, 45F - rotY));
+		rotMat.rotate(VecUtil.rotationDegrees(VecUtil.YP, rotY - 45F));
 		gui.pose().translate(offX, 0, offZ);
 
-		renderElements(gui.pose(), mb, size, pt, pos -> false, rotX > -30F);
+		renderElements(gui.pose(), mb, size, pt, pos -> false, rotX < 30F);
 
 		gui.pose().popPose();
 	}
@@ -218,8 +219,8 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 	}
 
 	private static void doWorldRenderPass(PoseStack ms, @Nonnull BufferSource tpBuffers,
-			@Nonnull BufferSource nmBuffers, ClientMultiblock mb, Vec3i dest,
-			Predicate<BlockPos> transparency, boolean flip) {
+			@Nonnull BufferSource nmBuffers, ClientMultiblock mb, Vec3i dest, Predicate<BlockPos> transparency,
+			boolean flip) {
 		boolean last = false;
 		for (int y = 0; y < dest.getY(); y++) {
 			for (int x = 0; x < dest.getX(); x++) {
@@ -235,7 +236,6 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 					ms.pushPose();
 					ms.translate(pos.getX(), pos.getY(), pos.getZ());
 					for (RenderType layer : RenderType.chunkBufferLayers()) {
-//						if (RenderTypeLookup.canRenderInLayer(bs, layer)) {
 						VertexConsumer buffer = (tp ? nmBuffers : tpBuffers).getBuffer(layer);
 						Vec3 vector3d = bs.getOffset(mb, pos);
 						ms.translate(vector3d.x, vector3d.y, vector3d.z);
@@ -243,7 +243,6 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 						ModelData modelData = model.getModelData(mb, pos, bs, ModelData.EMPTY);
 						mc.getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, bs, model, pos.getX(),
 								pos.getY(), pos.getZ(), 255, OverlayTexture.NO_OVERLAY, modelData, layer);
-//						}
 					}
 					ms.popPose();
 					last = tp;
@@ -315,6 +314,19 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 				return remappedTypes.computeIfAbsent(in, a -> new MultiblockRenderType(a, alpha));
 			}
 		}
+	}
+
+	@Override
+	public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
+
+		// Rotate - Right Click
+		if (pButton == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
+			this.rotX -= (float) pDragY / (float) height * 80f;
+			this.rotY -= (float) pDragX / (float) width * 180f;
+			this.rotX = MathUtil.clamp(this.rotX, 0f, 60f);
+		}
+
+		return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
 	}
 
 }
