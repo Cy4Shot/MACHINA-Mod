@@ -1,8 +1,8 @@
-package com.machina.api.menu;
+package com.machina.api.block.menu;
 
 import com.machina.api.block.MachineBlock;
-import com.machina.api.menu.slot.InvSlot;
-import com.machina.api.tile.MachinaBlockEntity;
+import com.machina.api.block.menu.slot.InvSlot;
+import com.machina.api.block.tile.MachinaBlockEntity;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;

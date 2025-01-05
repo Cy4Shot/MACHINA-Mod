@@ -11,12 +11,18 @@ public class CommonConfig {
 		COMMON_SPEC = configBuilder.build();
 	}
 	
+	public static ForgeConfigSpec.IntValue cableTransferRate;
 	public static ForgeConfigSpec.IntValue furnaceGeneratorCapacity;
 	public static ForgeConfigSpec.IntValue furnaceGeneratorRate;
 	public static ForgeConfigSpec.IntValue furnaceGeneratorTransferRate;
 
 	private static void setupConfig(ForgeConfigSpec.Builder builder) {
 		builder.push("machines");
+		
+		builder.push("cable");
+		builder.comment("EnergyCable settings");
+		cableTransferRate = builder.defineInRange("cable_transfer_rate", 5_000, 1, 999_999);
+		builder.pop();
 		
 		builder.push("furnace_generator");
 		builder.comment("FurnaceGenerator settings");

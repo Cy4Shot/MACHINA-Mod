@@ -1,9 +1,13 @@
-package com.machina.api.tile;
+package com.machina.api.block.tile;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.machina.api.block.ConnectorBlock;
+import com.machina.api.cap.IConnectorStorage;
+import com.machina.api.cap.sided.SidedLazyOptionalCache;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,25 +20,44 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 
-public abstract class ConnectorBlockEntity extends BaseBlockEntity {
+public abstract class ConnectorBlockEntity<T extends IConnectorStorage> extends BaseBlockEntity {
 
+	protected final int[] roundrobin;
 	private int recursionDepth;
 	private boolean search = false;
 
+	private final SidedLazyOptionalCache<T> cap;
 	public List<Connection> connectors = new ArrayList<>();
 	public List<BlockPos> cache = new ArrayList<>();
 	public List<Direction> dirs = new ArrayList<>();
 
 	public ConnectorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
+		this.cap = new SidedLazyOptionalCache<>();
+		this.roundrobin = new int[Direction.values().length];
+		this.revalidate();
+	}
+
+	public abstract T createStorage(Direction side);
+
+	protected void revalidate() {
+		for (Direction dir : Direction.values()) {
+			cap.revalidate(dir, s -> true, this::createStorage);
+		}
 	}
 
 	public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T be) {
 		if (level.isClientSide())
 			return;
 
-		ConnectorBlockEntity cbe = (ConnectorBlockEntity) be;
+		ConnectorBlockEntity<?> cbe = (ConnectorBlockEntity<?>) be;
+
+		for (Direction dir : Direction.values()) {
+			cbe.cap.get(dir).ifPresent(IConnectorStorage::tick);
+		}
 
 		if (cbe.search) {
 			cbe.search();
@@ -42,6 +65,43 @@ public abstract class ConnectorBlockEntity extends BaseBlockEntity {
 			cbe.sync();
 		}
 	}
+
+	public abstract Capability<?> getCapability();
+
+	@Override
+	public <C> LazyOptional<C> getCapability(Capability<C> cap, Direction d) {
+		if (cap == getCapability())
+			return this.cap.get(d).cast();
+
+		return super.getCapability(cap, d);
+	}
+
+	@Override
+	public void invalidateCaps() {
+		this.cap.invalidate();
+		super.invalidateCaps();
+	}
+
+	@Override
+	public void setRemoved() {
+		this.cap.invalidate();
+		super.setRemoved();
+	}
+
+	public int getRoundRobinIndex(Direction direction) {
+		return roundrobin[direction.get3DDataValue()];
+	}
+
+	public void setRoundRobinIndex(Direction direction, int value) {
+		roundrobin[direction.get3DDataValue()] = value;
+	}
+
+	public List<Connection> getSortedConnections(Direction side) {
+		return connectors.stream().sorted(Comparator.comparingInt(Connection::getDistance))
+				.collect(Collectors.toList());
+	}
+
+	public abstract int getRate();
 
 	@Override
 	protected void saveAdditional(CompoundTag tag) {
@@ -77,6 +137,7 @@ public abstract class ConnectorBlockEntity extends BaseBlockEntity {
 		for (int j = 0; j < sides.size(); j++) {
 			dirs.add(Direction.from3DDataValue(sides.getCompound(j).getInt("dir")));
 		}
+		this.revalidate();
 		super.load(tag);
 	}
 
@@ -86,6 +147,7 @@ public abstract class ConnectorBlockEntity extends BaseBlockEntity {
 		this.sync();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void search() {
 		if (this.level != null) {
 			addToCache(this.worldPosition);
@@ -96,7 +158,7 @@ public abstract class ConnectorBlockEntity extends BaseBlockEntity {
 
 			Block b = this.getBlockState().getBlock();
 			if (b instanceof ConnectorBlock)
-				((ConnectorBlock) b).searchConnectors(this.level, this.worldPosition, this, 0);
+				((ConnectorBlock<T>) b).searchConnectors(this.level, this.worldPosition, this, 0);
 		}
 		this.cache.clear();
 	}

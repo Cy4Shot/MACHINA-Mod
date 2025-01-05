@@ -1,7 +1,7 @@
 package com.machina.block.machine;
 
 import com.machina.api.block.MachineBlock;
-import com.machina.api.tile.MachinaBlockEntity;
+import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.block.tile.machine.FurnaceGeneratorBlockEntity;
 import com.machina.registration.init.BlockEntityInit;
 

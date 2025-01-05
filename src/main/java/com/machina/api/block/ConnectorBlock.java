@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.machina.api.tile.ConnectorBlockEntity;
+import com.machina.api.block.tile.ConnectorBlockEntity;
+import com.machina.api.block.tile.ConnectorBlockEntity.Connection;
+import com.machina.api.cap.IConnectorStorage;
 import com.machina.api.util.block.BlockHelper;
 import com.machina.api.util.math.MathUtil;
 
@@ -29,7 +31,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public abstract class ConnectorBlock extends Block implements EntityBlock {
+public abstract class ConnectorBlock<T extends IConnectorStorage> extends Block implements EntityBlock {
 
 	public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
 	public static final BooleanProperty EAST = BlockStateProperties.EAST;
@@ -75,6 +77,7 @@ public abstract class ConnectorBlock extends Block implements EntityBlock {
 		return shape;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level,
 			BlockPos pos, BlockPos facingPos) {
@@ -163,6 +166,7 @@ public abstract class ConnectorBlock extends Block implements EntityBlock {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState old, boolean moving) {
 		if (level.isClientSide())
@@ -189,6 +193,7 @@ public abstract class ConnectorBlock extends Block implements EntityBlock {
 
 	protected abstract Map<BlockPos, Set<BlockPos>> getCache();
 
+	@SuppressWarnings("unchecked")
 	public void findConnectors(BlockGetter world, BlockPos poss, BlockPos pos) {
 		Set<BlockPos> ss = getCache().get(poss);
 		if (ss == null)
@@ -202,14 +207,15 @@ public abstract class ConnectorBlock extends Block implements EntityBlock {
 					BlockHelper.doWithTe(world, blockPos, ConnectorBlockEntity.class, be -> be.enqueueSearch());
 					ss.add(pos);
 					getCache().put(poss, ss);
-					((ConnectorBlock) block).findConnectors(world, poss, blockPos);
+					((ConnectorBlock<T>) block).findConnectors(world, poss, blockPos);
 				}
 			}
 		}
 		getCache().clear();
 	}
 
-	public void searchConnectors(BlockGetter world, BlockPos pos, ConnectorBlockEntity first, int dist) {
+	@SuppressWarnings({ "unchecked" })
+	public void searchConnectors(BlockGetter world, BlockPos pos, ConnectorBlockEntity<T> first, int dist) {
 		int newdist = dist + 1;
 		for (Direction dir : Direction.values()) {
 			BlockPos blockPos = pos.relative(dir);
@@ -219,17 +225,17 @@ public abstract class ConnectorBlock extends Block implements EntityBlock {
 
 					Block block = world.getBlockState(blockPos).getBlock();
 					if (block == this) {
-						BlockHelper.doWithTe(world, blockPos, ConnectorBlockEntity.class, be -> be.dirs.forEach(
-								d -> first.connectors.add(new ConnectorBlockEntity.Connection(blockPos, d, newdist))));
+						BlockHelper.doWithTe(world, blockPos, ConnectorBlockEntity.class, be -> be.dirs
+								.forEach(d -> first.connectors.add(new Connection(blockPos, (Direction) d, newdist))));
 						first.addToCache(blockPos);
-						((ConnectorBlock) block).searchConnectors(world, blockPos, first, newdist);
+						((ConnectorBlock<T>) block).searchConnectors(world, blockPos, first, newdist);
 					}
 				}
 			}
 		}
 	}
 
-	protected abstract BlockEntityType<? extends ConnectorBlockEntity> getBlockEntityType();
+	protected abstract BlockEntityType<? extends ConnectorBlockEntity<T>> getBlockEntityType();
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
@@ -237,8 +243,8 @@ public abstract class ConnectorBlock extends Block implements EntityBlock {
 	}
 
 	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
-			BlockEntityType<T> type) {
+	public <E extends BlockEntity> BlockEntityTicker<E> getTicker(Level level, BlockState state,
+			BlockEntityType<E> type) {
 		return type == getBlockEntityType() ? ConnectorBlockEntity::tick : null;
 	}
 

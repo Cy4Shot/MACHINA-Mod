@@ -1,4 +1,4 @@
-package com.machina.api.menu.slot;
+package com.machina.api.block.menu.slot;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;

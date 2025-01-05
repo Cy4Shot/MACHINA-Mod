@@ -65,6 +65,10 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 	}
 
 	@Override
+	protected void renderLabels(GuiGraphics gui, int x, int y) {
+	}
+
+	@Override
 	protected void containerTick() {
 		super.containerTick();
 		this.aliveTicks++;
@@ -92,6 +96,18 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 		RenderSystem.disableBlend();
 		RenderSystem.defaultBlendFunc();
+	}
+
+	protected void drawString(GuiGraphics gui, Component text, int x, int y, int color) {
+		gui.drawString(font, text, x, y, color);
+	}
+
+	protected void drawStringVertical(GuiGraphics gui, Component text, int x, int y, int color) {
+		gui.pose().pushPose();
+		gui.pose().translate(x, y, 0);
+		gui.pose().mulPose(VecUtil.rotationDegrees(VecUtil.ZP, 90));
+		gui.drawString(font, text, 0, 0, color);
+		gui.pose().popPose();
 	}
 
 	protected void drawInventory(GuiGraphics gui, int mx, int my) {
@@ -132,6 +148,7 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 		blitCommon(gui, i - 2, lsy.intValue(), 366, 0, 2, 14);
 		blitCommon(gui, lsx.intValue(), j + 193, 368, 0, 14, 2);
 		blitCommon(gui, i + 7, j + 163, 179 + k2, 92, 179, 2);
+		drawStringVertical(gui, Component.translatable("container.inventory"), i + 200, j + 98, 0x00FEFE);
 	}
 
 	protected void drawOverlay(GuiGraphics gui) {

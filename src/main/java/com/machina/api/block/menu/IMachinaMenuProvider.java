@@ -1,4 +1,4 @@
-package com.machina.api.menu;
+package com.machina.api.block.menu;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;

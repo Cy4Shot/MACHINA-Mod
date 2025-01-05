@@ -5,7 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.machina.api.block.ConnectorBlock;
-import com.machina.api.tile.ConnectorBlockEntity;
+import com.machina.api.block.tile.ConnectorBlockEntity;
+import com.machina.api.cap.energy.CableEnergyStorage;
 import com.machina.api.util.block.BlockHelper;
 import com.machina.registration.init.BlockEntityInit;
 
@@ -17,7 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.MapColor;
 
-public class EnergyCableBlock extends ConnectorBlock {
+public class EnergyCableBlock extends ConnectorBlock<CableEnergyStorage> {
 
 	private static final Map<BlockPos, Set<BlockPos>> CACHE = new HashMap<>();
 
@@ -36,7 +37,7 @@ public class EnergyCableBlock extends ConnectorBlock {
 	}
 
 	@Override
-	protected BlockEntityType<? extends ConnectorBlockEntity> getBlockEntityType() {
+	protected BlockEntityType<? extends ConnectorBlockEntity<CableEnergyStorage>> getBlockEntityType() {
 		return BlockEntityInit.ENERGY_CABLE.get();
 	}
 

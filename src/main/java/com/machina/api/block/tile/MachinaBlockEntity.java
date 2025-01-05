@@ -1,4 +1,4 @@
-package com.machina.api.tile;
+package com.machina.api.block.tile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +10,13 @@ import javax.annotation.Nullable;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 
+import com.machina.api.block.menu.IMachinaMenuProvider;
 import com.machina.api.cap.energy.MachinaEnergyStorage;
 import com.machina.api.cap.fluid.MachinaFluidStorage;
 import com.machina.api.cap.sided.MultiSidedStorage;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.cap.sided.SidedStorage;
 import com.machina.api.cap.sided.SingleSidedStorage;
-import com.machina.api.menu.IMachinaMenuProvider;
 import com.machina.api.util.reflect.QuadFunction;
 
 import net.minecraft.core.BlockPos;

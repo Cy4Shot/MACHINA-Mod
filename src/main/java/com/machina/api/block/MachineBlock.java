@@ -1,6 +1,6 @@
 package com.machina.api.block;
 
-import com.machina.api.tile.MachinaBlockEntity;
+import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.util.block.BlockHelper;
 
 import net.minecraft.core.BlockPos;

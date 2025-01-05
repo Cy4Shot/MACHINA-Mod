@@ -2,9 +2,9 @@ package com.machina.block.tile.machine;
 
 import java.util.List;
 
+import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.multiblock.Multiblock;
-import com.machina.api.tile.MachinaBlockEntity;
 import com.machina.api.util.reflect.QuadFunction;
 import com.machina.block.menu.MachineCaseMenu;
 import com.machina.registration.init.BlockEntityInit;
