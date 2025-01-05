@@ -2,16 +2,15 @@ package com.machina.api.cap.item;
 
 import java.util.function.BiPredicate;
 
-import com.machina.api.cap.ICustomStorage;
+import com.machina.api.cap.IMachinaStorage;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class MachinaItemStorage extends ItemStackHandler implements ICustomStorage {
+public class MachinaItemStorage extends ItemStackHandler implements IMachinaStorage {
 
-	private Runnable onChanged;
 	private BiPredicate<Integer, ItemStack> allow = (i, s) -> true;
 
 	public MachinaItemStorage() {
@@ -39,21 +38,6 @@ public class MachinaItemStorage extends ItemStackHandler implements ICustomStora
 	@Override
 	public boolean isItemValid(int slot, ItemStack stack) {
 		return allow.test(slot, stack);
-	}
-
-	@Override
-	protected void onContentsChanged(int slot) {
-		onChanged.run();
-	}
-
-	@Override
-	public void setChanged(Runnable runnable) {
-		this.onChanged = runnable;
-	}
-
-	@Override
-	public String getTag() {
-		return "inv";
 	}
 
 	public NonNullList<ItemStack> items() {

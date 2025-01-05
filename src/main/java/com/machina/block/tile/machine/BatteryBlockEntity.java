@@ -1,9 +1,10 @@
 package com.machina.block.tile.machine;
 
-import com.machina.api.cap.energy.IEnergyBlockEntity;
-import com.machina.api.cap.energy.MachinaEnergyStorage;
 import com.machina.api.cap.item.MachinaItemStorage;
+import com.machina.api.cap.sided.Side;
 import com.machina.api.tile.MachinaBlockEntity;
+import com.machina.api.util.block.BlockHelper;
+import com.machina.api.util.reflect.QuadFunction;
 import com.machina.block.menu.BatteryMenu;
 import com.machina.registration.init.BlockEntityInit;
 import com.machina.registration.init.ItemInit;
@@ -11,11 +12,12 @@ import com.machina.registration.init.ItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BatteryBlockEntity extends MachinaBlockEntity implements IEnergyBlockEntity {
+public class BatteryBlockEntity extends MachinaBlockEntity {
 
 	public BatteryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -27,17 +29,27 @@ public class BatteryBlockEntity extends MachinaBlockEntity implements IEnergyBlo
 
 	@Override
 	public void createStorages() {
-		add(new MachinaEnergyStorage(this, 1_000_000, 1000));
-		add(new MachinaItemStorage(1, (i, s) -> s.getItem().equals(ItemInit.BLUEPRINT.get())));
+		energyStorage(Side.NONES);
+		itemStorage(new MachinaItemStorage(1, (i, s) -> s.getItem().equals(ItemInit.BLUEPRINT.get())), Side.NONES);
 	}
 
 	@Override
-	public boolean isGenerator() {
-		return false;
+	public void tick() {
+		BlockHelper.sendEnergy(level, worldPosition, getEnergy(), 1_000, this);
 	}
 
 	@Override
-	protected AbstractContainerMenu createMenu(int id, Inventory inv) {
-		return new BatteryMenu(id, inv, ContainerLevelAccess.create(level, worldPosition));
+	protected QuadFunction<Integer, Inventory, ContainerLevelAccess, ContainerData, AbstractContainerMenu> createMenu() {
+		return BatteryMenu::new;
+	}
+
+	@Override
+	public int getMaxEnergy() {
+		return 1_000_000;
+	}
+
+	@Override
+	protected int getExtraDataSize() {
+		return 0;
 	}
 }

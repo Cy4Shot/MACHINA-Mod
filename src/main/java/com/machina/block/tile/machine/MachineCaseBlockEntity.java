@@ -2,31 +2,24 @@ package com.machina.block.tile.machine;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.jetbrains.annotations.NotNull;
-
-import com.machina.api.cap.fluid.MachinaTank;
 import com.machina.api.cap.item.MachinaItemStorage;
+import com.machina.api.cap.sided.Side;
 import com.machina.api.multiblock.Multiblock;
 import com.machina.api.tile.MachinaBlockEntity;
+import com.machina.api.util.reflect.QuadFunction;
 import com.machina.block.menu.MachineCaseMenu;
 import com.machina.registration.init.BlockEntityInit;
 import com.machina.registration.init.ItemInit;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 
 public class MachineCaseBlockEntity extends MachinaBlockEntity {
 
@@ -45,12 +38,17 @@ public class MachineCaseBlockEntity extends MachinaBlockEntity {
 
 	@Override
 	public void createStorages() {
-		add(new MachinaItemStorage(1, (i, s) -> s.getItem().equals(ItemInit.BLUEPRINT.get())));
+		itemStorage(new MachinaItemStorage(1, (i, s) -> s.getItem().equals(ItemInit.BLUEPRINT.get())), Side.NONES);
 	}
 
 	@Override
-	protected AbstractContainerMenu createMenu(int id, Inventory inv) {
-		return new MachineCaseMenu(id, inv, ContainerLevelAccess.create(level, worldPosition));
+	protected int getExtraDataSize() {
+		return 1;
+	}
+
+	@Override
+	protected QuadFunction<Integer, Inventory, ContainerLevelAccess, ContainerData, AbstractContainerMenu> createMenu() {
+		return MachineCaseMenu::new;
 	}
 
 	public void update() {
@@ -92,88 +90,8 @@ public class MachineCaseBlockEntity extends MachinaBlockEntity {
 		return true;
 	}
 
-	@Nonnull
-	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if (!this.formed)
-			return LazyOptional.empty();
-		return super.getCapability(cap, side);
-	}
-
-	@Override
-	public int getContainerSize() {
-		if (!this.formed)
-			return 0;
-		return super.getContainerSize();
-	}
-
-	@Override
-	public boolean isEmpty() {
-		if (!this.formed)
-			return true;
-		return super.isEmpty();
-	}
-
-	@Override
-	public @NotNull ItemStack getItem(int pIndex) {
-		if (!this.formed)
-			return ItemStack.EMPTY;
-		return super.getItem(pIndex);
-	}
-
-	@Override
-	public @NotNull ItemStack removeItem(int pIndex, int pCount) {
-		if (!this.formed)
-			return ItemStack.EMPTY;
-		return super.removeItem(pIndex, pCount);
-	}
-
-	@Override
-	public @NotNull ItemStack removeItemNoUpdate(int pIndex) {
-		if (!this.formed)
-			return ItemStack.EMPTY;
-		return super.removeItemNoUpdate(pIndex);
-	}
-
-	@Override
-	public void setItem(int pIndex, ItemStack pStack) {
-		if (!this.formed)
-			return;
-		super.setItem(pIndex, pStack);
-	}
-
-	@Override
-	public void clearContent() {
-		if (!this.formed)
-			return;
-		super.clearContent();
-	}
-
-	@Override
-	public int getEnergy() {
-		if (!this.formed)
-			return 0;
-		return super.getEnergy();
-	}
-
 	@Override
 	public int getMaxEnergy() {
-		if (!this.formed)
-			return 0;
-		return super.getMaxEnergy();
-	}
-
-	@Override
-	public float getEnergyProp() {
-		if (!this.formed)
-			return 0;
-		return super.getEnergyProp();
-	}
-
-	@Override
-	public MachinaTank getTank(int id) {
-		if (!this.formed)
-			return null;
-		return super.getTank(id);
+		return 0;
 	}
 }

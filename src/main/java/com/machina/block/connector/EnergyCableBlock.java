@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.machina.api.block.ConnectorBlock;
-import com.machina.api.cap.energy.MachinaEnergyStorage;
 import com.machina.api.tile.ConnectorBlockEntity;
+import com.machina.api.util.block.BlockHelper;
 import com.machina.registration.init.BlockEntityInit;
 
 import net.minecraft.core.BlockPos;
@@ -27,7 +27,7 @@ public class EnergyCableBlock extends ConnectorBlock {
 
 	@Override
 	public boolean canConnect(BlockEntity be, Direction dir) {
-		return MachinaEnergyStorage.hasEnergy(be, dir);
+		return BlockHelper.hasEnergy(be, dir);
 	}
 
 	@Override

@@ -203,4 +203,8 @@ public class MathUtil {
 		}
 		return num;
 	}
+
+	public static int unsignedClampToInt(long l) {
+		return l > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) l;
+	}
 }

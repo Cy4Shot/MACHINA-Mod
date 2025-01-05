@@ -2,27 +2,27 @@ package com.machina.block.machine;
 
 import com.machina.api.block.MachineBlock;
 import com.machina.api.tile.MachinaBlockEntity;
-import com.machina.block.tile.machine.BatteryBlockEntity;
+import com.machina.block.tile.machine.FurnaceGeneratorBlockEntity;
 import com.machina.registration.init.BlockEntityInit;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-public class BatteryBlock extends MachineBlock {
+public class FurnaceGeneratorBlock extends MachineBlock {
 
-	public BatteryBlock(Properties props) {
+	public FurnaceGeneratorBlock(Properties props) {
 		super(props);
 	}
 
 	@Override
 	public BlockEntityType<?> getBlockEntityType() {
-		return BlockEntityInit.BATTERY.get();
+		return BlockEntityInit.FURNACE_GENERATOR.get();
 	}
 
 	@Override
 	public Class<? extends MachinaBlockEntity> getBlockEntityClass() {
-		return BatteryBlockEntity.class;
+		return FurnaceGeneratorBlockEntity.class;
 	}
-	
+
 	@Override
 	protected boolean isTickable() {
 		return true;

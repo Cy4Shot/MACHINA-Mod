@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
@@ -34,15 +35,30 @@ public abstract class MachineBlock extends HorizontalDirectionalBlock implements
 		} else {
 			BlockHelper.doWithTe(world, pos, getBlockEntityClass(), player::openMenu);
 			return InteractionResult.CONSUME;
-		}	
+		}
 	}
-	
+
 	public abstract Class<? extends MachinaBlockEntity> getBlockEntityClass();
 
 	public abstract BlockEntityType<?> getBlockEntityType();
 
+	protected boolean isTickable() {
+		return false;
+	}
+
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return getBlockEntityType().create(pos, state);
+	}
+
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
+			BlockEntityType<T> type) {
+		if (isTickable() && getBlockEntityType() == type) {
+			return (level1, pos, state1, blockEntity) -> {
+				((MachinaBlockEntity) blockEntity).tick();
+			};
+		}
+		return EntityBlock.super.getTicker(level, state, type);
 	}
 }

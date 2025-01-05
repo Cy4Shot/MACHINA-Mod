@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 import javax.annotation.Nonnull;
 
-import com.machina.api.cap.ICustomStorage;
+import com.machina.api.cap.IMachinaStorage;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -12,7 +12,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 public record MachinaFluidStorage(LinkedList<MachinaTank> tanks) implements
-		IFluidHandler, ICustomStorage, INBTSerializable<CompoundTag> {
+		IFluidHandler, IMachinaStorage, INBTSerializable<CompoundTag> {
 
 	public boolean isEmpty() {
 		return tanks.isEmpty();
@@ -108,18 +108,6 @@ public record MachinaFluidStorage(LinkedList<MachinaTank> tanks) implements
 		for (MachinaTank tank : tanks) {
 			tank.setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompound("fluid_" + tank.id)));
 		}
-	}
-
-	@Override
-	public void setChanged(Runnable runnable) {
-		for (MachinaTank tank : tanks) {
-			tank.onChanged = runnable;
-		}
-	}
-
-	@Override
-	public String getTag() {
-		return "fluid";
 	}
 
 	public MachinaTank tank(int i) {

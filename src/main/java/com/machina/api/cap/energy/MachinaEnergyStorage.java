@@ -1,15 +1,11 @@
 package com.machina.api.cap.energy;
 
-import javax.annotation.Nullable;
-
-import com.machina.api.cap.ICustomStorage;
+import com.machina.api.cap.IMachinaStorage;
+import com.machina.api.tile.MachinaBlockEntity;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.EnergyStorage;
+import net.minecraftforge.energy.IEnergyStorage;
 
 /**
  * Block entity storage for energy.
@@ -17,97 +13,53 @@ import net.minecraftforge.energy.EnergyStorage;
  * @author Cy4
  * @since Machina v0.1.0
  */
-public class MachinaEnergyStorage extends EnergyStorage implements ICustomStorage {
+public class MachinaEnergyStorage implements IEnergyStorage, IMachinaStorage {
 
-	private Runnable onChanged;
-	private final IEnergyBlockEntity be;
+	private final Direction facing;
+	private final MachinaBlockEntity be;
 
-	public MachinaEnergyStorage(IEnergyBlockEntity be, int capacity, int maxTransfer) {
-		super(capacity, maxTransfer, maxTransfer);
+	public MachinaEnergyStorage(Direction facing, MachinaBlockEntity be) {
+		this.facing = facing;
 		this.be = be;
-	}
-
-	protected void onEnergyChanged() {
-		onChanged.run();
-	}
-
-	public void setEnergy(int energy) {
-		this.energy = energy;
-		onEnergyChanged();
-	}
-
-	public void addEnergy(int energy) {
-		this.energy += energy;
-		if (this.energy > getMaxEnergyStored()) {
-			this.energy = getEnergyStored();
-		}
-		onEnergyChanged();
-	}
-
-	public void consumeEnergy(int energy) {
-		this.energy -= energy;
-		if (this.energy < 0) {
-			this.energy = 0;
-		}
-		onEnergyChanged();
 	}
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		int r = super.receiveEnergy(maxReceive, simulate);
-		if (r > 0) {
-			onEnergyChanged();
-		}
-		return r;
+		return (int) be.receiveEnergy(facing, maxReceive, simulate);
 	}
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		int r = super.extractEnergy(maxExtract, simulate);
-		if (r > 0) {
-			onEnergyChanged();
-		}
-		return r;
+		return 0;
 	}
 
 	@Override
-	public void setChanged(Runnable runnable) {
-		this.onChanged = runnable;
+	public int getEnergyStored() {
+		return (int) be.getEnergy();
 	}
 
 	@Override
-	public String getTag() {
-		return "energy";
+	public int getMaxEnergyStored() {
+		return be.getMaxEnergy();
 	}
 
 	@Override
 	public boolean canExtract() {
-		return super.canExtract() && be.isGenerator();
+		return false;
 	}
 
 	@Override
 	public boolean canReceive() {
-		return super.canReceive() && !be.isGenerator();
-	}
-
-	public boolean isFull() {
-		return this.capacity == this.energy;
-	}
-
-	public static boolean hasEnergy(@Nullable BlockEntity te, @Nullable Direction dir) {
-		return (te == null ? LazyOptional.empty()
-				: te.getCapability(ForgeCapabilities.ENERGY, dir != null ? dir.getOpposite() : null)).isPresent();
+		return true;
 	}
 
 	@Override
 	public CompoundTag serialize() {
-		CompoundTag tag = new CompoundTag();
-		tag.put("energy", this.serializeNBT());
-		return tag;
+		return new CompoundTag();
 	}
 
 	@Override
 	public void deserialize(CompoundTag nbt) {
-		this.deserializeNBT(nbt.get("energy"));
+
 	}
 }

@@ -1,22 +1,24 @@
 package com.machina.api.tile;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 
-import com.machina.api.cap.ICustomStorage;
-import com.machina.api.cap.LazyOptionalCache;
 import com.machina.api.cap.energy.MachinaEnergyStorage;
 import com.machina.api.cap.fluid.MachinaFluidStorage;
-import com.machina.api.cap.fluid.MachinaTank;
 import com.machina.api.cap.item.MachinaItemStorage;
+import com.machina.api.cap.sided.MultiSidedStorage;
+import com.machina.api.cap.sided.Side;
+import com.machina.api.cap.sided.SidedStorage;
+import com.machina.api.cap.sided.SingleSidedStorage;
 import com.machina.api.menu.IMachinaMenuProvider;
+import com.machina.api.util.reflect.QuadFunction;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,6 +32,9 @@ import net.minecraft.world.LockCode;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -46,165 +51,216 @@ import net.minecraftforge.common.util.LazyOptional;
  */
 public abstract class MachinaBlockEntity extends BaseBlockEntity implements Container, IMachinaMenuProvider {
 
+	public static final int DEFAULT_DATA_SIZE = 2;
 	private LockCode lockKey = LockCode.NO_LOCK;
-	private final List<ICustomStorage> storages = new ArrayList<>();
-	private final LazyOptionalCache<MachinaItemStorage> item = new LazyOptionalCache<>();
-	private final LazyOptionalCache<MachinaEnergyStorage> energy = new LazyOptionalCache<>();
-	private final LazyOptionalCache<MachinaFluidStorage> fluid = new LazyOptionalCache<>();
+	private MultiSidedStorage<MachinaEnergyStorage> energyCap;
+	private List<SingleSidedStorage<MachinaItemStorage>> itemsCap = new ArrayList<>();
+	private List<SingleSidedStorage<MachinaFluidStorage>> fluidsCap = new ArrayList<>();
 
-	/**
-	 * Method in which the storages should be created.</br>
-	 * <ul>
-	 * <li>To create an item storage, use
-	 * {@code this.item = add(new MachinaItemStorage(...));}</li>
-	 * <li>To create an fluid storage, use
-	 * {@code this.fluid = add(new MachinaFluidStorage(...));}</li>
-	 * <li>To create an energy storage, use
-	 * {@code this.energy = add(new MachinaEnergyStorage(...));}</li>
-	 * </ul>
-	 * 
-	 * <i>NOTE: You will need to create the {@code item}, {@code fluid} and
-	 * {@code energy} variables.
-	 * 
-	 * @author Cy4Shot
-	 */
+	private long energy;
+
+	protected ContainerData data = new SimpleContainerData(getExtraDataSize() + DEFAULT_DATA_SIZE);
+
 	public abstract void createStorages();
 
-	public MachinaItemStorage add(MachinaItemStorage item) {
-		this.item.revalidate(() -> item);
-		this.storages.add(item);
-		return item;
+	public void energyStorage(Side[] sides) {
+		this.energyCap = new MultiSidedStorage<MachinaEnergyStorage>("energy", this, MachinaEnergyStorage::new, sides);
 	}
 
-	public MachinaEnergyStorage add(MachinaEnergyStorage energy) {
-		this.energy.revalidate(() -> energy);
-		this.storages.add(energy);
-		return energy;
+	public void itemStorage(@NonNull MachinaItemStorage store, Side[] sides) {
+		this.itemsCap.add(new SingleSidedStorage<MachinaItemStorage>("item_" + this.itemsCap.size(), store, sides));
 	}
 
-	public MachinaFluidStorage add(MachinaTank... fluid) {
-		LinkedList<MachinaTank> tank = new LinkedList<>(Arrays.asList(fluid));
-		MachinaFluidStorage f = new MachinaFluidStorage(tank);
-		this.fluid.revalidate(() -> f);
-		this.storages.add(f);
-		return f;
+	public void fluidStorage(@NonNull MachinaFluidStorage store, Side[] sides) {
+		this.fluidsCap.add(new SingleSidedStorage<MachinaFluidStorage>("fluid_" + this.fluidsCap.size(), store, sides));
 	}
 
 	public MachinaBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
-		createStorages();
-		storages.forEach(storage -> storage.setChanged(this::setChanged));
+		this.createStorages();
+	}
+
+	public void forEachStorage(Consumer<SidedStorage> consumer) {
+		consumer.accept(energyCap);
+		this.itemsCap.forEach(consumer);
+		this.fluidsCap.forEach(consumer);
 	}
 
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		item.invalidate();
-		energy.invalidate();
-		fluid.invalidate();
+		forEachStorage(SidedStorage::invalidate);
 	}
 
 	@Override
 	public void load(CompoundTag tag) {
-		storages.forEach(storage -> storage.deserialize(tag.getCompound(storage.getTag())));
 		super.load(tag);
+		forEachStorage(s -> s.loadAdditional(tag));
+		this.energy = tag.getLong("energy");
 		this.lockKey = LockCode.fromTag(tag);
+		this.setChanged();
 	}
 
 	@Override
 	protected void saveAdditional(CompoundTag tag) {
-		storages.forEach(storage -> tag.put(storage.getTag(), storage.serialize()));
-		super.saveAdditional(tag);
+		forEachStorage(s -> s.saveAdditional(tag));
+		tag.putLong("energy", energy);
 		this.lockKey.addToTag(tag);
+		super.saveAdditional(tag);
 	}
 
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if (cap == ForgeCapabilities.ITEM_HANDLER) {
-			return item.get().cast();
-		}
-		if (cap == ForgeCapabilities.ENERGY) {
-			return energy.get().cast();
-		}
-		if (cap == ForgeCapabilities.FLUID_HANDLER) {
-			return fluid.get().cast();
+		if (side != null) {
+			if (cap == ForgeCapabilities.ENERGY) {
+				if (energyCap.isNonNullMode(side)) {
+					return energyCap.get(side).cast();
+				}
+			} else if (cap == ForgeCapabilities.ITEM_HANDLER) {
+				for (SingleSidedStorage<MachinaItemStorage> storage : itemsCap) {
+					if (storage.isNonNullMode(side)) {
+						return storage.get().cast();
+					}
+				}
+			} else if (cap == ForgeCapabilities.FLUID_HANDLER) {
+				for (SingleSidedStorage<MachinaFluidStorage> storage : fluidsCap) {
+					if (storage.isNonNullMode(side)) {
+						return storage.get().cast();
+					}
+				}
+			}
 		}
 		return super.getCapability(cap, side);
 	}
 
 	@Override
 	public int getContainerSize() {
-		MachinaItemStorage storage = this.item.get().orElseGet(() -> null);
-
-		if (storage == null) {
-			return 0;
+		int total = 0;
+		for (SingleSidedStorage<MachinaItemStorage> storage : itemsCap) {
+			total += storage.get().map(s -> s.getSlots()).orElse(0);
 		}
-
-		return storage.getSlots();
+		return total;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		MachinaItemStorage storage = this.item.get().orElseGet(() -> null);
-
-		if (storage == null) {
-			return true;
+		for (SingleSidedStorage<MachinaItemStorage> storage : itemsCap) {
+			if (storage.get().map(s -> s.items().stream().allMatch(ItemStack::isEmpty)).orElse(false)) {
+				return true;
+			}
 		}
-
-		return storage.items().stream().allMatch(ItemStack::isEmpty);
+		return false;
 	}
 
 	@Override
 	public @NotNull ItemStack getItem(int pIndex) {
-		MachinaItemStorage storage = this.item.get().orElseGet(() -> null);
-
-		if (storage == null) {
-			return ItemStack.EMPTY;
+		int i = pIndex;
+		for (SingleSidedStorage<MachinaItemStorage> storage : itemsCap) {
+			int size = storage.get().map(s -> s.getSlots()).orElse(0);
+			if (i < size) {
+				MachinaItemStorage itemStore = storage.get()
+						.orElseThrow(() -> new IllegalStateException("Item storage is null"));
+				return itemStore.getStackInSlot(i);
+			}
+			i -= size;
 		}
 
-		return storage.getStackInSlot(pIndex);
+		return ItemStack.EMPTY;
 	}
 
 	@Override
 	public @NotNull ItemStack removeItem(int pIndex, int pCount) {
-
-		MachinaItemStorage storage = this.item.get().orElseGet(() -> null);
-
-		if (storage == null) {
-			return ItemStack.EMPTY;
+		int i = pIndex;
+		for (SingleSidedStorage<MachinaItemStorage> storage : itemsCap) {
+			int size = storage.get().map(s -> s.getSlots()).orElse(0);
+			if (i < size) {
+				MachinaItemStorage itemStore = storage.get()
+						.orElseThrow(() -> new IllegalStateException("Item storage is null"));
+				ItemStack stack = itemStore.extractItem(i, pCount, false);
+				if (!stack.isEmpty()) {
+					this.setChanged();
+				}
+				return stack;
+			}
+			i -= size;
 		}
-
-		ItemStack itemstack = storage.extractItem(pIndex, pCount, false);
-		if (!itemstack.isEmpty()) {
-			this.setChanged();
-		}
-
-		return itemstack;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
 	public @NotNull ItemStack removeItemNoUpdate(int pIndex) {
-		MachinaItemStorage storage = this.item.get().orElseGet(() -> null);
-		if (storage == null) {
-			return ItemStack.EMPTY;
+		int i = pIndex;
+		for (SingleSidedStorage<MachinaItemStorage> storage : itemsCap) {
+			int size = storage.get().map(s -> s.getSlots()).orElse(0);
+			if (i < size) {
+				MachinaItemStorage itemStore = storage.get()
+						.orElseThrow(() -> new IllegalStateException("Item storage is null"));
+				return itemStore.extractItem(i, itemStore.getStackInSlot(i).getCount(), false);
+			}
+			i -= size;
 		}
-		ItemStack slot = storage.getStackInSlot(pIndex);
-		return storage.extractItem(pIndex, slot.getCount(), false);
+		return ItemStack.EMPTY;
 	}
 
 	@Override
 	public void setItem(int pIndex, ItemStack pStack) {
-		MachinaItemStorage storage = this.item.get().orElseGet(() -> null);
-		if (storage == null) {
-			return;
+		System.out.println("Setting");
+		int i = pIndex;
+		for (SingleSidedStorage<MachinaItemStorage> storage : itemsCap) {
+			int size = storage.get().map(s -> s.getSlots()).orElse(0);
+			if (i < size) {
+				MachinaItemStorage itemStore = storage.get()
+						.orElseThrow(() -> new IllegalStateException("Item storage is null"));
+				itemStore.setStackInSlot(i, pStack);
+				if (pStack.getCount() > this.getMaxStackSize()) {
+					pStack.setCount(this.getMaxStackSize());
+				}
+				this.setChanged();
+				return;
+			}
+			i -= size;
 		}
+	}
 
-		storage.setStackInSlot(pIndex, pStack);
-		if (pStack.getCount() > this.getMaxStackSize()) {
-			pStack.setCount(this.getMaxStackSize());
+	public long getEnergy() {
+		return energy;
+	}
+
+	public abstract int getMaxEnergy();
+
+	public long receiveEnergy(Direction from, long maxReceive, boolean simulate) {
+		if (!energyCap.isInput(from)) {
+			return 0;
 		}
+		return receiveEnergy(maxReceive, simulate);
+	}
 
+	protected long receiveEnergy(long maxReceive, boolean simulate) {
+		long received = Math.min(getMaxEnergy() - energy, maxReceive);
+		if (received > 0) {
+			if (!simulate) {
+				energy += received;
+				this.setChanged();
+			}
+		}
+		if (received > 0) {
+			maxReceive -= received;
+		}
+		return received;
+	}
+
+	public boolean isEnergyFull() {
+		return energy >= getMaxEnergy();
+	}
+
+	public void consumeEnergy(long amount) {
+		this.energy -= amount;
+		if (this.energy < 0) {
+			this.energy = 0;
+		} else if (this.energy > getMaxEnergy()) {
+			this.energy = getMaxEnergy();
+		}
 		this.setChanged();
 	}
 
@@ -220,12 +276,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Cont
 
 	@Override
 	public void clearContent() {
-		MachinaItemStorage storage = this.item.get().orElseGet(() -> null);
-		if (storage == null) {
-			return;
-		}
-
-		storage.clear();
+		this.itemsCap.forEach(s -> s.get().ifPresent(MachinaItemStorage::clear));
 	}
 
 	@Override
@@ -235,40 +286,9 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Cont
 			this.level.sendBlockUpdated(this.worldPosition, state, state, 3);
 			this.level.blockEntityChanged(this.worldPosition);
 		}
+		this.data.set(0, (int) this.energy);
+		this.data.set(1, this.getMaxEnergy());
 		super.setChanged();
-	}
-
-	public int getEnergy() {
-		MachinaEnergyStorage storage = this.energy.get().orElseGet(() -> null);
-		if (storage == null) {
-			return 0;
-		}
-
-		return storage.getEnergyStored();
-	}
-
-	public int getMaxEnergy() {
-		MachinaEnergyStorage storage = this.energy.get().orElseGet(() -> null);
-		if (storage == null) {
-			return 0;
-		}
-		return storage.getMaxEnergyStored();
-	}
-
-	public float getEnergyProp() {
-		MachinaEnergyStorage storage = this.energy.get().orElseGet(() -> null);
-		if (storage == null) {
-			return 0;
-		}
-		return (float) storage.getEnergyStored() / (float) storage.getMaxEnergyStored();
-	}
-
-	public MachinaTank getTank(int id) {
-		MachinaFluidStorage storage = this.fluid.get().orElseGet(() -> null);
-		if (storage == null) {
-			return null;
-		}
-		return storage.tank(id);
 	}
 
 	public boolean canOpen(Player player) {
@@ -286,9 +306,18 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Cont
 	}
 
 	@Nullable
+	@Override
 	public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
-		return this.canOpen(player) ? this.createMenu(id, inv) : null;
+		return this.canOpen(player)
+				? createMenu().apply(id, inv, ContainerLevelAccess.create(level, worldPosition), data)
+				: null;
 	}
 
-	protected abstract AbstractContainerMenu createMenu(int id, Inventory inv);
+	protected abstract int getExtraDataSize();
+
+	protected abstract QuadFunction<Integer, Inventory, ContainerLevelAccess, ContainerData, AbstractContainerMenu> createMenu();
+
+	public void tick() {
+	}
+
 }
