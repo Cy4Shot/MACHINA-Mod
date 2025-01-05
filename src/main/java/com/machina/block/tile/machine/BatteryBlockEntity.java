@@ -1,19 +1,17 @@
 package com.machina.block.tile.machine;
 
-import com.machina.api.cap.item.MachinaItemStorage;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.tile.MachinaBlockEntity;
 import com.machina.api.util.block.BlockHelper;
 import com.machina.api.util.reflect.QuadFunction;
 import com.machina.block.menu.BatteryMenu;
 import com.machina.registration.init.BlockEntityInit;
-import com.machina.registration.init.ItemInit;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -29,8 +27,8 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 
 	@Override
 	public void createStorages() {
-		energyStorage(Side.NONES);
-		itemStorage(new MachinaItemStorage(1, (i, s) -> s.getItem().equals(ItemInit.BLUEPRINT.get())), Side.NONES);
+		energyStorage(Side.INPUTS);
+		itemStorage(Side.NONES);
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 	}
 
 	@Override
-	protected QuadFunction<Integer, Inventory, ContainerLevelAccess, ContainerData, AbstractContainerMenu> createMenu() {
+	protected QuadFunction<Integer, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
 		return BatteryMenu::new;
 	}
 

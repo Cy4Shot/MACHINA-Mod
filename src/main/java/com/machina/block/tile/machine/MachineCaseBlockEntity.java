@@ -2,22 +2,20 @@ package com.machina.block.tile.machine;
 
 import java.util.List;
 
-import com.machina.api.cap.item.MachinaItemStorage;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.multiblock.Multiblock;
 import com.machina.api.tile.MachinaBlockEntity;
 import com.machina.api.util.reflect.QuadFunction;
 import com.machina.block.menu.MachineCaseMenu;
 import com.machina.registration.init.BlockEntityInit;
-import com.machina.registration.init.ItemInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -38,7 +36,7 @@ public class MachineCaseBlockEntity extends MachinaBlockEntity {
 
 	@Override
 	public void createStorages() {
-		itemStorage(new MachinaItemStorage(1, (i, s) -> s.getItem().equals(ItemInit.BLUEPRINT.get())), Side.NONES);
+		itemStorage(Side.NONES);
 	}
 
 	@Override
@@ -47,7 +45,7 @@ public class MachineCaseBlockEntity extends MachinaBlockEntity {
 	}
 
 	@Override
-	protected QuadFunction<Integer, Inventory, ContainerLevelAccess, ContainerData, AbstractContainerMenu> createMenu() {
+	protected QuadFunction<Integer, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
 		return MachineCaseMenu::new;
 	}
 

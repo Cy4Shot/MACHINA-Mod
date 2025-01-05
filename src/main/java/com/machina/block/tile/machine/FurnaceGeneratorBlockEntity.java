@@ -1,6 +1,5 @@
 package com.machina.block.tile.machine;
 
-import com.machina.api.cap.item.MachinaItemStorage;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.tile.MachinaBlockEntity;
 import com.machina.api.util.block.BlockHelper;
@@ -11,10 +10,10 @@ import com.machina.registration.init.BlockEntityInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -36,8 +35,7 @@ public class FurnaceGeneratorBlockEntity extends MachinaBlockEntity {
 	@Override
 	public void createStorages() {
 		energyStorage(Side.OUTPUTS);
-		itemStorage(new MachinaItemStorage(1, (i, s) -> ForgeHooks.getBurnTime(s, RecipeType.SMELTING) > 0),
-				Side.INPUTS);
+		itemStorage(Side.INPUTS);
 	}
 
 	public boolean isLit() {
@@ -82,6 +80,7 @@ public class FurnaceGeneratorBlockEntity extends MachinaBlockEntity {
 
 		if (flag1) {
 			sync();
+
 		}
 	}
 
@@ -108,7 +107,7 @@ public class FurnaceGeneratorBlockEntity extends MachinaBlockEntity {
 	}
 
 	@Override
-	protected QuadFunction<Integer, Inventory, ContainerLevelAccess, ContainerData, AbstractContainerMenu> createMenu() {
+	protected QuadFunction<Integer, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
 		return FurnaceGeneratorMenu::new;
 	}
 }

@@ -5,12 +5,10 @@ import com.machina.api.menu.slot.InvSlot;
 import com.machina.api.tile.MachinaBlockEntity;
 
 import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
@@ -18,18 +16,17 @@ import net.minecraft.world.item.ItemStack;
 
 public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends AbstractContainerMenu {
 
-	private final ContainerLevelAccess access;
 	private final ContainerData data;
-	protected final Container be;
+	protected final Container container;
 
-	public MachinaContainerMenu(MenuType<?> type, int id, ContainerLevelAccess access, ContainerData data) {
+	public MachinaContainerMenu(MenuType<?> type, int id, Container container, ContainerData data) {
 		super(type, id);
 
 		checkContainerDataCount(data, getExtraDataSize() + MachinaBlockEntity.DEFAULT_DATA_SIZE);
+		this.addDataSlots(data);
 
-		this.access = access;
 		this.data = data;
-		this.be = new SimpleContainer(getContainerSize());
+		this.container = container;
 	}
 
 	protected static ContainerData defaultData(int extra) {
@@ -37,8 +34,6 @@ public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends
 	}
 
 	protected abstract MachineBlock getBlock();
-
-	protected abstract int getContainerSize();
 
 	protected abstract int getExtraDataSize();
 
@@ -52,7 +47,7 @@ public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends
 
 	@Override
 	public boolean stillValid(Player player) {
-		return stillValid(this.access, player, getBlock());
+		return this.container.stillValid(player);
 	}
 
 	@Override
@@ -62,11 +57,11 @@ public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends
 		if (slot != null && slot.hasItem()) {
 			ItemStack stack1 = slot.getItem();
 			stack = stack1.copy();
-			if (index < getContainerSize()
-					&& !this.moveItemStackTo(stack1, getContainerSize(), this.slots.size(), true)) {
+			if (index < container.getContainerSize()
+					&& !this.moveItemStackTo(stack1, container.getContainerSize(), this.slots.size(), true)) {
 				return ItemStack.EMPTY;
 			}
-			if (!this.moveItemStackTo(stack1, 0, getContainerSize(), false)) {
+			if (!this.moveItemStackTo(stack1, 0, container.getContainerSize(), false)) {
 				return ItemStack.EMPTY;
 			}
 
