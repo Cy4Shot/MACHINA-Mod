@@ -1,4 +1,4 @@
-package com.machina.block.tile;
+package com.machina.block.tile.machine;
 
 import java.util.List;
 

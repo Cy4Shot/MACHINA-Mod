@@ -23,6 +23,7 @@ public class TabInit {
 			ItemInit.BLUEPRINT, a -> {
 				add(a, ItemInit.BLUEPRINT);
 				add(a, BlockInit.ENERGY_CABLE);
+				add(a, BlockInit.BATTERY);
 				add(a, BlockInit.BASIC_MACHINE_CASE);
 				
 				add(a, ItemInit.ALUMINUM_NUGGET);

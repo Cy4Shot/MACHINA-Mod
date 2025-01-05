@@ -11,10 +11,11 @@ import com.machina.block.MachinaHangingWallSignBlock;
 import com.machina.block.MachinaSignBlock;
 import com.machina.block.MachinaWallSignBlock;
 import com.machina.block.MachinaWaterlilyBlock;
-import com.machina.block.MachineCaseBlock;
 import com.machina.block.PebbleBlock;
 import com.machina.block.SmallFlowerBlock;
 import com.machina.block.connector.EnergyCableBlock;
+import com.machina.block.machine.BatteryBlock;
+import com.machina.block.machine.MachineCaseBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
@@ -57,6 +58,7 @@ public class BlockInit {
 
 	//@formatter:off
 	public static final RegistryObject<EnergyCableBlock> ENERGY_CABLE = register("energy_cable", EnergyCableBlock::new);
+	public static final RegistryObject<BatteryBlock> BATTERY = register("battery", Blocks.IRON_BLOCK, BatteryBlock::new);
 	public static final RegistryObject<MachineCaseBlock> BASIC_MACHINE_CASE = register("basic_machine_case", Blocks.IRON_BLOCK, MachineCaseBlock::new);
 	
 	public static final RegistryObject<Block> ALUMINUM_BLOCK = block("aluminum_block", Blocks.IRON_BLOCK);

@@ -1,6 +1,7 @@
 package com.machina.registration.init;
 
 import com.machina.Machina;
+import com.machina.block.menu.BatteryMenu;
 import com.machina.block.menu.MachineCaseMenu;
 
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -16,6 +17,8 @@ public class MenuTypeInit {
 			Machina.MOD_ID);
 
 	//@formatter:off
+	public static final RegistryObject<MenuType<BatteryMenu>> BATTERY = register("battery",
+            BatteryMenu::new);
 	public static final RegistryObject<MenuType<MachineCaseMenu>> MACHINE_CASE = register("machine_case",
 			MachineCaseMenu::new);
 	//@formatter:on

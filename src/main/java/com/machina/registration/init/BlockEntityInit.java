@@ -5,8 +5,9 @@ import java.util.function.Supplier;
 import com.machina.Machina;
 import com.machina.block.tile.MachinaHangingSignBlockEntity;
 import com.machina.block.tile.MachinaSignBlockEntity;
-import com.machina.block.tile.MachineCaseBlockEntity;
 import com.machina.block.tile.connector.EnergyCableBlockEntity;
+import com.machina.block.tile.machine.BatteryBlockEntity;
+import com.machina.block.tile.machine.MachineCaseBlockEntity;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -22,6 +23,8 @@ public class BlockEntityInit {
 	//@formatter:off
 	public static final RegistryObject<BlockEntityType<EnergyCableBlockEntity>> ENERGY_CABLE = register("energy_cable",
             EnergyCableBlockEntity::new, () -> BlockInit.ENERGY_CABLE.get());
+	public static final RegistryObject<BlockEntityType<BatteryBlockEntity>> BATTERY = register("battery",
+            BatteryBlockEntity::new, () -> BlockInit.BATTERY.get());
 	public static final RegistryObject<BlockEntityType<MachineCaseBlockEntity>> MACHINE_CASE = register("machine_case",
             MachineCaseBlockEntity::new, () -> BlockInit.BASIC_MACHINE_CASE.get());
 	//@formatter:on
