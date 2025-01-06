@@ -261,6 +261,10 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 		return energy >= getMaxEnergy();
 	}
 
+	public boolean canConsumeEnergy(Direction side) {
+		return energyCap.isOutput(side);
+	}
+
 	public void consumeEnergy(long amount) {
 		this.energy -= amount;
 		if (this.energy < 0) {

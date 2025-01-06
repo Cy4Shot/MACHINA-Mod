@@ -4,6 +4,7 @@ import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.util.block.BlockHelper;
 import com.machina.api.util.reflect.QuadFunction;
+import com.machina.block.machine.BatteryBlock;
 import com.machina.block.menu.BatteryMenu;
 import com.machina.registration.init.BlockEntityInit;
 
@@ -34,6 +35,8 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 	@Override
 	public void tick() {
 		BlockHelper.sendEnergy(level, worldPosition, getEnergy(), 1_000, this);
+
+		this.level.setBlock(worldPosition, getBlockState().setValue(BatteryBlock.LIT, getEnergy() > 0), 3);
 	}
 
 	@Override

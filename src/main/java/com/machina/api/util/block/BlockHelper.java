@@ -87,6 +87,8 @@ public class BlockHelper {
 	public static void sendEnergy(Level world, BlockPos pos, long storedPower, long sendPerTick,
 			MachinaBlockEntity storage) {
 		for (Direction facing : Direction.values()) {
+			if (!storage.canConsumeEnergy(facing))
+				continue;
 			BlockPos p = pos.relative(facing);
 			BlockEntity te = world.getBlockEntity(p);
 			Direction opposite = facing.getOpposite();

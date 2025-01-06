@@ -33,6 +33,14 @@ public class MultiSidedStorage<T> extends SidedStorage {
 		return this.sidedStorage[dir.ordinal()].cast();
 	}
 
+	public boolean isInput(Direction dir) {
+		return this.modes[dir.ordinal()] == Side.INPUT;
+	}
+
+	public boolean isOutput(Direction dir) {
+		return this.modes[dir.ordinal()] == Side.OUTPUT;
+	}
+
 	@Override
 	public void save(CompoundTag tag) {
 		for (Direction dir : Direction.values()) {
