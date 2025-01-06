@@ -92,4 +92,9 @@ public class MachineCaseBlockEntity extends MachinaBlockEntity {
 	public int getMaxEnergy() {
 		return 0;
 	}
+	
+	@Override
+	public boolean activeModel() {
+		return false;
+	}
 }

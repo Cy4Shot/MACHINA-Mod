@@ -37,4 +37,9 @@ public class EnergyCableBlockEntity extends ConnectorBlockEntity<CableEnergyStor
 		return ForgeCapabilities.ENERGY;
 	}
 
+	@Override
+	public boolean activeModel() {
+		return false;
+	}
+
 }

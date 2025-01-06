@@ -58,10 +58,10 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 
 	public static final int DEFAULT_DATA_SIZE = 2;
 	private LockCode lockKey = LockCode.NO_LOCK;
-	private MultiSidedStorage<MachinaEnergyStorage> energyCap;
-	private List<SingleSidedStorage<MachinaFluidStorage>> fluidsCap = new ArrayList<>();
-	private NonNullList<ItemStack> items = NonNullList.create();
-	private NonNullList<Side[]> itemSides = NonNullList.create();
+	protected MultiSidedStorage<MachinaEnergyStorage> energyCap;
+	protected List<SingleSidedStorage<MachinaFluidStorage>> fluidsCap = new ArrayList<>();
+	protected NonNullList<ItemStack> items = NonNullList.create();
+	protected NonNullList<Side[]> itemSides = NonNullList.create();
 
 	private long energy;
 
@@ -328,6 +328,10 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	protected abstract QuadFunction<Integer, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu();
 
 	public void tick() {
+	}
+	
+	public byte[] getSideConfig(SidedStorage storage) {
+		return storage.getRawSideData();
 	}
 
 }

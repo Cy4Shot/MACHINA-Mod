@@ -16,10 +16,10 @@ public abstract class SidedStorage {
 	public boolean isNonNullMode(Direction dir) {
 		return this.modes[dir.ordinal()] != Side.NONE;
 	}
-	
+
 	public boolean isInput(Direction from) {
 		return this.modes[from.ordinal()] == Side.INPUT;
-    }
+	}
 
 	public abstract void invalidate();
 
@@ -38,5 +38,13 @@ public abstract class SidedStorage {
 			CompoundTag storageTag = tag2.getCompound(this.tag);
 			this.load(storageTag);
 		}
+	}
+
+	public byte[] getRawSideData() {
+		byte[] raw = new byte[6];
+		for (int i = 0; i < 6; ++i) {
+			raw[i] = (byte) modes[i].ordinal();
+		}
+		return raw;
 	}
 }

@@ -2,6 +2,7 @@ package com.machina.api.block.tile;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -34,6 +35,24 @@ public abstract class BaseBlockEntity extends BlockEntity {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
+	@Override
+	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+		super.onDataPacket(net, pkt);
+
+		if (activeModel() && level != null) {
+			level.getModelDataManager().requestRefresh(this);
+		}
+	}
+
+	@Override
+	public void handleUpdateTag(CompoundTag tag) {
+		super.handleUpdateTag(tag);
+
+		if (activeModel() && level != null) {
+			level.getModelDataManager().requestRefresh(this);
+		}
+	}
+
 	public void sync() {
 		if (this.level instanceof ServerLevel) {
 			final BlockState state = getBlockState();
@@ -42,4 +61,6 @@ public abstract class BaseBlockEntity extends BlockEntity {
 			this.setChanged();
 		}
 	}
+
+	public abstract boolean activeModel();
 }

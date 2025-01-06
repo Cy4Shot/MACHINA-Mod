@@ -1,5 +1,5 @@
 {
-	"parent": "minecraft:block/orientable_with_bottom",
+	"parent": "machina:block/side/sided_orientable_with_bottom",
 	"textures": {
 		"side": "machina:block/battery_side_lit",
 		"front": "machina:block/battery_front_lit",

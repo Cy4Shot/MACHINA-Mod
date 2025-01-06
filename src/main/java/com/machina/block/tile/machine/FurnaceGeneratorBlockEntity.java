@@ -110,4 +110,9 @@ public class FurnaceGeneratorBlockEntity extends MachinaBlockEntity {
 	protected QuadFunction<Integer, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
 		return FurnaceGeneratorMenu::new;
 	}
+	
+	@Override
+	public boolean activeModel() {
+		return false;
+	}
 }

@@ -1,7 +1,10 @@
 package com.machina.block.tile.machine;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
+import com.machina.api.client.model.SidedBakedModel;
 import com.machina.api.util.block.BlockHelper;
 import com.machina.api.util.reflect.QuadFunction;
 import com.machina.block.machine.BatteryBlock;
@@ -15,6 +18,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.model.data.ModelData;
 
 public class BatteryBlockEntity extends MachinaBlockEntity {
 
@@ -52,5 +56,15 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 	@Override
 	protected int getExtraDataSize() {
 		return 0;
+	}
+
+	@Override
+	public @NotNull ModelData getModelData() {
+		return ModelData.builder().with(SidedBakedModel.SIDES, getSideConfig(energyCap)).build();
+	}
+	
+	@Override
+	public boolean activeModel() {
+		return true;
 	}
 }
