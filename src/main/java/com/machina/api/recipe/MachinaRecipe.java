@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.machina.api.util.loader.FluidJson;
 import com.machina.registration.init.RecipeInit.RecipeRegistryObject;
@@ -27,23 +28,26 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 	public static final short HAS_ENERGY = 0x1;
 	public static final short HAS_PRESSURE = 0x2;
 	public static final short HAS_TEMPERATURE = 0x4;
+	public static final short HAS_TIME = 0x8;
 
 	protected final List<Ingredient> inputItems = new ArrayList<>();
 	protected final List<FluidStack> inputFluids = new ArrayList<>();
 	protected final List<ItemStack> outputItems = new ArrayList<>();
 	protected final List<FluidStack> outputFluids = new ArrayList<>();
 	private int energy;
+	private int time;
 	private float pressure;
 	private float temperature;
 	private float xp;
 
-	public MachinaRecipe(int energy, float pressure, float temperature, float xp, List<Ingredient> inputItems,
+	public MachinaRecipe(int energy, int time, float pressure, float temperature, float xp, List<Ingredient> inputItems,
 			List<FluidStack> inputFluids, List<ItemStack> outputItems, List<FluidStack> outputFluids) {
 
 		if (inputItems == null || inputFluids == null || outputItems == null || outputFluids == null) {
 			throw new IllegalArgumentException("Input and output lists must not be null");
 		}
 
+		this.time = Math.max(1, time);
 		this.energy = Math.max(0, energy);
 		this.pressure = pressure;
 		this.temperature = temperature;
@@ -75,13 +79,17 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 		return getRegistryObject().id();
 	}
 
-	public short getFlags() {
+	public int getFlags() {
 		MachinaRecipeType<C> type = getMachinaType();
 		return type != null ? type.getFlags() : 0;
 	}
 
 	public int getEnergy() {
 		return energy;
+	}
+
+	public int getTime() {
+		return time;
 	}
 
 	public float getPressure() {
@@ -94,6 +102,10 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 
 	public float getXp() {
 		return xp;
+	}
+
+	public int getPowerRate() {
+		return energy / time;
 	}
 
 	public List<Ingredient> getInputItems() {
@@ -154,7 +166,7 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 			this.factory = factory;
 		}
 
-		private short getFlags() {
+		private int getFlags() {
 			return type.get().getFlags();
 		}
 
@@ -162,6 +174,7 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 		public MachinaRecipe<C> fromJson(ResourceLocation loc, JsonObject obj) {
 			float experience = 0f;
 			int energy = 0;
+			int time = 0;
 			float pressure = 0;
 			float temperature = 0;
 			ArrayList<Ingredient> inputItems = new ArrayList<>();
@@ -186,10 +199,15 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 				obj.getAsJsonArray("outputFluids").forEach(e -> outputFluids.add(FluidJson.load(e)));
 			}
 
-			short flags = getFlags();
+			int flags = getFlags();
 			if ((flags & HAS_ENERGY) != 0) {
 				if (obj.has("energy")) {
 					energy = obj.get("energy").getAsInt();
+				}
+			}
+			if ((flags & HAS_TIME) != 0) {
+				if (obj.has("time")) {
+					time = obj.get("time").getAsInt();
 				}
 			}
 			if ((flags & HAS_PRESSURE) != 0) {
@@ -203,14 +221,53 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 				}
 			}
 
-			return factory.apply(energy, pressure, temperature, experience, inputItems, inputFluids, outputItems,
+			return factory.apply(energy, time, pressure, temperature, experience, inputItems, inputFluids, outputItems,
 					outputFluids);
+		}
+
+		public void toJson(JsonObject obj, MachinaRecipe<C> recipe) {
+			int flags = getFlags();
+
+			obj.addProperty("xp", recipe.getXp());
+
+			if ((flags & HAS_ENERGY) != 0) {
+				obj.addProperty("energy", recipe.getEnergy());
+			}
+
+			if ((flags & HAS_TIME) != 0) {
+				obj.addProperty("time", recipe.getTime());
+			}
+
+			if ((flags & HAS_PRESSURE) != 0) {
+				obj.addProperty("pressure", recipe.getPressure());
+			}
+
+			if ((flags & HAS_TEMPERATURE) != 0) {
+				obj.addProperty("temperature", recipe.getTemperature());
+			}
+
+			JsonArray inputItems = new JsonArray();
+			recipe.getInputItems().forEach(e -> inputItems.add(e.toJson()));
+			obj.add("inputItems", inputItems);
+
+			JsonArray inputFluids = new JsonArray();
+			recipe.getInputFluids().forEach(e -> inputFluids.add(FluidJson.save(e)));
+			obj.add("inputFluids", inputFluids);
+
+			JsonArray outputItems = new JsonArray();
+			recipe.getOutputItems().forEach(e -> outputItems.add(Ingredient.of(e).toJson()));
+			obj.add("outputItems", outputItems);
+
+			JsonArray outputFluids = new JsonArray();
+			recipe.getOutputFluids().forEach(e -> outputFluids.add(FluidJson.save(e)));
+			obj.add("outputFluids", outputFluids);
 		}
 
 		@Override
 		public @Nullable MachinaRecipe<C> fromNetwork(ResourceLocation loc, FriendlyByteBuf buf) {
 			float experience = buf.readFloat();
 			int energy = 0;
+			int time = 0;
 			float pressure = 0;
 			float temperature = 0;
 
@@ -238,9 +295,12 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 				outputFluids.add(FluidStack.readFromPacket(buf));
 			}
 
-			short flags = getFlags();
+			int flags = getFlags();
 			if ((flags & HAS_ENERGY) != 0) {
 				energy = buf.readVarInt();
+			}
+			if ((flags & HAS_TIME) != 0) {
+				time = buf.readVarInt();
 			}
 			if ((flags & HAS_PRESSURE) != 0) {
 				pressure = buf.readFloat();
@@ -249,7 +309,7 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 				temperature = buf.readFloat();
 			}
 
-			return factory.apply(energy, pressure, temperature, experience, inputItems, inputFluids, outputItems,
+			return factory.apply(energy, time, pressure, temperature, experience, inputItems, inputFluids, outputItems,
 					outputFluids);
 		}
 
@@ -281,9 +341,12 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 				recipe.outputFluids.get(i).writeToPacket(buf);
 			}
 
-			short flags = getFlags();
+			int flags = getFlags();
 			if ((flags & HAS_ENERGY) != 0) {
 				buf.writeVarInt(recipe.getEnergy());
+			}
+			if ((flags & HAS_TIME) != 0) {
+				buf.writeVarInt(recipe.getTime());
 			}
 			if ((flags & HAS_PRESSURE) != 0) {
 				buf.writeFloat(recipe.getPressure());
@@ -296,7 +359,7 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 
 	@FunctionalInterface
 	public interface RecipeFactory<R extends MachinaRecipe<?>> {
-		R apply(int energy, float pressure, float temperature, float xp, List<Ingredient> inputItems,
+		R apply(int energy, int time, float pressure, float temperature, float xp, List<Ingredient> inputItems,
 				List<FluidStack> inputFluids, List<ItemStack> outputItems, List<FluidStack> outputFluids);
 	}
 }

@@ -1,49 +1,121 @@
 package com.machina.block.tile.machine;
 
+import java.util.Optional;
+
 import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.cap.sided.Side;
 import com.machina.api.util.reflect.QuadFunction;
+import com.machina.block.menu.GrinderMenu;
+import com.machina.recipe.GrinderRecipe;
+import com.machina.registration.init.BlockEntityInit;
+import com.machina.registration.init.RecipeInit;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class GrinderBlockEntity extends MachinaBlockEntity {
 
+	private GrinderRecipe recipe = null;
+	private int progress = 0;
+
 	public GrinderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 
+	public GrinderBlockEntity(BlockPos pos, BlockState state) {
+		this(BlockEntityInit.GRINDER.get(), pos, state);
+	}
+
 	@Override
 	public void createStorages() {
-		// TODO Auto-generated method stub
-
+		energyStorage(Side.INPUTS);
+		itemStorage(Side.INPUTS);
+		itemStorage(Side.OUTPUTS);
 	}
 
 	@Override
 	public int getMaxEnergy() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1_000_000;
+	}
+
+	@Override
+	public void tick() {
+		if (this.level.isClientSide())
+			return;
+
+		Optional<GrinderRecipe> rec = RecipeInit.GRINDER.maps().findRecipe(this);
+		rec.ifPresentOrElse(r -> {
+			if (hasPower(r) && hasSpace(r)) {
+				this.recipe = r;
+
+				int consumed = consumeEnergy(r.getPowerRate());
+				if (consumed < r.getPowerRate()) {
+					receiveEnergy(consumed, false);
+					return;
+				}
+
+				this.progress++;
+				if (this.progress >= r.getTime()) {
+					getItem(0).shrink(1);
+					if (getItem(1).isEmpty())
+						setItem(1, r.getOutputItems().get(0));
+					else
+						getItem(1).grow(1);
+
+					this.progress = 0;
+					setChanged();
+				}
+			}
+		}, () -> {
+			this.progress = 0;
+			this.recipe = null;
+		});
+	}
+
+	protected boolean hasPower(GrinderRecipe r) {
+		return getEnergy() >= r.getPowerRate();
+	}
+
+	protected boolean hasSpace(GrinderRecipe r) {
+		return getItem(1).isEmpty() || (getItem(1).getCount() < getItem(1).getMaxStackSize()
+				&& ItemStack.isSameItem(getItem(1), r.getOutputItems().get(0)));
+	}
+
+	@Override
+	protected void saveAdditional(CompoundTag tag) {
+		tag.putInt("progress", this.progress);
+		tag.putString("recipe", this.recipe == null ? "" : this.recipe.getId().toString());
+		super.saveAdditional(tag);
+	}
+
+	@Override
+	public void load(CompoundTag tag) {
+		this.progress = tag.getInt("progress");
+		String r = tag.getString("recipe");
+		this.recipe = r == "" ? null : RecipeInit.GRINDER.maps().getRecipe(new ResourceLocation(r));
+		super.load(tag);
 	}
 
 	@Override
 	protected int getExtraDataSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 2;
 	}
 
 	@Override
 	protected QuadFunction<Integer, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
-		// TODO Auto-generated method stub
-		return null;
+		return GrinderMenu::new;
 	}
 
 	@Override
 	public boolean activeModel() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

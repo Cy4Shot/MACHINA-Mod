@@ -13,9 +13,9 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class GrinderRecipe extends MachinaRecipe<GrinderBlockEntity> {
 
-	public GrinderRecipe(int energy, float pressure, float temperature, float xp, List<Ingredient> inputItems,
+	public GrinderRecipe(int energy, int time, float pressure, float temperature, float xp, List<Ingredient> inputItems,
 			List<FluidStack> inputFluids, List<ItemStack> outputItems, List<FluidStack> outputFluids) {
-		super(energy, pressure, temperature, xp, inputItems, inputFluids, outputItems, outputFluids);
+		super(energy, time, pressure, temperature, xp, inputItems, inputFluids, outputItems, outputFluids);
 	}
 
 	@Override

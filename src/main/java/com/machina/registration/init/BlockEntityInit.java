@@ -8,6 +8,7 @@ import com.machina.block.tile.MachinaSignBlockEntity;
 import com.machina.block.tile.connector.EnergyCableBlockEntity;
 import com.machina.block.tile.machine.BatteryBlockEntity;
 import com.machina.block.tile.machine.FurnaceGeneratorBlockEntity;
+import com.machina.block.tile.machine.GrinderBlockEntity;
 import com.machina.block.tile.machine.MachineCaseBlockEntity;
 
 import net.minecraft.world.level.block.Block;
@@ -30,6 +31,8 @@ public class BlockEntityInit {
             MachineCaseBlockEntity::new, () -> BlockInit.BASIC_MACHINE_CASE.get());
 	public static final RegistryObject<BlockEntityType<FurnaceGeneratorBlockEntity>> FURNACE_GENERATOR = register("furnace_generator",
             FurnaceGeneratorBlockEntity::new, () -> BlockInit.FURNACE_GENERATOR.get());
+	public static final RegistryObject<BlockEntityType<GrinderBlockEntity>> GRINDER = register("grinder",
+            GrinderBlockEntity::new, () -> BlockInit.GRINDER.get());
 	//@formatter:on
 
 	public static final RegistryObject<BlockEntityType<MachinaSignBlockEntity>> SIGN = registerMany("sign",

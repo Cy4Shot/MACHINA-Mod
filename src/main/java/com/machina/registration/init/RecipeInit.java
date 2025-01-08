@@ -29,21 +29,22 @@ public class RecipeInit {
 			.create(ForgeRegistries.RECIPE_SERIALIZERS, Machina.MOD_ID);
 	public static final List<MachinaRecipeMaps<?>> MAPS = new ArrayList<>();
 
-	public static final RecipeRegistryObject<GrinderBlockEntity> GRINDER = register("grinder", MachinaRecipe.HAS_ENERGY,
-			GrinderRecipe::new, GrinderRecipeMaps.INSTANCE);
+	public static final RecipeRegistryObject<GrinderBlockEntity> GRINDER = register("grinder",
+			MachinaRecipe.HAS_ENERGY | MachinaRecipe.HAS_TIME, GrinderRecipe::new, GrinderRecipeMaps.INSTANCE);
 
 	public static record RecipeRegistryObject<C extends Container>(ResourceLocation id,
-			RegistryObject<MachinaRecipeType<C>> type, RegistryObject<RecipeSerializer<MachinaRecipe<C>>> serializer) {
+			RegistryObject<MachinaRecipeType<C>> type, RecipeFactory<MachinaRecipe<C>> factory,
+			RegistryObject<MachinaRecipeSerializer<C>> serializer, MachinaRecipeMaps<C> maps) {
 	}
 
-	private static <C extends Container> RecipeRegistryObject<C> register(String name, short flags,
-			RecipeFactory<MachinaRecipe<C>> factory, MachinaRecipeMaps<?> map) {
+	private static <C extends Container> RecipeRegistryObject<C> register(String name, int flags,
+			RecipeFactory<MachinaRecipe<C>> factory, MachinaRecipeMaps<C> map) {
 		ResourceLocation id = new MachinaRL(name);
 		RegistryObject<MachinaRecipeType<C>> type = RECIPE_TYPES.register(name,
 				() -> new MachinaRecipeType<>(id, flags));
-		RegistryObject<RecipeSerializer<MachinaRecipe<C>>> serializer = RECIPE_SERIALIZERS.register(name,
+		RegistryObject<MachinaRecipeSerializer<C>> serializer = RECIPE_SERIALIZERS.register(name,
 				() -> new MachinaRecipeSerializer<C>(type::get, factory));
 		MAPS.add(map);
-		return new RecipeRegistryObject<C>(id, type, serializer);
+		return new RecipeRegistryObject<C>(id, type, factory, serializer, map);
 	}
 }

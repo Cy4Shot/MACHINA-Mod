@@ -24,4 +24,11 @@ public class FluidJson {
 
 		return FluidStack.EMPTY;
 	}
+
+	public static JsonObject save(FluidStack stack) {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("fluid", ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString());
+		obj.addProperty("amount", stack.getAmount());
+		return obj;
+	}
 }

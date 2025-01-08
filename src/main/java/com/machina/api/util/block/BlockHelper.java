@@ -76,7 +76,7 @@ public class BlockHelper {
 	}
 
 	// McJty
-	public static long receiveEnergy(BlockEntity tileEntity, Direction from, long maxReceive) {
+	public static int receiveEnergy(BlockEntity tileEntity, Direction from, long maxReceive) {
 		if (tileEntity != null) {
 			return tileEntity.getCapability(ForgeCapabilities.ENERGY, from)
 					.map(handler -> handler.receiveEnergy(MathUtil.unsignedClampToInt(maxReceive), false)).orElse(0);
@@ -94,7 +94,7 @@ public class BlockHelper {
 			Direction opposite = facing.getOpposite();
 			if (hasEnergy(te, opposite)) {
 				long rfToGive = Math.min(sendPerTick, storedPower);
-				long received = receiveEnergy(te, opposite, rfToGive);
+				int received = receiveEnergy(te, opposite, rfToGive);
 				storage.consumeEnergy(received);
 				storedPower -= received;
 				if (storedPower <= 0) {

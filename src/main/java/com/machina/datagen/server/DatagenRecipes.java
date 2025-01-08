@@ -6,9 +6,11 @@ import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 
 import com.machina.Machina;
+import com.machina.api.recipe.MachinaRecipeBuilder;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.BlockFamiliesInit;
 import com.machina.registration.init.ItemInit;
+import com.machina.registration.init.RecipeInit;
 import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
 import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 
@@ -63,6 +65,16 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 
 		BlockFamiliesInit.STONES.forEach(x -> stoneFamily(gen, x));
 		BlockFamiliesInit.WOODS.forEach(x -> woodFamily(gen, x));
+
+		//@formatter:off
+		MachinaRecipeBuilder.create(RecipeInit.GRINDER, 0.1f)
+			.withEnergy(10000)
+			.withTime(200)
+			.withInputItem(Items.COAL, 1)
+			.withOutputItem(ItemInit.COAL_CHUNK.get(), 9)
+			.unlockedBy(getHasName(Items.COAL), has(Items.COAL))
+			.save(gen, Machina.MOD_ID + ":grinder_coal_to_chunk");
+		//@formatter:on
 	}
 
 	protected static void woodFamily(Consumer<FinishedRecipe> gen, WoodFamily family) {

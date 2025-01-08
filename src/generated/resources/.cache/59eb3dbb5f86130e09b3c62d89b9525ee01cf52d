@@ -1,4 +1,4 @@
-// 1.20.1	2025-01-05T01:36:34.5231408	Loot Tables
+// 1.20.1	2025-01-08T18:07:23.1558497	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -15,6 +15,7 @@ a7338fd5382acc5e0004e3de394a2c74b536fce6 data/machina/loot_tables/blocks/argon_b
 06b010bf9ba168aad1098b6d59684a734db6d581 data/machina/loot_tables/blocks/argo_berry.json
 db96cf72c0093a5b6d109ad82db999ba1c354f0a data/machina/loot_tables/blocks/ava_fruit.json
 f8be84875c72f553f6d6fd04b8ec511b71e4baed data/machina/loot_tables/blocks/basic_machine_case.json
+51dba9c5dea1a7bea6043f46828fb118f5c0a845 data/machina/loot_tables/blocks/battery.json
 03575f4672c2b5c529e1ee74c0b274d1cfb83fa9 data/machina/loot_tables/blocks/benzene_block.json
 fc3fe1e4a5937af629ef4f2bc43887e2d48b463b data/machina/loot_tables/blocks/benzylamine_block.json
 1b6226016087bec1e616a09bf9d16bfd4eb8e31c data/machina/loot_tables/blocks/benzyl_chloride_block.json
@@ -112,6 +113,7 @@ d347a8d106a84a4abf391b524f5621f695629630 data/machina/loot_tables/blocks/forest_
 959403e7502e70eebd4eaaa3f0a6a883b7ff7b92 data/machina/loot_tables/blocks/forest_dirt_stairs.json
 65c5aaffd843d1733e8c84b14641d4de97e007c4 data/machina/loot_tables/blocks/forest_grass_block.json
 e1dafa928f0cf47882c6e69cb121fff05c73defe data/machina/loot_tables/blocks/formaldehyde_block.json
+612d71bf33088fb93e8d45d4b65f4b9e8102c29d data/machina/loot_tables/blocks/furnace_generator.json
 4f4b4c3c30d7233910bedfad8ea9daa9e0114dfe data/machina/loot_tables/blocks/glyoxal_block.json
 bc06d43f87571eb91c5695e1311f3fc5f03f8680 data/machina/loot_tables/blocks/gneiss.json
 1bdd30b053cc84fecf3ca6ad6af6fd96165d2697 data/machina/loot_tables/blocks/gneiss_button.json
@@ -141,6 +143,7 @@ e76915cc761fca7c7ff4bcfe782d6566b6940155 data/machina/loot_tables/blocks/green_s
 67f18b71240775a99c0ed0a5201559953e988e00 data/machina/loot_tables/blocks/green_soapstone_wall.json
 908c3374874d4e8a40c22ae7ffaf5d495c91c7d6 data/machina/loot_tables/blocks/green_waterlily.json
 dc3456301108375c319c05aabe4fc1958871fc8e data/machina/loot_tables/blocks/grelp_berry.json
+97923cbb58f2332f4d61df4fea2e4f2cb6d7c610 data/machina/loot_tables/blocks/grinder.json
 ab8659dea6814f3924f487b52532fa111a01317f data/machina/loot_tables/blocks/helium_block.json
 ec2cfb2a198df4b7346de1dde3d7e05fa972f7d9 data/machina/loot_tables/blocks/hexogen_block.json
 d6c2286572fd323864ebdf7188943a33d5a25a0f data/machina/loot_tables/blocks/hniw_block.json

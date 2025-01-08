@@ -78,10 +78,8 @@ public class FurnaceGeneratorBlockEntity extends MachinaBlockEntity {
 		BlockHelper.sendEnergy(level, worldPosition, getEnergy(), CommonConfig.furnaceGeneratorTransferRate.get(),
 				this);
 
-		if (flag1) {
+		if (flag1)
 			sync();
-
-		}
 	}
 
 	@Override
@@ -110,7 +108,7 @@ public class FurnaceGeneratorBlockEntity extends MachinaBlockEntity {
 	protected QuadFunction<Integer, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
 		return FurnaceGeneratorMenu::new;
 	}
-	
+
 	@Override
 	public boolean activeModel() {
 		return false;

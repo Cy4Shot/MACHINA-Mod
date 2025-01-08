@@ -6,14 +6,14 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 public class MachinaRecipeType<R extends Container> implements RecipeType<MachinaRecipe<R>> {
 	private final ResourceLocation name;
-	private final short flags;
+	private final int flags;
 
-	public MachinaRecipeType(ResourceLocation name, short flags) {
+	public MachinaRecipeType(ResourceLocation name, int flags) {
 		this.name = name;
 		this.flags = flags;
 	}
 
-	public short getFlags() {
+	public int getFlags() {
 		return flags;
 	}
 

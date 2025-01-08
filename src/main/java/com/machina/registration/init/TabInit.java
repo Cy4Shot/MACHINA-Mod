@@ -26,6 +26,7 @@ public class TabInit {
 				add(a, BlockInit.BATTERY);
 				add(a, BlockInit.BASIC_MACHINE_CASE);
 				add(a, BlockInit.FURNACE_GENERATOR);
+				add(a, BlockInit.GRINDER);
 				
 				add(a, ItemInit.ALUMINUM_NUGGET);
 				add(a, ItemInit.ALUMINUM_INGOT);

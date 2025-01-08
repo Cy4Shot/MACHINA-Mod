@@ -63,7 +63,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	protected NonNullList<ItemStack> items = NonNullList.create();
 	protected NonNullList<Side[]> itemSides = NonNullList.create();
 
-	private long energy;
+	private int energy;
 
 	protected ContainerData data = new SimpleContainerData(getExtraDataSize() + DEFAULT_DATA_SIZE);
 
@@ -102,7 +102,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	public void load(CompoundTag tag) {
 		super.load(tag);
 		forEachStorage(s -> s.loadAdditional(tag));
-		this.energy = tag.getLong("energy");
+		this.energy = tag.getInt("energy");
 		this.lockKey = LockCode.fromTag(tag);
 		ContainerHelper.loadAllItems(tag, this.items);
 		this.itemSides = NonNullList.create();
@@ -116,7 +116,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	@Override
 	protected void saveAdditional(CompoundTag tag) {
 		forEachStorage(s -> s.saveAdditional(tag));
-		tag.putLong("energy", energy);
+		tag.putInt("energy", energy);
 		ContainerHelper.saveAllItems(tag, this.items);
 		ListTag sides = new ListTag();
 		for (int i = 0; i < this.itemSides.size(); i++) {
@@ -200,8 +200,6 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 
 	@Override
 	public void setItem(int pIndex, ItemStack pStack) {
-//		ItemStack itemstack = this.items.get(pIndex);
-//		boolean flag = !pStack.isEmpty() && ItemStack.isSameItemSameTags(itemstack, pStack);
 		this.items.set(pIndex, pStack);
 		if (pStack.getCount() > this.getMaxStackSize()) {
 			pStack.setCount(this.getMaxStackSize());
@@ -230,21 +228,21 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 		return itemSides.get(slot)[face.ordinal()] == Side.OUTPUT;
 	}
 
-	public long getEnergy() {
+	public int getEnergy() {
 		return energy;
 	}
 
 	public abstract int getMaxEnergy();
 
-	public long receiveEnergy(Direction from, long maxReceive, boolean simulate) {
+	public int receiveEnergy(Direction from, int maxReceive, boolean simulate) {
 		if (!energyCap.isInput(from)) {
 			return 0;
 		}
 		return receiveEnergy(maxReceive, simulate);
 	}
 
-	protected long receiveEnergy(long maxReceive, boolean simulate) {
-		long received = Math.min(getMaxEnergy() - energy, maxReceive);
+	protected int receiveEnergy(int maxReceive, boolean simulate) {
+		int received = Math.min(getMaxEnergy() - energy, maxReceive);
 		if (received > 0) {
 			if (!simulate) {
 				energy += received;
@@ -265,7 +263,8 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 		return energyCap.isOutput(side);
 	}
 
-	public void consumeEnergy(long amount) {
+	public int consumeEnergy(int amount) {
+		int prev = energy;
 		this.energy -= amount;
 		if (this.energy < 0) {
 			this.energy = 0;
@@ -273,6 +272,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 			this.energy = getMaxEnergy();
 		}
 		this.setChanged();
+		return prev - energy;
 	}
 
 	@Override
@@ -299,7 +299,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 			this.level.blockEntityChanged(this.worldPosition);
 		}
 		this.data.set(0, (int) this.energy);
-		this.data.set(1, this.getMaxEnergy());
+		this.data.set(1, (int) this.getMaxEnergy());
 		super.setChanged();
 	}
 
@@ -329,7 +329,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 
 	public void tick() {
 	}
-	
+
 	public byte[] getSideConfig(SidedStorage storage) {
 		return storage.getRawSideData();
 	}

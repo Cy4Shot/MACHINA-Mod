@@ -25,7 +25,7 @@ public class MachinaEnergyStorage implements IEnergyStorage, IMachinaStorage {
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		return (int) be.receiveEnergy(facing, maxReceive, simulate);
+		return be.receiveEnergy(facing, maxReceive, simulate);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class MachinaEnergyStorage implements IEnergyStorage, IMachinaStorage {
 
 	@Override
 	public int getEnergyStored() {
-		return (int) be.getEnergy();
+		return be.getEnergy();
 	}
 
 	@Override

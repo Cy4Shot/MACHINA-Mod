@@ -33,7 +33,10 @@ public class DatagenLootTables extends LootTableProvider {
 		protected void generate() {
 			dropSelf(BlockInit.ENERGY_CABLE.get());
 			dropSelf(BlockInit.BASIC_MACHINE_CASE.get());
-			
+			dropSelf(BlockInit.BATTERY.get());
+			dropSelf(BlockInit.FURNACE_GENERATOR.get());
+			dropSelf(BlockInit.GRINDER.get());
+
 			dropSelf(BlockInit.ALUMINUM_BLOCK.get());
 
 			dropSelf(BlockInit.BROWN_MUSHROOM_STALK.get());
