@@ -1,14 +1,7 @@
 {
-	"parent": "block/cube_all",
-	"textures": {
-		"particle": "#sides",
-		"down": "#sides",
-		"up": "#sides",
-		"north": "#front",
-		"east": "#sides",
-		"south": "#sides",
-		"west": "#sides"
-	},
+	"loader": "machina:sided",
+	"parent": "minecraft:block/block",
+	"render_type": "cutout",
 	"elements": [
 		{
 			"from": [
@@ -28,8 +21,7 @@
 				},
 				"up": {
 					"texture": "#up",
-					"cullface": "up",
-					"rotation": 180
+					"cullface": "up"
 				},
 				"north": {
 					"texture": "#north",
@@ -49,5 +41,14 @@
 				}
 			}
 		}
-	]
+	],
+	"textures": {
+		"particle": "#front",
+		"down": "#bottom",
+		"up": "#top",
+		"north": "#front",
+		"east": "#side",
+		"west": "#side",
+		"south": "#side"
+	}
 }

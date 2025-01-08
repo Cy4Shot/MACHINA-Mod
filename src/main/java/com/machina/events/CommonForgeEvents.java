@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.machina.Machina;
+import com.machina.api.recipe.RecipeRefreshManager;
 import com.machina.api.starchart.Starchart;
 import com.machina.api.starchart.planet_biome.PlanetBiomeLoader;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
@@ -28,6 +29,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.WorldGenLevel;
@@ -36,10 +38,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
@@ -56,6 +60,21 @@ public class CommonForgeEvents {
 	@SubscribeEvent
 	public static void addReloadListeners(AddReloadListenerEvent event) {
 		JsonLoaderInit.registerAll(event);
+
+		event.addListener((ResourceManagerReloadListener) manager -> RecipeRefreshManager.INSTANCE
+				.setServerRecipeManager(event.getServerResources().getRecipeManager()));
+	}
+
+	@SubscribeEvent
+	public static void tagsUpdated(final TagsUpdatedEvent event) {
+		RecipeRefreshManager.INSTANCE.refreshServer();
+		RecipeRefreshManager.INSTANCE.refreshClient();
+	}
+
+	@SubscribeEvent
+	public static void recipesUpdated(final RecipesUpdatedEvent event) {
+		RecipeRefreshManager.INSTANCE.setClientRecipeManager(event.getRecipeManager());
+		RecipeRefreshManager.INSTANCE.refreshClient();
 	}
 
 	@SubscribeEvent
@@ -75,9 +94,11 @@ public class CommonForgeEvents {
 					(WorldGenLevel) event.getPlayer().level(), null, event.getPlayer().getRandom(),
 					event.getPlayer().level().getHeightmapPos(Types.OCEAN_FLOOR, event.getPlayer().blockPosition())
 							.above(5),
-					new PlanetTreeFeature.PlanetTreeFeatureConfig(new PlanetBiomeTree(
-							PlanetTreeInit.BRANCH_FUNNEL_MUSHROOM.getId(), List.of(Blocks.DIAMOND_BLOCK.defaultBlockState(),
-							Blocks.GREEN_STAINED_GLASS.defaultBlockState()), 1, List.of(), List.of(), 0, 0))));
+					new PlanetTreeFeature.PlanetTreeFeatureConfig(
+							new PlanetBiomeTree(PlanetTreeInit.BRANCH_FUNNEL_MUSHROOM.getId(),
+									List.of(Blocks.DIAMOND_BLOCK.defaultBlockState(),
+											Blocks.GREEN_STAINED_GLASS.defaultBlockState()),
+									1, List.of(), List.of(), 0, 0))));
 			System.out.println("Result: " + val);
 			return;
 		}

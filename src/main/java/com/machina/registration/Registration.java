@@ -15,6 +15,7 @@ import com.machina.registration.init.MaterialRuleInit;
 import com.machina.registration.init.MenuTypeInit;
 import com.machina.registration.init.PlanetRockInit;
 import com.machina.registration.init.PlanetTreeInit;
+import com.machina.registration.init.RecipeInit;
 import com.machina.registration.init.SoundInit;
 import com.machina.registration.init.TabInit;
 
@@ -46,6 +47,8 @@ public class Registration {
 		BlockStateProviderInit.BLOCK_STATE_PROVIDERS.register(bus);
 		MaterialRuleInit.MATERIAL_RULES.register(bus);
 		ChunkGeneratorInit.CHUNK_GENERATORS.register(bus);
+		RecipeInit.RECIPE_TYPES.register(bus);
+		RecipeInit.RECIPE_SERIALIZERS.register(bus);
 	}
 
 	public static void onCommonSetup(final FMLCommonSetupEvent event) {

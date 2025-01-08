@@ -16,6 +16,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.ChunkRenderTypeSet;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IDynamicBakedModel;
 import net.minecraftforge.client.model.data.ModelData;
@@ -46,6 +47,11 @@ public class SidedBakedModel extends BakedModelWrapper<BakedModel> implements ID
 		}
 
 		BakedQuad quad = quads.get(0);
+		quads.clear();
+		quads.add(new BakedQuad(quad.getVertices(), quad.getTintIndex(), side, ModelLoader.MACHINE_FACE_INPUT,
+				quad.isShade(), quad.hasAmbientOcclusion()));
+		
+		
 		int sideIndex = side.get3DDataValue();
 
 		byte[] sideConfigRaw = extraData.get(SIDES);
@@ -63,10 +69,14 @@ public class SidedBakedModel extends BakedModelWrapper<BakedModel> implements ID
 					getConfigTexture(sideConfigRaw[sideIndex]));
 			SIDE_QUAD_CACHE.put(configHash, cachedSideQuads);
 		}
-		quads.clear();
-		quads.add(new RetexturedBakedQuad(quad, side, ModelLoader.MACHINE_FACE_INPUT));
+//		quads.add(cachedSideQuads[sideIndex]);
 
 		return quads;
+	}
+
+	@Override
+	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
+		return List.of();
 	}
 
 	private TextureAtlasSprite getConfigTexture(byte side) {

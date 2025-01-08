@@ -9,7 +9,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockElement;
+import net.minecraft.client.renderer.block.model.BlockElementFace;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
@@ -45,9 +47,9 @@ public class ElementsModelWrapped extends SimpleUnbakedGeometry<ElementsModelWra
 
 		for (BlockElement element : elements) {
 			for (Direction direction : element.faces.keySet()) {
-				var face = element.faces.get(direction);
-				var sprite = spriteGetter.apply(context.getMaterial(face.texture));
-				var quad = BlockModel.bakeFace(element, face, sprite, direction, modelState, modelLocation);
+				BlockElementFace face = element.faces.get(direction);
+				TextureAtlasSprite sprite = spriteGetter.apply(context.getMaterial(face.texture));
+				BakedQuad quad = BlockModel.bakeFace(element, face, sprite, direction, modelState, modelLocation);
 
 				if (face.cullForDirection == null)
 					modelBuilder.addUnculledFace(quad);
