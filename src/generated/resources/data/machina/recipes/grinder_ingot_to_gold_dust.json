@@ -1,0 +1,18 @@
+{
+  "type": "machina:grinder",
+  "energy": 10000,
+  "inputFluids": [],
+  "inputItems": [
+    {
+      "item": "minecraft:gold_ingot"
+    }
+  ],
+  "outputFluids": [],
+  "outputItems": [
+    {
+      "item": "machina:gold_dust"
+    }
+  ],
+  "time": 300,
+  "xp": 0.1
+}

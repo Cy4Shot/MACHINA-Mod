@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_coal": {
+    "has_gold_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:coal"
+              "minecraft:gold_ingot"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "machina:grinder_coal_to_chunk"
+        "recipe": "machina:grinder_ingot_to_gold_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_coal",
+      "has_gold_ingot",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "machina:grinder_coal_to_chunk"
+      "machina:grinder_ingot_to_gold_dust"
     ]
   },
   "sends_telemetry_event": false

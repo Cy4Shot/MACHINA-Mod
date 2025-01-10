@@ -8,8 +8,8 @@ import com.machina.api.recipe.RecipeRefreshManager;
 import com.machina.api.starchart.Starchart;
 import com.machina.api.starchart.planet_biome.PlanetBiomeLoader;
 import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
-import com.machina.registration.init.BlockFamiliesInit;
-import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
+import com.machina.registration.init.FamiliesInit;
+import com.machina.registration.init.FamiliesInit.WoodFamily;
 import com.machina.registration.init.ItemInit;
 import com.machina.registration.init.JsonLoaderInit;
 import com.machina.registration.init.PlanetTreeInit;
@@ -161,7 +161,7 @@ public class CommonForgeEvents {
 		BlockState state = event.getState();
 		if (!event.isSimulated()) {
 			if (action == ToolActions.AXE_STRIP) {
-				for (WoodFamily family : BlockFamiliesInit.WOODS) {
+				for (WoodFamily family : FamiliesInit.WOODS) {
 					if (state.is(family.log())) {
 						event.setFinalState(family.stripped_log().withPropertiesOf(state));
 						return;

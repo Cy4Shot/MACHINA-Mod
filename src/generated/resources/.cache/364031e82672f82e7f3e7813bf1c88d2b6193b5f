@@ -1,4 +1,31 @@
-// 1.20.1	2024-12-24T17:26:02.6568108	Tags for minecraft:item mod id machina
+// 1.20.1	2025-01-10T13:08:43.2826616	Tags for minecraft:item mod id machina
+25600e53d4c408f0c4074408d152259846ce65eb data/forge/tags/items/dusts.json
+f34fb318e4199b18e82d06f64cc77ac94455cddc data/forge/tags/items/dusts/coal.json
+de7ded1499e4698db553b3b50e504d3a8b429824 data/forge/tags/items/dusts/copper.json
+bf9918af506ec3c97760d2cbc3bfff3d94da0d69 data/forge/tags/items/dusts/diamond.json
+9a8d4bd3ec7aea0fc0271e1f3638ab26b318d70c data/forge/tags/items/dusts/emerald.json
+9e044a6852b3fb37b7f62d6bbdcb3c842f071fa9 data/forge/tags/items/dusts/gold.json
+8288a8805a58088290c183c9c0f49e2e47fb93d3 data/forge/tags/items/dusts/iron.json
+a254fedd3c5efa218cdae219b8d74fe385588f0e data/forge/tags/items/dusts/lapis.json
+d1a2effecc6f7a894c2a922d36c6c124962708b0 data/forge/tags/items/dusts/quartz.json
+25c11613baac71761a47787f185115060a216c74 data/forge/tags/items/nuggets.json
+17661c5b2f1c81c432232627ba23993b305b2e33 data/forge/tags/items/nuggets/copper.json
+d6e973f968a17521c504abc0e1a2630631728526 data/forge/tags/items/nuggets/diamond.json
+ebf88f76296dc67d37f7260f181f4ce85ef96b5e data/forge/tags/items/plates.json
+8b71c51e4dad4103465a3bfecfb3c46a1f395506 data/forge/tags/items/plates/copper.json
+3c3733efaa5d37e4cc55c46b5f1c25ae3d881106 data/forge/tags/items/plates/diamond.json
+ed990c21f7bb25af031af8029ea7637ac683bbee data/forge/tags/items/plates/gold.json
+9bc2e58d54832a589ec45a3ec28270aa3c08d0fd data/forge/tags/items/plates/iron.json
+01d602a9e6d0a0d1e53e2f74ca44012c95af5d58 data/forge/tags/items/rods.json
+c6d16af4a448df1323cec3702c79b33eb70ee17e data/forge/tags/items/rods/copper.json
+972ee1732a20146e355399393fd6c60fa00dcae8 data/forge/tags/items/rods/diamond.json
+dc0a02f252a81765c78d1b5ee6d936a4f2305ced data/forge/tags/items/rods/gold.json
+98a6513b6566dc7606f590b674b317cf683633a2 data/forge/tags/items/rods/iron.json
+f342f42b5fd28a71d07056bda6a5ed8ac4f1afde data/forge/tags/items/wires.json
+1e32e15a7407911e6ec14e826e3837c32ebe5bd2 data/forge/tags/items/wires/copper.json
+7163c92ba521f424bd83ca3af861f04de3a101fa data/forge/tags/items/wires/diamond.json
+b5d438b42b5f077474361f103715f15c46982c5c data/forge/tags/items/wires/gold.json
+b7146caf9746ac6d65fbeea8544cefe92ce9069c data/forge/tags/items/wires/iron.json
 9dce9a4325cb6566bddd6b229a9a33a8f228c0fd data/minecraft/tags/items/buttons.json
 f055533b8c0f73c1b4b5c3d41270498100588ade data/minecraft/tags/items/dirt.json
 96f35ecb1ba7f70af766db1543a669a3422a723c data/minecraft/tags/items/doors.json

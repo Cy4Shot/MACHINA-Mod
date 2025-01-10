@@ -9,6 +9,8 @@ import com.machina.block.MachinaWaterlilyBlock;
 import com.machina.block.PebbleBlock;
 import com.machina.block.SmallFlowerBlock;
 import com.machina.registration.init.BlockInit;
+import com.machina.registration.init.FamiliesInit;
+import com.machina.registration.init.FamiliesInit.OreFamily;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
 import com.machina.registration.init.FruitInit;
@@ -367,6 +369,12 @@ public class DatagenBlockStates extends BlockStateProvider {
 		// Dynamic
 		FruitInit.FRUITS.forEach(this::fruit);
 		FluidInit.OBJS.forEach(this::fluid);
+		FamiliesInit.ORES.forEach(this::oreFamily);
+	}
+	
+	private void oreFamily(OreFamily fam) {
+		fam.getBlock().ifPresent(this::cube);
+		fam.getOre().ifPresent(this::cube);
 	}
 
 	private void cubeRandomRotation(RegistryObject<Block> block) {
@@ -388,9 +396,13 @@ public class DatagenBlockStates extends BlockStateProvider {
 		return ConfiguredModel.builder().modelFile(model).nextModel().rotationY(270).modelFile(model).nextModel()
 				.rotationY(180).modelFile(model).nextModel().rotationY(90).modelFile(model).build();
 	}
+	
+	private void cube(Block block) {
+		simpleBlockWithItem(block, cubeAll(block));
+	}
 
 	private void cube(RegistryObject<Block> blockRegistryObject) {
-		simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
+		cube(blockRegistryObject.get());
 	}
 
 	private void leaves(RegistryObject<LeavesBlock> leaves) {

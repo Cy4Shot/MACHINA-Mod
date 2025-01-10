@@ -1,0 +1,18 @@
+{
+  "type": "machina:grinder",
+  "energy": 20000,
+  "inputFluids": [],
+  "inputItems": [
+    {
+      "item": "minecraft:emerald_ore"
+    }
+  ],
+  "outputFluids": [],
+  "outputItems": [
+    {
+      "item": "machina:emerald_dust"
+    }
+  ],
+  "time": 300,
+  "xp": 0.1
+}

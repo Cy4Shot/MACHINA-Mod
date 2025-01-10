@@ -8,11 +8,12 @@ import org.jetbrains.annotations.NotNull;
 import com.machina.Machina;
 import com.machina.api.recipe.MachinaRecipeBuilder;
 import com.machina.registration.init.BlockInit;
-import com.machina.registration.init.BlockFamiliesInit;
+import com.machina.registration.init.FamiliesInit;
+import com.machina.registration.init.FamiliesInit.OreFamily;
+import com.machina.registration.init.FamiliesInit.StoneFamily;
+import com.machina.registration.init.FamiliesInit.WoodFamily;
 import com.machina.registration.init.ItemInit;
 import com.machina.registration.init.RecipeInit;
-import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
-import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -63,18 +64,54 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 			.save(gen, Machina.MOD_ID + ":crafting_" + getItemName(BlockInit.MIGMATITE.get()));
 		//@formatter:on
 
-		BlockFamiliesInit.STONES.forEach(x -> stoneFamily(gen, x));
-		BlockFamiliesInit.WOODS.forEach(x -> woodFamily(gen, x));
+		FamiliesInit.ORES.forEach(x -> oreFamily(gen, x));
+		FamiliesInit.STONES.forEach(x -> stoneFamily(gen, x));
+		FamiliesInit.WOODS.forEach(x -> woodFamily(gen, x));
+	}
 
-		//@formatter:off
-		MachinaRecipeBuilder.create(RecipeInit.GRINDER, 0.1f)
-			.withEnergy(10000)
-			.withTime(200)
-			.withInputItem(Items.COAL, 1)
-			.withOutputItem(ItemInit.COAL_CHUNK.get(), 9)
-			.unlockedBy(getHasName(Items.COAL), has(Items.COAL))
-			.save(gen, Machina.MOD_ID + ":grinder_coal_to_chunk");
-		//@formatter:on
+	protected static void oreFamily(Consumer<FinishedRecipe> gen, OreFamily family) {
+		// Crafting ingot
+		family.getIngot().ifPresent(ingot -> {
+			family.ore().ifPresent(ore -> {
+				ore(gen, List.of(ore), ingot, 0.7f, 200, family.name());
+			});
+			ore(gen, List.of(family.dust()), ingot, 0.7f, 200, family.name());
+		});
+
+		// Crafting block
+		family.getBlock().ifPresent(block -> {
+			family.ingot().ifPresent(ingot -> {
+				compact(gen, block, ingot);
+			});
+		});
+
+		// Crafting nugget
+		family.getNugget().ifPresent(nugget -> {
+			family.ingot().ifPresent(ingot -> {
+				compact(gen, ingot, nugget);
+			});
+		});
+
+		// Crafting dust
+		family.ore().ifPresent(ore -> {
+			//@formatter:off
+			MachinaRecipeBuilder.create(RecipeInit.GRINDER, 0.1f)
+				.withEnergy(20000).withTime(300)
+				.withInputItem(ore.asItem(), 1).withOutputItem(family.dust(), 2)
+				.unlockedBy(getHasName(ore), has(ore))
+				.save(gen, Machina.MOD_ID + ":grinder_ore_to_" + getItemName(family.dust()));
+			//@formatter:on
+		});
+		family.ingot().ifPresent(ingot -> {
+			//@formatter:off
+			MachinaRecipeBuilder.create(RecipeInit.GRINDER, 0.1f)
+				.withEnergy(10000).withTime(300)
+				.withInputItem(ingot.asItem(), 1).withOutputItem(family.dust(), 1)
+				.unlockedBy(getHasName(ingot), has(ingot))
+				.save(gen, Machina.MOD_ID + ":grinder_ingot_to_" + getItemName(family.dust()));
+			//@formatter:on
+		});
+
 	}
 
 	protected static void woodFamily(Consumer<FinishedRecipe> gen, WoodFamily family) {
@@ -258,6 +295,11 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 	}
 
 	protected static void compact(Consumer<FinishedRecipe> gen, ItemLike big, ItemLike small) {
+		recompact(gen, big, small);
+		decompact(gen, big, small);
+	}
+
+	protected static void recompact(Consumer<FinishedRecipe> gen, ItemLike big, ItemLike small) {
 		//@formatter:off
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, big)
 	        .pattern("SSS")
@@ -267,7 +309,11 @@ public class DatagenRecipes extends RecipeProvider implements IConditionBuilder 
 	        .unlockedBy(getHasName(small), has(small))
 	        .showNotification(false)
 	        .save(gen, Machina.MOD_ID + ":" + getItemName(big) + "_from_" + getItemName(small));
+		//@formatter:on
+	}
 
+	protected static void decompact(Consumer<FinishedRecipe> gen, ItemLike big, ItemLike small) {
+		//@formatter:off
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, small, 9)
 	        .requires(big)
 	        .unlockedBy(getHasName(big), has(big))

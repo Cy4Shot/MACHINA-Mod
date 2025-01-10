@@ -4,15 +4,15 @@
   "inputFluids": [],
   "inputItems": [
     {
-      "item": "minecraft:coal"
+      "item": "minecraft:emerald"
     }
   ],
   "outputFluids": [],
   "outputItems": [
     {
-      "item": "machina:coal_chunk"
+      "item": "machina:emerald_dust"
     }
   ],
-  "time": 200,
+  "time": 300,
   "xp": 0.1
 }

@@ -5,11 +5,15 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.machina.datagen.server.provider.BlockLootTableProvider;
-import com.machina.registration.init.BlockFamiliesInit;
-import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
-import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 import com.machina.registration.init.BlockInit;
+import com.machina.registration.init.FamiliesInit;
+import com.machina.registration.init.FamiliesInit.DirtFamily;
+import com.machina.registration.init.FamiliesInit.OreFamily;
+import com.machina.registration.init.FamiliesInit.StoneFamily;
+import com.machina.registration.init.FamiliesInit.WoodFamily;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
 import com.machina.registration.init.FruitInit;
@@ -20,7 +24,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import org.jetbrains.annotations.NotNull;
 
 public class DatagenLootTables extends LootTableProvider {
 	public DatagenLootTables(PackOutput output) {
@@ -137,12 +140,20 @@ public class DatagenLootTables extends LootTableProvider {
 				dropNone(obj.block());
 			}
 
-			BlockFamiliesInit.DIRTS.forEach(this::dirtFamily);
-			BlockFamiliesInit.STONES.forEach(this::stoneFamily);
-			BlockFamiliesInit.WOODS.forEach(this::woodFamily);
+			FamiliesInit.ORES.forEach(this::oreFamily);
+			FamiliesInit.DIRTS.forEach(this::dirtFamily);
+			FamiliesInit.STONES.forEach(this::stoneFamily);
+			FamiliesInit.WOODS.forEach(this::woodFamily);
+		}
+		
+		private void oreFamily(OreFamily family) {
+			family.getBlock().ifPresent(this::dropSelf);
+			
+			// TODO: Raw
+			family.getOre().ifPresent(this::dropSelf);
 		}
 
-		private void dirtFamily(BlockFamiliesInit.DirtFamily family) {
+		private void dirtFamily(DirtFamily family) {
 			dropSelf(family.dirt());
 			dropSelf(family.stairs());
 			dropSelf(family.slab());

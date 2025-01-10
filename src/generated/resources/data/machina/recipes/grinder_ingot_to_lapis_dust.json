@@ -1,0 +1,18 @@
+{
+  "type": "machina:grinder",
+  "energy": 10000,
+  "inputFluids": [],
+  "inputItems": [
+    {
+      "item": "minecraft:lapis_lazuli"
+    }
+  ],
+  "outputFluids": [],
+  "outputItems": [
+    {
+      "item": "machina:lapis_dust"
+    }
+  ],
+  "time": 300,
+  "xp": 0.1
+}

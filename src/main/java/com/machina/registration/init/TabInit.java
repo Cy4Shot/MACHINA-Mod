@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import com.machina.Machina;
+import com.machina.registration.init.FamiliesInit.ItemLikeFamily;
 import com.machina.registration.init.FluidInit.FluidObject;
 import com.machina.registration.init.FruitInit.Fruit;
 
@@ -19,15 +20,25 @@ public class TabInit {
 	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister
 			.create(Registries.CREATIVE_MODE_TAB, Machina.MOD_ID);
 
-	public static final RegistryObject<CreativeModeTab> MACHINA_RESOURCES = create("machina_resources",
-			ItemInit.BLUEPRINT, a -> {
+	public static final RegistryObject<CreativeModeTab> MACHINA_MACHINERY = create("machina_machinery",
+			BlockInit.FURNACE_GENERATOR, a -> {
 				add(a, ItemInit.BLUEPRINT);
 				add(a, BlockInit.ENERGY_CABLE);
 				add(a, BlockInit.BATTERY);
 				add(a, BlockInit.BASIC_MACHINE_CASE);
 				add(a, BlockInit.FURNACE_GENERATOR);
 				add(a, BlockInit.GRINDER);
-				
+
+				for (FluidObject e : FluidInit.OBJS) {
+					add(a, e.bucket());
+				}
+			});
+
+	public static final RegistryObject<CreativeModeTab> MACHINA_RESOURCES = create("machina_resources",
+			ItemInit.DIAMOND_PLATE, a -> {
+
+				family(a, FamiliesInit.ORES);
+
 				add(a, ItemInit.ALUMINUM_NUGGET);
 				add(a, ItemInit.ALUMINUM_INGOT);
 				add(a, BlockInit.ALUMINUM_BLOCK);
@@ -60,13 +71,13 @@ public class TabInit {
 
 	public static final RegistryObject<CreativeModeTab> MACHINA_WORLDGEN = create("machina_worldgen",
 			BlockInit.TROPICAL_GRASS_BLOCK, a -> {
-				family(a, BlockFamiliesInit.DIRTS);
+				family(a, FamiliesInit.DIRTS);
 
 				add(a, BlockInit.ALUMINUM_ORE);
-				family(a, BlockFamiliesInit.STONES);
+				family(a, FamiliesInit.STONES);
 
-				family(a, BlockFamiliesInit.WOODS);
-				
+				family(a, FamiliesInit.WOODS);
+
 				add(a, BlockInit.BROWN_MUSHROOM_STALK);
 				add(a, BlockInit.GREEN_MUSHROOM_STALK);
 				add(a, BlockInit.PURPLE_MUSHROOM_STALK);
@@ -94,7 +105,7 @@ public class TabInit {
 				add(a, BlockInit.SHORT_CONIFEROUS_GRASS);
 				add(a, BlockInit.WINDSWEPT_GRASS);
 				add(a, BlockInit.MYCELIAL_GRASS);
-				
+
 				add(a, BlockInit.PURPLE_GROUNDLILY);
 				add(a, BlockInit.PINK_GROUNDLILY);
 				add(a, BlockInit.RED_GROUNDLILY);
@@ -111,19 +122,19 @@ public class TabInit {
 				add(a, BlockInit.GREEN_WATERLILY);
 				add(a, BlockInit.TURQUOISE_WATERLILY);
 				add(a, BlockInit.BLUE_WATERLILY);
-				
+
 				add(a, BlockInit.NEEDLEGRASS);
 				add(a, BlockInit.NEEDLETHATCH);
-				
+
 				add(a, BlockInit.SPINDLESPROUT);
 				add(a, BlockInit.SMALL_FERN);
 				add(a, BlockInit.DEAD_SMALL_FERN);
 				add(a, BlockInit.CLOVER);
 				add(a, BlockInit.SPINDLEGRASS);
-				
+
 				add(a, BlockInit.ORPHEUM);
 				add(a, BlockInit.DRAGON_PEONY);
-				
+
 				add(a, BlockInit.PURPLE_PETALS);
 				add(a, BlockInit.RED_PETALS);
 				add(a, BlockInit.ORANGE_PETALS);
@@ -131,9 +142,9 @@ public class TabInit {
 				add(a, BlockInit.GREEN_PETALS);
 				add(a, BlockInit.TURQUOISE_PETALS);
 				add(a, BlockInit.BLUE_PETALS);
-				
+
 				add(a, BlockInit.SPRUCE_CUP);
-				
+
 				add(a, BlockInit.PURPLE_GLOWSHROOM);
 				add(a, BlockInit.PINK_GLOWSHROOM);
 				add(a, BlockInit.RED_GLOWSHROOM);
@@ -142,7 +153,7 @@ public class TabInit {
 				add(a, BlockInit.GREEN_GLOWSHROOM);
 				add(a, BlockInit.TURQUOISE_GLOWSHROOM);
 				add(a, BlockInit.BLUE_GLOWSHROOM);
-				
+
 				fruit(a, FruitInit.FRUITS);
 			});
 
@@ -166,12 +177,12 @@ public class TabInit {
 	public static void add(CreativeModeTab.Output adder, Fruit fruit) {
 		add(adder, fruit.item());
 	}
-	
+
 	public static void fruit(CreativeModeTab.Output adder, List<Fruit> fruit) {
 		fruit.forEach(f -> add(adder, f));
 	}
 
-	public static void family(CreativeModeTab.Output adder, List<? extends BlockFamiliesInit.BlockFamily> family) {
+	public static void family(CreativeModeTab.Output adder, List<? extends ItemLikeFamily> family) {
 		family.forEach(f -> f.tab().forEach(i -> add(adder, i)));
 	}
 

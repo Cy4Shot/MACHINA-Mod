@@ -4,19 +4,46 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import com.machina.Machina;
+
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
-public class BlockFamiliesInit {
+public class FamiliesInit {
 
+	public static List<OreFamily> ORES = new ArrayList<>();
 	public static List<DirtFamily> DIRTS = new ArrayList<>();
 	public static List<WoodFamily> WOODS = new ArrayList<>();
 	public static List<StoneFamily> STONES = new ArrayList<>();
 
 	static {
+		ORES.add(OreFamily.gemLike("coal", Blocks.COAL_ORE, Blocks.COAL_BLOCK, Items.COAL, ItemInit.COAL_DUST.get()));
+		ORES.add(OreFamily.gemLike("lapis", Blocks.LAPIS_ORE, Blocks.LAPIS_BLOCK, Items.LAPIS_LAZULI,
+				ItemInit.LAPIS_DUST.get()));
+		ORES.add(OreFamily.gemLike("quartz", Blocks.NETHER_QUARTZ_ORE, Blocks.QUARTZ_BLOCK, Items.QUARTZ,
+				ItemInit.QUARTZ_DUST.get()));
+		ORES.add(OreFamily.gemLike("emerald", Blocks.EMERALD_ORE, Blocks.EMERALD_BLOCK, Items.EMERALD,
+				ItemInit.EMERALD_DUST.get()));
+		ORES.add(OreFamily.ingotLike("iron", Blocks.IRON_ORE, Blocks.IRON_BLOCK, Items.IRON_NUGGET, Items.IRON_INGOT,
+				ItemInit.IRON_DUST.get(), ItemInit.IRON_PLATE.get(), ItemInit.IRON_ROD.get(),
+				ItemInit.IRON_WIRE.get()));
+		ORES.add(OreFamily.ingotLike("gold", Blocks.GOLD_ORE, Blocks.GOLD_BLOCK, Items.GOLD_NUGGET, Items.GOLD_INGOT,
+				ItemInit.GOLD_DUST.get(), ItemInit.GOLD_PLATE.get(), ItemInit.GOLD_ROD.get(),
+				ItemInit.GOLD_WIRE.get()));
+		ORES.add(OreFamily.ingotLike("copper", Blocks.COPPER_ORE, Blocks.COPPER_BLOCK, ItemInit.COPPER_NUGGET.get(),
+				Items.COPPER_INGOT, ItemInit.COPPER_DUST.get(), ItemInit.COPPER_PLATE.get(), ItemInit.COPPER_ROD.get(),
+				ItemInit.COPPER_WIRE.get()));
+		ORES.add(OreFamily.ingotLike("diamond", Blocks.DIAMOND_ORE, Blocks.DIAMOND_BLOCK, ItemInit.DIAMOND_NUGGET.get(),
+				Items.DIAMOND, ItemInit.DIAMOND_DUST.get(), ItemInit.DIAMOND_PLATE.get(), ItemInit.DIAMOND_ROD.get(),
+				ItemInit.DIAMOND_WIRE.get()));
+
 		DIRTS.add(new DirtFamily("tropical", BlockInit.TROPICAL_DIRT.get(), BlockInit.TROPICAL_DIRT_STAIRS.get(),
 				BlockInit.TROPICAL_DIRT_SLAB.get(), Optional.of(BlockInit.TROPICAL_GRASS_BLOCK.get())));
 		DIRTS.add(new DirtFamily("forest", BlockInit.FOREST_DIRT.get(), BlockInit.FOREST_DIRT_STAIRS.get(),
@@ -122,12 +149,68 @@ public class BlockFamiliesInit {
 				BlockInit.GNEISS_BUTTON.get(), BlockInit.GNEISS_PEBBLES.get()));
 	}
 
-	public static interface BlockFamily {
+	public static interface ItemLikeFamily {
 		public List<ItemLike> tab();
 	}
 
+	public static final record OreFamily(String name, Optional<Block> ore, Optional<Block> block, Optional<Item> nugget,
+			Optional<Item> ingot, Item dust, Optional<Item> plate, Optional<Item> rod, Optional<Item> wire)
+			implements ItemLikeFamily {
+
+		public static OreFamily gemLike(String name, Block ore, Block block, Item ingot, Item dust) {
+			return new OreFamily(name, Optional.of(ore), Optional.of(block), Optional.empty(), Optional.of(ingot), dust,
+					Optional.empty(), Optional.empty(), Optional.empty());
+		}
+
+		public static OreFamily ingotLike(String name, Block ore, Block block, Item nugget, Item ingot, Item dust,
+				Item plate, Item rod, Item wire) {
+			return new OreFamily(name, Optional.of(ore), Optional.of(block), Optional.of(nugget), Optional.of(ingot),
+					dust, Optional.of(plate), Optional.of(rod), Optional.of(wire));
+		}
+		
+		private static boolean isOurItem(ItemLike item) {
+			return BuiltInRegistries.ITEM.getKey(item.asItem()).getNamespace().equals(Machina.MOD_ID);
+		}
+		
+		public Optional<Block> getOre() {
+			return ore.filter(OreFamily::isOurItem);
+		}
+		
+		public Optional<Block> getBlock() {
+			return block.filter(OreFamily::isOurItem);
+		}
+		
+		public Optional<Item> getNugget() {
+			return nugget.filter(OreFamily::isOurItem);
+		}
+		
+		public Optional<Item> getIngot() {
+			return ingot.filter(OreFamily::isOurItem);
+		}
+
+		@Override
+		public List<ItemLike> tab() {
+			List<ItemLike> builder = new ArrayList<>();
+
+			Consumer<ItemLike> add = i -> {
+				if (BuiltInRegistries.ITEM.getKey(i.asItem()).getNamespace().equals(Machina.MOD_ID)) {
+					builder.add(i);
+				}
+			};
+
+			ore.ifPresent(add);
+			ingot.ifPresent(add);
+			block.ifPresent(add);
+			builder.add(dust);
+			plate.ifPresent(add);
+			rod.ifPresent(add);
+			wire.ifPresent(add);
+			return builder;
+		}
+	}
+
 	public static final record DirtFamily(String name, Block dirt, Block stairs, Block slab, Optional<Block> grass)
-			implements BlockFamily {
+			implements ItemLikeFamily {
 
 		public DirtFamily(String name, Block dirt, Block stairs, Block slab) {
 			this(name, dirt, stairs, slab, Optional.empty());
@@ -145,7 +228,7 @@ public class BlockFamiliesInit {
 	public static final record WoodFamily(String name, Block log, Block wood, Block stripped_log, Block stripped_wood,
 			Block planks, Block stairs, Block slab, Block fence, Block fencegate, Block door, Block trapdoor,
 			Block pressure_plate, Block button, Item sign, Item hangingsign, Block signblock, Block wallsignblock,
-			Block hangingsignblock, Block hangingwallsignblock, Block[] leaves) implements BlockFamily {
+			Block hangingsignblock, Block hangingwallsignblock, Block[] leaves) implements ItemLikeFamily {
 
 		@Override
 		public List<ItemLike> tab() {
@@ -156,7 +239,7 @@ public class BlockFamiliesInit {
 	}
 
 	public static final record StoneFamily(String name, Block base, Block slab, Block stairs, Block wall,
-			Block pressure_plate, Block button, Block pebbles) implements BlockFamily {
+			Block pressure_plate, Block button, Block pebbles) implements ItemLikeFamily {
 
 		@Override
 		public List<ItemLike> tab() {

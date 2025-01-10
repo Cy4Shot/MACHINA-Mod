@@ -1,0 +1,18 @@
+{
+  "type": "machina:grinder",
+  "energy": 10000,
+  "inputFluids": [],
+  "inputItems": [
+    {
+      "item": "minecraft:coal"
+    }
+  ],
+  "outputFluids": [],
+  "outputItems": [
+    {
+      "item": "machina:coal_dust"
+    }
+  ],
+  "time": 300,
+  "xp": 0.1
+}

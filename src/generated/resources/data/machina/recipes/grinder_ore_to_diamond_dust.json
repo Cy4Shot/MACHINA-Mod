@@ -1,0 +1,18 @@
+{
+  "type": "machina:grinder",
+  "energy": 20000,
+  "inputFluids": [],
+  "inputItems": [
+    {
+      "item": "minecraft:diamond_ore"
+    }
+  ],
+  "outputFluids": [],
+  "outputItems": [
+    {
+      "item": "machina:diamond_dust"
+    }
+  ],
+  "time": 300,
+  "xp": 0.1
+}

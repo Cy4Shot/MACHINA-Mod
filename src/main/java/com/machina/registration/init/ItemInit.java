@@ -20,6 +20,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ItemInit {
+
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Machina.MOD_ID);
 
 	//@formatter:off
@@ -36,20 +37,47 @@ public class ItemInit {
 	public static final RegistryObject<Item> PROCESSOR = basic("processor");
 	public static final RegistryObject<Item> RAW_SILICON_BLEND = basic("raw_silicon_blend");
 	
-	public static final RegistryObject<Item> SILICON = basic("silicon", p -> new ChemicalItem(p, "Si"));
-	public static final RegistryObject<Item> SILICON_BOLUS = basic("silicon_bolus", p -> new ChemicalItem(p, "Si"));
-	public static final RegistryObject<Item> HIGH_PURITY_SILICON = basic("high_purity_silicon", p -> new ChemicalItem(p, "Si"));
-	public static final RegistryObject<Item> AMMONIUM_NITRATE = basic("ammonium_nitrate", p -> new ChemicalItem(p, "NH4NO3"));
-	public static final RegistryObject<Item> LDPE = basic("ldpe", p -> new ChemicalItem(p, "ldpe", "(CH2CH2)"));
-	public static final RegistryObject<Item> HDPE = basic("hdpe", p -> new ChemicalItem(p, "hdpe","(CH2CH2)"));
-	public static final RegistryObject<Item> UHMWPE = basic("uhmwpe", p -> new ChemicalItem(p, "uhmwpe", "(CH2CH2)"));
-	public static final RegistryObject<Item> SODIUM_HYDROXIDE = basic("sodium_hydroxide", p -> new ChemicalItem(p, "NaOH"));
-	public static final RegistryObject<Item> SODIUM_CARBONATE = basic("sodium_carbonate", p -> new ChemicalItem(p, "Na2CO3"));
-	public static final RegistryObject<Item> CALCIUM_SULPHATE = basic("calcium_sulphate", p -> new ChemicalItem(p, "CaSO4"));
-	public static final RegistryObject<Item> PALLADIUM_CHLORIDE = basic("palladium_chloride", p -> new ChemicalItem(p, "PdCl2"));
-	public static final RegistryObject<Item> PALLADIUM_ON_CARBON = basic("palladium_on_carbon", p -> new ChemicalItem(p, "Pd/C"));
-	public static final RegistryObject<Item> HEXAMINE = basic("hexamine", p -> new ChemicalItem(p, "(CH2)6N4"));
-	public static final RegistryObject<Item> NITRONIUM_TETRAFLUOROBORATE = basic("nitronium_tetrafluoroborate", p -> new ChemicalItem(p, "NO2BF4"));
+	public static final RegistryObject<Item> COPPER_NUGGET = basic("copper_nugget");
+	public static final RegistryObject<Item> DIAMOND_NUGGET = basic("diamond_nugget");
+	
+	public static final RegistryObject<ChemicalItem> COAL_DUST = chemical("coal_dust", "C");
+	public static final RegistryObject<ChemicalItem> IRON_DUST = chemical("iron_dust", "Fe");
+	public static final RegistryObject<ChemicalItem> COPPER_DUST = chemical("copper_dust", "Cu");
+	public static final RegistryObject<ChemicalItem> GOLD_DUST = chemical("gold_dust", "Au");
+	public static final RegistryObject<ChemicalItem> DIAMOND_DUST = chemical("diamond_dust", "C");
+	public static final RegistryObject<ChemicalItem> LAPIS_DUST = chemical("lapis_dust", "NaAl6Si6O24S2");
+	public static final RegistryObject<ChemicalItem> EMERALD_DUST = chemical("emerald_dust", "Be3Al2(SiO3)6");
+	public static final RegistryObject<ChemicalItem> QUARTZ_DUST = chemical("quartz_dust", "SiO2");
+	
+	public static final RegistryObject<ChemicalItem> IRON_PLATE = chemical("iron_plate", "Fe");
+	public static final RegistryObject<ChemicalItem> COPPER_PLATE = chemical("copper_plate", "Cu");
+	public static final RegistryObject<ChemicalItem> GOLD_PLATE = chemical("gold_plate", "Au");
+	public static final RegistryObject<ChemicalItem> DIAMOND_PLATE = chemical("diamond_plate", "C");
+	
+	public static final RegistryObject<ChemicalItem> IRON_ROD = chemical("iron_rod", "Fe");
+	public static final RegistryObject<ChemicalItem> COPPER_ROD = chemical("copper_rod", "Cu");
+	public static final RegistryObject<ChemicalItem> GOLD_ROD = chemical("gold_rod", "Au");
+	public static final RegistryObject<ChemicalItem> DIAMOND_ROD = chemical("diamond_rod", "C");
+	
+	public static final RegistryObject<ChemicalItem> IRON_WIRE = chemical("iron_wire", "Fe");
+	public static final RegistryObject<ChemicalItem> COPPER_WIRE = chemical("copper_wire", "Cu");
+	public static final RegistryObject<ChemicalItem> GOLD_WIRE = chemical("gold_wire", "Au");
+	public static final RegistryObject<ChemicalItem> DIAMOND_WIRE = chemical("diamond_wire", "C");
+	
+	public static final RegistryObject<ChemicalItem> SILICON = chemical("silicon", "Si");
+	public static final RegistryObject<ChemicalItem> SILICON_BOLUS = chemical("silicon_bolus", "Si");
+	public static final RegistryObject<ChemicalItem> HIGH_PURITY_SILICON = chemical("high_purity_silicon", "Si");
+	public static final RegistryObject<ChemicalItem> AMMONIUM_NITRATE = chemical("ammonium_nitrate", "NH4NO3");
+	public static final RegistryObject<ChemicalItem> LDPE = chemical("ldpe", "ldpe", "(CH2CH2)");
+	public static final RegistryObject<ChemicalItem> HDPE = chemical("hdpe", "hdpe","(CH2CH2)");
+	public static final RegistryObject<ChemicalItem> UHMWPE = chemical("uhmwpe", "uhmwpe", "(CH2CH2)");
+	public static final RegistryObject<ChemicalItem> SODIUM_HYDROXIDE = chemical("sodium_hydroxide", "NaOH");
+	public static final RegistryObject<ChemicalItem> SODIUM_CARBONATE = chemical("sodium_carbonate", "Na2CO3");
+	public static final RegistryObject<ChemicalItem> CALCIUM_SULPHATE = chemical("calcium_sulphate", "CaSO4");
+	public static final RegistryObject<ChemicalItem> PALLADIUM_CHLORIDE = chemical("palladium_chloride", "PdCl2");
+	public static final RegistryObject<ChemicalItem> PALLADIUM_ON_CARBON = chemical("palladium_on_carbon", "Pd/C");
+	public static final RegistryObject<ChemicalItem> HEXAMINE = chemical("hexamine", "(CH2)6N4");
+	public static final RegistryObject<ChemicalItem> NITRONIUM_TETRAFLUOROBORATE = chemical("nitronium_tetrafluoroborate", "NO2BF4");
 	
 	public static final RegistryObject<SignItem> TROPICAL_SIGN = sign("tropical_sign", BlockInit.TROPICAL_SIGN, BlockInit.TROPICAL_WALL_SIGN);
 	public static final RegistryObject<HangingSignItem> TROPICAL_HANGING_SIGN = hanging_sign("tropical_hanging_sign", BlockInit.TROPICAL_HANGING_SIGN, BlockInit.TROPICAL_WALL_HANGING_SIGN);
@@ -65,6 +93,14 @@ public class ItemInit {
 
 	public static RegistryObject<Item> basic(String name) {
 		return register(name, () -> ItemBuilder.basicItem());
+	}
+
+	public static RegistryObject<ChemicalItem> chemical(String name, String chemical) {
+		return basic(name, p -> new ChemicalItem(p, chemical));
+	}
+
+	public static RegistryObject<ChemicalItem> chemical(String name, String tooltip, String chemical) {
+		return basic(name, p -> new ChemicalItem(p, tooltip, chemical));
 	}
 
 	public static RegistryObject<SignItem> sign(String name, RegistryObject<MachinaSignBlock> standing,

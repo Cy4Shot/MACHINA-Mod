@@ -23,6 +23,33 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(TabInit.MACHINA_MISCELLANEOUS, "Machina Miscellaneous");
 
 		// Items
+		add(ItemInit.COPPER_NUGGET, "Copper Nugget");
+		add(ItemInit.DIAMOND_NUGGET, "Diamond Nugget");
+		
+		add(ItemInit.COAL_DUST, "Coal Dust");
+		add(ItemInit.IRON_DUST, "Iron Dust");
+		add(ItemInit.COPPER_DUST, "Copper Dust");
+		add(ItemInit.GOLD_DUST, "Gold Dust");
+		add(ItemInit.DIAMOND_DUST, "Diamond Dust");
+		add(ItemInit.LAPIS_DUST, "Lapis Dust");
+		add(ItemInit.EMERALD_DUST, "Emerald Dust");
+		add(ItemInit.QUARTZ_DUST, "Quartz Dust");
+
+		add(ItemInit.IRON_PLATE, "Iron Plate");
+		add(ItemInit.COPPER_PLATE, "Copper Plate");
+		add(ItemInit.GOLD_PLATE, "Gold Plate");
+		add(ItemInit.DIAMOND_PLATE, "Diamond Plate");
+
+		add(ItemInit.IRON_ROD, "Iron Rod");
+		add(ItemInit.COPPER_ROD, "Copper Rod");
+		add(ItemInit.GOLD_ROD, "Gold Rod");
+		add(ItemInit.DIAMOND_ROD, "Diamond Rod");
+
+		add(ItemInit.IRON_WIRE, "Iron Wire");
+		add(ItemInit.COPPER_WIRE, "Copper Wire");
+		add(ItemInit.GOLD_WIRE, "Gold Wire");
+		add(ItemInit.DIAMOND_WIRE, "Diamond Wire");
+
 		add(ItemInit.BLUEPRINT, "Blueprint");
 		add(ItemInit.RAW_ALUMINUM, "Raw Aluminum");
 		add(ItemInit.ALUMINUM_INGOT, "Aluminum Ingot");
@@ -61,7 +88,10 @@ public class DatagenLangEnUs extends DatagenLang {
 		// Blocks
 		add(BlockInit.ENERGY_CABLE, "Energy Cable");
 		add(BlockInit.BASIC_MACHINE_CASE, "Basic Machine Case");
-		
+		add(BlockInit.BATTERY, "Battery");
+		add(BlockInit.FURNACE_GENERATOR, "Furnace Generator");
+		add(BlockInit.GRINDER, "Grinder");
+
 		add(BlockInit.ALUMINUM_BLOCK, "Aluminum Block");
 		add(BlockInit.ALUMINUM_ORE, "Aluminum Ore");
 
@@ -259,7 +289,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.CONIFEROUS_WOOD, "Coniferous Wood");
 		add(BlockInit.STRIPPED_CONIFEROUS_LOG, "Stripped Coniferous Log");
 		add(BlockInit.STRIPPED_CONIFEROUS_WOOD, "Stripped Coniferous Wood");
-		
+
 		add(BlockInit.CYCAD_BUTTON, "Cycad Button");
 		add(BlockInit.CYCAD_DOOR, "Cycad Door");
 		add(BlockInit.CYCAD_FENCE, "Cycad Fence");
@@ -276,7 +306,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.CYCAD_WOOD, "Cycad Wood");
 		add(BlockInit.STRIPPED_CYCAD_LOG, "Stripped Cycad Log");
 		add(BlockInit.STRIPPED_CYCAD_WOOD, "Stripped Cycad Wood");
-		
+
 		add(BlockInit.BROWN_MUSHROOM_STALK, "Brown Mushroom Stalk");
 		add(BlockInit.GREEN_MUSHROOM_STALK, "Green Mushroom Stalk");
 		add(BlockInit.PURPLE_MUSHROOM_STALK, "Purple Mushroom Stalk");
@@ -304,7 +334,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.SHORT_CONIFEROUS_GRASS, "Short Coniferous Grass");
 		add(BlockInit.WINDSWEPT_GRASS, "Windswept Grass");
 		add(BlockInit.MYCELIAL_GRASS, "Mycelial Grass");
-		
+
 		add(BlockInit.PURPLE_PETALS, "Purple Petals");
 		add(BlockInit.RED_PETALS, "Red Petals");
 		add(BlockInit.ORANGE_PETALS, "Orange Petals");
@@ -312,7 +342,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.GREEN_PETALS, "Green Petals");
 		add(BlockInit.TURQUOISE_PETALS, "Turquoise Petals");
 		add(BlockInit.BLUE_PETALS, "Blue Petals");
-		
+
 		add(BlockInit.ORPHEUM, "Orpheum");
 		add(BlockInit.DRAGON_PEONY, "Dragon Peony");
 
@@ -324,13 +354,13 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.DEAD_SMALL_FERN, "Dead Small Fern");
 		add(BlockInit.NEEDLEGRASS, "Needlegrass");
 		add(BlockInit.NEEDLETHATCH, "Needlethatch");
-		
+
 		add(BlockInit.POTTED_SPRUCE_CUP, "Potted Spruce Cup");
 		add(BlockInit.POTTED_DRAGON_PEONY, "Potted Dragon Peony");
 		add(BlockInit.POTTED_SMALL_FERN, "Potted Small Fern");
 		add(BlockInit.POTTED_DEAD_SMALL_FERN, "Potted Dead Small Fern");
 		add(BlockInit.POTTED_NEEDLEGRASS, "Potted Needlegrass");
-		
+
 		add(BlockInit.PURPLE_GROUNDLILY, "Purple Groundlily");
 		add(BlockInit.PINK_GROUNDLILY, "Pink Groundlily");
 		add(BlockInit.RED_GROUNDLILY, "Red Groundlily");

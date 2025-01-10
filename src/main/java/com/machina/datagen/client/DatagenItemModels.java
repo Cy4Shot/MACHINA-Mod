@@ -4,6 +4,8 @@ import java.util.LinkedHashMap;
 
 import com.machina.Machina;
 import com.machina.api.util.MachinaRL;
+import com.machina.registration.init.FamiliesInit;
+import com.machina.registration.init.FamiliesInit.OreFamily;
 import com.machina.registration.init.FluidInit;
 import com.machina.registration.init.FluidInit.FluidObject;
 import com.machina.registration.init.FruitInit;
@@ -50,7 +52,7 @@ public class DatagenItemModels extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		simpleItem(ItemInit.BLUEPRINT);
-		
+
 		simpleItem(ItemInit.ALUMINUM_INGOT);
 		simpleItem(ItemInit.ALUMINUM_NUGGET);
 		simpleItem(ItemInit.COAL_CHUNK);
@@ -66,17 +68,27 @@ public class DatagenItemModels extends ItemModelProvider {
 
 		simpleItem(ItemInit.CONIFEROUS_SIGN);
 		simpleItem(ItemInit.CONIFEROUS_HANGING_SIGN);
-		
+
 		simpleItem(ItemInit.CYCAD_SIGN);
 		simpleItem(ItemInit.CYCAD_HANGING_SIGN);
 
 		// Dynamic
 		FruitInit.FRUITS.forEach(this::fruit);
 		FluidInit.OBJS.forEach(this::bucket);
+		FamiliesInit.ORES.forEach(this::oreFamily);
 	}
 
 	private String name(Item item) {
 		return BuiltInRegistries.ITEM.getKey(item).getPath();
+	}
+
+	private void oreFamily(OreFamily fam) {
+		simpleItem(fam.dust());
+		fam.getIngot().ifPresent(this::simpleItem);
+		fam.getNugget().ifPresent(this::simpleItem);
+		fam.plate().ifPresent(this::simpleItem);
+		fam.rod().ifPresent(this::simpleItem);
+		fam.wire().ifPresent(this::simpleItem);
 	}
 
 	protected void bucket(FluidObject obj) {
@@ -121,6 +133,12 @@ public class DatagenItemModels extends ItemModelProvider {
 						.texture("layer0", new MachinaRL("item/" + itemRegistryObject.getId().getPath()));
 			});
 		}
+	}
+
+	private ItemModelBuilder simpleItem(Item item) {
+		String name = name(item);
+		return withExistingParent(name, new ResourceLocation("item/generated")).texture("layer0",
+				new MachinaRL("item/" + name));
 	}
 
 	private ItemModelBuilder simpleItem(RegistryObject<? extends Item> item) {

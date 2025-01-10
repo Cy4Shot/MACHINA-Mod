@@ -7,17 +7,21 @@ import javax.annotation.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 import com.machina.Machina;
-import com.machina.registration.init.BlockFamiliesInit;
-import com.machina.registration.init.BlockFamiliesInit.DirtFamily;
-import com.machina.registration.init.BlockFamiliesInit.StoneFamily;
-import com.machina.registration.init.BlockFamiliesInit.WoodFamily;
 import com.machina.registration.init.BlockInit;
+import com.machina.registration.init.FamiliesInit;
+import com.machina.registration.init.FamiliesInit.DirtFamily;
+import com.machina.registration.init.FamiliesInit.OreFamily;
+import com.machina.registration.init.FamiliesInit.StoneFamily;
+import com.machina.registration.init.FamiliesInit.WoodFamily;
 import com.machina.registration.init.TagInit.BlockTagInit;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -62,9 +66,10 @@ public class DatagenBlockTags extends BlockTagsProvider {
 
 		tag(BlockTagInit.PLANET_CARVABLE).add(Blocks.STONE, Blocks.GRAVEL, Blocks.WATER);
 
-		BlockFamiliesInit.DIRTS.forEach(this::dirtFamily);
-		BlockFamiliesInit.STONES.forEach(this::stoneFamily);
-		BlockFamiliesInit.WOODS.forEach(this::woodFamily);
+		FamiliesInit.ORES.forEach(this::oreFamily);
+		FamiliesInit.DIRTS.forEach(this::dirtFamily);
+		FamiliesInit.STONES.forEach(this::stoneFamily);
+		FamiliesInit.WOODS.forEach(this::woodFamily);
 	}
 
 	private void smallFlower(RegistryObject<? extends Block> flower, RegistryObject<FlowerPotBlock> potted) {
@@ -76,6 +81,17 @@ public class DatagenBlockTags extends BlockTagsProvider {
 	private void tallFlower(RegistryObject<TallFlowerBlock> flower) {
 		tag(BlockTags.FLOWERS).add(flower.get());
 		tag(BlockTags.TALL_FLOWERS).add(flower.get());
+	}
+
+	private void oreFamily(OreFamily family) {
+		family.getOre().ifPresent(ore -> {
+			tag(forge("ores")).add(ore);
+			tag(forge("ores/" + family.name())).add(ore);
+		});
+		family.getBlock().ifPresent(block -> {
+			tag(forge("storage_blocks")).add(block);
+			tag(forge("storage_blocks/" + family.name())).add(block);
+		});
 	}
 
 	private void dirtFamily(DirtFamily family) {
@@ -133,5 +149,9 @@ public class DatagenBlockTags extends BlockTagsProvider {
 
 		tag(BlockTags.PLANKS).add(family.planks());
 		tag(BlockTags.LEAVES).add(family.leaves());
+	}
+
+	private static TagKey<Block> forge(String name) {
+		return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", name));
 	}
 }
