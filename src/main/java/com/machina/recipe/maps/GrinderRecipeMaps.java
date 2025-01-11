@@ -2,6 +2,7 @@ package com.machina.recipe.maps;
 
 import java.util.Collections;
 
+import com.machina.api.recipe.MachinaRecipe;
 import com.machina.api.recipe.MachinaRecipeMaps;
 import com.machina.api.util.MachinaRL;
 import com.machina.block.tile.machine.GrinderBlockEntity;
@@ -100,7 +101,7 @@ public class GrinderRecipeMaps extends MachinaRecipeMaps<GrinderBlockEntity> {
 	}
 
 	@Override
-	protected Class<? extends Recipe<GrinderBlockEntity>> getRecipeClass() {
+	public Class<? extends MachinaRecipe<GrinderBlockEntity>> getRecipeClass() {
 		return GrinderRecipe.class;
 	}
 }

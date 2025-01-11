@@ -21,4 +21,8 @@ public class MachinaRecipeType<R extends Container> implements RecipeType<Machin
 	public String toString() {
 		return name.toString();
 	}
+	
+	public RecipeType<MachinaRecipe<R>> get() {
+		return this;
+	}
 }

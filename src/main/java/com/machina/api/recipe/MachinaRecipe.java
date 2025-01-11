@@ -148,6 +148,22 @@ public abstract class MachinaRecipe<C extends Container> implements Recipe<C> {
 	public boolean isSpecial() {
 		return true;
 	}
+	
+	public boolean hasEnergy() {
+		return (getFlags() & HAS_ENERGY) != 0;
+	}
+	
+	public boolean hasPressure() {
+		return (getFlags() & HAS_PRESSURE) != 0;
+	}
+	
+	public boolean hasTemperature() {
+		return (getFlags() & HAS_TEMPERATURE) != 0;
+	}
+	
+	public boolean hasTime() {
+		return (getFlags() & HAS_TIME) != 0;
+	}
 
 	public abstract RecipeFactory<MachinaRecipe<C>> getFactory();
 

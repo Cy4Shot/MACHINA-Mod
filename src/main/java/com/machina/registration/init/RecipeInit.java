@@ -35,6 +35,10 @@ public class RecipeInit {
 	public static record RecipeRegistryObject<C extends Container>(ResourceLocation id,
 			RegistryObject<MachinaRecipeType<C>> type, RecipeFactory<MachinaRecipe<C>> factory,
 			RegistryObject<MachinaRecipeSerializer<C>> serializer, MachinaRecipeMaps<C> maps) {
+
+		public String getTranslationKey() {
+			return id.getNamespace() + ".recipe." + id.getPath();
+		}
 	}
 
 	private static <C extends Container> RecipeRegistryObject<C> register(String name, int flags,
