@@ -11,6 +11,7 @@ import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 
 import com.machina.Machina;
+import com.machina.api.block.menu.MachinaContainerMenu;
 import com.machina.api.multiblock.ClientMultiblock;
 import com.machina.api.multiblock.MultiblockLoader;
 import com.machina.api.util.MachinaRL;
@@ -35,12 +36,11 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.model.data.ModelData;
 
-public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
+public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> extends AbstractContainerScreen<T> {
 
 	private static final Minecraft mc = Minecraft.getInstance();
 
@@ -53,6 +53,9 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 
 	public MachinaMenuScreen(T menu, Inventory inv, Component title) {
 		super(menu, inv, title);
+
+		this.imageWidth = 235;
+		this.imageHeight = 100;
 	}
 
 	public void render(GuiGraphics gui, int mx, int my, float pt) {
@@ -120,8 +123,8 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 			sx = i + this.hoveredSlot.x + 2;
 			sy = j + this.hoveredSlot.y + 3;
 		} else {
-			sx = Math.min(i + 176, Math.max(i + 3, mx - 5));
-			sy = Math.min(j + 176, Math.max(j + 98, my - 5));
+			sx = Math.min(i + 196, Math.max(i + 23, mx - 5));
+			sy = Math.min(j + 126, Math.max(j + 78, my - 5));
 		}
 
 		if (this.lsx == null || this.lsy == null) {
@@ -136,8 +139,8 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 		int k2 = 6 - lsx.intValue() % 6;
 
 		// Backdrop
-		blitCommon(gui, i + 3, j + 98, 179, 0, 187, 92);
-		blitCommon(gui, i + 7, j + 102, 0, 84 * k1, 179, 84);
+		blitCommon(gui, i + 23, j + 78, 179, 0, 187, 92);
+		blitCommon(gui, i + 27, j + 82, 0, 84 * k1, 179, 84);
 
 		// Active Slot
 		if (hovered) {
@@ -145,10 +148,18 @@ public abstract class MachinaMenuScreen<T extends AbstractContainerMenu> extends
 		}
 
 		// Decorators
-		blitCommon(gui, i - 2, lsy.intValue(), 366, 0, 2, 14);
-		blitCommon(gui, lsx.intValue(), j + 193, 368, 0, 14, 2);
-		blitCommon(gui, i + 7, j + 163, 179 + k2, 92, 179, 2);
-		drawStringVertical(gui, Component.translatable("container.inventory"), i + 200, j + 98, 0x00FEFE);
+		blitCommon(gui, i + 18, lsy.intValue(), 366, 0, 2, 14);
+		blitCommon(gui, lsx.intValue(), j + 173, 368, 0, 14, 2);
+		blitCommon(gui, i + 27, j + 143, 179 + k2, 92, 179, 2);
+		drawStringVertical(gui, Component.translatable("container.inventory"), i + 220, j + 78, 0x00FEFE);
+	}
+
+	protected void drawBackground(GuiGraphics gui) {
+		int i = midWidth();
+		int j = midHeight();
+
+		blitCommon(gui, i, j - 73, 179, 94, 235, 146);
+		drawStringVertical(gui, this.menu.getName(), i + 245, j - 71, 0x00FEFE);
 	}
 
 	protected void drawOverlay(GuiGraphics gui) {
