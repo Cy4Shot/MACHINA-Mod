@@ -2,7 +2,7 @@ package com.machina.block.menu;
 
 import com.machina.api.block.MachineBlock;
 import com.machina.api.block.menu.MachinaContainerMenu;
-import com.machina.api.block.menu.slot.AcceptSlot;
+import com.machina.api.block.menu.slot.InvSlot;
 import com.machina.api.block.menu.slot.ResultSlot;
 import com.machina.block.tile.machine.GrinderBlockEntity;
 import com.machina.registration.init.BlockInit;
@@ -13,8 +13,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.common.ForgeHooks;
 
 public class GrinderMenu extends MachinaContainerMenu<GrinderBlockEntity> {
 
@@ -27,7 +25,7 @@ public class GrinderMenu extends MachinaContainerMenu<GrinderBlockEntity> {
 	public GrinderMenu(int id, Inventory inv, Container access, ContainerData data) {
 		super(MenuTypeInit.GRINDER.get(), id, access, data);
 
-		this.addSlot(new AcceptSlot(container, 0, -2, 74, s -> ForgeHooks.getBurnTime(s, RecipeType.SMELTING) > 0));
+		this.addSlot(new InvSlot(container, 0, -2, 74));
 		this.addSlot(new ResultSlot(container, 1, 134, 74));
 
 		invSlots(inv, 0);

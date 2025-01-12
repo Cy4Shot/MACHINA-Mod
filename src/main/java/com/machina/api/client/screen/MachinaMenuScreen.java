@@ -158,8 +158,20 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 		int i = midWidth();
 		int j = midHeight();
 
-		blitCommon(gui, i, j - 73, 179, 94, 235, 146);
+		blitCommon(gui, i, j - 73, 179, 94, 235, 151);
 		drawStringVertical(gui, this.menu.getName(), i + 245, j - 71, 0x00FEFE);
+	}
+
+	private void drawBar(GuiGraphics gui, int x, int y, int o, float p) {
+		int i = midWidth() + x - 68;
+		int j = midHeight() + y - 9;
+
+		blitCommon(gui, i, j, 366, 21, 135, 18);
+		blitCommon(gui, i + 3, j + 3, 366, 39 + o * 14, (int) (131 * p), 14);
+	}
+
+	protected void drawEnergyBar(GuiGraphics gui, int x, int y) {
+		drawBar(gui, x, y, 0, this.menu.getEnergyF());
 	}
 
 	protected void drawOverlay(GuiGraphics gui) {

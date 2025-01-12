@@ -37,6 +37,13 @@ public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends
 	protected abstract MachineBlock getBlock();
 
 	protected abstract int getExtraDataSize();
+	
+	public float getEnergyF() {
+		if (this.getMaxEnergy() == 0) {
+			return 0;
+		}
+		return (float) this.getEnergy() / (float) this.getMaxEnergy();
+	}
 
 	public int getEnergy() {
 		return this.data.get(0);

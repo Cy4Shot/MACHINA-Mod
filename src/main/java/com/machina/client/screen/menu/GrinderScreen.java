@@ -17,8 +17,7 @@ public class GrinderScreen extends MachinaMenuScreen<GrinderMenu> {
 	protected void renderBg(GuiGraphics gui, float pt, int mx, int my) {
 		drawInventory(gui, mx, my);
 		drawBackground(gui);
+		drawEnergyBar(gui, 110, 0);
 		drawOverlay(gui);
-//		gui.drawString(font, Component.literal(String.valueOf(menu.getBlockEntity().isLit())), 0, 20, 0xFFFFFF);
-		gui.drawString(font, Component.literal(String.valueOf(menu.getEnergy())), 0, 0, 0xFFFFFF);
 	}
 }

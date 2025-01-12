@@ -9,14 +9,13 @@ import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 
 public abstract class MachinaRecipeMaps<C extends Container> {
 
-	private final Map<ResourceLocation, Recipe<C>> recipes = new HashMap<>();
+	private final Map<ResourceLocation, MachinaRecipe<C>> recipes = new HashMap<>();
 
-	public abstract boolean isValid(C entity, Recipe<C> recipe);
+	public abstract boolean isValid(C entity, MachinaRecipe<C> recipe);
 
 	protected abstract RecipeRegistryObject<C> getRegistryObject();
 
@@ -25,29 +24,29 @@ public abstract class MachinaRecipeMaps<C extends Container> {
 	public abstract Class<? extends MachinaRecipe<C>> getRecipeClass();
 
 	@SuppressWarnings("unchecked")
-	public <T extends Recipe<C>> T getRecipe(ResourceLocation id) {
+	public <T extends MachinaRecipe<C>> T getRecipe(ResourceLocation id) {
 		Class<T> clazz = (Class<T>) getRecipeClass();
 		return clazz.cast(recipes.get(id));
 	}
 
 	public void refresh(RecipeManager man) {
 		recipes.clear();
-		for (Recipe<C> r : man.getAllRecipesFor(getRegistryObject().type().get())) {
+		for (MachinaRecipe<C> r : man.getAllRecipesFor(getRegistryObject().type().get())) {
 			recipes.put(r.getId(), r);
 		}
 		addExtraRecipes(man);
 	}
 
-	public void add(Pair<ResourceLocation, Recipe<C>> pair) {
+	public void add(Pair<ResourceLocation, MachinaRecipe<C>> pair) {
 		add(pair.getFirst(), pair.getSecond());
 	}
 
-	public void add(ResourceLocation id, Recipe<C> recipe) {
+	public void add(ResourceLocation id, MachinaRecipe<C> recipe) {
 		recipes.put(id, recipe);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends Recipe<C>> Optional<T> findRecipe(C entity) {
+	public <T extends MachinaRecipe<C>> Optional<T> findRecipe(C entity) {
 		Class<T> clazz = (Class<T>) getRecipeClass();
 		return recipes.values().stream().filter(r -> isValid(entity, r)).findFirst().map(clazz::cast);
 	}
