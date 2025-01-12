@@ -1,5 +1,6 @@
 package com.machina.api.client.screen;
 
+import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -10,11 +11,13 @@ import javax.annotation.Nullable;
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 
+import com.google.common.base.Supplier;
 import com.machina.Machina;
 import com.machina.api.block.menu.MachinaContainerMenu;
 import com.machina.api.multiblock.ClientMultiblock;
 import com.machina.api.multiblock.MultiblockLoader;
 import com.machina.api.util.MachinaRL;
+import com.machina.api.util.StringUtils;
 import com.machina.api.util.math.MathUtil;
 import com.machina.api.util.math.VecUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -50,6 +53,7 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 	private long aliveTicks = 0;
 	private Float lsx, lsy = null;
 	private float rotX, rotY;
+	private Map<String, Hoverable> hoverables = new HashMap<>();
 
 	public MachinaMenuScreen(T menu, Inventory inv, Component title) {
 		super(menu, inv, title);
@@ -162,16 +166,17 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 		drawStringVertical(gui, this.menu.getName(), i + 245, j - 71, 0x00FEFE);
 	}
 
-	private void drawBar(GuiGraphics gui, int x, int y, int o, float p) {
-		int i = midWidth() + x - 68;
-		int j = midHeight() + y - 9;
-
+	private void drawBar(GuiGraphics gui, int i, int j, int o, float p) {
 		blitCommon(gui, i, j, 366, 21, 135, 18);
 		blitCommon(gui, i + 3, j + 3, 366, 39 + o * 14, (int) (131 * p), 14);
 	}
 
 	protected void drawEnergyBar(GuiGraphics gui, int x, int y) {
-		drawBar(gui, x, y, 0, this.menu.getEnergyF());
+		int i = midWidth() + x - 68;
+		int j = midHeight() + y - 9;
+		registerHoverable("energy", i + 1, j + 1, i + 136, j + 18,
+				() -> StringUtils.formatPower(this.menu.getEnergy()));
+		drawBar(gui, i, j, 0, this.menu.getEnergyF());
 	}
 
 	protected void drawOverlay(GuiGraphics gui) {
@@ -354,6 +359,28 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 				return remappedTypes.computeIfAbsent(in, a -> new MultiblockRenderType(a, alpha));
 			}
 		}
+	}
+
+	@Override
+	protected void renderTooltip(GuiGraphics gui, int mx, int my) {
+		super.renderTooltip(gui, mx, my);
+
+		for (Hoverable h : hoverables.values()) {
+			if (mx > h.minX() && mx < h.maxX() && my > h.minY() && my < h.maxY()) {
+				gui.renderTooltip(font, Component.literal(h.text().get()), mx, my);
+				break;
+			}
+		}
+	}
+
+	private void registerHoverable(String key, int minX, int minY, int maxX, int maxY, Supplier<String> text) {
+		if (this.hoverables.containsKey(key))
+			return;
+		this.hoverables.put(key, new Hoverable(minX, minY, maxX, maxY, text));
+	}
+
+	private record Hoverable(int minX, int minY, int maxX, int maxY, Supplier<String> text) {
+
 	}
 
 	@Override

@@ -11,13 +11,16 @@ import net.minecraft.network.chat.MutableComponent;
 
 public class StringUtils {
 
+	private static final String[] units = { "", "K", "M", "B", "T", "P", "E", "Z", "Y" };
+	private static final String[] smallUnits = { "", "m", "μ", "n", "p", "f", "a", "z", "y" };
+
 	public static final String TREE_V = "\u2502";
 	public static final String TREE_H = "\u2500";
 	public static final String TREE_F = "\u251c";
 	public static final String TREE_L = "\u2514";
 
-	public static final Charset utf8Charset = Charset.forName("UTF-8");
-	public static final Charset defaultCharset = Charset.defaultCharset();
+	private static final Charset utf8Charset = Charset.forName("UTF-8");
+	private static final Charset defaultCharset = Charset.defaultCharset();
 
 	public static void printlnUtf8(String msg) {
 		try {
@@ -51,5 +54,48 @@ public class StringUtils {
 
 	public static MutableComponent translateMultiblockComp(String key) {
 		return Component.translatable(Machina.MOD_ID + ".multiblock." + key);
+	}
+
+	private static String formatNumberWithUnit(double number) {
+
+		if (number >= 1_000) {
+			int magnitude = 0;
+			while (number >= 1_000 && magnitude < units.length - 1) {
+				number /= 1_000;
+				magnitude++;
+			}
+			return String.format("%.1f%s", number, units[magnitude]);
+		}
+
+		else if (number > 0) {
+			int magnitude = 0;
+			while (number < 1 && magnitude < smallUnits.length - 1) {
+				number *= 1_000;
+				magnitude++;
+			}
+			return String.format("%.1f%s", number, smallUnits[magnitude]);
+		}
+
+		return String.format("%.1f", number);
+	}
+
+	public static String formatTemp(double temp) {
+		return formatNumberWithUnit(temp) + "K";
+	}
+
+	public static String formatPower(int energy) {
+		return formatNumberWithUnit(energy) + "RF";
+	}
+
+	public static String formatFluid(int mb) {
+		return formatNumberWithUnit((double) mb / 1_000D) + "B";
+	}
+
+	public static String formatPressure(float pressure) {
+		return formatNumberWithUnit(pressure) + "Pa";
+	}
+
+	public static String formatRadiation(float rad) {
+		return formatNumberWithUnit(rad) + "rad";
 	}
 }
