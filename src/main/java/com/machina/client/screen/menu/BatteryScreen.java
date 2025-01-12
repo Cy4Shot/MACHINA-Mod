@@ -17,7 +17,9 @@ public class BatteryScreen extends MachinaMenuScreen<BatteryMenu> {
 	protected void renderBg(GuiGraphics gui, float pt, int mx, int my) {
 		drawInventory(gui, mx, my);
 		drawBackground(gui);
-		drawEnergyBar(gui, 114, 0);
+		drawEnergyBar(gui, 114, 0, true, true);
+		drawDownFacingSlot(gui, 50, -60, SpecialSlot.PLUS);
+		drawDownFacingSlot(gui, 161, -60, SpecialSlot.MINUS);
 		drawOverlay(gui);
 	}
 }

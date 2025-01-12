@@ -62,6 +62,12 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 		this.imageHeight = 100;
 	}
 
+	@Override
+	protected void init() {
+		this.hoverables.clear();
+		super.init();
+	}
+
 	public void render(GuiGraphics gui, int mx, int my, float pt) {
 		this.renderBackground(gui);
 		if (this.aliveTicks > 9 || this.aliveTicks == 5 || this.aliveTicks == 7 || this.aliveTicks == 8)
@@ -166,17 +172,53 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 		drawStringVertical(gui, this.menu.getName(), i + 245, j - 71, 0x00FEFE);
 	}
 
-	private void drawBar(GuiGraphics gui, int i, int j, int o, float p) {
-		blitCommon(gui, i, j, 366, 21, 135, 18);
-		blitCommon(gui, i + 3, j + 3, 366, 39 + o * 14, (int) (131 * p), 14);
+	public enum SpecialSlot {
+		PLUS(475, 0), MINUS(485, 0);
+
+		protected int x;
+		protected int y;
+
+		SpecialSlot(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
 	}
 
-	protected void drawEnergyBar(GuiGraphics gui, int x, int y) {
-		int i = midWidth() + x - 68;
+	protected void drawDownFacingSlot(GuiGraphics gui, int x, int y, SpecialSlot slot) {
+		int i = midWidth() + x;
+		int j = midHeight() + y;
+		blitCommon(gui, i, j, 414, 94, 19, 21);
+		blitCommon(gui, i + 4, j + 6, slot.x, slot.y, 10, 10);
+	}
+
+	private void drawBar(GuiGraphics gui, int i, int j, int o, float p, boolean active, boolean under_deco,
+			String text) {
+		// Bar
+		blitCommon(gui, i, j, 366, 21, 133, 18);
+		blitCommon(gui, i + 1, j + 3, 366, 39 + o * 14, (int) (131 * p), 14);
+
+		// Deco
+		int dec_off = active ? 0 : 6;
+		blitCommon(gui, i - 5, j + 2, 387 + dec_off, 0, 3, 16);
+		blitCommon(gui, i + 135, j + 2, 390 + dec_off, 0, 3, 16);
+
+		if (under_deco) {
+			dec_off = active ? 0 : 38;
+			Component c = Component.literal(text);
+			int w = font.width(c) / 2 + 2;
+			gui.drawCenteredString(font, c, i + 66, j + 20, active ? 0x00FEFE : 0xFE0000);
+			blitCommon(gui, i + 66 + w, j + 18, 418 + dec_off, 5, 19, 8);
+			blitCommon(gui, i + 66 - w - 20, j + 18, 399 + dec_off, 5, 19, 8);
+		}
+	}
+
+	protected void drawEnergyBar(GuiGraphics gui, int x, int y, boolean active, boolean under_deco) {
+		int i = midWidth() + x - 66;
 		int j = midHeight() + y - 9;
 		registerHoverable("energy", i + 1, j + 1, i + 136, j + 18,
 				() -> StringUtils.formatPower(this.menu.getEnergy()));
-		drawBar(gui, i, j, 0, this.menu.getEnergyF());
+		drawBar(gui, i, j, 0, this.menu.getEnergyF(), active, under_deco,
+				StringUtils.formatPower(this.menu.getEnergy()));
 	}
 
 	protected void drawOverlay(GuiGraphics gui) {
