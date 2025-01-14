@@ -95,7 +95,7 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 		return (this.height - this.imageHeight) / 2;
 	}
 
-	protected void blitCommon(GuiGraphics gui, int x, int y, int u, int v, int w, int h) {
+	protected static void blitCommon(GuiGraphics gui, int x, int y, int u, int v, int w, int h) {
 		gui.blit(COMMON_UI, x, y, u, v, w, h, 512, 512);
 	}
 
@@ -173,7 +173,13 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 	}
 
 	public enum SpecialSlot {
-		PLUS(475, 0), MINUS(485, 0);
+		PLUS(475, 0),
+		MINUS(485, 0),
+		RIGHT(495, 0),
+		DOWN(475, 10),
+		UP(485, 10),
+		LEFT(495, 10),
+		BOLT(499, 23);
 
 		protected int x;
 		protected int y;
@@ -182,13 +188,38 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 			this.x = x;
 			this.y = y;
 		}
+
+		public void draw(GuiGraphics gui, int x, int y) {
+			blitCommon(gui, x, y, this.x, this.y, 10, 10);
+		}
 	}
 
-	protected void drawDownFacingSlot(GuiGraphics gui, int x, int y, SpecialSlot slot) {
+	protected void drawDownFacingSlot(GuiGraphics gui, int x, int y, SpecialSlot slot, String hover) {
 		int i = midWidth() + x;
 		int j = midHeight() + y;
 		blitCommon(gui, i, j, 414, 94, 19, 21);
-		blitCommon(gui, i + 4, j + 6, slot.x, slot.y, 10, 10);
+		slot.draw(gui, i + 4, j + 6);
+
+		blitCommon(gui, i - 6, j + 4, 387, 0, 3, 16);
+		blitCommon(gui, i + 21, j + 4, 390, 0, 3, 16);
+
+		if (!hover.isEmpty()) {
+			registerHoverable("slot_" + x + "_" + y, i - 1, j + 1, i + 18, j + 20, () -> hover);
+		}
+	}
+	
+	protected void drawUpFacingSlot(GuiGraphics gui, int x, int y, SpecialSlot slot, String hover) {
+		int i = midWidth() + x;
+		int j = midHeight() + y;
+		blitCommon(gui, i, j, 433, 94, 19, 21);
+		slot.draw(gui, i + 4, j + 4);
+
+		blitCommon(gui, i - 6, j + 1, 387, 0, 3, 16);
+		blitCommon(gui, i + 21, j + 1, 390, 0, 3, 16);
+
+		if (!hover.isEmpty()) {
+			registerHoverable("slot_" + x + "_" + y, i - 1, j + 1, i + 18, j + 20, () -> hover);
+		}
 	}
 
 	private void drawBar(GuiGraphics gui, int i, int j, int o, float p, boolean active, boolean under_deco,
@@ -215,8 +246,8 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 	protected void drawEnergyBar(GuiGraphics gui, int x, int y, boolean active, boolean under_deco) {
 		int i = midWidth() + x - 66;
 		int j = midHeight() + y - 9;
-		registerHoverable("energy", i + 1, j + 1, i + 136, j + 18,
-				() -> StringUtils.formatPower(this.menu.getEnergy()));
+		registerHoverable("energy", i + 1, j + 1, i + 136, j + 18, () -> StringUtils.formatPower(this.menu.getEnergy())
+				+ " (" + StringUtils.formatPercent(this.menu.getEnergyF()) + ")");
 		drawBar(gui, i, j, 0, this.menu.getEnergyF(), active, under_deco,
 				StringUtils.formatPower(this.menu.getEnergy()));
 	}

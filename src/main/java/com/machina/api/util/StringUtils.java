@@ -98,4 +98,8 @@ public class StringUtils {
 	public static String formatRadiation(float rad) {
 		return formatNumberWithUnit(rad) + "rad";
 	}
+	
+	public static String formatPercent(float percent) {
+		return String.format("%.1f%%", percent * 100);
+	}
 }
