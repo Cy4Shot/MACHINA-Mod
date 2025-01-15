@@ -5,7 +5,7 @@ import java.util.List;
 import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.multiblock.Multiblock;
-import com.machina.api.util.reflect.QuadFunction;
+import com.machina.api.util.reflect.SextFunction;
 import com.machina.block.menu.MachineCaseMenu;
 import com.machina.registration.init.BlockEntityInit;
 
@@ -16,6 +16,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -45,7 +46,7 @@ public class MachineCaseBlockEntity extends MachinaBlockEntity {
 	}
 
 	@Override
-	protected QuadFunction<Integer, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
+	protected SextFunction<Integer, Level, BlockPos, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
 		return MachineCaseMenu::new;
 	}
 

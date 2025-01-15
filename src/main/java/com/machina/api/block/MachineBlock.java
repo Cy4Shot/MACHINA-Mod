@@ -4,6 +4,7 @@ import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.util.block.BlockHelper;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
 
 public abstract class MachineBlock extends HorizontalDirectionalBlock implements EntityBlock {
 	protected MachineBlock(Properties props) {
@@ -34,7 +36,8 @@ public abstract class MachineBlock extends HorizontalDirectionalBlock implements
 		if (world.isClientSide) {
 			return InteractionResult.SUCCESS;
 		} else {
-			BlockHelper.doWithTe(world, pos, getBlockEntityClass(), player::openMenu);
+			BlockHelper.doWithTe(world, pos, getBlockEntityClass(),
+					te -> NetworkHooks.openScreen((ServerPlayer) player, te, te.getBlockPos()));
 			return InteractionResult.CONSUME;
 		}
 	}

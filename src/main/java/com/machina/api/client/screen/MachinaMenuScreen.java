@@ -14,6 +14,8 @@ import org.lwjgl.glfw.GLFW;
 import com.google.common.base.Supplier;
 import com.machina.Machina;
 import com.machina.api.block.menu.MachinaContainerMenu;
+import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.cap.sided.Side;
 import com.machina.api.multiblock.ClientMultiblock;
 import com.machina.api.multiblock.MultiblockLoader;
 import com.machina.api.util.MachinaRL;
@@ -46,12 +48,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.model.data.ModelData;
 
-public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> extends AbstractContainerScreen<T> {
+public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends MachinaContainerMenu<R>>
+		extends AbstractContainerScreen<T> {
 
 	private static final Minecraft mc = Minecraft.getInstance();
 
 	protected static final ResourceLocation COMMON_UI = new MachinaRL("textures/gui/common_ui.png");
 	protected static final ResourceLocation BG_OVERLAY = new MachinaRL("textures/gui/bg_overlay.png");
+
+	private final R entity;
 
 	private long aliveTicks = 0;
 	private Float lsx, lsy = null;
@@ -64,6 +69,8 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 
 	public MachinaMenuScreen(T menu, Inventory inv, Component title) {
 		super(menu, inv, title);
+
+		this.entity = menu.be;
 
 		this.imageWidth = 235;
 		this.imageHeight = 100;
@@ -188,13 +195,7 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 	}
 
 	public enum SpecialSlot {
-		PLUS(475, 0),
-		MINUS(485, 0),
-		RIGHT(495, 0),
-		DOWN(475, 10),
-		UP(485, 10),
-		LEFT(495, 10),
-		BOLT(499, 23),
+		PLUS(475, 0), MINUS(485, 0), RIGHT(495, 0), DOWN(475, 10), UP(485, 10), LEFT(495, 10), BOLT(499, 23),
 		CROSS(499, 33);
 
 		protected int x;
@@ -262,10 +263,10 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 	protected void drawEnergyBar(GuiGraphics gui, int x, int y, boolean active, boolean under_deco) {
 		int i = midWidth() + x - 66;
 		int j = midHeight() + y - 9;
-		registerHoverable("energy", i + 1, j + 1, i + 136, j + 18, () -> StringUtils.formatPower(this.menu.getEnergy())
-				+ " (" + StringUtils.formatPercent(this.menu.getEnergyF()) + ")");
-		drawBar(gui, i, j, 0, this.menu.getEnergyF(), active, under_deco,
-				StringUtils.formatPower(this.menu.getEnergy()));
+		registerHoverable("energy", i + 1, j + 1, i + 136, j + 18, () -> StringUtils.formatPower(this.entity.getEnergy())
+				+ " (" + StringUtils.formatPercent(this.entity.getEnergyF()) + ")");
+		drawBar(gui, i, j, 0, this.entity.getEnergyF(), active, under_deco,
+				StringUtils.formatPower(this.entity.getEnergy()));
 	}
 
 	private void drawFace(GuiGraphics gui, int x, int y, Direction dir) {
@@ -291,6 +292,10 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 		registerHoverable(key + "_west", i - 33, j + 27, i - 12, j + 48, hover, () -> "West");
 		registerHoverable(key + "_east", i - 71, j + 27, i - 50, j + 48, hover, () -> "East");
 		registerHoverable(key + "_south", i - 33, j + 46, i - 12, j + 67, hover, () -> "South");
+		
+		for(Side side : this.entity.getEnergyStorage().modes) {
+			System.out.println(side.name());
+		}
 
 		int anim = getAnimationState(key, 4);
 		int elap = getElapsedState(key);

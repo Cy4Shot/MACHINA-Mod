@@ -4,6 +4,8 @@ import com.machina.api.block.MachineBlock;
 import com.machina.api.block.menu.slot.InvSlot;
 import com.machina.api.block.tile.MachinaBlockEntity;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,15 +16,22 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends AbstractContainerMenu {
 
 	private final ContainerData data;
 	protected final Container container;
+	public final T be;
 
-	public MachinaContainerMenu(MenuType<?> type, int id, Container container, ContainerData data) {
+	@SuppressWarnings("unchecked")
+	public MachinaContainerMenu(MenuType<?> type, Level level, BlockPos pos, int id, Container container,
+			ContainerData data) {
 		super(type, id);
+		this.be = (T) level.getBlockEntity(pos);
 
 		checkContainerDataCount(data, getExtraDataSize() + MachinaBlockEntity.DEFAULT_DATA_SIZE);
 		this.addDataSlots(data);
@@ -35,24 +44,15 @@ public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends
 		return new SimpleContainerData(extra + MachinaBlockEntity.DEFAULT_DATA_SIZE);
 	}
 
+	@SuppressWarnings("resource")
+	@OnlyIn(Dist.CLIENT)
+	protected static Level clientLevel() {
+		return Minecraft.getInstance().level;
+	}
+
 	protected abstract MachineBlock getBlock();
 
 	protected abstract int getExtraDataSize();
-	
-	public float getEnergyF() {
-		if (this.getMaxEnergy() == 0) {
-			return 0;
-		}
-		return (float) this.getEnergy() / (float) this.getMaxEnergy();
-	}
-
-	public int getEnergy() {
-		return this.data.get(0);
-	}
-
-	public int getMaxEnergy() {
-		return this.data.get(1);
-	}
 
 	@Override
 	public boolean stillValid(Player player) {
@@ -62,7 +62,7 @@ public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends
 	public Component getName() {
 		return this.getBlock().getName();
 	}
-	
+
 	public BlockState getDefaultState() {
 		return this.getBlock().defaultBlockState();
 	}

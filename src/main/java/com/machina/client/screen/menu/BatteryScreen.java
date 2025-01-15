@@ -2,12 +2,13 @@ package com.machina.client.screen.menu;
 
 import com.machina.api.client.screen.MachinaMenuScreen;
 import com.machina.block.menu.BatteryMenu;
+import com.machina.block.tile.machine.BatteryBlockEntity;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
-public class BatteryScreen extends MachinaMenuScreen<BatteryMenu> {
+public class BatteryScreen extends MachinaMenuScreen<BatteryBlockEntity, BatteryMenu> {
 
 	public BatteryScreen(BatteryMenu menu, Inventory inv, Component title) {
 		super(menu, inv, title);
@@ -21,7 +22,7 @@ public class BatteryScreen extends MachinaMenuScreen<BatteryMenu> {
 		drawUpFacingSlot(gui, 20, 30, SpecialSlot.PLUS, "Input");
 		drawUpFacingSlot(gui, 197, 30, SpecialSlot.MINUS, "Output");
 		drawDownFacingSlot(gui, 106, -60, SpecialSlot.BOLT, "Capacitor");
-		
+
 		drawSideConfig(gui, 0, 0, mx, my, "energy", SpecialSlot.BOLT);
 
 		int i = midWidth();

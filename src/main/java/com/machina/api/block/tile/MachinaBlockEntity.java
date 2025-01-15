@@ -17,7 +17,7 @@ import com.machina.api.cap.sided.MultiSidedStorage;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.cap.sided.SidedStorage;
 import com.machina.api.cap.sided.SingleSidedStorage;
-import com.machina.api.util.reflect.QuadFunction;
+import com.machina.api.util.reflect.SextFunction;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -39,6 +39,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -56,7 +57,7 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
  */
 public abstract class MachinaBlockEntity extends BaseBlockEntity implements WorldlyContainer, IMachinaMenuProvider {
 
-	public static final int DEFAULT_DATA_SIZE = 2;
+	public static final int DEFAULT_DATA_SIZE = 0;
 	private LockCode lockKey = LockCode.NO_LOCK;
 	protected MultiSidedStorage<MachinaEnergyStorage> energyCap;
 	protected List<SingleSidedStorage<MachinaFluidStorage>> fluidsCap = new ArrayList<>();
@@ -90,6 +91,10 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	public void forEachStorage(Consumer<SidedStorage> consumer) {
 		consumer.accept(energyCap);
 		this.fluidsCap.forEach(consumer);
+	}
+	
+	public SidedStorage getEnergyStorage() {
+		return this.energyCap;
 	}
 
 	@Override
@@ -233,6 +238,13 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	}
 
 	public abstract int getMaxEnergy();
+	
+	public float getEnergyF() {
+		if (this.getMaxEnergy() == 0) {
+			return 0;
+		}
+		return (float) this.getEnergy() / (float) this.getMaxEnergy();
+	}
 
 	public int receiveEnergy(Direction from, int maxReceive, boolean simulate) {
 		if (!energyCap.isInput(from)) {
@@ -298,8 +310,6 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 			this.level.sendBlockUpdated(this.worldPosition, state, state, 3);
 			this.level.blockEntityChanged(this.worldPosition);
 		}
-		this.data.set(0, (int) this.energy);
-		this.data.set(1, (int) this.getMaxEnergy());
 		super.setChanged();
 	}
 
@@ -320,12 +330,12 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	@Nullable
 	@Override
 	public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
-		return this.canOpen(player) ? createMenu().apply(id, inv, this, data) : null;
+		return this.canOpen(player) ? createMenu().apply(id, this.level, this.worldPosition, inv, this, data) : null;
 	}
 
 	protected abstract int getExtraDataSize();
 
-	protected abstract QuadFunction<Integer, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu();
+	protected abstract SextFunction<Integer, Level, BlockPos, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu();
 
 	public void tick() {
 	}

@@ -3,7 +3,7 @@ package com.machina.block.tile.machine;
 import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.util.block.BlockHelper;
-import com.machina.api.util.reflect.QuadFunction;
+import com.machina.api.util.reflect.SextFunction;
 import com.machina.block.machine.FurnaceGeneratorBlock;
 import com.machina.block.menu.FurnaceGeneratorMenu;
 import com.machina.config.CommonConfig;
@@ -17,6 +17,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
@@ -108,7 +109,7 @@ public class FurnaceGeneratorBlockEntity extends MachinaBlockEntity {
 	}
 
 	@Override
-	protected QuadFunction<Integer, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
+	protected SextFunction<Integer, Level, BlockPos, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
 		return FurnaceGeneratorMenu::new;
 	}
 
