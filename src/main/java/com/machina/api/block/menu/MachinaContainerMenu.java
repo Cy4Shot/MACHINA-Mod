@@ -14,6 +14,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends AbstractContainerMenu {
 
@@ -60,6 +61,10 @@ public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends
 
 	public Component getName() {
 		return this.getBlock().getName();
+	}
+	
+	public BlockState getDefaultState() {
+		return this.getBlock().defaultBlockState();
 	}
 
 	@Override

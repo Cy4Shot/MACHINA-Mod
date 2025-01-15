@@ -47,9 +47,9 @@ public class SidedBakedModel extends BakedModelWrapper<BakedModel> implements ID
 		}
 
 		BakedQuad quad = quads.get(0);
-		quads.clear();
-		quads.add(new BakedQuad(quad.getVertices(), quad.getTintIndex(), side, ModelLoader.MACHINE_FACE_INPUT,
-				quad.isShade(), quad.hasAmbientOcclusion()));
+//		quads.clear();
+//		quads.add(new BakedQuad(quad.getVertices(), quad.getTintIndex(), side, ModelLoader.MACHINE_FACE_INPUT,
+//				quad.isShade(), quad.hasAmbientOcclusion()));
 		
 		
 		int sideIndex = side.get3DDataValue();

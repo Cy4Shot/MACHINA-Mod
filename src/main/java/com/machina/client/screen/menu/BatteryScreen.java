@@ -21,6 +21,8 @@ public class BatteryScreen extends MachinaMenuScreen<BatteryMenu> {
 		drawUpFacingSlot(gui, 20, 30, SpecialSlot.PLUS, "Input");
 		drawUpFacingSlot(gui, 197, 30, SpecialSlot.MINUS, "Output");
 		drawDownFacingSlot(gui, 106, -60, SpecialSlot.BOLT, "Capacitor");
+		
+		drawSideConfig(gui, 0, 0, mx, my, "energy", SpecialSlot.BOLT);
 
 		int i = midWidth();
 		int j = midHeight();

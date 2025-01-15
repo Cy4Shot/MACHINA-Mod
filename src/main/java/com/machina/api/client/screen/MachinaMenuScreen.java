@@ -33,11 +33,14 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -53,24 +56,36 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 	private long aliveTicks = 0;
 	private Float lsx, lsy = null;
 	private float rotX, rotY;
+
+	private Map<String, Clickable> clickables = new HashMap<>();
 	private Map<String, Hoverable> hoverables = new HashMap<>();
+	private Map<String, Stateable> stateables = new HashMap<>();
+	private Map<Direction, TextureAtlasSprite> sprites = new HashMap<>();
 
 	public MachinaMenuScreen(T menu, Inventory inv, Component title) {
 		super(menu, inv, title);
 
 		this.imageWidth = 235;
 		this.imageHeight = 100;
+
+		BlockState state = this.menu.getDefaultState();
+		RandomSource rand = RandomSource.create();
+		BakedModel model = mc.getBlockRenderer().getBlockModel(state);
+		for (Direction d : Direction.values()) {
+			sprites.put(d, model.getQuads(state, d, rand, ModelData.EMPTY, null).get(0).getSprite());
+		}
 	}
 
 	@Override
 	protected void init() {
+		this.clickables.clear();
 		this.hoverables.clear();
 		super.init();
 	}
 
 	public void render(GuiGraphics gui, int mx, int my, float pt) {
 		this.renderBackground(gui);
-		if (this.aliveTicks > 9 || this.aliveTicks == 5 || this.aliveTicks == 7 || this.aliveTicks == 8)
+		if (appearDraw(this.aliveTicks))
 			super.render(gui, mx, my, pt);
 		else
 			this.renderBg(gui, pt, mx, my);
@@ -179,7 +194,8 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 		DOWN(475, 10),
 		UP(485, 10),
 		LEFT(495, 10),
-		BOLT(499, 23);
+		BOLT(499, 23),
+		CROSS(499, 33);
 
 		protected int x;
 		protected int y;
@@ -207,7 +223,7 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 			registerHoverable("slot_" + x + "_" + y, i - 1, j + 1, i + 18, j + 20, () -> hover);
 		}
 	}
-	
+
 	protected void drawUpFacingSlot(GuiGraphics gui, int x, int y, SpecialSlot slot, String hover) {
 		int i = midWidth() + x;
 		int j = midHeight() + y;
@@ -250,6 +266,68 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 				+ " (" + StringUtils.formatPercent(this.menu.getEnergyF()) + ")");
 		drawBar(gui, i, j, 0, this.menu.getEnergyF(), active, under_deco,
 				StringUtils.formatPower(this.menu.getEnergy()));
+	}
+
+	private void drawFace(GuiGraphics gui, int x, int y, Direction dir) {
+		TextureAtlasSprite sprite = sprites.get(dir);
+		int size = (int) (4.0F / sprite.uvShrinkRatio());
+		gui.blit(sprite.atlasLocation(), x, y, sprite.getX(), sprite.getY(), 16, 16, size, size);
+	}
+
+	protected void drawSideConfig(GuiGraphics gui, int x, int y, int mx, int my, String name, SpecialSlot slot) {
+		int i = midWidth() - 3 + x;
+		int j = midHeight() - 73 + y;
+
+		String key = "side_" + name;
+		initState(key, false);
+		registerClickable(key + "_off", i - 20, j, i, j + 20, key, false);
+		registerClickable(key + "_on", i - 28, j + 5, i - 13, j + 20, key, true);
+
+		// Face Hovers
+		Supplier<Boolean> hover = () -> getState(key) && appearDraw(getElapsedState(key));
+		registerHoverable(key + "_up", i - 52, j + 8, i - 31, j + 29, hover, () -> "Up");
+		registerHoverable(key + "_north", i - 52, j + 27, i - 31, j + 48, hover, () -> "North");
+		registerHoverable(key + "_down", i - 52, j + 46, i - 31, j + 67, hover, () -> "Down");
+		registerHoverable(key + "_west", i - 33, j + 27, i - 12, j + 48, hover, () -> "West");
+		registerHoverable(key + "_east", i - 71, j + 27, i - 50, j + 48, hover, () -> "East");
+		registerHoverable(key + "_south", i - 33, j + 46, i - 12, j + 67, hover, () -> "South");
+
+		int anim = getAnimationState(key, 4);
+		int elap = getElapsedState(key);
+		boolean state = getState(key);
+
+		blitCommon(gui, i - 75, j, anim * 75, 336, 75, 68);
+
+		if (appearDraw(elap)) {
+			if (state) {
+
+				// Close Button
+				if (mx > i - 28 && mx < i - 13 && my > j + 5 && my < j + 20) {
+					blitCommon(gui, i - 27, j + 6, 452, 108, 14, 14);
+				} else {
+					blitCommon(gui, i - 27, j + 6, 452, 94, 14, 14);
+				}
+				SpecialSlot.CROSS.draw(gui, i - 25, j + 8);
+
+				// Machine
+				drawFace(gui, i - 51, j + 9, Direction.UP);
+				drawFace(gui, i - 51, j + 28, Direction.NORTH);
+				drawFace(gui, i - 51, j + 47, Direction.DOWN);
+				drawFace(gui, i - 32, j + 28, Direction.WEST);
+				drawFace(gui, i - 70, j + 28, Direction.EAST);
+				drawFace(gui, i - 32, j + 47, Direction.SOUTH);
+
+				// Deorators
+				gui.drawString(font, Component.literal("Energy Config"), i - 75, j + 71, 0x00FEFE);
+			} else {
+
+				// Open Button
+				if (mx > i - 20 && mx < i && my > j && my < j + 20) {
+					blitCommon(gui, i - 18, j + 2, 414, 136, 17, 16);
+				}
+				slot.draw(gui, i - 15, j + 5);
+			}
+		}
 	}
 
 	protected void drawOverlay(GuiGraphics gui) {
@@ -446,14 +524,59 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 		}
 	}
 
-	private void registerHoverable(String key, int minX, int minY, int maxX, int maxY, Supplier<String> text) {
-		if (this.hoverables.containsKey(key))
-			return;
-		this.hoverables.put(key, new Hoverable(minX, minY, maxX, maxY, text));
+	private record Hoverable(int minX, int minY, int maxX, int maxY, Supplier<Boolean> active, Supplier<String> text) {
 	}
 
-	private record Hoverable(int minX, int minY, int maxX, int maxY, Supplier<String> text) {
+	private record Clickable(int minX, int minY, int maxX, int maxY, Supplier<Boolean> active, Runnable action) {
+	}
 
+	private record Stateable(boolean state, long lastClick) {
+	}
+
+	private void registerHoverable(String key, int minX, int minY, int maxX, int maxY, Supplier<Boolean> active,
+			Supplier<String> text) {
+		this.hoverables.putIfAbsent(key, new Hoverable(minX, minY, maxX, maxY, active, text));
+	}
+
+	private void registerHoverable(String key, int minX, int minY, int maxX, int maxY, Supplier<String> text) {
+		registerHoverable(key, minX, minY, maxX, maxY, () -> true, text);
+	}
+
+	private void registerClickable(String key, int minX, int minY, int maxX, int maxY, Supplier<Boolean> active,
+			Runnable action) {
+		if (this.clickables.containsKey(key))
+			return;
+		this.clickables.put(key, new Clickable(minX, minY, maxX, maxY, active, action));
+	}
+
+	private void registerClickable(String key, int minX, int minY, int maxX, int maxY, String state, boolean val) {
+		registerClickable(key, minX, minY, maxX, maxY, () -> getState(state) == val, () -> setState(state, !val));
+	}
+
+	public void initState(String key, boolean initial) {
+		this.stateables.putIfAbsent(key, new Stateable(initial, -100));
+	}
+
+	public void setState(String key, boolean state) {
+		this.stateables.put(key, new Stateable(state, this.aliveTicks));
+	}
+
+	public boolean getState(String key) {
+		Stateable s = this.stateables.get(key);
+		return s != null && s.state;
+	}
+
+	public int getAnimationState(String key, int max) {
+		Stateable s = this.stateables.get(key);
+		if (s == null)
+			return 0;
+		int m = Math.min((int) Math.max(s.lastClick() - this.aliveTicks + max, 0), max);
+		return s.state() ? m : max - m - 1;
+	}
+
+	public int getElapsedState(String key) {
+		Stateable s = this.stateables.get(key);
+		return s == null ? 0 : (int) (this.aliveTicks - s.lastClick());
 	}
 
 	@Override
@@ -467,6 +590,24 @@ public abstract class MachinaMenuScreen<T extends MachinaContainerMenu<?>> exten
 		}
 
 		return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
+	}
+
+	@Override
+	public boolean mouseClicked(double x, double y, int button) {
+		for (Clickable c : clickables.values()) {
+			if (x > c.minX() && x < c.maxX() && y > c.minY() && y < c.maxY()) {
+				if (c.active().get()) {
+					c.action().run();
+					return true;
+				}
+			}
+		}
+
+		return super.mouseClicked(x, y, button);
+	}
+
+	private boolean appearDraw(long elap) {
+		return elap > 9 || elap == 5 || elap == 7 || elap == 8;
 	}
 
 }
