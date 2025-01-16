@@ -21,6 +21,10 @@ public abstract class SidedStorage {
 		return this.modes[from.ordinal()] == Side.INPUT;
 	}
 
+	public void cycleMode(Direction dir) {
+		this.modes[dir.ordinal()] = Side.values()[(this.modes[dir.ordinal()].ordinal() + 1) % Side.values().length];
+	}
+
 	public abstract void invalidate();
 
 	protected abstract void save(CompoundTag tag);

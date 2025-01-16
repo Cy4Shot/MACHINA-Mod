@@ -21,6 +21,6 @@ public class FurnaceGeneratorScreen extends MachinaMenuScreen<FurnaceGeneratorBl
 		drawInventory(gui, mx, my);
 		drawOverlay(gui);
 //		gui.drawString(font, Component.literal(String.valueOf(menu.getBlockEntity().isLit())), 0, 20, 0xFFFFFF);
-		gui.drawString(font, Component.literal(String.valueOf(menu.getEnergy())), 0, 0, 0xFFFFFF);
+//		gui.drawString(font, Component.literal(String.valueOf(menu.getEnergy())), 0, 0, 0xFFFFFF);
 	}
 }

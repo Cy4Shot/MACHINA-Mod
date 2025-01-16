@@ -3,6 +3,7 @@ package com.machina.api.client.screen;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
@@ -16,6 +17,7 @@ import com.machina.Machina;
 import com.machina.api.block.menu.MachinaContainerMenu;
 import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
+import com.machina.api.cap.sided.SidedStorage;
 import com.machina.api.multiblock.ClientMultiblock;
 import com.machina.api.multiblock.MultiblockLoader;
 import com.machina.api.util.MachinaRL;
@@ -56,7 +58,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 	protected static final ResourceLocation COMMON_UI = new MachinaRL("textures/gui/common_ui.png");
 	protected static final ResourceLocation BG_OVERLAY = new MachinaRL("textures/gui/bg_overlay.png");
 
-	private final R entity;
+	protected final R entity;
 
 	private long aliveTicks = 0;
 	private Float lsx, lsy = null;
@@ -263,16 +265,22 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 	protected void drawEnergyBar(GuiGraphics gui, int x, int y, boolean active, boolean under_deco) {
 		int i = midWidth() + x - 66;
 		int j = midHeight() + y - 9;
-		registerHoverable("energy", i + 1, j + 1, i + 136, j + 18, () -> StringUtils.formatPower(this.entity.getEnergy())
-				+ " (" + StringUtils.formatPercent(this.entity.getEnergyF()) + ")");
+		registerHoverable("energy", i + 1, j + 1, i + 136, j + 18,
+				() -> StringUtils.formatPower(this.entity.getEnergy()) + " ("
+						+ StringUtils.formatPercent(this.entity.getEnergyF()) + ")");
 		drawBar(gui, i, j, 0, this.entity.getEnergyF(), active, under_deco,
 				StringUtils.formatPower(this.entity.getEnergy()));
 	}
 
-	private void drawFace(GuiGraphics gui, int x, int y, Direction dir) {
+	private void drawFace(GuiGraphics gui, int x, int y, Direction dir, @Nullable SidedStorage storage) {
 		TextureAtlasSprite sprite = sprites.get(dir);
 		int size = (int) (4.0F / sprite.uvShrinkRatio());
 		gui.blit(sprite.atlasLocation(), x, y, sprite.getX(), sprite.getY(), 16, 16, size, size);
+
+		if (storage != null) {
+			Side side = storage.modes[dir.ordinal()];
+			blitCommon(gui, x + 4, y + 4, side.x(), side.y(), 8, 8);
+		}
 	}
 
 	protected void drawSideConfig(GuiGraphics gui, int x, int y, int mx, int my, String name, SpecialSlot slot) {
@@ -286,16 +294,22 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 
 		// Face Hovers
 		Supplier<Boolean> hover = () -> getState(key) && appearDraw(getElapsedState(key));
-		registerHoverable(key + "_up", i - 52, j + 8, i - 31, j + 29, hover, () -> "Up");
-		registerHoverable(key + "_north", i - 52, j + 27, i - 31, j + 48, hover, () -> "North");
-		registerHoverable(key + "_down", i - 52, j + 46, i - 31, j + 67, hover, () -> "Down");
-		registerHoverable(key + "_west", i - 33, j + 27, i - 12, j + 48, hover, () -> "West");
-		registerHoverable(key + "_east", i - 71, j + 27, i - 50, j + 48, hover, () -> "East");
-		registerHoverable(key + "_south", i - 33, j + 46, i - 12, j + 67, hover, () -> "South");
-		
-		for(Side side : this.entity.getEnergyStorage().modes) {
-			System.out.println(side.name());
-		}
+		Function<Direction, Runnable> click = d -> () -> this.entity.getEnergyStorage().cycleMode(d);
+		Function<Direction, Supplier<String>> text = d -> () -> {
+			return d.getName() + " " + this.entity.getEnergyStorage().modes[d.ordinal()].name();
+		};
+		clickAndHover(key + "_up", i - 52, j + 8, i - 31, j + 29, hover, text.apply(Direction.UP),
+				click.apply(Direction.UP));
+		clickAndHover(key + "_north", i - 52, j + 27, i - 31, j + 48, hover, text.apply(Direction.NORTH),
+				click.apply(Direction.NORTH));
+		clickAndHover(key + "_down", i - 52, j + 46, i - 31, j + 67, hover, text.apply(Direction.DOWN),
+				click.apply(Direction.DOWN));
+		clickAndHover(key + "_west", i - 33, j + 27, i - 12, j + 48, hover, text.apply(Direction.WEST),
+				click.apply(Direction.WEST));
+		clickAndHover(key + "_east", i - 71, j + 27, i - 50, j + 48, hover, text.apply(Direction.EAST),
+				click.apply(Direction.EAST));
+		clickAndHover(key + "_south", i - 33, j + 46, i - 12, j + 67, hover, text.apply(Direction.SOUTH),
+				click.apply(Direction.SOUTH));
 
 		int anim = getAnimationState(key, 4);
 		int elap = getElapsedState(key);
@@ -315,12 +329,13 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 				SpecialSlot.CROSS.draw(gui, i - 25, j + 8);
 
 				// Machine
-				drawFace(gui, i - 51, j + 9, Direction.UP);
-				drawFace(gui, i - 51, j + 28, Direction.NORTH);
-				drawFace(gui, i - 51, j + 47, Direction.DOWN);
-				drawFace(gui, i - 32, j + 28, Direction.WEST);
-				drawFace(gui, i - 70, j + 28, Direction.EAST);
-				drawFace(gui, i - 32, j + 47, Direction.SOUTH);
+				SidedStorage storage = this.entity.getEnergyStorage();
+				drawFace(gui, i - 51, j + 9, Direction.UP, storage);
+				drawFace(gui, i - 51, j + 28, Direction.NORTH, storage);
+				drawFace(gui, i - 51, j + 47, Direction.DOWN, storage);
+				drawFace(gui, i - 32, j + 28, Direction.WEST, storage);
+				drawFace(gui, i - 70, j + 28, Direction.EAST, storage);
+				drawFace(gui, i - 32, j + 47, Direction.SOUTH, storage);
 
 				// Deorators
 				gui.drawString(font, Component.literal("Energy Config"), i - 75, j + 71, 0x00FEFE);
@@ -549,13 +564,17 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 
 	private void registerClickable(String key, int minX, int minY, int maxX, int maxY, Supplier<Boolean> active,
 			Runnable action) {
-		if (this.clickables.containsKey(key))
-			return;
-		this.clickables.put(key, new Clickable(minX, minY, maxX, maxY, active, action));
+		this.clickables.putIfAbsent(key, new Clickable(minX, minY, maxX, maxY, active, action));
 	}
 
 	private void registerClickable(String key, int minX, int minY, int maxX, int maxY, String state, boolean val) {
 		registerClickable(key, minX, minY, maxX, maxY, () -> getState(state) == val, () -> setState(state, !val));
+	}
+
+	private void clickAndHover(String key, int minX, int minY, int maxX, int maxY, Supplier<Boolean> active,
+			Supplier<String> text, Runnable action) {
+		registerHoverable(key, minX, minY, maxX, maxY, active, text);
+		registerClickable(key, minX, minY, maxX, maxY, active, action);
 	}
 
 	public void initState(String key, boolean initial) {
