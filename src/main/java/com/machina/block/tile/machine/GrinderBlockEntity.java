@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
-import com.machina.api.util.reflect.SextFunction;
+import com.machina.api.util.reflect.QuintFunction;
 import com.machina.block.menu.GrinderMenu;
 import com.machina.recipe.GrinderRecipe;
 import com.machina.registration.init.BlockEntityInit;
@@ -16,7 +16,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -106,12 +105,7 @@ public class GrinderBlockEntity extends MachinaBlockEntity {
 	}
 
 	@Override
-	protected int getExtraDataSize() {
-		return 2;
-	}
-
-	@Override
-	protected SextFunction<Integer, Level, BlockPos, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
+	protected QuintFunction<Integer, Level, BlockPos, Inventory, Container, AbstractContainerMenu> createMenu() {
 		return GrinderMenu::new;
 	}
 

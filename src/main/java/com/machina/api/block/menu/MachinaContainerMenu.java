@@ -11,9 +11,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -23,25 +21,15 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends AbstractContainerMenu {
 
-	private final ContainerData data;
 	protected final Container container;
 	public final T be;
 
 	@SuppressWarnings("unchecked")
-	public MachinaContainerMenu(MenuType<?> type, Level level, BlockPos pos, int id, Container container,
-			ContainerData data) {
+	public MachinaContainerMenu(MenuType<?> type, Level level, BlockPos pos, int id, Container container) {
 		super(type, id);
 		this.be = (T) level.getBlockEntity(pos);
 
-		checkContainerDataCount(data, getExtraDataSize() + MachinaBlockEntity.DEFAULT_DATA_SIZE);
-		this.addDataSlots(data);
-
-		this.data = data;
 		this.container = container;
-	}
-
-	protected static ContainerData defaultData(int extra) {
-		return new SimpleContainerData(extra + MachinaBlockEntity.DEFAULT_DATA_SIZE);
 	}
 
 	@SuppressWarnings("resource")
@@ -51,8 +39,6 @@ public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends
 	}
 
 	protected abstract MachineBlock getBlock();
-
-	protected abstract int getExtraDataSize();
 
 	@Override
 	public boolean stillValid(Player player) {

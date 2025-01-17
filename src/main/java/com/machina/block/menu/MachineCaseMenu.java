@@ -13,19 +13,16 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 
 public class MachineCaseMenu extends MachinaContainerMenu<MachineCaseBlockEntity> {
 
-	private static final int EXTRA_DATA_SIZE = 1;
-
 	public MachineCaseMenu(int id, Inventory inv, FriendlyByteBuf buf) {
-		this(id, clientLevel(), buf.readBlockPos(), inv, new SimpleContainer(1), defaultData(EXTRA_DATA_SIZE));
+		this(id, clientLevel(), buf.readBlockPos(), inv, new SimpleContainer(1));
 	}
 
-	public MachineCaseMenu(int id, Level level, BlockPos pos, Inventory inv, Container access, ContainerData data) {
-		super(MenuTypeInit.MACHINE_CASE.get(), level, pos, id, access, data);
+	public MachineCaseMenu(int id, Level level, BlockPos pos, Inventory inv, Container access) {
+		super(MenuTypeInit.MACHINE_CASE.get(), level, pos, id, access);
 
 		this.addSlot(new AcceptSlot(container, 0, -2, 74, s -> s.getItem().equals(ItemInit.BLUEPRINT.get())));
 
@@ -35,10 +32,5 @@ public class MachineCaseMenu extends MachinaContainerMenu<MachineCaseBlockEntity
 	@Override
 	protected MachineBlock getBlock() {
 		return BlockInit.BASIC_MACHINE_CASE.get();
-	}
-
-	@Override
-	protected int getExtraDataSize() {
-		return EXTRA_DATA_SIZE;
 	}
 }

@@ -17,7 +17,7 @@ import com.machina.api.cap.sided.MultiSidedStorage;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.cap.sided.SidedStorage;
 import com.machina.api.cap.sided.SingleSidedStorage;
-import com.machina.api.util.reflect.SextFunction;
+import com.machina.api.util.reflect.QuintFunction;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,8 +36,6 @@ import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -57,7 +55,6 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
  */
 public abstract class MachinaBlockEntity extends BaseBlockEntity implements WorldlyContainer, IMachinaMenuProvider {
 
-	public static final int DEFAULT_DATA_SIZE = 0;
 	private LockCode lockKey = LockCode.NO_LOCK;
 	protected MultiSidedStorage<MachinaEnergyStorage> energyCap;
 	protected List<SingleSidedStorage<MachinaFluidStorage>> fluidsCap = new ArrayList<>();
@@ -66,21 +63,21 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 
 	private int energy;
 
-	protected ContainerData data = new SimpleContainerData(getExtraDataSize() + DEFAULT_DATA_SIZE);
-
 	public abstract void createStorages();
 
 	public void itemStorage(Side[] sides) {
 		this.items.add(ItemStack.EMPTY);
-		this.itemSides.add(sides);
+		this.itemSides.add(sides.clone());
 	}
 
 	public void energyStorage(Side[] sides) {
-		this.energyCap = new MultiSidedStorage<MachinaEnergyStorage>("energy", this, MachinaEnergyStorage::new, sides);
+		this.energyCap = new MultiSidedStorage<MachinaEnergyStorage>("cap_energy", this, MachinaEnergyStorage::new,
+				sides.clone());
 	}
 
 	public void fluidStorage(@NonNull MachinaFluidStorage store, Side[] sides) {
-		this.fluidsCap.add(new SingleSidedStorage<MachinaFluidStorage>("fluid_" + this.fluidsCap.size(), store, sides));
+		this.fluidsCap.add(new SingleSidedStorage<MachinaFluidStorage>("cap_fluid_" + this.fluidsCap.size(), this,
+				store, sides.clone()));
 	}
 
 	public MachinaBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -92,7 +89,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 		consumer.accept(energyCap);
 		this.fluidsCap.forEach(consumer);
 	}
-	
+
 	public SidedStorage getEnergyStorage() {
 		return this.energyCap;
 	}
@@ -111,7 +108,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 		this.lockKey = LockCode.fromTag(tag);
 		ContainerHelper.loadAllItems(tag, this.items);
 		this.itemSides = NonNullList.create();
-		ListTag sides = tag.getList("sides", Tag.TAG_COMPOUND);
+		ListTag sides = tag.getList("sides_item", Tag.TAG_COMPOUND);
 		for (int i = 0; i < sides.size(); i++) {
 			this.itemSides.add(Side.deserialize(sides.getCompound(i)));
 		}
@@ -127,7 +124,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 		for (int i = 0; i < this.itemSides.size(); i++) {
 			sides.add(Side.serialize(this.itemSides.get(i)));
 		}
-		tag.put("sides", sides);
+		tag.put("sides_item", sides);
 		this.lockKey.addToTag(tag);
 		super.saveAdditional(tag);
 	}
@@ -238,7 +235,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	}
 
 	public abstract int getMaxEnergy();
-	
+
 	public float getEnergyF() {
 		if (this.getMaxEnergy() == 0) {
 			return 0;
@@ -330,18 +327,25 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	@Nullable
 	@Override
 	public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
-		return this.canOpen(player) ? createMenu().apply(id, this.level, this.worldPosition, inv, this, data) : null;
+		return this.canOpen(player) ? createMenu().apply(id, this.level, this.worldPosition, inv, this) : null;
 	}
 
-	protected abstract int getExtraDataSize();
-
-	protected abstract SextFunction<Integer, Level, BlockPos, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu();
+	protected abstract QuintFunction<Integer, Level, BlockPos, Inventory, Container, AbstractContainerMenu> createMenu();
 
 	public void tick() {
 	}
 
 	public byte[] getSideConfig(SidedStorage storage) {
 		return storage.getRawSideData();
+	}
+
+	public void updateSideConfig(String id, byte[] side) {
+		if (id.startsWith("cap_energy")) {
+			this.energyCap.setRawSideData(side);
+		} else if (id.startsWith("cap_fluid_")) {
+			int tank = Integer.parseInt(id.substring(10));
+			this.fluidsCap.get(tank).setRawSideData(side);
+		}
 	}
 
 }

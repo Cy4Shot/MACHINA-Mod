@@ -295,9 +295,8 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		// Face Hovers
 		Supplier<Boolean> hover = () -> getState(key) && appearDraw(getElapsedState(key));
 		Function<Direction, Runnable> click = d -> () -> this.entity.getEnergyStorage().cycleMode(d);
-		Function<Direction, Supplier<String>> text = d -> () -> {
-			return d.getName() + " " + this.entity.getEnergyStorage().modes[d.ordinal()].name();
-		};
+		Function<Direction, Supplier<String>> text = d -> () -> d.getName() + " "
+				+ this.entity.getEnergyStorage().modes[d.ordinal()].name();
 		clickAndHover(key + "_up", i - 52, j + 8, i - 31, j + 29, hover, text.apply(Direction.UP),
 				click.apply(Direction.UP));
 		clickAndHover(key + "_north", i - 52, j + 27, i - 31, j + 48, hover, text.apply(Direction.NORTH),
@@ -633,5 +632,4 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 	private boolean appearDraw(long elap) {
 		return elap > 9 || elap == 5 || elap == 7 || elap == 8;
 	}
-
 }

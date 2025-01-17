@@ -16,7 +16,7 @@ public class MultiSidedStorage<T> extends SidedStorage {
 	@SuppressWarnings("unchecked")
 	public MultiSidedStorage(String tag, MachinaBlockEntity be,
 			BiFunction<Direction, MachinaBlockEntity, IMachinaStorage> factory, Side[] sides) {
-		super(tag, sides);
+		super(tag, be, sides);
 		this.sidedStorage = new LazyOptional[Direction.values().length];
 		for (Direction dir : Direction.values()) {
 			this.sidedStorage[dir.ordinal()] = LazyOptional.of(() -> factory.apply(dir, be));

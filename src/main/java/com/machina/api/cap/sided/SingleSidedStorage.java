@@ -2,6 +2,7 @@ package com.machina.api.cap.sided;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.IMachinaStorage;
 
 import net.minecraft.nbt.CompoundTag;
@@ -11,8 +12,8 @@ public class SingleSidedStorage<T> extends SidedStorage {
 
 	private LazyOptional<IMachinaStorage> singleStorage;
 
-	public SingleSidedStorage(String tag, @NonNull IMachinaStorage storage, Side[] sides) {
-		super(tag, sides);
+	public SingleSidedStorage(String tag, MachinaBlockEntity be, @NonNull IMachinaStorage storage, Side[] sides) {
+		super(tag, be, sides);
 		this.singleStorage = LazyOptional.of(() -> storage);
 	}
 

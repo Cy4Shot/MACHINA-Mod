@@ -3,7 +3,7 @@ package com.machina.block.tile.machine;
 import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.util.block.BlockHelper;
-import com.machina.api.util.reflect.SextFunction;
+import com.machina.api.util.reflect.QuintFunction;
 import com.machina.block.machine.FurnaceGeneratorBlock;
 import com.machina.block.menu.FurnaceGeneratorMenu;
 import com.machina.config.CommonConfig;
@@ -14,7 +14,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -104,12 +103,7 @@ public class FurnaceGeneratorBlockEntity extends MachinaBlockEntity {
 	}
 
 	@Override
-	protected int getExtraDataSize() {
-		return 1;
-	}
-
-	@Override
-	protected SextFunction<Integer, Level, BlockPos, Inventory, Container, ContainerData, AbstractContainerMenu> createMenu() {
+	protected QuintFunction<Integer, Level, BlockPos, Inventory, Container, AbstractContainerMenu> createMenu() {
 		return FurnaceGeneratorMenu::new;
 	}
 
