@@ -31,7 +31,7 @@ public abstract class SidedStorage {
 		this.modes[dir.ordinal()] = Side.values()[(this.modes[dir.ordinal()].ordinal() + 1) % Side.values().length];
 		this.update();
 	}
-	
+
 	protected void update() {
 		if (this.e.getLevel().isClientSide()) {
 			PacketSender.sendToServer(new C2SSideConfig(tag, this.e.getBlockPos(), getRawSideData()));

@@ -340,11 +340,29 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	}
 
 	public void updateSideConfig(String id, byte[] side) {
+		byte[] old = null;
+
 		if (id.startsWith("cap_energy")) {
+			old = this.energyCap.getRawSideData().clone();
 			this.energyCap.setRawSideData(side);
 		} else if (id.startsWith("cap_fluid_")) {
 			int tank = Integer.parseInt(id.substring(10));
+			old = this.fluidsCap.get(tank).getRawSideData().clone();
 			this.fluidsCap.get(tank).setRawSideData(side);
+		}
+
+		this.setChanged();
+
+		if (old != null) {
+			for (Direction d : Direction.values()) {
+				int i = d.ordinal();
+				if (old[i] != side[i]) {
+					BlockPos pos = worldPosition.relative(d);
+					BlockState state = level.getBlockState(pos);
+					state = state.updateShape(d.getOpposite(), getBlockState(), level, pos, worldPosition);
+					level.setBlock(pos, state, 3);
+				}
+			}
 		}
 	}
 

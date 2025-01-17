@@ -78,9 +78,7 @@ public abstract class ConnectorBlock<T extends IConnectorStorage> extends Block 
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level,
-			BlockPos pos, BlockPos facingPos) {
+	private void syncConnections(LevelAccessor level, BlockPos pos) {
 		BlockHelper.doWithTe(level, pos, ConnectorBlockEntity.class, cable -> {
 			if (!level.isClientSide()) {
 				cable.dirs.clear();
@@ -91,6 +89,12 @@ public abstract class ConnectorBlock<T extends IConnectorStorage> extends Block 
 				cable.sync();
 			}
 		});
+	}
+
+	@Override
+	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level,
+			BlockPos pos, BlockPos facingPos) {
+		syncConnections(level, pos);
 		return createState(level, pos);
 	}
 
@@ -103,7 +107,7 @@ public abstract class ConnectorBlock<T extends IConnectorStorage> extends Block 
 
 	private boolean isConnectable(BlockGetter level, BlockPos pos, Direction dir) {
 		BlockEntity be = level.getBlockEntity(pos.relative(dir));
-		return !(be instanceof ConnectorBlockEntity) && canConnect(be, dir);
+		return !(be instanceof ConnectorBlockEntity) && canConnect(be, dir.getOpposite());
 	}
 
 	private boolean[] canAttach(BlockGetter level, BlockPos pos, Direction dir) {
@@ -166,21 +170,12 @@ public abstract class ConnectorBlock<T extends IConnectorStorage> extends Block 
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState old, boolean moving) {
 		if (level.isClientSide())
 			return;
 
-		BlockHelper.doWithTe(level, pos, ConnectorBlockEntity.class, be -> {
-			be.dirs.clear();
-			for (Direction dir : Direction.values()) {
-				if (isConnectable(level, pos, dir))
-					be.dirs.add(dir);
-
-			}
-			be.sync();
-		});
+		syncConnections(level, pos);
 
 		super.onPlace(state, level, pos, old, moving);
 	}
