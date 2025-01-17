@@ -5,8 +5,8 @@ import com.machina.api.block.menu.MachinaContainerMenu;
 import com.machina.api.block.menu.slot.AcceptSlot;
 import com.machina.block.tile.machine.BatteryBlockEntity;
 import com.machina.registration.init.BlockInit;
-import com.machina.registration.init.ItemInit;
 import com.machina.registration.init.MenuTypeInit;
+import com.machina.registration.init.TagInit.ItemTagInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -23,7 +23,7 @@ public class BatteryMenu extends MachinaContainerMenu<BatteryBlockEntity> {
 	public BatteryMenu(int id, Level level, BlockPos pos, Inventory inv, Container access) {
 		super(MenuTypeInit.BATTERY.get(), level, pos, id, access);
 
-		this.addSlot(new AcceptSlot(container, 0, -2, 74, s -> s.getItem().equals(ItemInit.BLUEPRINT.get())));
+		this.addSlot(new AcceptSlot(container, 0, 107, -57, s -> s.is(ItemTagInit.CAPACITOR)));
 
 		invSlots(inv, 0);
 	}

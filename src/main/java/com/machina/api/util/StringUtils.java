@@ -83,7 +83,7 @@ public class StringUtils {
 		return formatNumberWithUnit(temp) + "K";
 	}
 
-	public static String formatPower(int energy) {
+	public static String formatPower(long energy) {
 		return formatNumberWithUnit(energy) + "RF";
 	}
 

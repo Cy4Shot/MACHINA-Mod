@@ -96,7 +96,6 @@ public class DatagenBlockTags extends BlockTagsProvider {
 
 	private void dirtFamily(DirtFamily family) {
 		tag(BlockTags.DIRT).add(family.dirt());
-		tag(BlockTagInit.PLANET_GROWABLE).add(family.dirt());
 		tag(BlockTagInit.PLANET_CARVABLE).add(family.dirt(), family.slab(), family.stairs());
 		tag(BlockTags.SLABS).add(family.slab());
 		tag(BlockTags.STAIRS).add(family.stairs());
@@ -104,7 +103,6 @@ public class DatagenBlockTags extends BlockTagsProvider {
 
 		if (family.grass().isPresent()) {
 			tag(BlockTags.DIRT).add(family.grass().get());
-			tag(BlockTagInit.PLANET_GROWABLE).add(family.grass().get());
 			tag(BlockTagInit.PLANET_CARVABLE).add(family.grass().get());
 			tag(BlockTags.OVERWORLD_CARVER_REPLACEABLES).add(family.grass().get());
 		}

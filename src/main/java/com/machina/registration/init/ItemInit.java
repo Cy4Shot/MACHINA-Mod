@@ -9,6 +9,7 @@ import com.machina.block.MachinaHangingWallSignBlock;
 import com.machina.block.MachinaSignBlock;
 import com.machina.block.MachinaWallSignBlock;
 import com.machina.item.BlueprintItem;
+import com.machina.item.CapacitorItem;
 
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
@@ -25,6 +26,10 @@ public class ItemInit {
 
 	//@formatter:off
 	public static final RegistryObject<Item> BLUEPRINT = basic("blueprint", BlueprintItem::new);
+	
+	public static final RegistryObject<CapacitorItem> BASIC_CAPACITOR = capacitor("basic_capacitor", 100_000);
+	public static final RegistryObject<CapacitorItem> ADVANCED_CAPACITOR = capacitor("advanced_capacitor", 1_000_000);
+	public static final RegistryObject<CapacitorItem> SUPREME_CAPACITOR = capacitor("supreme_capacitor", 10_000_000);
 	
 	public static final RegistryObject<Item> RAW_ALUMINUM = basic("raw_aluminum");
 	public static final RegistryObject<Item> ALUMINUM_INGOT = basic("aluminum_ingot");
@@ -93,6 +98,10 @@ public class ItemInit {
 
 	public static RegistryObject<Item> basic(String name) {
 		return register(name, () -> ItemBuilder.basicItem());
+	}
+
+	public static RegistryObject<CapacitorItem> capacitor(String name, int cap) {
+		return register(name, () -> ItemBuilder.basicItem(p -> new CapacitorItem(p, cap)));
 	}
 
 	public static RegistryObject<ChemicalItem> chemical(String name, String chemical) {

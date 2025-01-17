@@ -1,4 +1,4 @@
-// 1.20.1	2025-01-10T13:08:43.2826616	Tags for minecraft:item mod id machina
+// 1.20.1	2025-01-17T13:33:31.335928	Tags for minecraft:item mod id machina
 25600e53d4c408f0c4074408d152259846ce65eb data/forge/tags/items/dusts.json
 f34fb318e4199b18e82d06f64cc77ac94455cddc data/forge/tags/items/dusts/coal.json
 de7ded1499e4698db553b3b50e504d3a8b429824 data/forge/tags/items/dusts/copper.json
@@ -26,6 +26,7 @@ f342f42b5fd28a71d07056bda6a5ed8ac4f1afde data/forge/tags/items/wires.json
 7163c92ba521f424bd83ca3af861f04de3a101fa data/forge/tags/items/wires/diamond.json
 b5d438b42b5f077474361f103715f15c46982c5c data/forge/tags/items/wires/gold.json
 b7146caf9746ac6d65fbeea8544cefe92ce9069c data/forge/tags/items/wires/iron.json
+410081ab979372c1083833fe55b1af5aa642fb95 data/machina/tags/items/capacitor.json
 9dce9a4325cb6566bddd6b229a9a33a8f228c0fd data/minecraft/tags/items/buttons.json
 f055533b8c0f73c1b4b5c3d41270498100588ade data/minecraft/tags/items/dirt.json
 96f35ecb1ba7f70af766db1543a669a3422a723c data/minecraft/tags/items/doors.json

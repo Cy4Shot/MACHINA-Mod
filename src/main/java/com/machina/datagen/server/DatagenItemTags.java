@@ -8,12 +8,15 @@ import javax.annotation.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 import com.machina.Machina;
+import com.machina.item.CapacitorItem;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.FamiliesInit;
 import com.machina.registration.init.FamiliesInit.DirtFamily;
 import com.machina.registration.init.FamiliesInit.OreFamily;
 import com.machina.registration.init.FamiliesInit.StoneFamily;
 import com.machina.registration.init.FamiliesInit.WoodFamily;
+import com.machina.registration.init.ItemInit;
+import com.machina.registration.init.TagInit.ItemTagInit;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
@@ -38,6 +41,10 @@ public class DatagenItemTags extends ItemTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull Provider pProvider) {
+		capacitor(ItemInit.BASIC_CAPACITOR);
+		capacitor(ItemInit.ADVANCED_CAPACITOR);
+		capacitor(ItemInit.SUPREME_CAPACITOR);
+
 		flower(BlockInit.CLOVER);
 		flower(BlockInit.PURPLE_GROUNDLILY);
 		flower(BlockInit.PINK_GROUNDLILY);
@@ -91,6 +98,10 @@ public class DatagenItemTags extends ItemTagsProvider {
 
 	private void flower(RegistryObject<? extends BushBlock> flower) {
 		tag(ItemTags.FLOWERS).add(flower.get().asItem());
+	}
+
+	private void capacitor(RegistryObject<? extends CapacitorItem> capacitor) {
+		tag(ItemTagInit.CAPACITOR).add(capacitor.get());
 	}
 
 	private void oreFamily(OreFamily family) {

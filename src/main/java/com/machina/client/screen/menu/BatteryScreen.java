@@ -19,9 +19,9 @@ public class BatteryScreen extends MachinaMenuScreen<BatteryBlockEntity, Battery
 		drawInventory(gui, mx, my);
 		drawBackground(gui);
 		drawEnergyBar(gui, 117, 0, true, true);
-		drawUpFacingSlot(gui, 20, 30, SpecialSlot.PLUS, "Input");
-		drawUpFacingSlot(gui, 197, 30, SpecialSlot.MINUS, "Output");
-		drawDownFacingSlot(gui, 106, -60, SpecialSlot.BOLT, "Capacitor");
+		drawUpFacingSlot(gui, 1, 20, 30, SpecialSlot.PLUS, "Input");
+		drawUpFacingSlot(gui, 2, 197, 30, SpecialSlot.MINUS, "Output");
+		drawDownFacingSlot(gui, 0, 106, -60, SpecialSlot.BOLT, "Capacitor");
 
 		drawSideConfig(gui, 0, 0, mx, my, "energy", SpecialSlot.BOLT);
 

@@ -78,6 +78,7 @@ public class GrinderBlockEntity extends MachinaBlockEntity {
 			this.progress = 0;
 			this.recipe = null;
 		});
+		super.tick();
 	}
 
 	protected boolean hasPower(GrinderRecipe r) {

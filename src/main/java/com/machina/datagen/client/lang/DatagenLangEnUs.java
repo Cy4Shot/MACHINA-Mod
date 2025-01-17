@@ -51,6 +51,11 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(ItemInit.DIAMOND_WIRE, "Diamond Wire");
 
 		add(ItemInit.BLUEPRINT, "Blueprint");
+		
+		add(ItemInit.BASIC_CAPACITOR, "Basic Capacitor");
+		add(ItemInit.ADVANCED_CAPACITOR, "Advanced Capacitor");
+		add(ItemInit.SUPREME_CAPACITOR, "Supreme Capacitor");
+		
 		add(ItemInit.RAW_ALUMINUM, "Raw Aluminum");
 		add(ItemInit.ALUMINUM_INGOT, "Aluminum Ingot");
 		add(ItemInit.ALUMINUM_NUGGET, "Aluminum Nugget");

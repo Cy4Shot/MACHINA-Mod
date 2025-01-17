@@ -83,6 +83,7 @@ public class FurnaceGeneratorBlockEntity extends MachinaBlockEntity {
 			sync();
 
 		this.level.setBlock(worldPosition, getBlockState().setValue(FurnaceGeneratorBlock.LIT, isLit()), 3);
+		super.tick();
 	}
 
 	@Override

@@ -213,7 +213,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		}
 	}
 
-	protected void drawDownFacingSlot(GuiGraphics gui, int x, int y, SpecialSlot slot, String hover) {
+	protected void drawDownFacingSlot(GuiGraphics gui, int id, int x, int y, SpecialSlot slot, String hover) {
 		int i = midWidth() + x;
 		int j = midHeight() + y;
 		blitCommon(gui, i, j, 414, 94, 19, 21);
@@ -223,11 +223,12 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		blitCommon(gui, i + 21, j + 4, 390, 0, 3, 16);
 
 		if (!hover.isEmpty()) {
-			registerHoverable("slot_" + x + "_" + y, i - 1, j + 1, i + 18, j + 20, () -> hover);
+			registerHoverable("slot_" + x + "_" + y, i - 1, j + 1, i + 18, j + 20, () -> entity.getItem(id).isEmpty(),
+					() -> hover);
 		}
 	}
 
-	protected void drawUpFacingSlot(GuiGraphics gui, int x, int y, SpecialSlot slot, String hover) {
+	protected void drawUpFacingSlot(GuiGraphics gui, int id, int x, int y, SpecialSlot slot, String hover) {
 		int i = midWidth() + x;
 		int j = midHeight() + y;
 		blitCommon(gui, i, j, 433, 94, 19, 21);
@@ -237,7 +238,8 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		blitCommon(gui, i + 21, j + 1, 390, 0, 3, 16);
 
 		if (!hover.isEmpty()) {
-			registerHoverable("slot_" + x + "_" + y, i - 1, j + 1, i + 18, j + 20, () -> hover);
+			registerHoverable("slot_" + x + "_" + y, i - 1, j + 1, i + 18, j + 20, () -> entity.getItem(id).isEmpty(),
+					() -> hover);
 		}
 	}
 
@@ -536,9 +538,11 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		super.renderTooltip(gui, mx, my);
 
 		for (Hoverable h : hoverables.values()) {
-			if (mx > h.minX() && mx < h.maxX() && my > h.minY() && my < h.maxY()) {
-				gui.renderTooltip(font, Component.literal(h.text().get()), mx, my);
-				break;
+			if (h.active().get()) {
+				if (mx > h.minX() && mx < h.maxX() && my > h.minY() && my < h.maxY()) {
+					gui.renderTooltip(font, Component.literal(h.text().get()), mx, my);
+					break;
+				}
 			}
 		}
 	}

@@ -333,6 +333,11 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	protected abstract QuintFunction<Integer, Level, BlockPos, Inventory, Container, AbstractContainerMenu> createMenu();
 
 	public void tick() {
+		if (this.energy > this.getMaxEnergy()) {
+
+			this.energy = 0;
+			this.setChanged();
+		}
 	}
 
 	public byte[] getSideConfig(SidedStorage storage) {
