@@ -48,15 +48,18 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 	}
 
 	@Override
-	public void tick() {		
+	public void tick() {
+		// Force update energy
 		int energy = getEnergy();
 		if (energy != prev) {
 			this.prev = energy;
 			this.setChanged();
 		}
 
+		// Send out energy
 		BlockHelper.sendEnergy(level, worldPosition, energy, 1_000, this);
 
+		// Update lit state
 		this.level.setBlock(worldPosition, getBlockState().setValue(BatteryBlock.LIT, energy > 0), 3);
 
 		super.tick();
