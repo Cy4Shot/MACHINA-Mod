@@ -10,20 +10,18 @@ import com.machina.registration.init.TagInit.ItemTagInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.Level;
 
 public class BatteryMenu extends MachinaContainerMenu<BatteryBlockEntity> {
 	public BatteryMenu(int id, Inventory inv, FriendlyByteBuf buf) {
-		this(id, clientLevel(), buf.readBlockPos(), inv, new SimpleContainer(1));
+		this(id, clientLevel(), buf.readBlockPos(), inv);
 	}
 
-	public BatteryMenu(int id, Level level, BlockPos pos, Inventory inv, Container access) {
-		super(MenuTypeInit.BATTERY.get(), level, pos, id, access);
+	public BatteryMenu(int id, Level level, BlockPos pos, Inventory inv) {
+		super(MenuTypeInit.BATTERY.get(), level, pos, id);
 
-		this.addSlot(new AcceptSlot(container, 0, 107, -57, s -> s.is(ItemTagInit.CAPACITOR)));
+		this.addSlot(new AcceptSlot(be, 0, 107, -57, s -> s.is(ItemTagInit.CAPACITOR)));
 
 		invSlots(inv, 0);
 	}

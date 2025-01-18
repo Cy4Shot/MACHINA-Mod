@@ -2,16 +2,16 @@ package com.machina.item;
 
 import java.util.List;
 
+import com.machina.api.item.EnergyItem;
 import com.machina.api.util.StringUtils;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-public class CapacitorItem extends Item {
+public class CapacitorItem extends EnergyItem {
 
 	private final int capacity;
 
@@ -27,11 +27,7 @@ public class CapacitorItem extends Item {
 	}
 
 	@Override
-	public int getMaxStackSize(ItemStack stack) {
-		return 1;
-	}
-
-	public int getCapacity() {
-		return capacity;
+	public int getMaxEnergy() {
+		return this.capacity;
 	}
 }

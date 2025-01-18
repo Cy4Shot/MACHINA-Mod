@@ -17,7 +17,7 @@ import com.machina.api.cap.sided.MultiSidedStorage;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.cap.sided.SidedStorage;
 import com.machina.api.cap.sided.SingleSidedStorage;
-import com.machina.api.util.reflect.QuintFunction;
+import com.machina.api.util.reflect.QuadFunction;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,7 +29,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.LockCode;
 import net.minecraft.world.WorldlyContainer;
@@ -234,6 +233,10 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 		return energy;
 	}
 
+	protected void setEnergy(int n) {
+		this.energy = n;
+	}
+
 	public abstract int getMaxEnergy();
 
 	public float getEnergyF() {
@@ -251,10 +254,11 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	}
 
 	protected int receiveEnergy(int maxReceive, boolean simulate) {
-		int received = Math.min(getMaxEnergy() - energy, maxReceive);
+		int old = getEnergy();
+		int received = Math.min(getMaxEnergy() - old, maxReceive);
 		if (received > 0) {
 			if (!simulate) {
-				energy += received;
+				setEnergy(old + received);
 				this.setChanged();
 			}
 		}
@@ -265,7 +269,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	}
 
 	public boolean isEnergyFull() {
-		return energy >= getMaxEnergy();
+		return getEnergy() >= getMaxEnergy();
 	}
 
 	public boolean canConsumeEnergy(Direction side) {
@@ -273,15 +277,16 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	}
 
 	public int consumeEnergy(int amount) {
-		int prev = energy;
-		this.energy -= amount;
-		if (this.energy < 0) {
-			this.energy = 0;
-		} else if (this.energy > getMaxEnergy()) {
-			this.energy = getMaxEnergy();
+		int prev = getEnergy();
+		this.setEnergy(prev - amount);
+		int next = getEnergy();
+		if (next < 0) {
+			setEnergy(0);
+		} else if (next > getMaxEnergy()) {
+			setEnergy(getMaxEnergy());
 		}
 		this.setChanged();
-		return prev - energy;
+		return prev - getEnergy();
 	}
 
 	@Override
@@ -327,15 +332,14 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 	@Nullable
 	@Override
 	public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
-		return this.canOpen(player) ? createMenu().apply(id, this.level, this.worldPosition, inv, this) : null;
+		return this.canOpen(player) ? createMenu().apply(id, this.level, this.worldPosition, inv) : null;
 	}
 
-	protected abstract QuintFunction<Integer, Level, BlockPos, Inventory, Container, AbstractContainerMenu> createMenu();
+	protected abstract QuadFunction<Integer, Level, BlockPos, Inventory, AbstractContainerMenu> createMenu();
 
 	public void tick() {
-		if (this.energy > this.getMaxEnergy()) {
-
-			this.energy = 0;
+		if (this.getEnergy() > this.getMaxEnergy()) {
+			this.setEnergy(this.getMaxEnergy());
 			this.setChanged();
 		}
 	}

@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
-import com.machina.api.util.reflect.QuintFunction;
+import com.machina.api.util.reflect.QuadFunction;
 import com.machina.block.menu.GrinderMenu;
 import com.machina.recipe.GrinderRecipe;
 import com.machina.registration.init.BlockEntityInit;
@@ -13,7 +13,6 @@ import com.machina.registration.init.RecipeInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -106,7 +105,7 @@ public class GrinderBlockEntity extends MachinaBlockEntity {
 	}
 
 	@Override
-	protected QuintFunction<Integer, Level, BlockPos, Inventory, Container, AbstractContainerMenu> createMenu() {
+	protected QuadFunction<Integer, Level, BlockPos, Inventory, AbstractContainerMenu> createMenu() {
 		return GrinderMenu::new;
 	}
 

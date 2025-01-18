@@ -10,22 +10,20 @@ import com.machina.registration.init.MenuTypeInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.Level;
 
 public class GrinderMenu extends MachinaContainerMenu<GrinderBlockEntity> {
 
 	public GrinderMenu(int id, Inventory inv, FriendlyByteBuf buf) {
-		this(id, clientLevel(), buf.readBlockPos(), inv, new SimpleContainer(2));
+		this(id, clientLevel(), buf.readBlockPos(), inv);
 	}
 
-	public GrinderMenu(int id, Level level, BlockPos pos, Inventory inv, Container access) {
-		super(MenuTypeInit.GRINDER.get(), level, pos, id, access);
+	public GrinderMenu(int id, Level level, BlockPos pos, Inventory inv) {
+		super(MenuTypeInit.GRINDER.get(), level, pos, id);
 
-		this.addSlot(new InvSlot(container, 0, -2, 74));
-		this.addSlot(new ResultSlot(container, 1, 134, 74));
+		this.addSlot(new InvSlot(be, 0, -2, 74));
+		this.addSlot(new ResultSlot(be, 1, 134, 74));
 
 		invSlots(inv, 0);
 	}

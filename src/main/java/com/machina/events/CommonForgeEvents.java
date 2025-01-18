@@ -1,29 +1,20 @@
 package com.machina.events;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.machina.Machina;
 import com.machina.api.recipe.RecipeRefreshManager;
 import com.machina.api.starchart.Starchart;
 import com.machina.api.starchart.planet_biome.PlanetBiomeLoader;
-import com.machina.api.starchart.planet_biome.PlanetBiomeSettings.PlanetBiomeTree;
 import com.machina.registration.init.FamiliesInit;
 import com.machina.registration.init.FamiliesInit.WoodFamily;
 import com.machina.registration.init.ItemInit;
 import com.machina.registration.init.JsonLoaderInit;
-import com.machina.registration.init.PlanetTreeInit;
-import com.machina.world.PlanetRegistrationHandler;
 import com.machina.world.biome.PlanetBiome;
 import com.machina.world.data.PlanetDimensionData;
-import com.machina.world.feature.PlanetTreeFeature;
 import com.mojang.serialization.Lifecycle;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -32,12 +23,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap.Types;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ToolAction;
@@ -88,29 +75,29 @@ public class CommonForgeEvents {
 	@SubscribeEvent
 	public static void onDebug(final ItemTossEvent event) {
 
-		if (event.getEntity().getItem().getItem().equals(Items.STICK)) {
-			System.out.println("Placing tree");
-			boolean val = new PlanetTreeFeature().place(new FeaturePlaceContext<>(Optional.empty(),
-					(WorldGenLevel) event.getPlayer().level(), null, event.getPlayer().getRandom(),
-					event.getPlayer().level().getHeightmapPos(Types.OCEAN_FLOOR, event.getPlayer().blockPosition())
-							.above(5),
-					new PlanetTreeFeature.PlanetTreeFeatureConfig(
-							new PlanetBiomeTree(PlanetTreeInit.BRANCH_FUNNEL_MUSHROOM.getId(),
-									List.of(Blocks.DIAMOND_BLOCK.defaultBlockState(),
-											Blocks.GREEN_STAINED_GLASS.defaultBlockState()),
-									1, List.of(), List.of(), 0, 0))));
-			System.out.println("Result: " + val);
-			return;
-		}
-
-		int id = 8;
-		if (!event.getPlayer().level().isClientSide()) {
-			ServerLevel planet = PlanetRegistrationHandler.createPlanet(event.getPlayer().getServer(), id);
-			event.getPlayer().sendSystemMessage(
-					Component.literal("Sending to: " + Starchart.system(planet).planets().get(id).name()));
-			PlanetRegistrationHandler.sendPlayerToDimension((ServerPlayer) event.getPlayer(), planet,
-					new BlockPos(0, 100, 0));
-		}
+//		if (event.getEntity().getItem().getItem().equals(Items.STICK)) {
+//			System.out.println("Placing tree");
+//			boolean val = new PlanetTreeFeature().place(new FeaturePlaceContext<>(Optional.empty(),
+//					(WorldGenLevel) event.getPlayer().level(), null, event.getPlayer().getRandom(),
+//					event.getPlayer().level().getHeightmapPos(Types.OCEAN_FLOOR, event.getPlayer().blockPosition())
+//							.above(5),
+//					new PlanetTreeFeature.PlanetTreeFeatureConfig(
+//							new PlanetBiomeTree(PlanetTreeInit.BRANCH_FUNNEL_MUSHROOM.getId(),
+//									List.of(Blocks.DIAMOND_BLOCK.defaultBlockState(),
+//											Blocks.GREEN_STAINED_GLASS.defaultBlockState()),
+//									1, List.of(), List.of(), 0, 0))));
+//			System.out.println("Result: " + val);
+//			return;
+//		}
+//
+//		int id = 8;
+//		if (!event.getPlayer().level().isClientSide()) {
+//			ServerLevel planet = PlanetRegistrationHandler.createPlanet(event.getPlayer().getServer(), id);
+//			event.getPlayer().sendSystemMessage(
+//					Component.literal("Sending to: " + Starchart.system(planet).planets().get(id).name()));
+//			PlanetRegistrationHandler.sendPlayerToDimension((ServerPlayer) event.getPlayer(), planet,
+//					new BlockPos(0, 100, 0));
+//		}
 	}
 
 	@SubscribeEvent

@@ -21,15 +21,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends AbstractContainerMenu {
 
-	protected final Container container;
 	public final T be;
 
 	@SuppressWarnings("unchecked")
-	public MachinaContainerMenu(MenuType<?> type, Level level, BlockPos pos, int id, Container container) {
+	public MachinaContainerMenu(MenuType<?> type, Level level, BlockPos pos, int id) {
 		super(type, id);
 		this.be = (T) level.getBlockEntity(pos);
-
-		this.container = container;
 	}
 
 	@SuppressWarnings("resource")
@@ -42,7 +39,7 @@ public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends
 
 	@Override
 	public boolean stillValid(Player player) {
-		return this.container.stillValid(player);
+		return this.be.stillValid(player);
 	}
 
 	public Component getName() {
@@ -60,11 +57,11 @@ public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends
 		if (slot != null && slot.hasItem()) {
 			ItemStack stack1 = slot.getItem();
 			stack = stack1.copy();
-			if (index < container.getContainerSize()
-					&& !this.moveItemStackTo(stack1, container.getContainerSize(), this.slots.size(), true)) {
+			if (index < be.getContainerSize()
+					&& !this.moveItemStackTo(stack1, be.getContainerSize(), this.slots.size(), true)) {
 				return ItemStack.EMPTY;
 			}
-			if (!this.moveItemStackTo(stack1, 0, container.getContainerSize(), false)) {
+			if (!this.moveItemStackTo(stack1, 0, be.getContainerSize(), false)) {
 				return ItemStack.EMPTY;
 			}
 
@@ -87,6 +84,10 @@ public abstract class MachinaContainerMenu<T extends MachinaBlockEntity> extends
 		for (int i1 = 0; i1 < 9; ++i1) {
 			this.addSlot(new InvSlot(inv, i1, 28 + i1 * 20, 148 + offset));
 		}
+	}
+	
+	public Container getContainer() {
+		return this.be;
 	}
 
 }

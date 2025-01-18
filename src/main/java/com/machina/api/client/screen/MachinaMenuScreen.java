@@ -268,7 +268,8 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		int i = midWidth() + x - 66;
 		int j = midHeight() + y - 9;
 		registerHoverable("energy", i + 1, j + 1, i + 136, j + 18,
-				() -> StringUtils.formatPower(this.entity.getEnergy()) + " ("
+				() -> StringUtils.formatPower(this.entity.getEnergy()) + " / "
+						+ StringUtils.formatPower(this.entity.getMaxEnergy()) + " ("
 						+ StringUtils.formatPercent(this.entity.getEnergyF()) + ")");
 		drawBar(gui, i, j, 0, this.entity.getEnergyF(), active, under_deco,
 				StringUtils.formatPower(this.entity.getEnergy()));
