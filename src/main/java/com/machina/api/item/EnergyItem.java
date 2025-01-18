@@ -34,6 +34,7 @@ public abstract class EnergyItem extends Item {
 			CompoundTag nbt = new CompoundTag();
 			nbt.putInt("energy", energy);
 			stack.addTagElement("energy", nbt);
+			return true;
 		}
 		return false;
 	}
