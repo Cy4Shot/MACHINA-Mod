@@ -8,6 +8,7 @@ import com.machina.block.MachinaHangingSignBlock;
 import com.machina.block.MachinaHangingWallSignBlock;
 import com.machina.block.MachinaSignBlock;
 import com.machina.block.MachinaWallSignBlock;
+import com.machina.config.CommonConfig;
 import com.machina.item.BlueprintItem;
 import com.machina.item.CapacitorItem;
 
@@ -27,9 +28,9 @@ public class ItemInit {
 	//@formatter:off
 	public static final RegistryObject<Item> BLUEPRINT = basic("blueprint", BlueprintItem::new);
 	
-	public static final RegistryObject<CapacitorItem> BASIC_CAPACITOR = capacitor("basic_capacitor", 100_000);
-	public static final RegistryObject<CapacitorItem> ADVANCED_CAPACITOR = capacitor("advanced_capacitor", 1_000_000);
-	public static final RegistryObject<CapacitorItem> SUPREME_CAPACITOR = capacitor("supreme_capacitor", 10_000_000);
+	public static final RegistryObject<CapacitorItem> BASIC_CAPACITOR = capacitor("basic_capacitor", CommonConfig.basicCapacitorSize.get());
+	public static final RegistryObject<CapacitorItem> ADVANCED_CAPACITOR = capacitor("advanced_capacitor", CommonConfig.advancedCapacitorSize.get());
+	public static final RegistryObject<CapacitorItem> SUPREME_CAPACITOR = capacitor("supreme_capacitor", CommonConfig.supremeCapacitorSize.get());
 	
 	public static final RegistryObject<Item> RAW_ALUMINUM = basic("raw_aluminum");
 	public static final RegistryObject<Item> ALUMINUM_INGOT = basic("aluminum_ingot");

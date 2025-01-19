@@ -13,6 +13,7 @@ import com.machina.api.util.block.BlockHelper;
 import com.machina.api.util.reflect.QuadFunction;
 import com.machina.block.machine.BatteryBlock;
 import com.machina.block.menu.BatteryMenu;
+import com.machina.config.CommonConfig;
 import com.machina.item.CapacitorItem;
 import com.machina.registration.init.BlockEntityInit;
 
@@ -63,7 +64,7 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 		ItemStack input = getItem(1);
 		if (ItemStackUtil.hasEnergy(input)) {
 			input.getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> {
-				int extracted = storage.extractEnergy(1_0000, true);
+				int extracted = storage.extractEnergy(CommonConfig.batteryChargeRate.get(), true);
 				extracted = this.receiveEnergy(extracted, false);
 				storage.extractEnergy(extracted, false);
 				if (extracted > 0)
@@ -75,7 +76,7 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 		ItemStack output = getItem(2);
 		if (ItemStackUtil.hasEnergy(output)) {
 			output.getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> {
-				int extracted = this.consumeEnergySim(1_0000);
+				int extracted = this.consumeEnergySim(CommonConfig.batteryDischargeRate.get());
 				extracted = storage.receiveEnergy(extracted, false);
 				this.consumeEnergy(extracted);
 				if (extracted > 0)
@@ -84,7 +85,7 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 		}
 
 		// Send out energy
-		BlockHelper.sendEnergy(level, worldPosition, energy, 1_000, this);
+		BlockHelper.sendEnergy(level, worldPosition, energy, CommonConfig.batteryTransferRate.get(), this);
 
 		// Update lit state
 		this.level.setBlock(worldPosition, getBlockState().setValue(BatteryBlock.LIT, energy > 0), 3);

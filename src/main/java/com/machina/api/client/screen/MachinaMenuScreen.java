@@ -125,11 +125,8 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 	protected boolean hasClickedOutside(double mx, double my, int top, int left, int button) {
 		for (ClickArea area : clickareas.values()) {
 			if (area.enabled().get()) {
-				System.out.println("X: " + area.minX + " < " + mx + " < " + area.maxX);
-				System.out.println("Y: " + area.minY + " < " + my + " < " + area.maxY);
-				if (mx > area.minX() && mx < area.maxX() && my > area.minY() && my < area.maxY()) {
+				if (mx > area.minX() && mx < area.maxX() && my > area.minY() && my < area.maxY())
 					return false;
-				}
 			}
 		}
 		return true;
