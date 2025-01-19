@@ -52,6 +52,10 @@ public class DatagenItemModels extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		simpleItem(ItemInit.BLUEPRINT);
+		
+		simpleItem(ItemInit.BASIC_CAPACITOR);
+		simpleItem(ItemInit.ADVANCED_CAPACITOR);
+		simpleItem(ItemInit.SUPREME_CAPACITOR);
 
 		simpleItem(ItemInit.ALUMINUM_INGOT);
 		simpleItem(ItemInit.ALUMINUM_NUGGET);
