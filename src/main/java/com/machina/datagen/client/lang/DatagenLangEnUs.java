@@ -448,5 +448,26 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(FluidInit.MOLTEN_LEAD, "Molten Lead", "Bucket");
 		add(FluidInit.MOLTEN_BISMUTH, "Molten Bismuth", "Bucket");
 		add(FluidInit.LEAD_BISMUTH_EUTECTIC, "Lead Bismuth Eutectic", "Bucket");
+		
+		// UI
+		addUI("config.energy", "Energy Config");
+		addUI("config.item", "Item Config");
+		addUI("config.fluid", "Fluid Config");
+		
+		addUI("dir.north", "North");
+		addUI("dir.south", "South");
+		addUI("dir.east", "East");
+		addUI("dir.west", "West");
+		addUI("dir.up", "Up");
+		addUI("dir.down", "Down");
+		
+		addUI("side.input", "Input");
+		addUI("side.output", "Output");
+		addUI("side.none", "None");
+		
+		addUI("battery.input", "Input Energy");
+		addUI("battery.output", "Output Energy");
+		addUI("battery.capacitor", "Capacitor");
+		
 	}
 }

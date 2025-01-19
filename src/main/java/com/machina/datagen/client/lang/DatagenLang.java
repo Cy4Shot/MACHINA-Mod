@@ -64,6 +64,10 @@ public abstract class DatagenLang extends LanguageProvider {
 	protected void add(KeyBinding key, String name) {
 		add(key.actionName, name);
 	}
+	
+	protected void addUI(String key, String name) {
+		add("gui.machina." + key, name);
+	}
 
 	protected void addJeiCat(String cat, String name) {
 		add("gui.jei.category." + cat, name);

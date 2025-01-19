@@ -119,6 +119,14 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		return (this.height - this.imageHeight) / 2;
 	}
 
+	protected static Component uistr(String key) {
+		return Component.translatable("gui.machina." + key);
+	}
+
+	protected static String uistrs(String key) {
+		return Component.translatable("gui.machina." + key).getString();
+	}
+
 	protected static void blitCommon(GuiGraphics gui, int x, int y, int u, int v, int w, int h) {
 		gui.blit(COMMON_UI, x, y, u, v, w, h, 512, 512);
 	}
@@ -213,10 +221,12 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		}
 	}
 
-	protected void drawDownFacingSlot(GuiGraphics gui, int id, int x, int y, SpecialSlot slot, String hover) {
+	protected void drawDownFacingSlot(GuiGraphics gui, int id, int mx, int my, int x, int y, SpecialSlot slot,
+			String hover) {
 		int i = midWidth() + x;
 		int j = midHeight() + y;
-		blitCommon(gui, i, j, 414, 94, 19, 21);
+		int h = mx > i && mx < i + 19 && my > j && my < j + 21 ? 115 : 94;
+		blitCommon(gui, i, j, 414, h, 19, 21);
 		slot.draw(gui, i + 4, j + 6);
 
 		blitCommon(gui, i - 6, j + 4, 387, 0, 3, 16);
@@ -224,14 +234,16 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 
 		if (!hover.isEmpty()) {
 			registerHoverable("slot_" + x + "_" + y, i - 1, j + 1, i + 18, j + 20, () -> entity.getItem(id).isEmpty(),
-					() -> hover);
+					() -> uistr(hover));
 		}
 	}
 
-	protected void drawUpFacingSlot(GuiGraphics gui, int id, int x, int y, SpecialSlot slot, String hover) {
+	protected void drawUpFacingSlot(GuiGraphics gui, int id, int mx, int my, int x, int y, SpecialSlot slot,
+			String hover) {
 		int i = midWidth() + x;
 		int j = midHeight() + y;
-		blitCommon(gui, i, j, 433, 94, 19, 21);
+		int h = mx > i && mx < i + 19 && my > j && my < j + 21 ? 115 : 94;
+		blitCommon(gui, i, j, 433, h, 19, 21);
 		slot.draw(gui, i + 4, j + 4);
 
 		blitCommon(gui, i - 6, j + 1, 387, 0, 3, 16);
@@ -239,7 +251,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 
 		if (!hover.isEmpty()) {
 			registerHoverable("slot_" + x + "_" + y, i - 1, j + 1, i + 18, j + 20, () -> entity.getItem(id).isEmpty(),
-					() -> hover);
+					() -> uistr(hover));
 		}
 	}
 
@@ -268,9 +280,9 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		int i = midWidth() + x - 66;
 		int j = midHeight() + y - 9;
 		registerHoverable("energy", i + 1, j + 1, i + 136, j + 18,
-				() -> StringUtils.formatPower(this.entity.getEnergy()) + " / "
+				() -> Component.literal(StringUtils.formatPower(this.entity.getEnergy()) + " / "
 						+ StringUtils.formatPower(this.entity.getMaxEnergy()) + " ("
-						+ StringUtils.formatPercent(this.entity.getEnergyF()) + ")");
+						+ StringUtils.formatPercent(this.entity.getEnergyF()) + ")"));
 		drawBar(gui, i, j, 0, this.entity.getEnergyF(), active, under_deco,
 				StringUtils.formatPower(this.entity.getEnergy()));
 	}
@@ -298,8 +310,9 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		// Face Hovers
 		Supplier<Boolean> hover = () -> getState(key) && appearDraw(getElapsedState(key));
 		Function<Direction, Runnable> click = d -> () -> this.entity.getEnergyStorage().cycleMode(d);
-		Function<Direction, Supplier<String>> text = d -> () -> d.getName() + " "
-				+ this.entity.getEnergyStorage().modes[d.ordinal()].name();
+		Function<Direction, Supplier<Component>> text = d -> () -> Component
+				.literal(uistrs("dir." + d.name().toLowerCase()) + ": "
+						+ uistrs("side." + this.entity.getEnergyStorage().modes[d.ordinal()].name().toLowerCase()));
 		clickAndHover(key + "_up", i - 52, j + 8, i - 31, j + 29, hover, text.apply(Direction.UP),
 				click.apply(Direction.UP));
 		clickAndHover(key + "_north", i - 52, j + 27, i - 31, j + 48, hover, text.apply(Direction.NORTH),
@@ -340,7 +353,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 				drawFace(gui, i - 32, j + 47, Direction.SOUTH, storage);
 
 				// Deorators
-				gui.drawString(font, Component.literal("Energy Config"), i - 75, j + 71, 0x00FEFE);
+				gui.drawString(font, uistr("config.energy"), i - 75, j + 71, 0x00FEFE);
 			} else {
 
 				// Open Button
@@ -541,14 +554,15 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		for (Hoverable h : hoverables.values()) {
 			if (h.active().get()) {
 				if (mx > h.minX() && mx < h.maxX() && my > h.minY() && my < h.maxY()) {
-					gui.renderTooltip(font, Component.literal(h.text().get()), mx, my);
+					gui.renderTooltip(font, h.text().get(), mx, my);
 					break;
 				}
 			}
 		}
 	}
 
-	private record Hoverable(int minX, int minY, int maxX, int maxY, Supplier<Boolean> active, Supplier<String> text) {
+	private record Hoverable(int minX, int minY, int maxX, int maxY, Supplier<Boolean> active,
+			Supplier<Component> text) {
 	}
 
 	private record Clickable(int minX, int minY, int maxX, int maxY, Supplier<Boolean> active, Runnable action) {
@@ -558,11 +572,11 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 	}
 
 	private void registerHoverable(String key, int minX, int minY, int maxX, int maxY, Supplier<Boolean> active,
-			Supplier<String> text) {
+			Supplier<Component> text) {
 		this.hoverables.putIfAbsent(key, new Hoverable(minX, minY, maxX, maxY, active, text));
 	}
 
-	private void registerHoverable(String key, int minX, int minY, int maxX, int maxY, Supplier<String> text) {
+	private void registerHoverable(String key, int minX, int minY, int maxX, int maxY, Supplier<Component> text) {
 		registerHoverable(key, minX, minY, maxX, maxY, () -> true, text);
 	}
 
@@ -576,7 +590,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 	}
 
 	private void clickAndHover(String key, int minX, int minY, int maxX, int maxY, Supplier<Boolean> active,
-			Supplier<String> text, Runnable action) {
+			Supplier<Component> text, Runnable action) {
 		registerHoverable(key, minX, minY, maxX, maxY, active, text);
 		registerClickable(key, minX, minY, maxX, maxY, active, action);
 	}
