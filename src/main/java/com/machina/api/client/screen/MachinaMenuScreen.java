@@ -64,6 +64,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 	private Float lsx, lsy = null;
 	private float rotX, rotY;
 
+	private Map<String, ClickArea> clickareas = new HashMap<>();
 	private Map<String, Clickable> clickables = new HashMap<>();
 	private Map<String, Hoverable> hoverables = new HashMap<>();
 	private Map<String, Stateable> stateables = new HashMap<>();
@@ -87,6 +88,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 
 	@Override
 	protected void init() {
+		this.clickareas.clear();
 		this.clickables.clear();
 		this.hoverables.clear();
 		super.init();
@@ -117,6 +119,20 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 
 	protected int midHeight() {
 		return (this.height - this.imageHeight) / 2;
+	}
+
+	@Override
+	protected boolean hasClickedOutside(double mx, double my, int top, int left, int button) {
+		for (ClickArea area : clickareas.values()) {
+			if (area.enabled().get()) {
+				System.out.println("X: " + area.minX + " < " + mx + " < " + area.maxX);
+				System.out.println("Y: " + area.minY + " < " + my + " < " + area.maxY);
+				if (mx > area.minX() && mx < area.maxX() && my > area.minY() && my < area.maxY()) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	protected static Component uistr(String key) {
@@ -183,6 +199,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		// Backdrop
 		blitCommon(gui, i + 23, j + 78, 179, 0, 187, 92);
 		blitCommon(gui, i + 27, j + 82, 0, 84 * k1, 179, 84);
+		registerClickArea("inv", i + 23, j + 78, i + 210, j + 170, () -> true);
 
 		// Active Slot
 		if (hovered) {
@@ -202,6 +219,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 
 		blitCommon(gui, i, j - 73, 179, 94, 235, 151);
 		drawStringVertical(gui, this.menu.getName(), i + 245, j - 71, 0x00FEFE);
+		registerClickArea("bg", i, j - 73, i + 235, j + 78, () -> true);
 	}
 
 	public enum SpecialSlot {
@@ -340,6 +358,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		boolean state = getState(key);
 
 		blitCommon(gui, i - 75, j, anim * 75, 336, 75, 68);
+		registerClickArea(key, i - 75, j, i, j + 68, () -> getState(key));
 
 		if (appearDraw(elap)) {
 			if (state) {
@@ -570,6 +589,9 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		}
 	}
 
+	private record ClickArea(int minX, int minY, int maxX, int maxY, Supplier<Boolean> enabled) {
+	}
+
 	private record Hoverable(int minX, int minY, int maxX, int maxY, Supplier<Boolean> active,
 			Supplier<Component> text) {
 	}
@@ -578,6 +600,10 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 	}
 
 	private record Stateable(boolean state, long lastClick) {
+	}
+
+	private void registerClickArea(String key, int minX, int minY, int maxX, int maxY, Supplier<Boolean> enabled) {
+		this.clickareas.putIfAbsent(key, new ClickArea(minX, minY, maxX, maxY, enabled));
 	}
 
 	private void registerHoverable(String key, int minX, int minY, int maxX, int maxY, Supplier<Boolean> active,
