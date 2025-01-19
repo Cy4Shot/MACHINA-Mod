@@ -289,6 +289,17 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 		return prev - getEnergy();
 	}
 
+	public int consumeEnergySim(int amount) {
+		int prev = getEnergy();
+		int next = prev - amount;
+		if (next < 0) {
+			next = 0;
+		} else if (next > getMaxEnergy()) {
+			next = getMaxEnergy();
+		}
+		return prev - next;
+	}
+
 	@Override
 	public boolean stillValid(@NotNull Player pPlayer) {
 		if ((this.level != null ? this.level.getBlockEntity(this.worldPosition) : null) != this) {

@@ -8,6 +8,7 @@ import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.client.model.SidedBakedModel;
 import com.machina.api.item.EnergyItem;
+import com.machina.api.util.ItemStackUtil;
 import com.machina.api.util.block.BlockHelper;
 import com.machina.api.util.reflect.QuadFunction;
 import com.machina.block.machine.BatteryBlock;
@@ -49,11 +50,37 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 
 	@Override
 	public void tick() {
+		if (this.level.isClientSide())
+			return;
 		// Force update energy
 		int energy = getEnergy();
 		if (energy != prev) {
 			this.prev = energy;
 			this.setChanged();
+		}
+
+		// Power IN
+		ItemStack input = getItem(1);
+		if (ItemStackUtil.hasEnergy(input)) {
+			input.getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> {
+				int extracted = storage.extractEnergy(1_0000, true);
+				extracted = this.receiveEnergy(extracted, false);
+				storage.extractEnergy(extracted, false);
+				if (extracted > 0)
+					this.setChanged();
+			});
+		}
+
+		// Power OUT
+		ItemStack output = getItem(2);
+		if (ItemStackUtil.hasEnergy(output)) {
+			output.getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> {
+				int extracted = this.consumeEnergySim(1_0000);
+				extracted = storage.receiveEnergy(extracted, false);
+				this.consumeEnergy(extracted);
+				if (extracted > 0)
+					this.setChanged();
+			});
 		}
 
 		// Send out energy

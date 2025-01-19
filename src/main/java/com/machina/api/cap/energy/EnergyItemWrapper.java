@@ -47,7 +47,16 @@ public class EnergyItemWrapper implements IEnergyStorage, ICapabilityProvider {
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		return 0;
+		int energy = getEnergyStored();
+		int extracted = Math.min(energy, maxExtract);
+		if (extracted > 0 && !simulate) {
+			if (!setEnergyStored(energy - extracted))
+				return 0;
+		}
+		if (extracted > 0) {
+			maxExtract -= extracted;
+		}
+		return extracted;
 	}
 
 	@Override
@@ -70,7 +79,7 @@ public class EnergyItemWrapper implements IEnergyStorage, ICapabilityProvider {
 
 	@Override
 	public boolean canExtract() {
-		return false;
+		return true;
 	}
 
 	@Override
