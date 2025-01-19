@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.machina.api.block.ConnectorBlock;
-import com.machina.api.block.tile.ConnectorBlockEntity;
+import com.machina.api.block.entity.ConnectorBlockEntity;
 import com.machina.api.cap.energy.CableEnergyStorage;
 import com.machina.api.util.block.BlockHelper;
 import com.machina.registration.init.BlockEntityInit;

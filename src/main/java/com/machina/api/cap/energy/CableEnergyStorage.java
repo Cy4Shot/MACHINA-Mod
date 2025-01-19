@@ -6,7 +6,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.machina.api.cap.IConnectorStorage;
-import com.machina.block.tile.connector.EnergyCableBlockEntity;
+import com.machina.block.entity.connector.EnergyCableBlockEntity;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;

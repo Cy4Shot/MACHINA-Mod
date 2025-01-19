@@ -2,7 +2,7 @@ package com.machina.block.menu;
 
 import com.machina.api.block.MachineBlock;
 import com.machina.api.block.menu.MachinaContainerMenu;
-import com.machina.block.tile.machine.CreativeBatteryBlockEntity;
+import com.machina.block.entity.machine.CreativeBatteryBlockEntity;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.MenuTypeInit;
 

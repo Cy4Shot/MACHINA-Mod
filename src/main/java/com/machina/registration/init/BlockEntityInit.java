@@ -3,14 +3,14 @@ package com.machina.registration.init;
 import java.util.function.Supplier;
 
 import com.machina.Machina;
-import com.machina.block.tile.MachinaHangingSignBlockEntity;
-import com.machina.block.tile.MachinaSignBlockEntity;
-import com.machina.block.tile.connector.EnergyCableBlockEntity;
-import com.machina.block.tile.machine.BatteryBlockEntity;
-import com.machina.block.tile.machine.CreativeBatteryBlockEntity;
-import com.machina.block.tile.machine.FurnaceGeneratorBlockEntity;
-import com.machina.block.tile.machine.GrinderBlockEntity;
-import com.machina.block.tile.machine.MachineCaseBlockEntity;
+import com.machina.block.entity.MachinaHangingSignBlockEntity;
+import com.machina.block.entity.MachinaSignBlockEntity;
+import com.machina.block.entity.connector.EnergyCableBlockEntity;
+import com.machina.block.entity.machine.BatteryBlockEntity;
+import com.machina.block.entity.machine.CreativeBatteryBlockEntity;
+import com.machina.block.entity.machine.FurnaceGeneratorBlockEntity;
+import com.machina.block.entity.machine.GrinderBlockEntity;
+import com.machina.block.entity.machine.MachineCaseBlockEntity;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;

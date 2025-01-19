@@ -1,10 +1,10 @@
-package com.machina.block.tile.machine;
+package com.machina.block.entity.machine;
 
 import java.util.function.BiFunction;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.block.entity.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.client.model.SidedBakedModel;
 import com.machina.api.item.EnergyItem;

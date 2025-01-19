@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import javax.annotation.Nullable;
 
 import com.machina.Machina;
-import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.block.entity.MachinaBlockEntity;
 import com.machina.api.util.math.MathUtil;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 

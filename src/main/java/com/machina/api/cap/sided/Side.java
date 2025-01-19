@@ -1,6 +1,6 @@
 package com.machina.api.cap.sided;
 
-import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.block.entity.MachinaBlockEntity;
 import com.machina.api.network.PacketSender;
 import com.machina.api.network.c2s.C2SSideConfig;
 

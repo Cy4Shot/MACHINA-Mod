@@ -1,8 +1,8 @@
-package com.machina.block.tile.machine;
+package com.machina.block.entity.machine;
 
 import java.util.Optional;
 
-import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.block.entity.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.util.reflect.QuadFunction;
 import com.machina.block.menu.GrinderMenu;

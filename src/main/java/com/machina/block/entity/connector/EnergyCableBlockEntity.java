@@ -1,6 +1,6 @@
-package com.machina.block.tile.connector;
+package com.machina.block.entity.connector;
 
-import com.machina.api.block.tile.ConnectorBlockEntity;
+import com.machina.api.block.entity.ConnectorBlockEntity;
 import com.machina.api.cap.energy.CableEnergyStorage;
 import com.machina.config.CommonConfig;
 import com.machina.registration.init.BlockEntityInit;

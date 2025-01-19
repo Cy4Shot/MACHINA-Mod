@@ -1,8 +1,8 @@
 package com.machina.client.screen.menu;
 
 import com.machina.api.client.screen.MachinaMenuScreen;
+import com.machina.block.entity.machine.FurnaceGeneratorBlockEntity;
 import com.machina.block.menu.FurnaceGeneratorMenu;
-import com.machina.block.tile.machine.FurnaceGeneratorBlockEntity;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;

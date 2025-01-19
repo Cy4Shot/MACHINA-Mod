@@ -4,7 +4,7 @@ import com.machina.api.block.MachineBlock;
 import com.machina.api.block.menu.MachinaContainerMenu;
 import com.machina.api.block.menu.slot.InvSlot;
 import com.machina.api.block.menu.slot.ResultSlot;
-import com.machina.block.tile.machine.GrinderBlockEntity;
+import com.machina.block.entity.machine.GrinderBlockEntity;
 import com.machina.registration.init.BlockInit;
 import com.machina.registration.init.MenuTypeInit;
 

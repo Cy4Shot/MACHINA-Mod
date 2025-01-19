@@ -1,4 +1,4 @@
-package com.machina.block.tile;
+package com.machina.block.entity;
 
 import com.machina.registration.init.BlockEntityInit;
 

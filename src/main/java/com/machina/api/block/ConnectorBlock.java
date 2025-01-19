@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.machina.api.block.tile.ConnectorBlockEntity;
-import com.machina.api.block.tile.ConnectorBlockEntity.Connection;
+import com.machina.api.block.entity.ConnectorBlockEntity;
+import com.machina.api.block.entity.ConnectorBlockEntity.Connection;
 import com.machina.api.cap.IConnectorStorage;
 import com.machina.api.util.block.BlockHelper;
 import com.machina.api.util.math.MathUtil;

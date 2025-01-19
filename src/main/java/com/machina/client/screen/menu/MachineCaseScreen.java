@@ -1,8 +1,8 @@
 package com.machina.client.screen.menu;
 
 import com.machina.api.client.screen.MachinaMenuScreen;
+import com.machina.block.entity.machine.MachineCaseBlockEntity;
 import com.machina.block.menu.MachineCaseMenu;
-import com.machina.block.tile.machine.MachineCaseBlockEntity;
 import com.machina.registration.init.MultiblockInit;
 
 import net.minecraft.client.gui.GuiGraphics;

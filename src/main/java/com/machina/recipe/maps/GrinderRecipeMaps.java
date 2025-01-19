@@ -6,7 +6,7 @@ import java.util.Collections;
 import com.machina.api.recipe.MachinaRecipe;
 import com.machina.api.recipe.MachinaRecipeMaps;
 import com.machina.api.util.MachinaRL;
-import com.machina.block.tile.machine.GrinderBlockEntity;
+import com.machina.block.entity.machine.GrinderBlockEntity;
 import com.machina.recipe.GrinderRecipe;
 import com.machina.registration.init.RecipeInit;
 import com.machina.registration.init.RecipeInit.RecipeRegistryObject;

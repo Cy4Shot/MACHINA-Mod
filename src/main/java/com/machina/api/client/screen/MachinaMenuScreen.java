@@ -14,8 +14,8 @@ import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 
 import com.machina.Machina;
+import com.machina.api.block.entity.MachinaBlockEntity;
 import com.machina.api.block.menu.MachinaContainerMenu;
-import com.machina.api.block.tile.MachinaBlockEntity;
 import com.machina.api.cap.sided.ISideAdapter;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.multiblock.ClientMultiblock;

@@ -10,7 +10,7 @@ import com.machina.api.recipe.MachinaRecipe.RecipeFactory;
 import com.machina.api.recipe.MachinaRecipeMaps;
 import com.machina.api.recipe.MachinaRecipeType;
 import com.machina.api.util.MachinaRL;
-import com.machina.block.tile.machine.GrinderBlockEntity;
+import com.machina.block.entity.machine.GrinderBlockEntity;
 import com.machina.recipe.GrinderRecipe;
 import com.machina.recipe.maps.GrinderRecipeMaps;
 

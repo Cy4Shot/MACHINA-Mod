@@ -2,7 +2,7 @@ package com.machina.api.cap.sided;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.block.entity.MachinaBlockEntity;
 import com.machina.api.cap.IMachinaStorage;
 
 import net.minecraft.nbt.CompoundTag;

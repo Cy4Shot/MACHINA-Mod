@@ -1,8 +1,8 @@
 package com.machina.block.machine;
 
 import com.machina.api.block.MachineBlock;
-import com.machina.api.block.tile.MachinaBlockEntity;
-import com.machina.block.tile.machine.BatteryBlockEntity;
+import com.machina.api.block.entity.MachinaBlockEntity;
+import com.machina.block.entity.machine.BatteryBlockEntity;
 import com.machina.registration.init.BlockEntityInit;
 
 import net.minecraft.world.level.block.Block;

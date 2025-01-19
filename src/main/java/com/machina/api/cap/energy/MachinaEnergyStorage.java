@@ -1,6 +1,6 @@
 package com.machina.api.cap.energy;
 
-import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.block.entity.MachinaBlockEntity;
 import com.machina.api.cap.IMachinaStorage;
 
 import net.minecraft.core.Direction;

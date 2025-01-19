@@ -1,6 +1,6 @@
 package com.machina.api.network.c2s;
 
-import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.block.entity.MachinaBlockEntity;
 import com.machina.api.network.C2SMessage;
 import com.machina.api.util.block.BlockHelper;
 

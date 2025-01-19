@@ -1,6 +1,6 @@
-package com.machina.block.tile.machine;
+package com.machina.block.entity.machine;
 
-import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.block.entity.MachinaBlockEntity;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.util.block.BlockHelper;
 import com.machina.api.util.reflect.QuadFunction;

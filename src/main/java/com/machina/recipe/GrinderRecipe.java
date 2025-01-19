@@ -3,7 +3,7 @@ package com.machina.recipe;
 import java.util.List;
 
 import com.machina.api.recipe.MachinaRecipe;
-import com.machina.block.tile.machine.GrinderBlockEntity;
+import com.machina.block.entity.machine.GrinderBlockEntity;
 import com.machina.registration.init.RecipeInit;
 import com.machina.registration.init.RecipeInit.RecipeRegistryObject;
 

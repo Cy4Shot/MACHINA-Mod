@@ -1,8 +1,8 @@
 package com.machina.client.screen.menu;
 
 import com.machina.api.client.screen.MachinaMenuScreen;
+import com.machina.block.entity.machine.BatteryBlockEntity;
 import com.machina.block.menu.BatteryMenu;
-import com.machina.block.tile.machine.BatteryBlockEntity;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;

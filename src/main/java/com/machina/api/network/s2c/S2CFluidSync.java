@@ -1,6 +1,6 @@
 package com.machina.api.network.s2c;
 
-import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.block.entity.MachinaBlockEntity;
 import com.machina.api.cap.fluid.MachinaFluidStorage;
 import com.machina.api.network.S2CMessage;
 
