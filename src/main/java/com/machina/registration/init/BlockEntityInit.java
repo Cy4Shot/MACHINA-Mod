@@ -7,6 +7,7 @@ import com.machina.block.tile.MachinaHangingSignBlockEntity;
 import com.machina.block.tile.MachinaSignBlockEntity;
 import com.machina.block.tile.connector.EnergyCableBlockEntity;
 import com.machina.block.tile.machine.BatteryBlockEntity;
+import com.machina.block.tile.machine.CreativeBatteryBlockEntity;
 import com.machina.block.tile.machine.FurnaceGeneratorBlockEntity;
 import com.machina.block.tile.machine.GrinderBlockEntity;
 import com.machina.block.tile.machine.MachineCaseBlockEntity;
@@ -27,6 +28,8 @@ public class BlockEntityInit {
             EnergyCableBlockEntity::new, () -> BlockInit.ENERGY_CABLE.get());
 	public static final RegistryObject<BlockEntityType<BatteryBlockEntity>> BATTERY = register("battery",
             BatteryBlockEntity::new, () -> BlockInit.BATTERY.get());
+	public static final RegistryObject<BlockEntityType<CreativeBatteryBlockEntity>> CREATIVE_BATTERY = register("creaitve_battery",
+            CreativeBatteryBlockEntity::new, () -> BlockInit.CREATIVE_BATTERY.get());
 	public static final RegistryObject<BlockEntityType<MachineCaseBlockEntity>> MACHINE_CASE = register("machine_case",
             MachineCaseBlockEntity::new, () -> BlockInit.BASIC_MACHINE_CASE.get());
 	public static final RegistryObject<BlockEntityType<FurnaceGeneratorBlockEntity>> FURNACE_GENERATOR = register("furnace_generator",

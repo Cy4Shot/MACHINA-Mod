@@ -8,6 +8,7 @@ import com.machina.api.client.cinema.effect.renderer.CinematicTextureOverlay;
 import com.machina.api.util.reflect.ClassHelper;
 import com.machina.client.PlanetSpecialEffects;
 import com.machina.client.screen.menu.BatteryScreen;
+import com.machina.client.screen.menu.CreativeBatteryScreen;
 import com.machina.client.screen.menu.FurnaceGeneratorScreen;
 import com.machina.client.screen.menu.GrinderScreen;
 import com.machina.client.screen.menu.MachineCaseScreen;
@@ -45,6 +46,7 @@ public class ClientModEvents {
 
 		event.enqueueWork(() -> {
 			MenuScreens.register(MenuTypeInit.BATTERY.get(), BatteryScreen::new);
+			MenuScreens.register(MenuTypeInit.CREATIVE_BATTERY.get(), CreativeBatteryScreen::new);
 			MenuScreens.register(MenuTypeInit.MACHINE_CASE.get(), MachineCaseScreen::new);
 			MenuScreens.register(MenuTypeInit.FURNACE_GENERATOR.get(), FurnaceGeneratorScreen::new);
 			MenuScreens.register(MenuTypeInit.GRINDER.get(), GrinderScreen::new);

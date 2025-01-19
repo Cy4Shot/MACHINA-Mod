@@ -31,6 +31,9 @@ public class TabInit {
 				add(a, BlockInit.BASIC_MACHINE_CASE);
 				add(a, BlockInit.FURNACE_GENERATOR);
 				add(a, BlockInit.GRINDER);
+				
+
+				add(a, BlockInit.CREATIVE_BATTERY);
 
 				for (FluidObject e : FluidInit.OBJS) {
 					add(a, e.bucket());

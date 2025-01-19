@@ -94,6 +94,7 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(BlockInit.ENERGY_CABLE, "Energy Cable");
 		add(BlockInit.BASIC_MACHINE_CASE, "Basic Machine Case");
 		add(BlockInit.BATTERY, "Battery");
+		add(BlockInit.CREATIVE_BATTERY, "Creative Battery");
 		add(BlockInit.FURNACE_GENERATOR, "Furnace Generator");
 		add(BlockInit.GRINDER, "Grinder");
 

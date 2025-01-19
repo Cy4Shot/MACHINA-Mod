@@ -2,6 +2,7 @@ package com.machina.registration.init;
 
 import com.machina.Machina;
 import com.machina.block.menu.BatteryMenu;
+import com.machina.block.menu.CreativeBatteryMenu;
 import com.machina.block.menu.FurnaceGeneratorMenu;
 import com.machina.block.menu.GrinderMenu;
 import com.machina.block.menu.MachineCaseMenu;
@@ -21,6 +22,8 @@ public class MenuTypeInit {
 	//@formatter:off
 	public static final RegistryObject<MenuType<BatteryMenu>> BATTERY = register("battery",
             BatteryMenu::new);
+	public static final RegistryObject<MenuType<CreativeBatteryMenu>> CREATIVE_BATTERY = register("creative_battery",
+            CreativeBatteryMenu::new);
 	public static final RegistryObject<MenuType<MachineCaseMenu>> MACHINE_CASE = register("machine_case",
 			MachineCaseMenu::new);
 	public static final RegistryObject<MenuType<FurnaceGeneratorMenu>> FURNACE_GENERATOR = register("furnace_generator",

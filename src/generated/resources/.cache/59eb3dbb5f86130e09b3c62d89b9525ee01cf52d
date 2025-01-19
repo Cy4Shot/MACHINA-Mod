@@ -1,4 +1,4 @@
-// 1.20.1	2025-01-08T18:07:23.1558497	Loot Tables
+// 1.20.1	2025-01-19T15:14:52.424698	Loot Tables
 883abec946b74ce741aa82e45538d67d7e112d29 data/machina/loot_tables/blocks/acetaldehyde_block.json
 d36695d846607834cf751d97f1c8e685437f7766 data/machina/loot_tables/blocks/acetic_acid_block.json
 73578e7fc7c0bfb69187e036f71d8d0c81e9a8f9 data/machina/loot_tables/blocks/aluminum_block.json
@@ -62,6 +62,7 @@ ec86f3711a773ebf73578538332b9f87b007ef86 data/machina/loot_tables/blocks/conifer
 98be63abe01344681778c31002802d32db5fcb81 data/machina/loot_tables/blocks/coniferous_wall_hanging_sign.json
 0e7c995943b1242fc6fc25630913b4cce2736012 data/machina/loot_tables/blocks/coniferous_wall_sign.json
 90f9ebb874600320433b2afb82e8bda70ac5abca data/machina/loot_tables/blocks/coniferous_wood.json
+378ab8a3c5cf5fb82150e88505b7e0bc67ad0e8c data/machina/loot_tables/blocks/creative_battery.json
 a0c81167e4c16bb7cfc3e9425ae20c448857b05d data/machina/loot_tables/blocks/cycad_button.json
 5ff9516b43a7485937b0da3d9550260b43f3fb56 data/machina/loot_tables/blocks/cycad_door.json
 bd40690fea6c7da5ed08feee1236a965e093dd4e data/machina/loot_tables/blocks/cycad_fence.json

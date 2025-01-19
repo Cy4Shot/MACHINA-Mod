@@ -16,6 +16,7 @@ import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.SignItem;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.util.NonNullFunction;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -28,9 +29,9 @@ public class ItemInit {
 	//@formatter:off
 	public static final RegistryObject<Item> BLUEPRINT = basic("blueprint", BlueprintItem::new);
 	
-	public static final RegistryObject<CapacitorItem> BASIC_CAPACITOR = capacitor("basic_capacitor", CommonConfig.basicCapacitorSize.get());
-	public static final RegistryObject<CapacitorItem> ADVANCED_CAPACITOR = capacitor("advanced_capacitor", CommonConfig.advancedCapacitorSize.get());
-	public static final RegistryObject<CapacitorItem> SUPREME_CAPACITOR = capacitor("supreme_capacitor", CommonConfig.supremeCapacitorSize.get());
+	public static final RegistryObject<CapacitorItem> BASIC_CAPACITOR = capacitor("basic_capacitor", () -> CommonConfig.basicCapacitorSize);
+	public static final RegistryObject<CapacitorItem> ADVANCED_CAPACITOR = capacitor("advanced_capacitor", () -> CommonConfig.advancedCapacitorSize);
+	public static final RegistryObject<CapacitorItem> SUPREME_CAPACITOR = capacitor("supreme_capacitor", () -> CommonConfig.supremeCapacitorSize);
 	
 	public static final RegistryObject<Item> RAW_ALUMINUM = basic("raw_aluminum");
 	public static final RegistryObject<Item> ALUMINUM_INGOT = basic("aluminum_ingot");
@@ -101,7 +102,7 @@ public class ItemInit {
 		return register(name, () -> ItemBuilder.basicItem());
 	}
 
-	public static RegistryObject<CapacitorItem> capacitor(String name, int cap) {
+	public static RegistryObject<CapacitorItem> capacitor(String name, Supplier<ForgeConfigSpec.IntValue> cap) {
 		return register(name, () -> ItemBuilder.basicItem(p -> new CapacitorItem(p, cap)));
 	}
 
