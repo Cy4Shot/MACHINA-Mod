@@ -438,9 +438,10 @@
   "item.machina.toluene_bucket": "Toluene Bucket",
   "item.machina.transistor": "Transistor",
   "item.machina.uhmwpe": "UHMWPE",
-  "machina.creativemodetab.machina_misc": "Machina Miscellaneous",
-  "machina.creativemodetab.machina_resources": "Machina Resources",
-  "machina.creativemodetab.machina_worldgen": "Machina Worldgen",
+  "machina.creativemodetab.machina_machinery": "Machina: Machinery",
+  "machina.creativemodetab.machina_misc": "Machina: Miscellaneous",
+  "machina.creativemodetab.machina_resources": "Machina: Resources",
+  "machina.creativemodetab.machina_worldgen": "Machina: Worldgen",
   "machina.tooltip.hdpe": "High Density Polyethylene",
   "machina.tooltip.ldpe": "Low Density Polyethylene",
   "machina.tooltip.uhmwpe": "Ultra High Molecular Weight Polyethylene"

@@ -34,10 +34,6 @@ public class TabInit {
 				
 
 				add(a, BlockInit.CREATIVE_BATTERY);
-
-				for (FluidObject e : FluidInit.OBJS) {
-					add(a, e.bucket());
-				}
 			});
 
 	public static final RegistryObject<CreativeModeTab> MACHINA_RESOURCES = create("machina_resources",

@@ -5,6 +5,7 @@ import java.util.function.BiFunction;
 import org.jetbrains.annotations.NotNull;
 
 import com.machina.api.block.entity.MachinaBlockEntity;
+import com.machina.api.cap.energy.EnergyBlockItemWrapper;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.client.model.SidedBakedModel;
 import com.machina.api.item.EnergyItem;
@@ -130,7 +131,8 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 		if (side != null) {
 			if (cap == ForgeCapabilities.ENERGY) {
 				if (energyCap.isNonNullMode(side)) {
-					return doWithCapacitor((s, i) -> s.getCapability(cap, side), super.getCapability(cap, side));
+					return doWithCapacitor((s, i) -> s.getCapability(ForgeCapabilities.ENERGY, side)
+							.lazyMap(EnergyBlockItemWrapper::from).cast(), super.getCapability(cap, side));
 				}
 			}
 		}

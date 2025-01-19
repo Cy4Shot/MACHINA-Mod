@@ -18,14 +18,15 @@ public class DatagenLangEnUs extends DatagenLang {
 	@Override
 	protected void addTranslations() {
 		// Creative Tabs
-		add(TabInit.MACHINA_RESOURCES, "Machina Resources");
-		add(TabInit.MACHINA_WORLDGEN, "Machina Worldgen");
-		add(TabInit.MACHINA_MISCELLANEOUS, "Machina Miscellaneous");
+		add(TabInit.MACHINA_MACHINERY, "Machina: Machinery");
+		add(TabInit.MACHINA_RESOURCES, "Machina: Resources");
+		add(TabInit.MACHINA_WORLDGEN, "Machina: Worldgen");
+		add(TabInit.MACHINA_MISCELLANEOUS, "Machina: Miscellaneous");
 
 		// Items
 		add(ItemInit.COPPER_NUGGET, "Copper Nugget");
 		add(ItemInit.DIAMOND_NUGGET, "Diamond Nugget");
-		
+
 		add(ItemInit.COAL_DUST, "Coal Dust");
 		add(ItemInit.IRON_DUST, "Iron Dust");
 		add(ItemInit.COPPER_DUST, "Copper Dust");
@@ -51,11 +52,11 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(ItemInit.DIAMOND_WIRE, "Diamond Wire");
 
 		add(ItemInit.BLUEPRINT, "Blueprint");
-		
+
 		add(ItemInit.BASIC_CAPACITOR, "Basic Capacitor");
 		add(ItemInit.ADVANCED_CAPACITOR, "Advanced Capacitor");
 		add(ItemInit.SUPREME_CAPACITOR, "Supreme Capacitor");
-		
+
 		add(ItemInit.RAW_ALUMINUM, "Raw Aluminum");
 		add(ItemInit.ALUMINUM_INGOT, "Aluminum Ingot");
 		add(ItemInit.ALUMINUM_NUGGET, "Aluminum Nugget");
@@ -449,28 +450,28 @@ public class DatagenLangEnUs extends DatagenLang {
 		add(FluidInit.MOLTEN_LEAD, "Molten Lead", "Bucket");
 		add(FluidInit.MOLTEN_BISMUTH, "Molten Bismuth", "Bucket");
 		add(FluidInit.LEAD_BISMUTH_EUTECTIC, "Lead Bismuth Eutectic", "Bucket");
-		
+
 		// UI
 		addUI("config.energy", "Energy Config");
 		addUI("config.item", "Item Config");
 		addUI("config.fluid", "Fluid Config");
-		
+
 		addUI("dir.north", "North");
 		addUI("dir.south", "South");
 		addUI("dir.east", "East");
 		addUI("dir.west", "West");
 		addUI("dir.up", "Up");
 		addUI("dir.down", "Down");
-		
+
 		addUI("side.input", "Input");
 		addUI("side.output", "Output");
 		addUI("side.none", "None");
-		
+
 		addUI("battery.missing", "Insert Capacitor");
 		addUI("battery.input", "Input Energy");
 		addUI("battery.output", "Output Energy");
 		addUI("battery.capacitor", "Capacitor");
-		
+
 		addUI("grinder.no_power", "No Power");
 		addUI("grinder.input", "Input");
 	}
