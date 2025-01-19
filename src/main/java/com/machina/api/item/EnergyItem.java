@@ -1,12 +1,19 @@
 package com.machina.api.item;
 
+import java.util.List;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.machina.api.cap.energy.EnergyItemWrapper;
+import com.machina.api.util.StringUtils;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 public abstract class EnergyItem extends Item {
@@ -65,6 +72,14 @@ public abstract class EnergyItem extends Item {
 	@Override
 	public boolean isBarVisible(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
+		tooltip.add(Component
+				.literal(StringUtils.formatPower(getEnergy(stack)) + " / " + StringUtils.formatPower(getMaxEnergy()))
+				.setStyle(Style.EMPTY.withColor(0x00FEFE)));
+		super.appendHoverText(stack, level, tooltip, flag);
 	}
 
 	@Override
