@@ -3,6 +3,7 @@ package com.machina.api.block.tile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import com.machina.api.block.menu.IMachinaMenuProvider;
 import com.machina.api.cap.energy.MachinaEnergyStorage;
 import com.machina.api.cap.fluid.MachinaFluidStorage;
+import com.machina.api.cap.sided.ISideAdapter;
 import com.machina.api.cap.sided.MultiSidedStorage;
 import com.machina.api.cap.sided.Side;
 import com.machina.api.cap.sided.SidedStorage;
@@ -89,8 +91,26 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 		this.fluidsCap.forEach(consumer);
 	}
 
-	public SidedStorage getEnergyStorage() {
-		return this.energyCap;
+	public Supplier<ISideAdapter> getEnergyAdapter() {
+		return () -> this.energyCap;
+	}
+
+	public Supplier<ISideAdapter> getFluidAdapter(int tank) {
+		return () -> this.fluidsCap.get(tank);
+	}
+
+	public Supplier<ISideAdapter> getItemAdapter(int slot) {
+		return () -> new ISideAdapter() {
+			@Override
+			public Side get(Direction d) {
+				return MachinaBlockEntity.this.itemSides.get(slot)[d.ordinal()];
+			}
+
+			@Override
+			public void cycle(Direction d) {
+				Side.cycle(MachinaBlockEntity.this.itemSides.get(slot), d, MachinaBlockEntity.this, "cap_item_" + slot);
+			}
+		};
 	}
 
 	@Override
@@ -136,7 +156,7 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 		if (side != null) {
 			if (cap == ForgeCapabilities.ENERGY) {
 				if (energyCap.isNonNullMode(side)) {
-					return energyCap.get(side).cast();
+					return energyCap.getLazy(side).cast();
 				}
 			} else if (cap == ForgeCapabilities.ITEM_HANDLER && !this.remove && side != null) {
 				return handlers[side.ordinal()].cast();
@@ -363,12 +383,16 @@ public abstract class MachinaBlockEntity extends BaseBlockEntity implements Worl
 		byte[] old = null;
 
 		if (id.startsWith("cap_energy")) {
-			old = this.energyCap.getRawSideData().clone();
+			old = this.energyCap.getRawSideData();
 			this.energyCap.setRawSideData(side);
 		} else if (id.startsWith("cap_fluid_")) {
 			int tank = Integer.parseInt(id.substring(10));
-			old = this.fluidsCap.get(tank).getRawSideData().clone();
+			old = this.fluidsCap.get(tank).getRawSideData();
 			this.fluidsCap.get(tank).setRawSideData(side);
+		} else if (id.startsWith("cap_item_")) {
+			int slot = Integer.parseInt(id.substring(9));
+			old = Side.getRaw(this.itemSides.get(slot));
+			Side.fromRaw(this.itemSides.get(slot), side);
 		}
 
 		this.setChanged();

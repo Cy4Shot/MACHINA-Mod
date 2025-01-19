@@ -29,7 +29,7 @@ public class MultiSidedStorage<T> extends SidedStorage {
 		}
 	}
 
-	public LazyOptional<T> get(Direction dir) {
+	public LazyOptional<T> getLazy(Direction dir) {
 		return this.sidedStorage[dir.ordinal()].cast();
 	}
 

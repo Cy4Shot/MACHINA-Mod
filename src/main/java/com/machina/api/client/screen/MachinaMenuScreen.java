@@ -5,6 +5,7 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,12 +13,11 @@ import javax.annotation.Nullable;
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 
-import com.google.common.base.Supplier;
 import com.machina.Machina;
 import com.machina.api.block.menu.MachinaContainerMenu;
 import com.machina.api.block.tile.MachinaBlockEntity;
+import com.machina.api.cap.sided.ISideAdapter;
 import com.machina.api.cap.sided.Side;
-import com.machina.api.cap.sided.SidedStorage;
 import com.machina.api.multiblock.ClientMultiblock;
 import com.machina.api.multiblock.MultiblockLoader;
 import com.machina.api.util.MachinaRL;
@@ -287,18 +287,27 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 				StringUtils.formatPower(this.entity.getEnergy()));
 	}
 
-	private void drawFace(GuiGraphics gui, int x, int y, Direction dir, @Nullable SidedStorage storage) {
+	private void drawFace(GuiGraphics gui, int x, int y, Direction dir, @Nullable ISideAdapter storage) {
 		TextureAtlasSprite sprite = sprites.get(dir);
 		int size = (int) (4.0F / sprite.uvShrinkRatio());
 		gui.blit(sprite.atlasLocation(), x, y, sprite.getX(), sprite.getY(), 16, 16, size, size);
 
 		if (storage != null) {
-			Side side = storage.modes[dir.ordinal()];
+			Side side = storage.get(dir);
 			blitCommon(gui, x + 4, y + 4, side.x(), side.y(), 8, 8);
 		}
 	}
 
-	protected void drawSideConfig(GuiGraphics gui, int x, int y, int mx, int my, String name, SpecialSlot slot) {
+	protected void drawItemSideConfig(GuiGraphics gui, int x, int y, int mx, int my, int slot, SpecialSlot special) {
+		drawSideConfig(gui, x, y, mx, my, "item_" + slot, this.entity.getItemAdapter(slot), special);
+	}
+
+	protected void drawEnergySideConfig(GuiGraphics gui, int x, int y, int mx, int my) {
+		drawSideConfig(gui, x, y, mx, my, "energy", this.entity.getEnergyAdapter(), SpecialSlot.BOLT);
+	}
+
+	protected void drawSideConfig(GuiGraphics gui, int x, int y, int mx, int my, String name,
+			Supplier<ISideAdapter> adapter, SpecialSlot slot) {
 		int i = midWidth() - 3 + x;
 		int j = midHeight() - 73 + y;
 
@@ -309,10 +318,10 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 
 		// Face Hovers
 		Supplier<Boolean> hover = () -> getState(key) && appearDraw(getElapsedState(key));
-		Function<Direction, Runnable> click = d -> () -> this.entity.getEnergyStorage().cycleMode(d);
+		Function<Direction, Runnable> click = d -> () -> adapter.get().cycle(d);
 		Function<Direction, Supplier<Component>> text = d -> () -> Component
 				.literal(uistrs("dir." + d.name().toLowerCase()) + ": "
-						+ uistrs("side." + this.entity.getEnergyStorage().modes[d.ordinal()].name().toLowerCase()));
+						+ uistrs("side." + adapter.get().get(d).name().toLowerCase()));
 		clickAndHover(key + "_up", i - 52, j + 8, i - 31, j + 29, hover, text.apply(Direction.UP),
 				click.apply(Direction.UP));
 		clickAndHover(key + "_north", i - 52, j + 27, i - 31, j + 48, hover, text.apply(Direction.NORTH),
@@ -344,7 +353,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 				SpecialSlot.CROSS.draw(gui, i - 25, j + 8);
 
 				// Machine
-				SidedStorage storage = this.entity.getEnergyStorage();
+				ISideAdapter storage = adapter.get();
 				drawFace(gui, i - 51, j + 9, Direction.UP, storage);
 				drawFace(gui, i - 51, j + 28, Direction.NORTH, storage);
 				drawFace(gui, i - 51, j + 47, Direction.DOWN, storage);
@@ -353,7 +362,7 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 				drawFace(gui, i - 32, j + 47, Direction.SOUTH, storage);
 
 				// Deorators
-				gui.drawString(font, uistr("config.energy"), i - 75, j + 71, 0x00FEFE);
+				gui.drawString(font, uistr("config." + name), i - 75, j + 71, 0x00FEFE);
 			} else {
 
 				// Open Button

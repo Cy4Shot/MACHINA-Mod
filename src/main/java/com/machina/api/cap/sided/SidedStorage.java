@@ -1,13 +1,11 @@
 package com.machina.api.cap.sided;
 
 import com.machina.api.block.tile.MachinaBlockEntity;
-import com.machina.api.network.PacketSender;
-import com.machina.api.network.c2s.C2SSideConfig;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 
-public abstract class SidedStorage {
+public abstract class SidedStorage implements ISideAdapter {
 
 	public Side[] modes;
 	protected String tag;
@@ -27,17 +25,14 @@ public abstract class SidedStorage {
 		return this.modes[from.ordinal()] == Side.INPUT;
 	}
 
-	public void cycleMode(Direction dir) {
-		this.modes[dir.ordinal()] = Side.values()[(this.modes[dir.ordinal()].ordinal() + 1) % Side.values().length];
-		this.update();
+	@Override
+	public Side get(Direction d) {
+		return this.modes[d.ordinal()];
 	}
 
-	protected void update() {
-		if (this.e.getLevel().isClientSide()) {
-			PacketSender.sendToServer(new C2SSideConfig(tag, this.e.getBlockPos(), getRawSideData()));
-		} else {
-			this.e.setChanged();
-		}
+	@Override
+	public void cycle(Direction dir) {
+		Side.cycle(modes, dir, e, tag);
 	}
 
 	public abstract void invalidate();
@@ -64,18 +59,10 @@ public abstract class SidedStorage {
 	}
 
 	public void setRawSideData(byte[] side_data) {
-		if (side_data.length == 6) {
-			for (int i = 0; i < 6; i++) {
-				modes[i] = Side.values()[side_data[i]];
-			}
-		}
+		Side.fromRaw(modes, side_data);
 	}
 
 	public byte[] getRawSideData() {
-		byte[] raw = new byte[6];
-		for (int i = 0; i < 6; i++) {
-			raw[i] = (byte) modes[i].ordinal();
-		}
-		return raw;
+		return Side.getRaw(modes);
 	}
 }

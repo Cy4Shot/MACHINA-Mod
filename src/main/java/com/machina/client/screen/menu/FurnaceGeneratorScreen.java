@@ -12,15 +12,14 @@ public class FurnaceGeneratorScreen extends MachinaMenuScreen<FurnaceGeneratorBl
 
 	public FurnaceGeneratorScreen(FurnaceGeneratorMenu menu, Inventory inv, Component title) {
 		super(menu, inv, title);
-		this.imageWidth = 230;
-		this.imageHeight = 219;
 	}
 
 	@Override
 	protected void renderBg(GuiGraphics gui, float pt, int mx, int my) {
 		drawInventory(gui, mx, my);
+		drawBackground(gui);
+		drawEnergyBar(gui, 117, 0, true, true);
+		drawItemSideConfig(gui, 0, 0, mx, my, 0, SpecialSlot.CROSS);
 		drawOverlay(gui);
-//		gui.drawString(font, Component.literal(String.valueOf(menu.getBlockEntity().isLit())), 0, 20, 0xFFFFFF);
-//		gui.drawString(font, Component.literal(String.valueOf(menu.getEnergy())), 0, 0, 0xFFFFFF);
 	}
 }
