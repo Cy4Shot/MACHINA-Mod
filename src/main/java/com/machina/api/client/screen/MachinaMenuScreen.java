@@ -242,7 +242,8 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		int j = midHeight() + y;
 		int h = mx > i && mx < i + 19 && my > j && my < j + 21 ? 115 : 94;
 		blitCommon(gui, i, j, 414, h, 19, 21);
-		slot.draw(gui, i + 4, j + 6);
+		if (entity.getItem(id).isEmpty())
+			slot.draw(gui, i + 4, j + 6);
 
 		blitCommon(gui, i - 6, j + 4, 387, 0, 3, 16);
 		blitCommon(gui, i + 21, j + 4, 390, 0, 3, 16);
@@ -259,7 +260,8 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		int j = midHeight() + y;
 		int h = mx > i && mx < i + 19 && my > j && my < j + 21 ? 115 : 94;
 		blitCommon(gui, i, j, 433, h, 19, 21);
-		slot.draw(gui, i + 4, j + 4);
+		if (entity.getItem(id).isEmpty())
+			slot.draw(gui, i + 4, j + 4);
 
 		blitCommon(gui, i - 6, j + 1, 387, 0, 3, 16);
 		blitCommon(gui, i + 21, j + 1, 390, 0, 3, 16);

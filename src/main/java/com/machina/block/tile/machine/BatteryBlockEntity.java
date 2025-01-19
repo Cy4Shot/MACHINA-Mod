@@ -45,8 +45,8 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 	public void createStorages() {
 		energyStorage(Side.INPUTS);
 		itemStorage(Side.NONES);
-		itemStorage(Side.NONES);
-		itemStorage(Side.NONES);
+		itemStorage(Side.INPUTS);
+		itemStorage(Side.OUTPUTS);
 	}
 
 	@Override
