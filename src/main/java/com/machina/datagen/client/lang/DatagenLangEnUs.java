@@ -466,9 +466,12 @@ public class DatagenLangEnUs extends DatagenLang {
 		addUI("side.output", "Output");
 		addUI("side.none", "None");
 		
+		addUI("battery.missing", "Insert Capacitor");
 		addUI("battery.input", "Input Energy");
 		addUI("battery.output", "Output Energy");
 		addUI("battery.capacitor", "Capacitor");
 		
+		addUI("grinder.no_power", "No Power");
+		addUI("grinder.input", "Input");
 	}
 }

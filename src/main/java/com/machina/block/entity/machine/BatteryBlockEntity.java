@@ -121,6 +121,10 @@ public class BatteryBlockEntity extends MachinaBlockEntity {
 		doWithCapacitor((s, i) -> EnergyItem.setEnergy(s, n), false);
 	}
 
+	public boolean hasCapacitor() {
+		return doWithCapacitor((s, i) -> true, false);
+	}
+
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
 		if (side != null) {

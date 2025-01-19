@@ -272,8 +272,8 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		}
 	}
 
-	private void drawBar(GuiGraphics gui, int i, int j, int o, float p, boolean active, boolean under_deco,
-			String text) {
+	private void drawBar(GuiGraphics gui, int i, int j, int o, float p, boolean active, boolean under_deco, String text,
+			String missing) {
 		// Bar
 		blitCommon(gui, i, j, 366, 21, 133, 18);
 		blitCommon(gui, i + 1, j + 3, 366, 39 + o * 14, (int) (131 * p), 14);
@@ -282,6 +282,10 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		int dec_off = active ? 0 : 6;
 		blitCommon(gui, i - 5, j + 2, 387 + dec_off, 0, 3, 16);
 		blitCommon(gui, i + 135, j + 2, 390 + dec_off, 0, 3, 16);
+
+		if (!active) {
+			gui.drawCenteredString(font, uistr(missing), i + 66, j + 6, 0xFE0000);
+		}
 
 		if (under_deco) {
 			dec_off = active ? 0 : 38;
@@ -293,15 +297,15 @@ public abstract class MachinaMenuScreen<R extends MachinaBlockEntity, T extends 
 		}
 	}
 
-	protected void drawEnergyBar(GuiGraphics gui, int x, int y, boolean active, boolean under_deco) {
+	protected void drawEnergyBar(GuiGraphics gui, int x, int y, boolean active, boolean under_deco, String missing) {
 		int i = midWidth() + x - 66;
 		int j = midHeight() + y - 9;
 		registerHoverable("energy", i + 1, j + 1, i + 136, j + 18,
-				() -> Component.literal(StringUtils.formatPower(this.entity.getEnergy()) + " / "
+				() -> active ? Component.literal(StringUtils.formatPower(this.entity.getEnergy()) + " / "
 						+ StringUtils.formatPower(this.entity.getMaxEnergy()) + " ("
-						+ StringUtils.formatPercent(this.entity.getEnergyF()) + ")"));
+						+ StringUtils.formatPercent(this.entity.getEnergyF()) + ")") : uistr(missing));
 		drawBar(gui, i, j, 0, this.entity.getEnergyF(), active, under_deco,
-				StringUtils.formatPower(this.entity.getEnergy()));
+				StringUtils.formatPower(this.entity.getEnergy()), missing);
 	}
 
 	private void drawFace(GuiGraphics gui, int x, int y, Direction dir, @Nullable ISideAdapter storage) {

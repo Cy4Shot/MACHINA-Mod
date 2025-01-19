@@ -19,7 +19,7 @@ public class FurnaceGeneratorScreen extends MachinaMenuScreen<FurnaceGeneratorBl
 		drawInventory(gui, mx, my);
 		drawBackground(gui);
 		drawDownFacingSlot(gui, 0, mx, my, 107, -40, SpecialSlot.CROSS, "furnace_generator.input");
-		drawEnergyBar(gui, 117, 8, true, true);
+		drawEnergyBar(gui, 117, 8, true, true, "");
 		
 		int i = midWidth();
 		int j = midHeight();
