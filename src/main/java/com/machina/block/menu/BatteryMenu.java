@@ -21,7 +21,7 @@ public class BatteryMenu extends MachinaContainerMenu<BatteryBlockEntity> {
 	public BatteryMenu(int id, Level level, BlockPos pos, Inventory inv) {
 		super(MenuTypeInit.BATTERY.get(), level, pos, id);
 
-		this.addSlot(new AcceptSlot(be, 0, 107, -57, ItemStackUtil::isCapacitor));
+		this.addSlot(new AcceptSlot(be, 0, 108, -57, ItemStackUtil::isCapacitor));
 		this.addSlot(new AcceptSlot(be, 1, 21, 31, ItemStackUtil::hasEnergy));
 		this.addSlot(new AcceptSlot(be, 2, 198, 31, ItemStackUtil::hasEnergy));
 

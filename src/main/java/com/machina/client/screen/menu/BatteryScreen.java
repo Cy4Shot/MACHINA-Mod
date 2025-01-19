@@ -21,14 +21,14 @@ public class BatteryScreen extends MachinaMenuScreen<BatteryBlockEntity, Battery
 		drawEnergyBar(gui, 117, 0, true, true);
 		drawUpFacingSlot(gui, 1, mx, my, 20, 30, SpecialSlot.PLUS, "battery.input");
 		drawUpFacingSlot(gui, 2, mx, my, 197, 30, SpecialSlot.MINUS, "battery.output");
-		drawDownFacingSlot(gui, 0, mx, my, 106, -60, SpecialSlot.BOLT, "battery.capacitor");
+		drawDownFacingSlot(gui, 0, mx, my, 107, -60, SpecialSlot.BOLT, "battery.capacitor");
 
 		drawEnergySideConfig(gui, 0, 0, mx, my);
 
 		int i = midWidth();
 		int j = midHeight();
-		blitCommon(gui, i + 113, j - 40, 508, 0, 4, 23);
-		blitCommon(gui, i + 113, j - 17, 508, 0, 4, 8);
+		blitCommon(gui, i + 114, j - 40, 508, 0, 4, 23);
+		blitCommon(gui, i + 114, j - 17, 508, 0, 4, 8);
 
 		blitCommon(gui, i + 27, j + 7, 508, 0, 4, 21);
 		blitCommon(gui, i + 27, j - 1, 369, 80, 17, 8);

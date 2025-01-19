@@ -18,8 +18,17 @@ public class FurnaceGeneratorScreen extends MachinaMenuScreen<FurnaceGeneratorBl
 	protected void renderBg(GuiGraphics gui, float pt, int mx, int my) {
 		drawInventory(gui, mx, my);
 		drawBackground(gui);
-		drawEnergyBar(gui, 117, 0, true, true);
-		drawItemSideConfig(gui, 0, 0, mx, my, 0, SpecialSlot.CROSS);
+		drawDownFacingSlot(gui, 0, mx, my, 107, -40, SpecialSlot.CROSS, "furnace_generator.input");
+		drawEnergyBar(gui, 117, 8, true, true);
+		
+		int i = midWidth();
+		int j = midHeight();
+		blitCommon(gui, i + 81, j - 30, 369, 80, 17, 8);
+		blitCommon(gui, i + 81, j - 22, 508, 0, 4, 21);
+
+		blitCommon(gui, i + 134, j - 30, 390, 80, 17, 8);
+		blitCommon(gui, i + 147, j - 22, 508, 0, 4, 21);
+		
 		drawOverlay(gui);
 	}
 }
